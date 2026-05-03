@@ -95,7 +95,7 @@ function FastingTrackerInner() {
         {/* Scripture banner */}
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
           className="bg-gradient-to-br from-amber-900/20 to-orange-900/15 dark:from-amber-900/15 dark:to-orange-900/10 rounded-2xl p-5 border border-amber-200/20 dark:border-amber-800/20">
-          <p className="text-xs text-[#0A1A2F]/60 dark:text-white/50 italic leading-relaxed">
+          <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60 dark:text-white/50 italic leading-relaxed">
             "When you fast, do not look somber as the hypocrites do. But when you fast, put oil on your head and wash your face, so that it will not be obvious to others that you are fasting, but only to your Father, who is unseen."
           </p>
           <p className="text-[10px] text-[#c9a227] font-medium mt-2">Matthew 6:16-18</p>
@@ -114,7 +114,7 @@ function FastingTrackerInner() {
               </div>
               <div className="text-right">
                 <p className="text-2xl font-black text-[#c9a227]">{getDaysIn(activeFast)}</p>
-                <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/35">of {activeFast.duration} days</p>
+                <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40 dark:text-white/35">of {activeFast.duration} days</p>
               </div>
             </div>
 
@@ -128,13 +128,13 @@ function FastingTrackerInner() {
             </div>
 
             {activeFast.intention && (
-              <p className="text-xs text-[#0A1A2F]/60 dark:text-white/50 italic mb-3">Intention: "{activeFast.intention}"</p>
+              <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60 dark:text-white/50 italic mb-3">Intention: "{activeFast.intention}"</p>
             )}
 
             {/* Daily prompt */}
             <div className="bg-[#F2F6FA] dark:bg-white/5 rounded-xl p-3 mb-3">
-              <p className="text-[10px] font-bold text-[#0A1A2F]/40 dark:text-white/30 uppercase tracking-widest mb-1">Today's Reflection</p>
-              <p className="text-xs text-[#0A1A2F]/70 dark:text-white/60 italic">"{DAILY_PROMPTS[promptIdx]}"</p>
+              <p className="text-[10px] font-bold text-[#0A1A2F]/40 dark:text-white/40 dark:text-white/30 uppercase tracking-widest mb-1">Today's Reflection</p>
+              <p className="text-xs text-[#0A1A2F]/70 dark:text-white/70 dark:text-white/60 italic">"{DAILY_PROMPTS[promptIdx]}"</p>
             </div>
 
             {/* Journal for today */}
@@ -196,13 +196,13 @@ function FastingTrackerInner() {
                   }`}>
                   <span className="text-xl">{ft.emoji}</span>
                   <p className="text-xs font-bold text-[#0A1A2F] dark:text-white mt-1">{ft.label}</p>
-                  <p className="text-[9px] text-[#0A1A2F]/40 dark:text-white/35 mt-0.5">{ft.verse}</p>
+                  <p className="text-[9px] text-[#0A1A2F]/40 dark:text-white/40 dark:text-white/35 mt-0.5">{ft.verse}</p>
                 </button>
               ))}
             </div>
 
             <div>
-              <p className="text-xs font-medium text-[#0A1A2F]/60 dark:text-white/50 mb-1.5">Duration</p>
+              <p className="text-xs font-medium text-[#0A1A2F]/60 dark:text-white/60 dark:text-white/50 mb-1.5">Duration</p>
               <div className="flex flex-wrap gap-1.5">
                 {DURATIONS.map(d => (
                   <button key={d.value} onClick={() => setDuration(d.value)}
@@ -218,7 +218,7 @@ function FastingTrackerInner() {
             </div>
 
             <div>
-              <p className="text-xs font-medium text-[#0A1A2F]/60 dark:text-white/50 mb-1.5">Your Intention (optional)</p>
+              <p className="text-xs font-medium text-[#0A1A2F]/60 dark:text-white/60 dark:text-white/50 mb-1.5">Your Intention (optional)</p>
               <input
                 value={intention}
                 onChange={(e) => setIntention(e.target.value)}
@@ -245,13 +245,13 @@ function FastingTrackerInner() {
         {/* Completed Fasts */}
         {completedFasts.length > 0 && (
           <div className="space-y-2 mt-4">
-            <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/30 uppercase tracking-widest px-1">Completed Fasts</p>
+            <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 dark:text-white/30 uppercase tracking-widest px-1">Completed Fasts</p>
             {completedFasts.map(f => (
               <div key={f.id} className="bg-white dark:bg-white/5 rounded-xl p-3 border border-gray-100 dark:border-white/10 flex items-center gap-3">
                 <span className="text-xl">{FAST_TYPES.find(t => t.id === f.fast_type)?.emoji || '✨'}</span>
                 <div className="flex-1">
                   <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white">{FAST_TYPES.find(t => t.id === f.fast_type)?.label}</p>
-                  <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/35">{f.duration} days · {f.start_date}</p>
+                  <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40 dark:text-white/35">{f.duration} days · {f.start_date}</p>
                 </div>
                 <span className="text-green-500 text-xs font-bold">✓</span>
               </div>

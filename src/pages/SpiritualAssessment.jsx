@@ -68,7 +68,7 @@ function SpiritualAssessmentInner() {
     return (
       <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
         <div className="max-w-lg mx-auto px-4 pt-4 space-y-4">
-          <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-sm text-[#0A1A2F]/60 dark:text-white/50 min-h-[44px]">
+          <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-sm text-[#0A1A2F]/60 dark:text-white/60 dark:text-white/50 min-h-[44px]">
             <ArrowLeft className="w-4 h-4" /> Back
           </button>
 
@@ -97,7 +97,7 @@ function SpiritualAssessmentInner() {
                     <span className="text-2xl">{lvl.emoji}</span>
                     <div className="flex-1">
                       <p className="text-sm font-bold text-[#0A1A2F] dark:text-white">{lvl.label}</p>
-                      <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/35">{a.date} · {apct}% ({a.total_score}/{a.max_score})</p>
+                      <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40 dark:text-white/35">{a.date} · {apct}% ({a.total_score}/{a.max_score})</p>
                     </div>
                     <div className="w-12 h-12 rounded-full border-4 flex items-center justify-center" style={{ borderColor: lvl.color }}>
                       <span className="text-xs font-black" style={{ color: lvl.color }}>{apct}%</span>
@@ -127,7 +127,7 @@ function SpiritualAssessmentInner() {
               <motion.div animate={{ width: `${((step + 1) / QUESTIONS.length) * 100}%` }}
                 className="h-full bg-[#c9a227] rounded-full" />
             </div>
-            <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/35">{step + 1}/{QUESTIONS.length}</p>
+            <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 dark:text-white/35">{step + 1}/{QUESTIONS.length}</p>
           </div>
 
           <AnimatePresence mode="wait">
@@ -192,13 +192,13 @@ function SpiritualAssessmentInner() {
 
         {/* Category Breakdown */}
         <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 space-y-3">
-          <p className="text-xs font-bold text-[#0A1A2F]/50 dark:text-white/40 uppercase tracking-widest">Breakdown</p>
+          <p className="text-xs font-bold text-[#0A1A2F]/50 dark:text-white/50 dark:text-white/40 uppercase tracking-widest">Breakdown</p>
           {QUESTIONS.map(q => {
             const score = answers[q.id] || 0;
             const oldScore = lastAssessment ? (JSON.parse(lastAssessment.answers || '{}')[q.id] || 0) : null;
             return (
               <div key={q.id} className="flex items-center gap-3">
-                <p className="text-xs font-medium text-[#0A1A2F]/70 dark:text-white/60 w-24 flex-shrink-0">{q.category}</p>
+                <p className="text-xs font-medium text-[#0A1A2F]/70 dark:text-white/70 dark:text-white/60 w-24 flex-shrink-0">{q.category}</p>
                 <div className="flex-1 h-2 bg-[#0A1A2F]/8 dark:bg-white/8 rounded-full overflow-hidden">
                   <motion.div initial={{ width: 0 }} animate={{ width: `${(score / 5) * 100}%` }}
                     className="h-full rounded-full" style={{ background: level.color }} />

@@ -67,7 +67,7 @@ function DarkNightInner() {
     return (
       <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
         <div className="max-w-lg mx-auto px-4 pt-4 space-y-4">
-          <button onClick={() => setSelectedDay(null)} className="flex items-center gap-2 text-sm text-[#0A1A2F]/60 dark:text-white/50 min-h-[44px]">
+          <button onClick={() => setSelectedDay(null)} className="flex items-center gap-2 text-sm text-[#0A1A2F]/60 dark:text-white/60 dark:text-white/50 min-h-[44px]">
             <ArrowLeft className="w-4 h-4" /> Back
           </button>
 
@@ -83,7 +83,7 @@ function DarkNightInner() {
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
             className="bg-white dark:bg-white/5 rounded-2xl p-5 border border-gray-100 dark:border-white/10">
             <p className="text-sm font-bold text-[#0A1A2F] dark:text-white mb-1">Reflection</p>
-            <p className="text-xs text-[#0A1A2F]/50 dark:text-white/45 italic mb-3">"{dev.prompt}"</p>
+            <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 dark:text-white/45 italic mb-3">"{dev.prompt}"</p>
             <textarea
               value={reflection}
               onChange={(e) => setReflection(e.target.value)}
@@ -139,7 +139,7 @@ function DarkNightInner() {
                 <p className="text-[#0A1A2F] dark:text-white text-base font-bold leading-relaxed mb-2">
                   "{q.question}"
                 </p>
-                <p className="text-xs text-[#0A1A2F]/60 dark:text-white/50 leading-relaxed mb-2">{q.context}</p>
+                <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60 dark:text-white/50 leading-relaxed mb-2">{q.context}</p>
                 <p className="text-[10px] text-[#6366F1] font-medium">{q.verse}</p>
                 <button onClick={() => navigate(createPageUrl(`ChatScreen?bot=CoachPaul`))}
                   className="mt-3 w-full py-2.5 rounded-xl bg-[#6366F1]/15 text-[#6366F1] font-bold text-xs min-h-[44px] hover:bg-[#6366F1]/25 transition-all">
@@ -152,7 +152,7 @@ function DarkNightInner() {
 
         {/* 7-Day Devotional List */}
         <div className="mt-4 space-y-2">
-          <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/30 uppercase tracking-widest px-1">7-Day Journey</p>
+          <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 dark:text-white/30 uppercase tracking-widest px-1">7-Day Journey</p>
           {DARK_NIGHT_DEVOTIONALS.map((dev, i) => {
             const done = completedDayNums.includes(dev.day);
             return (

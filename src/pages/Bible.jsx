@@ -96,7 +96,7 @@ function StudyTabContent() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search study guides…"
-          className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 text-sm text-[#0A1A2F] dark:text-white placeholder:text-[#0A1A2F]/40 dark:placeholder:text-white/30 focus:outline-none focus:border-[#c9a227]/50" />
+          className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 text-sm text-[#0A1A2F] dark:text-white placeholder:text-[#0A1A2F]/40 dark:text-white/40 dark:placeholder:text-white/30 focus:outline-none focus:border-[#c9a227]/50" />
         
       </div>
       <BibleStudyGuide filterQuery={query} />

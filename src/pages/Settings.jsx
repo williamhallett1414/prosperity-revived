@@ -228,7 +228,7 @@ function SettingsInner() {
                   <option key={tz.value} value={tz.value}>{tz.label}</option>
                 ))}
               </select>
-              <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/35 mt-1">Controls when your daily logs reset</p>
+              <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40 dark:text-white/35 mt-1">Controls when your daily logs reset</p>
             </div>
 
             {/* Daily Reset Hour */}
@@ -250,7 +250,7 @@ function SettingsInner() {
                 <option value="5">5:00 AM</option>
                 <option value="6">6:00 AM</option>
               </select>
-              <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/35 mt-1">Workouts, meals, and journals reset at this time each day</p>
+              <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40 dark:text-white/35 mt-1">Workouts, meals, and journals reset at this time each day</p>
             </div>
           </div>
         </div>

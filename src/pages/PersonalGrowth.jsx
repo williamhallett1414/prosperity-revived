@@ -573,7 +573,7 @@ function PersonalGrowthInner() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-bold text-[#0A1A2F] dark:text-white">{item.title}</p>
-                    <p className="text-[10px] text-[#0A1A2F]/45 dark:text-white/40">{item.sub}</p>
+                    <p className="text-[10px] text-[#0A1A2F]/45 dark:text-white/45 dark:text-white/40">{item.sub}</p>
                   </div>
                   <ChevronRight className="w-4 h-4 text-[#0A1A2F]/25 dark:text-white/25 flex-shrink-0" />
                 </motion.div>

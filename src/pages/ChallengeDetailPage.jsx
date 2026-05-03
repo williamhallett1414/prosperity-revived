@@ -322,7 +322,7 @@ export default function ChallengeDetailPage() {
                     onClick={() => setSelectedDay(day)}
                     className={`flex-shrink-0 w-16 h-16 rounded-xl flex flex-col items-center justify-center text-xs font-semibold transition-all ${
                     isSelected ?
-                    'bg-[#FAD98D] text-white shadow-md dark:shadow-none' :
+                    'bg-[#FAD98D] text-[#0A1A2F] shadow-md dark:shadow-none' :
                     isCompleted ?
                     'bg-emerald-50 dark:bg-emerald-900/200 text-white' :
                     'bg-gray-100 dark:bg-white/5 text-[#0A1A2F]/60 dark:text-white/60 hover:bg-gray-200'}`

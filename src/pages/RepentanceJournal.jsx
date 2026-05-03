@@ -84,7 +84,7 @@ function RepentanceJournalInner() {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
           className="bg-[#0A1A2F]/5 dark:bg-white/5 rounded-xl px-4 py-2.5 flex items-center gap-2">
           <Lock className="w-3.5 h-3.5 text-[#0A1A2F]/40 dark:text-white/40 flex-shrink-0" />
-          <p className="text-[10px] text-[#0A1A2F]/50 dark:text-white/45 leading-relaxed">
+          <p className="text-[10px] text-[#0A1A2F]/50 dark:text-white/50 dark:text-white/45 leading-relaxed">
             These entries are completely private. They never appear in your community feed, profile, or coach conversations.
           </p>
         </motion.div>
@@ -140,7 +140,7 @@ function RepentanceJournalInner() {
           </motion.div>
         ) : (
           <button onClick={() => setShowNew(true)}
-            className="w-full py-3 rounded-xl border-2 border-dashed border-[#0A1A2F]/15 dark:border-white/10 text-sm font-medium text-[#0A1A2F]/50 dark:text-white/40 hover:border-[#0A1A2F]/30 dark:hover:border-white/20 transition-all min-h-[44px] flex items-center justify-center gap-2">
+            className="w-full py-3 rounded-xl border-2 border-dashed border-[#0A1A2F]/15 dark:border-white/10 text-sm font-medium text-[#0A1A2F]/50 dark:text-white/50 dark:text-white/40 hover:border-[#0A1A2F]/30 dark:hover:border-white/20 transition-all min-h-[44px] flex items-center justify-center gap-2">
             <Plus className="w-4 h-4" /> Write an Entry
           </button>
         )}
@@ -148,13 +148,13 @@ function RepentanceJournalInner() {
         {/* Past Entries */}
         {entries.length > 0 && (
           <div className="space-y-2">
-            <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/30 uppercase tracking-widest px-1">Past Entries</p>
+            <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 dark:text-white/30 uppercase tracking-widest px-1">Past Entries</p>
             {entries.sort((a, b) => b.id - a.id).map(e => (
               <motion.div key={e.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                 className="bg-white dark:bg-white/5 rounded-xl p-4 border border-gray-100 dark:border-white/10 group">
-                <p className="text-sm text-[#0A1A2F]/80 dark:text-white/75 leading-relaxed">{e.text}</p>
+                <p className="text-sm text-[#0A1A2F]/80 dark:text-white/80 dark:text-white/75 leading-relaxed">{e.text}</p>
                 <div className="flex items-center justify-between mt-2">
-                  <p className="text-[10px] text-[#0A1A2F]/30 dark:text-white/25">{e.date}</p>
+                  <p className="text-[10px] text-[#0A1A2F]/30 dark:text-white/30 dark:text-white/25">{e.date}</p>
                   <button onClick={() => { if (window.confirm('Delete this entry?')) deleteEntry.mutate(e.id); }}
                     className="opacity-0 group-hover:opacity-100 p-1 text-red-400 hover:text-red-500 transition-all">
                     <Trash2 className="w-3.5 h-3.5" />

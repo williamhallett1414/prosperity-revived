@@ -121,10 +121,10 @@ function PrayerPartnersInner() {
             <div className="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center text-xl">🙏</div>
             <div>
               <h2 className="text-base font-bold text-[#0A1A2F] dark:text-white">Pray Together</h2>
-              <p className="text-xs text-[#0A1A2F]/50 dark:text-white/45">Share requests privately with a trusted partner</p>
+              <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 dark:text-white/45">Share requests privately with a trusted partner</p>
             </div>
           </div>
-          <p className="text-xs text-[#0A1A2F]/60 dark:text-white/50 leading-relaxed">
+          <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60 dark:text-white/50 leading-relaxed">
             When you pray for your partner, they'll receive a notification: "Someone prayed for you today." No details shared — just the knowledge that someone lifted them up.
           </p>
         </motion.div>
@@ -164,7 +164,7 @@ function PrayerPartnersInner() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white truncate">{partnerEmail}</p>
-                    <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/35">Prayer partner</p>
+                    <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40 dark:text-white/35">Prayer partner</p>
                   </div>
                   <Heart className="w-4 h-4 text-purple-400" />
                 </div>
@@ -201,7 +201,7 @@ function PrayerPartnersInner() {
             <div key={req.id} className="bg-white dark:bg-white/5 rounded-xl p-3 border border-gray-100 dark:border-white/10">
               <p className="text-sm text-[#0A1A2F] dark:text-white leading-relaxed">{req.text}</p>
               <div className="flex items-center justify-between mt-2">
-                <p className="text-[10px] text-[#0A1A2F]/35 dark:text-white/30">
+                <p className="text-[10px] text-[#0A1A2F]/35 dark:text-white/35 dark:text-white/30">
                   {req.prayed_by?.length || 0} prayers
                 </p>
                 {req.is_answered ? (

@@ -126,7 +126,7 @@ export default function EnhancedJournaling() {
                 )}
                 className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
                   selectedTags.includes(tag)
-                    ? 'bg-[#FAD98D] text-white'
+                    ? 'bg-[#FAD98D] text-[#0A1A2F]'
                     : 'bg-gray-100 dark:bg-white/5 text-[#0A1A2F]/70 dark:text-white/70'
                 }`}
               >
