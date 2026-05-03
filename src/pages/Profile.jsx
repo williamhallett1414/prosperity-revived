@@ -474,6 +474,19 @@ export default function Profile() {
         uploading={uploading} />
 
 
+      {/* Page subtitle */}
+      <div className="px-4 py-3 max-w-lg mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex items-center justify-center gap-3"
+        >
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[#FD9C2D]/40" />
+          <p className="text-xs font-bold text-[#FD9C2D] tracking-[0.2em] uppercase">Journey · Growth · Community</p>
+          <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[#FD9C2D]/40" />
+        </motion.div>
+      </div>
+
       <TabBar activeTab={activeTab} onChange={setActiveTab} />
 
       <div className="max-w-lg mx-auto px-4 py-5 space-y-4">
