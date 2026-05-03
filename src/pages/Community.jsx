@@ -221,7 +221,7 @@ function CommunityInner() {
   return (
     <div className="min-h-screen pb-28">
 
-      <div className="max-w-lg mx-auto px-4 pt-3">
+      <div className="max-w-lg mx-auto px-4 pt-3 -mt-[90%]">
 
       {/* ── Tabs row ── */}
       <div className="sticky top-14 z-30 bg-[#F2F6FA]/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/8">
