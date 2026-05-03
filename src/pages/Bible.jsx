@@ -107,8 +107,8 @@ function StudyTabContent() {
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 class PageErrorBoundary extends React.Component {
-  constructor(props) { super(props); this.state = { error: null }; }
-  static getDerivedStateFromError(error) { return { error }; }
+  constructor(props) {super(props);this.state = { error: null };}
+  static getDerivedStateFromError(error) {return { error };}
   render() {
     if (this.state.error) {
       return (
@@ -116,8 +116,8 @@ class PageErrorBoundary extends React.Component {
           <p className="text-lg font-bold text-[#0A1A2F] dark:text-white mb-2">Something went wrong</p>
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">This page encountered an error.</p>
           <button onClick={() => this.setState({ error: null })} className="px-4 py-2 bg-[#c9a227] text-white rounded-xl text-sm font-bold">Try Again</button>
-        </div>
-      );
+        </div>);
+
     }
     return this.props.children;
   }
@@ -160,28 +160,28 @@ function BibleInner() {
       await queryClient.cancelQueries(['bookmarks']);
       const previous = queryClient.getQueryData(['bookmarks']);
       queryClient.setQueryData(['bookmarks'], (old = []) => [
-        ...old,
-        { ...newBookmark, id: `optimistic-${Date.now()}` },
-      ]);
+      ...old,
+      { ...newBookmark, id: `optimistic-${Date.now()}` }]
+      );
       return { previous };
     },
     onError: (_err, _vars, context) => {
       if (context?.previous) queryClient.setQueryData(['bookmarks'], context.previous);
     },
-    onSuccess: () => queryClient.invalidateQueries(['bookmarks']),
+    onSuccess: () => queryClient.invalidateQueries(['bookmarks'])
   });
   const deleteBookmark = useMutation({
     mutationFn: (id) => base44.entities.Bookmark.delete(id),
     onMutate: async (id) => {
       await queryClient.cancelQueries(['bookmarks']);
       const previous = queryClient.getQueryData(['bookmarks']);
-      queryClient.setQueryData(['bookmarks'], (old = []) => old.filter(b => b.id !== id));
+      queryClient.setQueryData(['bookmarks'], (old = []) => old.filter((b) => b.id !== id));
       return { previous };
     },
     onError: (_err, _vars, context) => {
       if (context?.previous) queryClient.setQueryData(['bookmarks'], context.previous);
     },
-    onSuccess: () => queryClient.invalidateQueries(['bookmarks']),
+    onSuccess: () => queryClient.invalidateQueries(['bookmarks'])
   });
 
   // Deep-link: ?book=John&chapter=3
@@ -249,7 +249,7 @@ function BibleInner() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-14 z-30 bg-white dark:bg-[#0A1A2F] border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-14 z-30 bg-white dark:bg-[#0A1A2F] border-b border-[#FAD98D]/20 px-4 pt-4 pb-3 hidden">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center">
             <BookOpen className="w-5 h-5 text-white" />
