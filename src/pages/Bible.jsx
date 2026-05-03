@@ -263,7 +263,7 @@ function BibleInner() {
 
       {/* Fixed tab menu */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <div id="tour-bible-tabs" className="sticky top-[56px] z-30 px-4 pt-4 pb-3 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#FAD98D]/15 dark:border-[#FAD98D]/8 max-w-lg mx-auto">
+        <div id="tour-bible-tabs" className="sticky top-14 z-30 px-4 pt-3 pb-3 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#FAD98D]/15 dark:border-[#FAD98D]/8 max-w-lg mx-auto">
           <TabsList className="grid w-full grid-cols-4 bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 rounded-xl p-1 border border-[#FAD98D]/20 dark:border-[#FAD98D]/10">
             {[
             { value: 'read', icon: BookOpen, label: 'Read' },
@@ -279,7 +279,7 @@ function BibleInner() {
           </TabsList>
         </div>
 
-      <div className="px-4 pt-4 pb-6 max-w-lg mx-auto">
+      <div className="px-4 pt-5 pb-6 max-w-lg mx-auto">
 
           {/* ── READ TAB ── */}
           <TabsContent value="read">
