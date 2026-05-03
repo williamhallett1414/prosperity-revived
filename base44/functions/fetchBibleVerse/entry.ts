@@ -1,27 +1,14 @@
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 
 Deno.serve(async (req) => {
   try {
-    const base44 = createClientFromRequest(req);
-    const user = await base44.auth.me();
-    
-    if (!user) {
-      return Response.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-    
     const payload = await req.json();
-    console.log('Received payload:', payload);
-    
     const book = payload.book;
     const chapter = payload.chapter;
     const reference = payload.reference;
     
-    console.log('Parsed values:', { book, chapter, reference });
-    
     // Build reference from book and chapter if provided separately
     const bibleRef = reference || (book && chapter ? `${book} ${chapter}` : null);
-    
-    console.log('Built reference:', bibleRef);
     
     if (!bibleRef) {
       return Response.json({ 
@@ -33,8 +20,6 @@ Deno.serve(async (req) => {
     
     // Fetch from Bible API
     const apiUrl = `https://bible-api.com/${encodeURIComponent(bibleRef)}?translation=kjv`;
-    console.log('Fetching from:', apiUrl);
-    
     const response = await fetch(apiUrl);
     
     if (!response.ok) {
