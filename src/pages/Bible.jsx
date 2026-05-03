@@ -248,8 +248,21 @@ function BibleInner() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
+      {/* ── Standard Header ── */}
+      <div className="sticky top-14 z-30 bg-white dark:bg-[#0A1A2F] border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+        <div className="max-w-lg mx-auto flex items-center gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center">
+            <BookOpen className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Bible</h1>
+            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Read, study & grow</p>
+          </div>
+        </div>
+      </div>
+
       {/* Fixed tab menu */}
-      <div id="tour-bible-tabs" className="sticky top-14 z-30 px-4 pt-2 pb-2 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#FAD98D]/15 dark:border-[#FAD98D]/8 max-w-lg mx-auto">
+      <div id="tour-bible-tabs" className="sticky top-[104px] z-30 px-4 pt-4 pb-3 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#FAD98D]/15 dark:border-[#FAD98D]/8 max-w-lg mx-auto">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-4 bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 rounded-xl p-1 border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
             {[
