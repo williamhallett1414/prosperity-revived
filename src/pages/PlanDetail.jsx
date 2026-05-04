@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import DayNoteModal from '@/components/plans/DayNoteModal';
 import PlanStatsModal from '@/components/plans/PlanStatsModal';
 import ReminderSettingsModal from '@/components/plans/ReminderSettingsModal';
+import ExportToCalendarButton from '@/components/plans/ExportToCalendarButton';
 import { Toaster } from '@/components/ui/sonner.jsx';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import PlanDevotionalView from '@/components/bible/PlanDevotionalView';
@@ -364,6 +365,7 @@ export default function PlanDetail() {
                 <Users className="w-4 h-4" />
                 Create Group
               </Button>
+              <ExportToCalendarButton plan={plan} progress={progress} />
               <Button
                 variant="outline"
                 size="sm"
