@@ -382,9 +382,9 @@ export default function Layout({ children, currentPageName }) {
           className="fixed top-0 left-0 right-0 bg-white dark:bg-white/5 dark:bg-[#0A1A2F] border-b border-gray-200 dark:border-white/10 dark:border-gray-700 px-4 pb-2 z-40 select-none"
           style={{ paddingTop: 'calc(env(safe-area-inset-top) + 0.5rem)' }}
         >
-          <div className="max-w-lg mx-auto flex items-center justify-between">
-            <div className="w-8" />
-            <h1 className={`text-base font-bold text-[#3C4E53] dark:text-white text-center ${currentPageName === 'Home' ? 'font-imprint' : ''}`}>
+          <div className="max-w-lg mx-auto flex items-center justify-between relative">
+            <div className="w-9" />
+            <h1 className={`absolute left-1/2 -translate-x-1/2 text-base font-bold text-[#3C4E53] dark:text-white text-center whitespace-nowrap ${currentPageName === 'Home' ? 'font-imprint' : ''}`}>
               {currentPageName === 'Home' ? 'Prosperity Revived' : (pageTitles[currentPageName] || currentPageName)}
             </h1>
             <React.Suspense fallback={null}><HomeHamburger /></React.Suspense>
