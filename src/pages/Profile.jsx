@@ -26,17 +26,6 @@ const TABS = [
 function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }) {
   return (
     <div className="bg-white dark:bg-white/5 shadow-sm dark:shadow-none">
-      {/* Page title with logo */}
-      <div className="max-w-lg mx-auto px-4 pt-4 pb-3">
-        <div className="flex items-center gap-2.5">
-          <img
-            src="/prosperity-revived-logo.png"
-            alt="Prosperity Revived"
-            className="w-10 h-10 flex-shrink-0 object-contain dark:invert"
-          />
-          <h1 className="text-2xl font-bold text-[#0A1A2F] dark:text-white leading-tight">Profile</h1>
-        </div>
-      </div>
       {/* Cover */}
       <div className="relative h-40 sm:h-52 bg-gradient-to-br from-[#3C4E53] via-[#FD9C2D] to-[#FAD98D] overflow-hidden">
         {user?.cover_image_url ?
@@ -72,7 +61,7 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
 
           {/* Name + meta */}
           <div className="flex-1 min-w-0 pt-10">
-            <p className="text-[#0A1A2F] dark:text-white py-3 text-base font-bold leading-tight">{user?.full_name || 'Your Profile'}</p>
+            <h1 className="text-[#0A1A2F] dark:text-white py-3 text-base font-bold leading-tight">{user?.full_name || 'Your Profile'}</h1>
             <p className="text-sm text-[#0A1A2F]/50 dark:text-white/50">{friendsCount} {friendsCount === 1 ? 'friend' : 'friends'}</p>
           </div>
 

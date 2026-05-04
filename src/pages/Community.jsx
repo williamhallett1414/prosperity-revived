@@ -235,16 +235,9 @@ function CommunityInner() {
         <div className="absolute -bottom-12 -left-8 w-32 h-32 rounded-full bg-[#FD9C2D]/20 blur-3xl pointer-events-none" />
 
         <div className="relative max-w-lg mx-auto flex items-start justify-between gap-3">
-          <div className="flex items-start gap-2.5 min-w-0">
-            <img
-              src="/prosperity-revived-logo.png"
-              alt="Prosperity Revived"
-              className="w-10 h-10 flex-shrink-0 object-contain invert mt-0.5"
-            />
-            <div className="min-w-0">
-              <h1 className="text-2xl font-bold leading-tight tracking-tight">Grow together</h1>
-              <p className="text-sm text-white/80 mt-0.5">Connect, share, and grow in faith</p>
-            </div>
+          <div className="min-w-0">
+            <h1 className="text-2xl font-bold leading-tight tracking-tight">Grow together</h1>
+            <p className="text-sm text-white/80 mt-0.5">Connect, share, and grow in faith</p>
           </div>
           <button onClick={() => setShowBlogWriter(true)}
             className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/20 text-white text-xs font-bold flex-shrink-0 transition-colors"

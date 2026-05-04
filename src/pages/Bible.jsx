@@ -253,17 +253,11 @@ function BibleInner() {
         <motion.div
           initial={{ opacity: 0, y: -6 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center gap-2.5"
+          className="flex items-center justify-center gap-3"
         >
-          <img
-            src="/prosperity-revived-logo.png"
-            alt="Prosperity Revived"
-            className="w-10 h-10 flex-shrink-0 object-contain dark:invert"
-          />
-          <div className="min-w-0">
-            <h1 className="text-2xl font-bold text-[#0A1A2F] dark:text-white leading-tight">Bible</h1>
-            <p className="text-[10px] font-bold text-[#c9a227] tracking-[0.2em] uppercase mt-0.5">Scripture · Prayer · Growth</p>
-          </div>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[#c9a227]/40" />
+          <p className="text-xs font-bold text-[#c9a227] tracking-[0.2em] uppercase">Scripture · Prayer · Growth</p>
+          <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[#c9a227]/40" />
         </motion.div>
       </div>
       

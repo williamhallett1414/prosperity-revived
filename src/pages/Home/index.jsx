@@ -62,17 +62,10 @@ function Home() {
           <p className="text-xs font-medium text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-0.5">
             {getTodayFormatted()}
           </p>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2.5 min-w-0">
-              <img
-                src="/prosperity-revived-logo.png"
-                alt="Prosperity Revived"
-                className="w-10 h-10 flex-shrink-0 object-contain dark:invert"
-              />
-              <h1 className="text-2xl font-bold text-[#0A1A2F] dark:text-white truncate">
-                {greeting.text}, {getFirstName(user)} {greeting.emoji}
-              </h1>
-            </div>
+          <div className="flex items-center justify-between">
+            <h1 className="text-2xl font-bold text-[#0A1A2F] dark:text-white">
+              {greeting.text}, {getFirstName(user)} {greeting.emoji}
+            </h1>
             {userProgress && (
               <Link to={createPageUrl('Achievements')}>
                 <div className="flex items-center gap-1.5 bg-white dark:bg-white/10 rounded-full px-3 py-1.5 shadow-sm dark:shadow-none border border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 dark:border-white/10">
