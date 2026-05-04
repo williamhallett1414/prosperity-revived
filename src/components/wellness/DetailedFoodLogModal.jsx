@@ -252,256 +252,222 @@ If you can't find the exact product, provide a reasonable estimate based on simi
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto dark:bg-[#0A1A2F]">
-        <DialogHeader>
-          <DialogTitle className="text-[#0A1A2F] dark:text-white">Log Food</DialogTitle>
-        </DialogHeader>
+      <DialogContent className="max-w-md max-h-[92vh] overflow-hidden dark:bg-[#0F1A2E] p-0 rounded-3xl border-0">
 
-        <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="manual" className="text-[#0A1A2F] dark:text-white">Manual Entry</TabsTrigger>
-            <TabsTrigger value="barcode" className="text-[#0A1A2F] dark:text-white">Picture Mode</TabsTrigger>
-          </TabsList>
+        {/* Header */}
+        <div className="px-5 pt-5 pb-3">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-lg font-bold text-[#0A1A2F] dark:text-white">Log Food</h2>
+              <p className="text-xs text-[#0A1A2F]/40 dark:text-white/35">Track what fuels your body</p>
+            </div>
+            <button onClick={onClose} className="w-8 h-8 rounded-full bg-[#0A1A2F]/5 dark:bg-white/8 flex items-center justify-center">
+              <span className="text-[#0A1A2F]/40 dark:text-white/40 text-lg">×</span>
+            </button>
+          </div>
+        </div>
 
-          <TabsContent value="manual" className="space-y-4 mt-4">
-            <Select value={meal.meal_type} onValueChange={(v) => setMeal({ ...meal, meal_type: v })}>
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="breakfast">🍳 Breakfast</SelectItem>
-                <SelectItem value="lunch">🥗 Lunch</SelectItem>
-                <SelectItem value="dinner">🍽️ Dinner</SelectItem>
-                <SelectItem value="snack">🍎 Snack</SelectItem>
-              </SelectContent>
-            </Select>
+        <div className="overflow-y-auto px-5 pb-5" style={{ maxHeight: 'calc(92vh - 140px)' }}>
+          <Tabs value={activeTab} onValueChange={setActiveTab}>
 
-            <div className="space-y-2">
+            {/* Mode toggle */}
+            <TabsList className="grid w-full grid-cols-2 bg-[#0A1A2F]/5 dark:bg-white/5 rounded-xl p-1 mb-4">
+              <TabsTrigger value="manual"
+                className="rounded-lg text-xs font-bold data-[state=active]:bg-white data-[state=active]:dark:bg-white/15 data-[state=active]:shadow-sm text-[#0A1A2F] dark:text-white">
+                ✏️ Manual Entry
+              </TabsTrigger>
+              <TabsTrigger value="barcode"
+                className="rounded-lg text-xs font-bold data-[state=active]:bg-white data-[state=active]:dark:bg-white/15 data-[state=active]:shadow-sm text-[#0A1A2F] dark:text-white">
+                📸 Picture Mode
+              </TabsTrigger>
+            </TabsList>
+
+            {/* ── MANUAL ENTRY ── */}
+            <TabsContent value="manual" className="space-y-3 mt-0">
+
+              {/* Meal type pills */}
+              <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
+                {[
+                  { value: 'breakfast', emoji: '🍳', label: 'Breakfast' },
+                  { value: 'lunch', emoji: '🥗', label: 'Lunch' },
+                  { value: 'dinner', emoji: '🍽️', label: 'Dinner' },
+                  { value: 'snack', emoji: '🍎', label: 'Snack' },
+                ].map(mt => (
+                  <button key={mt.value}
+                    onClick={() => setMeal({ ...meal, meal_type: mt.value })}
+                    className={`flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold flex-shrink-0 transition-all ${
+                      meal.meal_type === mt.value
+                        ? 'bg-[#c9a227] text-white shadow-sm'
+                        : 'bg-[#0A1A2F]/5 dark:bg-white/8 text-[#0A1A2F]/60 dark:text-white/50'
+                    }`}>
+                    <span>{mt.emoji}</span> {mt.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Food description + AI */}
               <div className="relative">
                 <Input
-                  placeholder="Food description (e.g., Grilled chicken breast)"
+                  placeholder="What did you eat? (e.g., Grilled chicken breast)"
                   value={meal.description}
                   onChange={handleDescriptionChange}
                   onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
+                  className="rounded-xl border-gray-200 dark:border-white/10 bg-[#F2F6FA] dark:bg-white/5 pr-10"
                 />
                 {showSuggestions && suggestions.length > 0 && (
-                  <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-10">
+                  <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-[#1A2540] border border-gray-200 dark:border-white/10 rounded-xl shadow-lg z-10 overflow-hidden">
                     {suggestions.map((suggestion, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => selectSuggestion(suggestion)}
-                        className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors first:rounded-t-lg last:rounded-b-lg"
-                      >
+                      <button key={idx} onClick={() => selectSuggestion(suggestion)}
+                        className="w-full text-left px-4 py-2.5 text-sm text-[#0A1A2F] dark:text-white hover:bg-[#F2F6FA] dark:hover:bg-white/5 transition-colors">
                         {suggestion}
                       </button>
                     ))}
                   </div>
                 )}
               </div>
-              <Button
-                onClick={handleAIAnalysis}
-                disabled={loading || !meal.description}
-                variant="outline"
-                className="w-full"
-                size="sm"
-              >
+
+              {/* AI Analyze button */}
+              <button onClick={handleAIAnalysis} disabled={loading || !meal.description}
+                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white text-sm font-bold disabled:opacity-40 transition-all min-h-[44px]">
                 {loading ? (
-                  <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Analyzing...
-                  </>
+                  <><Loader2 className="w-4 h-4 animate-spin" /> Analyzing...</>
                 ) : (
-                  <>
-                    <Sparkles className="w-4 h-4 mr-2" />
-                    Get AI Nutrition Estimate
-                  </>
+                  <><Sparkles className="w-4 h-4" /> Get AI Nutrition Estimate</>
                 )}
-              </Button>
-            </div>
+              </button>
 
-            <Input
-              placeholder="Serving size (e.g., 1 cup, 100g)"
-              value={meal.serving_size}
-              onChange={(e) => setMeal({ ...meal, serving_size: e.target.value })}
-            />
+              {/* Serving size */}
+              <Input
+                placeholder="Serving size (e.g., 1 cup, 100g)"
+                value={meal.serving_size}
+                onChange={(e) => setMeal({ ...meal, serving_size: e.target.value })}
+                className="rounded-xl border-gray-200 dark:border-white/10 bg-[#F2F6FA] dark:bg-white/5"
+              />
 
-            <Tabs defaultValue="macros" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="macros" className="text-[#0A1A2F] dark:text-white">Macros</TabsTrigger>
-                <TabsTrigger value="vitamins" className="text-[#0A1A2F] dark:text-white">Vitamins</TabsTrigger>
-                <TabsTrigger value="minerals" className="text-[#0A1A2F] dark:text-white">Minerals</TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="macros" className="space-y-3">
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-xs font-medium text-[#0A1A2F]/70 dark:text-white/70">Calories</label>
-                    <Input type="number" value={meal.calories || ''} onChange={(e) => setMeal({ ...meal, calories: parseFloat(e.target.value) || 0 })} />
+              {/* Macro cards — visual summary */}
+              <div className="grid grid-cols-4 gap-2">
+                {[
+                  { label: 'Cal', value: meal.calories, color: '#EF4444', key: 'calories' },
+                  { label: 'Protein', value: meal.protein, color: '#3B82F6', key: 'protein', unit: 'g' },
+                  { label: 'Carbs', value: meal.carbs, color: '#F59E0B', key: 'carbs', unit: 'g' },
+                  { label: 'Fat', value: meal.fats, color: '#8B5CF6', key: 'fats', unit: 'g' },
+                ].map(m => (
+                  <div key={m.key} className="bg-[#F2F6FA] dark:bg-white/5 rounded-xl p-2.5 text-center">
+                    <p className="text-[9px] font-bold uppercase tracking-wider text-[#0A1A2F]/40 dark:text-white/35">{m.label}</p>
+                    <input
+                      type="number"
+                      value={m.value || ''}
+                      onChange={(e) => setMeal({ ...meal, [m.key]: parseFloat(e.target.value) || 0 })}
+                      className="w-full text-center text-lg font-black bg-transparent border-0 outline-none text-[#0A1A2F] dark:text-white"
+                      style={{ color: m.color }}
+                    />
+                    {m.unit && <p className="text-[8px] text-[#0A1A2F]/30 dark:text-white/25">{m.unit}</p>}
                   </div>
-                  <div>
-                    <label className="text-xs font-medium text-[#0A1A2F]/70 dark:text-white/70">Protein (g)</label>
-                    <Input type="number" value={meal.protein || ''} onChange={(e) => setMeal({ ...meal, protein: parseFloat(e.target.value) || 0 })} />
-                  </div>
-                  <div>
-                    <label className="text-xs font-medium text-[#0A1A2F]/70 dark:text-white/70">Carbs (g)</label>
-                    <Input type="number" value={meal.carbs || ''} onChange={(e) => setMeal({ ...meal, carbs: parseFloat(e.target.value) || 0 })} />
-                  </div>
-                  <div>
-                    <label className="text-xs font-medium text-[#0A1A2F]/70 dark:text-white/70">Total Fats (g)</label>
-                    <Input type="number" value={meal.fats || ''} onChange={(e) => setMeal({ ...meal, fats: parseFloat(e.target.value) || 0 })} />
-                  </div>
-                  <div>
-                    <label className="text-xs font-medium text-[#0A1A2F]/70 dark:text-white/70">Saturated Fat (g)</label>
-                    <Input type="number" value={meal.saturated_fat || ''} onChange={(e) => setMeal({ ...meal, saturated_fat: parseFloat(e.target.value) || 0 })} />
-                  </div>
-                  <div>
-                    <label className="text-xs font-medium text-[#0A1A2F]/70 dark:text-white/70">Trans Fat (g)</label>
-                    <Input type="number" value={meal.trans_fat || ''} onChange={(e) => setMeal({ ...meal, trans_fat: parseFloat(e.target.value) || 0 })} />
-                  </div>
-                  <div>
-                    <label className="text-xs font-medium text-[#0A1A2F]/70 dark:text-white/70">Fiber (g)</label>
-                    <Input type="number" value={meal.fiber || ''} onChange={(e) => setMeal({ ...meal, fiber: parseFloat(e.target.value) || 0 })} />
-                  </div>
-                  <div>
-                    <label className="text-xs font-medium text-[#0A1A2F]/70 dark:text-white/70">Sugar (g)</label>
-                    <Input type="number" value={meal.sugar || ''} onChange={(e) => setMeal({ ...meal, sugar: parseFloat(e.target.value) || 0 })} />
-                  </div>
-                  <div>
-                    <label className="text-xs font-medium text-[#0A1A2F]/70 dark:text-white/70">Cholesterol (mg)</label>
-                    <Input type="number" value={meal.cholesterol || ''} onChange={(e) => setMeal({ ...meal, cholesterol: parseFloat(e.target.value) || 0 })} />
-                  </div>
-                  <div>
-                    <label className="text-xs font-medium text-[#0A1A2F]/70 dark:text-white/70">Sodium (mg)</label>
-                    <Input type="number" value={meal.sodium || ''} onChange={(e) => setMeal({ ...meal, sodium: parseFloat(e.target.value) || 0 })} />
-                  </div>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="vitamins" className="space-y-3">
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-xs font-medium text-[#0A1A2F]/70 dark:text-white/70">Vitamin A (mcg)</label>
-                    <Input type="number" value={meal.vitamin_a || ''} onChange={(e) => setMeal({ ...meal, vitamin_a: parseFloat(e.target.value) || 0 })} />
-                  </div>
-                  <div>
-                    <label className="text-xs font-medium text-[#0A1A2F]/70 dark:text-white/70">Vitamin C (mg)</label>
-                    <Input type="number" value={meal.vitamin_c || ''} onChange={(e) => setMeal({ ...meal, vitamin_c: parseFloat(e.target.value) || 0 })} />
-                  </div>
-                  <div>
-                    <label className="text-xs font-medium text-[#0A1A2F]/70 dark:text-white/70">Vitamin D (mcg)</label>
-                    <Input type="number" value={meal.vitamin_d || ''} onChange={(e) => setMeal({ ...meal, vitamin_d: parseFloat(e.target.value) || 0 })} />
-                  </div>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="minerals" className="space-y-3">
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-xs font-medium text-[#0A1A2F]/70 dark:text-white/70">Calcium (mg)</label>
-                    <Input type="number" value={meal.calcium || ''} onChange={(e) => setMeal({ ...meal, calcium: parseFloat(e.target.value) || 0 })} />
-                  </div>
-                  <div>
-                    <label className="text-xs font-medium text-[#0A1A2F]/70 dark:text-white/70">Iron (mg)</label>
-                    <Input type="number" value={meal.iron || ''} onChange={(e) => setMeal({ ...meal, iron: parseFloat(e.target.value) || 0 })} />
-                  </div>
-                  <div>
-                    <label className="text-xs font-medium text-[#0A1A2F]/70 dark:text-white/70">Potassium (mg)</label>
-                    <Input type="number" value={meal.potassium || ''} onChange={(e) => setMeal({ ...meal, potassium: parseFloat(e.target.value) || 0 })} />
-                  </div>
-                  <div>
-                    <label className="text-xs font-medium text-[#0A1A2F]/70 dark:text-white/70">Magnesium (mg)</label>
-                    <Input type="number" value={meal.magnesium || ''} onChange={(e) => setMeal({ ...meal, magnesium: parseFloat(e.target.value) || 0 })} />
-                  </div>
-                  <div>
-                    <label className="text-xs font-medium text-[#0A1A2F]/70 dark:text-white/70">Zinc (mg)</label>
-                    <Input type="number" value={meal.zinc || ''} onChange={(e) => setMeal({ ...meal, zinc: parseFloat(e.target.value) || 0 })} />
-                  </div>
-                </div>
-              </TabsContent>
-            </Tabs>
-
-            <Textarea
-              placeholder="Notes (optional)"
-              value={meal.notes}
-              onChange={(e) => setMeal({ ...meal, notes: e.target.value })}
-              className="h-20"
-            />
-          </TabsContent>
-
-          <TabsContent value="barcode" className="space-y-4 mt-4">
-            <div className="text-center py-8">
-              <Scan className="w-16 h-16 text-gray-300 dark:text-gray-400 dark:text-gray-300 mx-auto mb-4" />
-              <p className="text-sm text-gray-500 dark:text-gray-300 mb-4">Scan barcode or take a photo</p>
-              <div className="space-y-3">
-                <Input
-                  placeholder="Enter barcode (e.g., 012345678905)"
-                  onChange={(e) => {
-                    if (e.target.value.length >= 8) {
-                      handleBarcodeInput(e.target.value);
-                    }
-                  }}
-                />
-                <div className="flex gap-2">
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    onChange={(e) => e.target.files?.[0] && handlePhotoCapture(e.target.files[0])}
-                  />
-                  <Button
-                    onClick={() => fileInputRef.current?.click()}
-                    disabled={loading}
-                    variant="outline"
-                    className="w-full"
-                    size="sm"
-                  >
-                    {loading ? (
-                      <>
-                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                        Analyzing...
-                      </>
-                    ) : (
-                      <>
-                        <Camera className="w-4 h-4 mr-2" />
-                        Take Photo
-                      </>
-                    )}
-                  </Button>
-                </div>
+                ))}
               </div>
-            </div>
 
-            {meal.description && (
-              <div className="border rounded-lg p-4">
-                <h4 className="font-semibold mb-2">{meal.description}</h4>
-                <p className="text-sm text-gray-500 dark:text-gray-300">{meal.serving_size}</p>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mt-3 text-sm">
-                  <div>
-                    <span className="text-gray-500 dark:text-gray-300">Calories:</span>
-                    <span className="ml-1 font-medium">{meal.calories}</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-500 dark:text-gray-300">Protein:</span>
-                    <span className="ml-1 font-medium">{meal.protein}g</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-500 dark:text-gray-300">Carbs:</span>
-                    <span className="ml-1 font-medium">{meal.carbs}g</span>
+              {/* Detailed nutrients — collapsible */}
+              <details className="group">
+                <summary className="flex items-center justify-between cursor-pointer py-2 text-xs font-bold text-[#0A1A2F]/50 dark:text-white/40">
+                  <span>More Nutrients</span>
+                  <span className="group-open:rotate-180 transition-transform">▾</span>
+                </summary>
+                <div className="grid grid-cols-2 gap-2 pt-2">
+                  {[
+                    { label: 'Fiber (g)', key: 'fiber' },
+                    { label: 'Sugar (g)', key: 'sugar' },
+                    { label: 'Sodium (mg)', key: 'sodium' },
+                    { label: 'Cholesterol (mg)', key: 'cholesterol' },
+                    { label: 'Sat. Fat (g)', key: 'saturated_fat' },
+                    { label: 'Trans Fat (g)', key: 'trans_fat' },
+                    { label: 'Vitamin A (mcg)', key: 'vitamin_a' },
+                    { label: 'Vitamin C (mg)', key: 'vitamin_c' },
+                    { label: 'Vitamin D (mcg)', key: 'vitamin_d' },
+                    { label: 'Calcium (mg)', key: 'calcium' },
+                    { label: 'Iron (mg)', key: 'iron' },
+                    { label: 'Potassium (mg)', key: 'potassium' },
+                  ].map(n => (
+                    <div key={n.key}>
+                      <label className="text-[10px] font-medium text-[#0A1A2F]/50 dark:text-white/40">{n.label}</label>
+                      <Input type="number" value={meal[n.key] || ''} onChange={(e) => setMeal({ ...meal, [n.key]: parseFloat(e.target.value) || 0 })}
+                        className="h-9 rounded-lg border-gray-200 dark:border-white/10 bg-[#F2F6FA] dark:bg-white/5 text-sm" />
+                    </div>
+                  ))}
+                </div>
+              </details>
+
+              {/* Notes */}
+              <Textarea
+                placeholder="Notes (optional)"
+                value={meal.notes}
+                onChange={(e) => setMeal({ ...meal, notes: e.target.value })}
+                className="h-16 rounded-xl border-gray-200 dark:border-white/10 bg-[#F2F6FA] dark:bg-white/5 resize-none"
+              />
+            </TabsContent>
+
+            {/* ── PICTURE MODE ── */}
+            <TabsContent value="barcode" className="space-y-4 mt-0">
+              <div className="bg-gradient-to-br from-[#0A1A2F]/5 to-[#0A1A2F]/3 dark:from-white/5 dark:to-white/3 rounded-2xl p-6 text-center">
+                <div className="w-16 h-16 rounded-2xl bg-[#c9a227]/15 flex items-center justify-center mx-auto mb-3">
+                  <Camera className="w-8 h-8 text-[#c9a227]" />
+                </div>
+                <p className="text-sm font-bold text-[#0A1A2F] dark:text-white mb-1">Snap your plate</p>
+                <p className="text-xs text-[#0A1A2F]/50 dark:text-white/40 mb-4">AI will identify the food and estimate nutrition</p>
+
+                <input ref={fileInputRef} type="file" accept="image/*" capture="environment" className="hidden"
+                  onChange={(e) => e.target.files?.[0] && handlePhotoCapture(e.target.files[0])} />
+
+                <button onClick={() => fileInputRef.current?.click()} disabled={loading}
+                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white text-sm font-bold disabled:opacity-40 transition-all min-h-[44px]">
+                  {loading ? (
+                    <><Loader2 className="w-4 h-4 animate-spin" /> Analyzing photo...</>
+                  ) : (
+                    <><Camera className="w-4 h-4" /> Take Photo or Choose from Library</>
+                  )}
+                </button>
+              </div>
+
+              {/* Barcode input */}
+              <div>
+                <p className="text-[10px] font-bold text-[#0A1A2F]/40 dark:text-white/30 uppercase tracking-widest mb-1.5">Or enter barcode</p>
+                <Input placeholder="Enter barcode number..."
+                  className="rounded-xl border-gray-200 dark:border-white/10 bg-[#F2F6FA] dark:bg-white/5"
+                  onChange={(e) => { if (e.target.value.length >= 8) handleBarcodeInput(e.target.value); }} />
+              </div>
+
+              {/* Result preview */}
+              {meal.description && (
+                <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10">
+                  <p className="text-sm font-bold text-[#0A1A2F] dark:text-white mb-1">{meal.description}</p>
+                  {meal.serving_size && <p className="text-xs text-[#0A1A2F]/40 dark:text-white/35 mb-3">{meal.serving_size}</p>}
+                  <div className="grid grid-cols-3 gap-3">
+                    {[
+                      { label: 'Calories', value: meal.calories, color: '#EF4444' },
+                      { label: 'Protein', value: `${meal.protein || 0}g`, color: '#3B82F6' },
+                      { label: 'Carbs', value: `${meal.carbs || 0}g`, color: '#F59E0B' },
+                    ].map(s => (
+                      <div key={s.label} className="text-center">
+                        <p className="text-lg font-black" style={{ color: s.color }}>{s.value}</p>
+                        <p className="text-[9px] text-[#0A1A2F]/40 dark:text-white/35 font-medium">{s.label}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              </div>
-            )}
-          </TabsContent>
-        </Tabs>
+              )}
+            </TabsContent>
+          </Tabs>
+        </div>
 
-        <div className="flex gap-2 mt-4">
-          <Button onClick={handleSave} className="flex-1 bg-emerald-600 hover:bg-emerald-700">
-            Save Food Log
-          </Button>
-          <Button onClick={onClose} variant="outline" className="flex-1">
+        {/* Save / Cancel */}
+        <div className="px-5 pb-5 pt-2 flex gap-2 border-t border-gray-100 dark:border-white/8">
+          <button onClick={handleSave}
+            className="flex-1 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 text-white text-sm font-bold min-h-[44px] hover:shadow-lg transition-all">
+            ✓ Save Food Log
+          </button>
+          <button onClick={onClose}
+            className="px-5 py-3 rounded-xl bg-[#0A1A2F]/5 dark:bg-white/8 text-[#0A1A2F]/60 dark:text-white/50 text-sm font-bold min-h-[44px]">
             Cancel
-          </Button>
+          </button>
         </div>
       </DialogContent>
     </Dialog>
