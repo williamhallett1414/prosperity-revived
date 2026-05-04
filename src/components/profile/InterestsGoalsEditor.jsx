@@ -71,6 +71,7 @@ export default function InterestsGoalsEditor({ user }) {
 
   const handleAddItem = (field, section) => {
     if (!inputValue.trim()) return;
+    if (!user) return;
     
     const currentItems = user[field] || [];
     const newItems = [...currentItems, inputValue.trim()];
@@ -79,6 +80,7 @@ export default function InterestsGoalsEditor({ user }) {
   };
 
   const handleRemoveItem = (field, index) => {
+    if (!user) return;
     const currentItems = user[field] || [];
     const newItems = currentItems.filter((_, i) => i !== index);
     
@@ -122,7 +124,10 @@ export default function InterestsGoalsEditor({ user }) {
 
   return (
     <div className="space-y-4">
-      {sections.map((section) => {
+      {!user && (
+        <p className="text-sm text-[#0A1A2F]/60 dark:text-white/60 italic px-2">Loading…</p>
+      )}
+      {user && sections.map((section) => {
         const Icon = section.icon;
         const colors = colorClasses[section.color];
         const interests = user[section.interestsField] || [];

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Edit2, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -12,6 +12,14 @@ export default function AboutTab({ user }) {
   const [bio, setBio] = useState(user?.bio || '');
   const [goal, setGoal] = useState(user?.spiritual_goal || '');
   const [loading, setLoading] = useState(false);
+
+  // Keep local state in sync when user loads asynchronously after first render
+  useEffect(() => {
+    if (!editingBio) setBio(user?.bio || '');
+  }, [user?.bio, editingBio]);
+  useEffect(() => {
+    if (!editingGoal) setGoal(user?.spiritual_goal || '');
+  }, [user?.spiritual_goal, editingGoal]);
 
   const handleBioSave = async () => {
     setLoading(true);

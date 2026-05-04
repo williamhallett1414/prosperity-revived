@@ -13,6 +13,27 @@ const PhotosTab = React.lazy(() => import('@/components/profile/facebook/PhotosT
 const TimelineTab = React.lazy(() => import('@/components/profile/facebook/TimelineTab'));
 import ChatbotPreferencesTab from '@/components/profile/ChatbotPreferencesTab';
 
+// ─── Per-tab error boundary so a crash in one lazy tab doesn't show an infinite spinner
+class TabErrorBoundary extends React.Component {
+  constructor(props) { super(props); this.state = { error: null }; }
+  static getDerivedStateFromError(error) { return { error }; }
+  componentDidCatch(error, info) {
+    if (typeof console !== 'undefined' && console.error) console.error('Profile tab error:', error, info);
+  }
+  render() {
+    if (this.state.error) {
+      return (
+        <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 p-6 text-center">
+          <p className="text-sm font-bold text-[#0A1A2F] dark:text-white mb-2">This tab couldn't load</p>
+          <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60 mb-4">Something went wrong rendering this section.</p>
+          <button onClick={() => this.setState({ error: null })} className="px-4 py-2 bg-[#c9a227] text-white rounded-xl text-xs font-bold">Try Again</button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 // ─── Tabs ──────────────────────────────────────────────────────────────────────
 const TABS = [
 { id: 'overview', label: 'Overview' },
@@ -515,7 +536,9 @@ export default function Profile() {
         {/* ABOUT ── bio editor + account settings */}
         {activeTab === 'about' &&
         <>
-            <React.Suspense fallback={<div className="flex justify-center py-8"><div className="w-6 h-6 border-2 border-[#FAD98D] dark:border-[#FAD98D]/30 border-t-transparent rounded-full animate-spin"/></div>}><AboutTab user={user} /></React.Suspense>
+            <TabErrorBoundary>
+              <React.Suspense fallback={<div className="flex justify-center py-8"><div className="w-6 h-6 border-2 border-[#FAD98D] dark:border-[#FAD98D]/30 border-t-transparent rounded-full animate-spin"/></div>}><AboutTab user={user} /></React.Suspense>
+            </TabErrorBoundary>
 
             {/* Account settings — only on About tab */}
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
