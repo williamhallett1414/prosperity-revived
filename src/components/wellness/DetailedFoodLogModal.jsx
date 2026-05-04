@@ -256,14 +256,9 @@ If you can't find the exact product, provide a reasonable estimate based on simi
 
         {/* Header */}
         <div className="px-5 pt-5 pb-3">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-lg font-bold text-[#0A1A2F] dark:text-white">Log Food</h2>
-              <p className="text-xs text-[#0A1A2F]/40 dark:text-white/35">Track what fuels your body</p>
-            </div>
-            <button onClick={onClose} className="w-8 h-8 rounded-full bg-[#0A1A2F]/5 dark:bg-white/8 flex items-center justify-center">
-              <span className="text-[#0A1A2F]/40 dark:text-white/40 text-lg">×</span>
-            </button>
+          <div>
+            <h2 className="text-lg font-bold text-[#0A1A2F] dark:text-white">Log Food</h2>
+            <p className="text-xs text-[#0A1A2F]/40 dark:text-white/35">Track what fuels your body</p>
           </div>
         </div>
 
