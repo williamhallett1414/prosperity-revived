@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Settings, Camera, ChevronRight, Trophy, TrendingUp, MessageCircle, Brain } from 'lucide-react';
+import { Settings, Camera, ChevronRight, Trophy, TrendingUp, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { toast } from 'sonner';
@@ -323,8 +323,8 @@ function GoalBento() {
         </Link>
       </div>
 
-      {/* Row 2 — 3 domain tiles */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mb-2.5">
+      {/* Row 2 — 4 domain tiles in a 2x2 grid (4 cols on tablet) */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mb-2.5">
         <Link to={createPageUrl('FitnessGoalsPage')}>
           <div className="rounded-2xl p-3.5 hover:opacity-95 transition-opacity border border-[#38BDF8]/20"
             style={{ background: 'linear-gradient(160deg, #EFF9FF, #dbeeff)' }}>
@@ -349,26 +349,15 @@ function GoalBento() {
             <p className="text-[#C9A227] text-[9px] font-semibold mt-1 uppercase tracking-wide">Goals →</p>
           </div>
         </Link>
-      </div>
-
-      {/* Row 3 — Growth (full width, editorial) */}
-      <Link to={createPageUrl('PersonalGrowthGoalsPage')}>
-        <div className="relative overflow-hidden rounded-3xl p-4 hover:opacity-95 transition-opacity"
-          style={{ background: 'linear-gradient(135deg, #3C4E53, #2a3840)' }}>
-          <div className="absolute inset-0 opacity-10"
-            style={{ backgroundImage: 'radial-gradient(circle at 80% 50%, #AFC7E3 0%, transparent 60%)' }} />
-          <div className="relative z-10 flex items-center gap-4">
-            <div className="w-10 h-10 rounded-2xl bg-white/10 flex items-center justify-center flex-shrink-0">
-              <Brain className="w-5 h-5 text-[#AFC7E3]" />
-            </div>
-            <div className="flex-1">
-              <p className="font-black text-white text-sm">Personal Growth Goals</p>
-              <p className="text-white/40 text-[10px] mt-0.5">Mindset · Values · Coaching style · Tools</p>
-            </div>
-            <ChevronRight className="w-4 h-4 text-white/25 flex-shrink-0" />
+        <Link to={createPageUrl('PersonalGrowthGoalsPage')}>
+          <div className="rounded-2xl p-3.5 hover:opacity-95 transition-opacity border border-[#AFC7E3]/30"
+            style={{ background: 'linear-gradient(160deg, #F4F8FC, #e2ecf6)' }}>
+            <p className="text-xl mb-2">🧠</p>
+            <p className="font-black text-[#0A1A2F] dark:text-white text-xs leading-tight">Personal Growth</p>
+            <p className="text-[#3C4E53] text-[9px] font-semibold mt-1 uppercase tracking-wide">Goals →</p>
           </div>
-        </div>
-      </Link>
+        </Link>
+      </div>
     </motion.div>
   );
 }
