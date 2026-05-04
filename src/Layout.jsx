@@ -232,6 +232,7 @@ export default function Layout({ children, currentPageName }) {
     Friends: 'Friends',
     Search: 'Search',
     CouplesMode: 'Couples Mode',
+    CoachingPlans: 'Coaching Plans',
   };
 
   // Dynamic title for ChatScreen based on bot parameter

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { ArrowLeft, Lock, ChevronRight, X, Eye } from 'lucide-react';
+import { Lock, ChevronRight, X, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { COACHING_PLANS, PLAN_CATEGORIES } from '@/components/coaching/planData';
 import PreviewPlanModal from '@/components/coaching/PreviewPlanModal';
@@ -174,19 +174,7 @@ export default function CoachingPlans() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
-      {/* Header */}
-      <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-gray-100 dark:border-white/10 px-4 py-3">
-        <div className="max-w-2xl mx-auto flex items-center gap-3">
-          <Link to={createPageUrl('ProgressDashboard')}
-          className="w-9 h-9 rounded-full bg-white dark:bg-white/5 hover:bg-white dark:bg-white/5 flex items-center justify-center transition-colors">
-            <ArrowLeft className="w-4 h-4 text-[#3C4E53]" />
-          </Link>
-          <div>
-            <h1 className="text-lg font-bold text-[#0A1A2F] dark:text-white dark:text-white">Coaching Plans</h1>
-            <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">{activePlans} active · {totalPlans - activePlans} coming soon</p>
-          </div>
-        </div>
-      </div>
+      {/* (Page header is provided by Layout's UniversalHeader) */}
 
       <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-5">
 
@@ -200,7 +188,7 @@ export default function CoachingPlans() {
               <div className="w-11 h-11 rounded-xl bg-[#c9a227] flex items-center justify-center text-xl shadow-lg dark:shadow-none">👑</div>
               <div>
                 <h2 className="text-lg font-bold">Prosperity Coaching</h2>
-                <p className="text-white/60 text-xs">8-week whole-life transformation programs</p>
+                <p className="text-white/60 text-xs">8-week whole-life transformation programs · {activePlans} active{totalPlans - activePlans > 0 ? ` · ${totalPlans - activePlans} coming soon` : ''}</p>
               </div>
             </div>
             <p className="text-white/75 text-xs leading-relaxed mb-3">
