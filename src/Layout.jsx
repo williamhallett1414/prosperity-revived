@@ -387,11 +387,7 @@ export default function Layout({ children, currentPageName }) {
             <h1 className={`text-base font-bold text-[#3C4E53] dark:text-white text-center ${currentPageName === 'Home' ? 'font-imprint' : ''}`}>
               {currentPageName === 'Home' ? 'Prosperity Revived' : (pageTitles[currentPageName] || currentPageName)}
             </h1>
-            {currentPageName === 'Home' ? (
-              <React.Suspense fallback={null}><HomeHamburger /></React.Suspense>
-            ) : (
-              <React.Suspense fallback={null}><NotificationBell /></React.Suspense>
-            )}
+            <React.Suspense fallback={null}><HomeHamburger /></React.Suspense>
           </div>
         </div>
       )}
