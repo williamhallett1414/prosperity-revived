@@ -384,9 +384,16 @@ export default function Layout({ children, currentPageName }) {
         >
           <div className="max-w-lg mx-auto flex items-center justify-between relative">
             <div className="w-9" />
-            <h1 className={`absolute left-1/2 -translate-x-1/2 text-base font-bold text-[#3C4E53] dark:text-white text-center whitespace-nowrap ${currentPageName === 'Home' ? 'font-imprint' : ''}`}>
-              {currentPageName === 'Home' ? 'Prosperity Revived' : (pageTitles[currentPageName] || currentPageName)}
-            </h1>
+            <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2">
+              <img
+                src="/prosperity-revived-logo.png"
+                alt="Prosperity Revived"
+                className="w-7 h-7 flex-shrink-0 object-contain dark:invert"
+              />
+              <h1 className={`text-base font-bold text-[#3C4E53] dark:text-white text-center whitespace-nowrap ${currentPageName === 'Home' ? 'font-imprint' : ''}`}>
+                {currentPageName === 'Home' ? 'Prosperity Revived' : (pageTitles[currentPageName] || currentPageName)}
+              </h1>
+            </div>
             <React.Suspense fallback={null}><HomeHamburger /></React.Suspense>
           </div>
         </div>
