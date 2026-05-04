@@ -15,7 +15,10 @@ export default function UniversalHeader({ title, rightAction = null, backTo = nu
   };
 
   return (
-    <div className="sticky top-0 z-40 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/10 px-4 py-3 flex items-center gap-3">
+    <div
+      className="sticky top-0 z-40 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/10 px-4 pb-3 flex items-center gap-3"
+      style={{ paddingTop: 'calc(env(safe-area-inset-top) + 0.75rem)' }}
+    >
       <button
         onClick={handleBack}
         aria-label="Go back"
