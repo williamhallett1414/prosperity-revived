@@ -260,7 +260,7 @@ If you can't find the exact product, provide a reasonable estimate based on simi
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="manual" className="text-[#0A1A2F] dark:text-white">Manual Entry</TabsTrigger>
-            <TabsTrigger value="barcode" className="text-[#0A1A2F] dark:text-white">Barcode Scan</TabsTrigger>
+            <TabsTrigger value="barcode" className="text-[#0A1A2F] dark:text-white">Picture Mode</TabsTrigger>
           </TabsList>
 
           <TabsContent value="manual" className="space-y-4 mt-4">
