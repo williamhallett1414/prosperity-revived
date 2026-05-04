@@ -293,9 +293,9 @@ function GoalBento() {
     <motion.div id="tour-profile-progress" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
       <SectionHeading accent="#0A1A2F">Your Goals</SectionHeading>
 
-      {/* Row 1 — Journey (wide) + Achievements (narrow) */}
-      <div className="flex gap-2.5 mb-2.5">
-        <Link to={createPageUrl('ProgressDashboard')} className="flex-[2]">
+      {/* Row 1 — Journey + Achievements (equal width, matches columns below) */}
+      <div className="grid grid-cols-2 gap-2.5 mb-2.5">
+        <Link to={createPageUrl('ProgressDashboard')}>
           <div className="relative overflow-hidden rounded-3xl p-4 h-full min-h-[96px] hover:opacity-95 transition-opacity"
             style={{ background: 'linear-gradient(135deg, #0A1A2F, #162944)' }}>
             <div className="absolute top-0 right-0 w-20 h-20 rounded-full opacity-20"
@@ -309,13 +309,15 @@ function GoalBento() {
             </div>
           </div>
         </Link>
-        <Link to={createPageUrl('Achievements')} className="flex-[1]">
-          <div className="relative overflow-hidden rounded-3xl p-4 h-full min-h-[96px] flex flex-col justify-between hover:opacity-95 transition-opacity"
+        <Link to={createPageUrl('Achievements')}>
+          <div className="relative overflow-hidden rounded-3xl p-4 h-full min-h-[96px] hover:opacity-95 transition-opacity"
             style={{ background: 'linear-gradient(135deg, #C9A227, #FD9C2D)' }}>
             <div className="absolute bottom-0 right-0 w-16 h-16 rounded-full opacity-20"
               style={{ background: 'radial-gradient(circle, #fff, transparent)', transform: 'translate(30%, 30%)' }} />
             <div className="relative z-10">
-              <Trophy className="w-5 h-5 text-white mb-3" />
+              <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center mb-3">
+                <Trophy className="w-4 h-4 text-white" />
+              </div>
               <p className="font-black text-white text-sm">Achievements</p>
               <p className="text-white/65 text-[10px] mt-0.5">Badges & level</p>
             </div>
@@ -323,8 +325,8 @@ function GoalBento() {
         </Link>
       </div>
 
-      {/* Row 2 — 4 domain tiles in a 2x2 grid (4 cols on tablet) */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mb-2.5">
+      {/* Rows 2 & 3 — 4 domain tiles in a 2x2 grid */}
+      <div className="grid grid-cols-2 gap-2.5 mb-2.5">
         <Link to={createPageUrl('FitnessGoalsPage')}>
           <div className="rounded-2xl p-3.5 hover:opacity-95 transition-opacity border border-[#38BDF8]/20"
             style={{ background: 'linear-gradient(160deg, #EFF9FF, #dbeeff)' }}>
