@@ -378,12 +378,12 @@ export default function Layout({ children, currentPageName }) {
         <React.Suspense fallback={null}><UniversalHeader title={currentPageTitle} backTo={currentPageBack} /></React.Suspense>
       ) : (
         <div
-          className="fixed top-0 left-0 right-0 bg-white dark:bg-white/5 dark:bg-[#0A1A2F] border-b border-gray-200 dark:border-white/10 dark:border-gray-700 px-4 pb-3 z-40 select-none"
-          style={{ paddingTop: 'calc(env(safe-area-inset-top) + 0.75rem)' }}
+          className="fixed top-0 left-0 right-0 bg-white dark:bg-white/5 dark:bg-[#0A1A2F] border-b border-gray-200 dark:border-white/10 dark:border-gray-700 px-4 pb-2 z-40 select-none"
+          style={{ paddingTop: 'calc(env(safe-area-inset-top) + 0.5rem)' }}
         >
           <div className="max-w-lg mx-auto flex items-center justify-between">
             <div className="w-8" />
-            <h1 className={`text-xl font-bold text-[#3C4E53] dark:text-white text-center ${currentPageName === 'Home' ? 'font-imprint' : ''}`}>
+            <h1 className={`text-base font-bold text-[#3C4E53] dark:text-white text-center ${currentPageName === 'Home' ? 'font-imprint' : ''}`}>
               {currentPageName === 'Home' ? 'Prosperity Revived' : (pageTitles[currentPageName] || currentPageName)}
             </h1>
             <React.Suspense fallback={null}><NotificationBell /></React.Suspense>
@@ -393,7 +393,7 @@ export default function Layout({ children, currentPageName }) {
 
       <main
         className="pb-20"
-        style={isPrimaryPage ? { paddingTop: 'calc(env(safe-area-inset-top) + 3.5rem)' } : undefined}
+        style={isPrimaryPage ? { paddingTop: 'calc(env(safe-area-inset-top) + 4rem)' } : undefined}
       >
         <PullToRefresh onRefresh={async () => {
             await queryClient.invalidateQueries();
