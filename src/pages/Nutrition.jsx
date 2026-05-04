@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { todayKey } from '@/utils/localDate';
 import { Utensils, CalendarDays, ChefHat, History, Plus, Droplets, Flame, Target, Trash2 } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { motion } from 'framer-motion';
 import { toast } from 'sonner';
@@ -99,6 +99,16 @@ function NutritionInner() {
   const [activeTab, setActiveTab] = useState('today');
   const navigate = useNavigate();
   const [showLogModal, setShowLogModal] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Auto-open log food modal from hamburger menu link
+  useEffect(() => {
+    if (searchParams.get('logFood') === 'true') {
+      setShowLogModal(true);
+      searchParams.delete('logFood');
+      setSearchParams(searchParams, { replace: true });
+    }
+  }, [searchParams]);
   const [editingMeal, setEditingMeal] = useState(null);
   const queryClient = useQueryClient();
   const today = todayKey();
