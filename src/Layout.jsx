@@ -13,6 +13,7 @@ const OnboardingFlow = React.lazy(() => import('@/components/onboarding/Onboardi
 
 // Lazy-load optional components to prevent crash if any are broken
 const GuidedTour = React.lazy(() => import('@/components/onboarding/GuidedTour'));
+const HomeHamburger = React.lazy(() => import('@/components/navigation/HomeHamburger'));
 const NotificationBell = React.lazy(() => import('@/components/notifications/NotificationBell'));
 const UniversalHeader = React.lazy(() => import('@/components/navigation/UniversalHeader'));
 const OfflineBanner = React.lazy(() => import('@/components/ui/OfflineBanner'));
@@ -383,7 +384,11 @@ export default function Layout({ children, currentPageName }) {
             <h1 className={`text-xl font-bold text-[#3C4E53] dark:text-white text-center ${currentPageName === 'Home' ? 'font-imprint' : ''}`}>
               {currentPageName === 'Home' ? 'Prosperity Revived' : (pageTitles[currentPageName] || currentPageName)}
             </h1>
-            <React.Suspense fallback={null}><NotificationBell /></React.Suspense>
+            {currentPageName === 'Home' ? (
+              <React.Suspense fallback={null}><HomeHamburger /></React.Suspense>
+            ) : (
+              <React.Suspense fallback={null}><NotificationBell /></React.Suspense>
+            )}
           </div>
         </div>
       )}
