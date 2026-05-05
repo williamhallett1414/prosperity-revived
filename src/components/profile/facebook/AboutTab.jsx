@@ -2,45 +2,64 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Edit2, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { base44 } from '@/api/base44Client';
 import InterestsGoalsEditor from '@/components/profile/InterestsGoalsEditor';
+import { toast } from 'sonner';
 
-export default function AboutTab({ user }) {
+export default function AboutTab({ user, onUserUpdate }) {
+  const [editingName, setEditingName] = useState(false);
   const [editingBio, setEditingBio] = useState(false);
-  const [editingGoal, setEditingGoal] = useState(false);
+  const [name, setName] = useState(typeof user?.full_name === 'string' ? user.full_name : '');
   const [bio, setBio] = useState(typeof user?.bio === 'string' ? user.bio : '');
-  const [goal, setGoal] = useState(typeof user?.spiritual_goal === 'string' ? user.spiritual_goal : '');
   const [loading, setLoading] = useState(false);
 
   // Keep local state in sync when user loads asynchronously after first render
   useEffect(() => {
+    if (!editingName) setName(typeof user?.full_name === 'string' ? user.full_name : '');
+  }, [user?.full_name, editingName]);
+  useEffect(() => {
     if (!editingBio) setBio(typeof user?.bio === 'string' ? user.bio : '');
   }, [user?.bio, editingBio]);
-  useEffect(() => {
-    if (!editingGoal) setGoal(typeof user?.spiritual_goal === 'string' ? user.spiritual_goal : '');
-  }, [user?.spiritual_goal, editingGoal]);
+
+  const handleNameSave = async () => {
+    const trimmed = (name || '').trim();
+    if (!trimmed) {
+      toast.error('Please enter a name');
+      return;
+    }
+    setLoading(true);
+    try {
+      await base44.auth.updateMe({ full_name: trimmed });
+      setEditingName(false);
+      toast.success('Name updated');
+      // Refresh the user object via the parent so the Profile header updates
+      // without a full page reload.
+      try {
+        const updated = await base44.auth.me();
+        onUserUpdate?.(updated);
+      } catch {}
+    } catch (error) {
+      console.error('Error saving name:', error);
+      toast.error('Could not save name — please try again');
+    }
+    setLoading(false);
+  };
 
   const handleBioSave = async () => {
     setLoading(true);
     try {
       await base44.auth.updateMe({ bio });
       setEditingBio(false);
-      window.location.reload();
+      toast.success('Bio updated');
+      try {
+        const updated = await base44.auth.me();
+        onUserUpdate?.(updated);
+      } catch {}
     } catch (error) {
       console.error('Error saving bio:', error);
-    }
-    setLoading(false);
-  };
-
-  const handleGoalSave = async () => {
-    setLoading(true);
-    try {
-      await base44.auth.updateMe({ spiritual_goal: goal });
-      setEditingGoal(false);
-      window.location.reload();
-    } catch (error) {
-      console.error('Error saving goal:', error);
+      toast.error('Could not save bio — please try again');
     }
     setLoading(false);
   };
@@ -51,6 +70,47 @@ export default function AboutTab({ user }) {
       animate={{ opacity: 1 }}
       className="space-y-4"
     >
+      {/* Name Section */}
+      <div className="bg-white dark:bg-white/5 rounded-lg shadow-sm dark:shadow-none p-6">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Name</h2>
+          {!editingName && (
+            <Button variant="ghost" size="sm" onClick={() => setEditingName(true)}>
+              <Edit2 className="w-4 h-4" />
+            </Button>
+          )}
+        </div>
+
+        {editingName ? (
+          <div className="space-y-3">
+            <Input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="What should we call you?"
+              autoFocus
+              maxLength={60}
+            />
+            <div className="flex gap-2">
+              <Button
+                onClick={handleNameSave}
+                disabled={loading}
+                className="bg-blue-600 hover:bg-blue-700"
+              >
+                {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+                Save
+              </Button>
+              <Button variant="outline" onClick={() => { setEditingName(false); setName(user?.full_name || ''); }}>
+                Cancel
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <p className="text-gray-900 dark:text-white font-medium">
+            {user?.full_name || <span className="text-gray-400 dark:text-gray-500 italic font-normal">No name set — tap the pencil to add one</span>}
+          </p>
+        )}
+      </div>
+
       {/* Bio Section */}
       <div className="bg-white dark:bg-white/5 rounded-lg shadow-sm dark:shadow-none p-6">
         <div className="flex items-center justify-between mb-4">

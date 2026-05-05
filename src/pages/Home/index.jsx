@@ -26,7 +26,15 @@ function getGreeting() {
 }
 
 function getFirstName(user) {
-  return user?.full_name?.split(' ')[0] || user?.email?.split('@')[0] || 'friend';
+  // Use the name the user entered in onboarding. We deliberately do NOT fall
+  // back to the email-prefix (e.g. "william.hallett1414") because that's
+  // unfriendly and looks like a system bug to the user. If full_name isn't
+  // set yet, greet them as "friend" — that prompts them to set their name
+  // in Profile when they notice it.
+  const raw = (user?.full_name || '').trim();
+  if (!raw) return 'friend';
+  const first = raw.split(/\s+/)[0];
+  return first || 'friend';
 }
 
 function getTodayFormatted() {

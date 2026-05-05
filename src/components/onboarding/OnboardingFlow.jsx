@@ -583,35 +583,67 @@ export default function OnboardingFlow({ onComplete }) {
     } catch {}
 
     setSaving(true);
+
+    // ── 1) Save the CRITICAL profile fields first ──
+    // If the larger updateMe call below fails (e.g. a Base44 schema rejects
+    // an unknown field), at least the user's name and onboarding-completed
+    // flag are persisted, so they don't end up looking like a stranger to
+    // their own app.
+    let criticalSavedOk = false;
     try {
       await base44.auth.updateMe({
-        terms_accepted_at:new Date().toISOString(), terms_version:'2026-03-12',
-        age_group:ageGroup,
-        main_goal_text: hookAnswer.trim()||undefined,
-        full_name:d.full_name.trim(), dob:d.dob, biological_sex:d.biological_sex,
-        profile_image_url: d.profile_image_url || undefined,
-        motivations:d.motivations, life_stage:d.life_stage,
-        fitness_goals:d.fitness_goals, fitness_level:d.fitness_level,
-        height_ft:d.height_ft, height_in:d.height_in, weight_lbs:d.weight_lbs, goal_weight_lbs:d.goal_weight_lbs,
-        workout_days:d.workout_days, workout_duration:d.workout_duration,
-        equipment:d.equipment, preferred_workout_time:d.preferred_workout_time, injuries:d.injuries,
-        diet_type:d.diet_type, allergies:d.allergies, meals_per_day:d.meals_per_day, cooking_time:d.cooking_time,
-        bible_level:d.bible_level, bible_translation:d.bible_translation, bible_topics:d.bible_topics,
-        devotional_depth:d.devotional_depth, in_church:d.in_church,
-        growth_areas:d.growth_areas, core_values:d.core_values, coaching_style:d.coaching_style, goal_90_day:d.goal_90_day,
-        wake_time:d.wake_time, sleep_time:d.sleep_time, job_type:d.job_type,
-        reminder_settings:{
-          devotional:{enabled:d.notif_devotional,time:'07:00'},
-          workout:{enabled:d.notif_workout,time:'06:00'},
-          meals:{enabled:d.notif_meals,time:'12:00'},
-          reflection:{enabled:d.notif_reflection,time:'21:00'},
-        },
-        onboarding_completed:true, onboarding_version:4,
-        spiritual_interests:d.bible_topics, health_goals:d.fitness_goals, dietary_preferences:d.allergies,
+        full_name: d.full_name.trim(),
+        age_group: ageGroup,
+        terms_accepted_at: new Date().toISOString(),
+        terms_version: '2026-03-12',
+        onboarding_completed: true,
+        onboarding_version: 4,
       });
-      onComplete();
-    } catch { onComplete(); }
-    finally { setSaving(false); }
+      criticalSavedOk = true;
+    } catch (err) {
+      // Surface this — losing the name is the regression we're trying to fix.
+      console.error('[onboarding] CRITICAL save failed:', err);
+    }
+
+    // ── 2) Save the rest as an enrichment payload ──
+    // Failures here are acceptable — the user can fill these in later from
+    // Profile / Settings. We still log them so we can debug.
+    try {
+      await base44.auth.updateMe({
+        main_goal_text: hookAnswer.trim() || undefined,
+        dob: d.dob, biological_sex: d.biological_sex,
+        profile_image_url: d.profile_image_url || undefined,
+        motivations: d.motivations, life_stage: d.life_stage,
+        fitness_goals: d.fitness_goals, fitness_level: d.fitness_level,
+        height_ft: d.height_ft, height_in: d.height_in, weight_lbs: d.weight_lbs, goal_weight_lbs: d.goal_weight_lbs,
+        workout_days: d.workout_days, workout_duration: d.workout_duration,
+        equipment: d.equipment, preferred_workout_time: d.preferred_workout_time, injuries: d.injuries,
+        diet_type: d.diet_type, allergies: d.allergies, meals_per_day: d.meals_per_day, cooking_time: d.cooking_time,
+        bible_level: d.bible_level, bible_translation: d.bible_translation, bible_topics: d.bible_topics,
+        devotional_depth: d.devotional_depth, in_church: d.in_church,
+        growth_areas: d.growth_areas, core_values: d.core_values, coaching_style: d.coaching_style, goal_90_day: d.goal_90_day,
+        wake_time: d.wake_time, sleep_time: d.sleep_time, job_type: d.job_type,
+        reminder_settings: {
+          devotional:  { enabled: d.notif_devotional, time: '07:00' },
+          workout:     { enabled: d.notif_workout,    time: '06:00' },
+          meals:       { enabled: d.notif_meals,      time: '12:00' },
+          reflection:  { enabled: d.notif_reflection, time: '21:00' },
+        },
+        spiritual_interests: d.bible_topics,
+        health_goals: d.fitness_goals,
+        dietary_preferences: d.allergies,
+      });
+    } catch (err) {
+      console.warn('[onboarding] Enrichment save failed (non-fatal):', err);
+    }
+
+    setSaving(false);
+    onComplete();
+    if (!criticalSavedOk) {
+      // Don't fully block the user, but at least let them know to set a name.
+      // We can't show a toast from here easily; rely on the home page's
+      // 'friend' fallback to prompt them to fix it from Profile.
+    }
   };
 
   // Route full-bleed screens

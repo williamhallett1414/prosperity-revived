@@ -541,7 +541,7 @@ export default function Profile() {
         {activeTab === 'about' &&
         <>
             <TabErrorBoundary>
-              <React.Suspense fallback={<div className="flex justify-center py-8"><div className="w-6 h-6 border-2 border-[#FAD98D] dark:border-[#FAD98D]/30 border-t-transparent rounded-full animate-spin"/></div>}><AboutTab user={user} /></React.Suspense>
+              <React.Suspense fallback={<div className="flex justify-center py-8"><div className="w-6 h-6 border-2 border-[#FAD98D] dark:border-[#FAD98D]/30 border-t-transparent rounded-full animate-spin"/></div>}><AboutTab user={user} onUserUpdate={setUser} /></React.Suspense>
             </TabErrorBoundary>
 
             {/* Account settings — only on About tab */}
