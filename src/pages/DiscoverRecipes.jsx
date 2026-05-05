@@ -175,10 +175,10 @@ function DiscoverRecipesInner() {
   const showFilters = activeTab !== 'health' && activeTab !== 'collections';
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
+    <div className="bg-white dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Sticky filters/tabs (page title is in Layout's UniversalHeader) ── */}
-      <div className="sticky top-14 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-md border-b border-[#FAD98D]/15 dark:border-[#FAD98D]/8 px-4 pt-3 pb-0 shadow-sm">
+      <div className="sticky top-14 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-md border-b border-[#FAD98D]/15 dark:border-[#FAD98D]/8 px-4 pt-2 pb-0 shadow-sm">
         <div className="max-w-lg mx-auto space-y-3">
 
           {/* Filters (hidden on health / collections) */}
@@ -276,7 +276,8 @@ function DiscoverRecipesInner() {
       </div>
 
       {/* ── Content ── */}
-      <div className="max-w-lg mx-auto px-4 py-4 space-y-3">
+      <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] min-h-[calc(100vh-200px)]">
+        <div className="max-w-lg mx-auto px-4 py-4 space-y-3">
 
         {/* ALL */}
         {activeTab === 'all' && (() => {
@@ -394,6 +395,7 @@ function DiscoverRecipesInner() {
           <p className="text-[10px] text-amber-800 leading-relaxed">
             <strong>⚠ Allergen Warning:</strong> Recipes may contain common allergens including nuts, dairy, gluten, eggs, soy, shellfish, and others. AI-generated recipes may not account for your specific allergies or dietary restrictions. Always verify ingredients before preparing any recipe. If you have food allergies, consult with a healthcare professional before trying new recipes.
           </p>
+        </div>
         </div>
       </div>
 
