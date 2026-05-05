@@ -359,18 +359,10 @@ export default function NutritionGoalsPage() {
     <div className="min-h-screen pb-28" style={{ background: '#F2F6FA' }}>
 
       {/* ── Sub-nav (page title is in Layout's UniversalHeader) ── */}
-      <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-3 pb-0">
-        <div className="max-w-lg mx-auto">
-          {/* Action row */}
-          <div className="flex items-center justify-end mb-2">
-            <button onClick={() => setShowUpdateModal(true)}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-bold text-white transition-all active:scale-95"
-              style={{ background: 'linear-gradient(135deg,#166534,#22C55E)' }}>
-              <Pencil className="w-3.5 h-3.5" /> Update Goals
-            </button>
-          </div>
+      <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-2 pb-0">
+        <div className="max-w-lg mx-auto flex items-center gap-2">
           {/* Nav tabs */}
-          <div className="flex gap-0 border-b border-transparent -mb-px overflow-x-auto">
+          <div className="flex-1 min-w-0 flex gap-0 border-b border-transparent -mb-px overflow-x-auto">
             {[
               { id: 'today',   label: 'Today',       icon: Flame,       page: 'Nutrition'        },
               { id: 'planner', label: 'Planner',      icon: CalendarDays, page: 'Nutrition?tab=planner' },
@@ -390,6 +382,13 @@ export default function NutritionGoalsPage() {
               </button>
             ))}
           </div>
+          {/* Update Goals — compact icon-only button on the right, aligned with tabs */}
+          <button onClick={() => setShowUpdateModal(true)}
+            aria-label="Update Goals"
+            className="flex-shrink-0 w-9 h-9 rounded-full text-white flex items-center justify-center shadow-sm dark:shadow-none transition-all active:scale-95"
+            style={{ background: 'linear-gradient(135deg,#166534,#22C55E)' }}>
+            <Pencil className="w-4 h-4" />
+          </button>
         </div>
       </div>
 
