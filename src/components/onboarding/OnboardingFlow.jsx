@@ -385,11 +385,17 @@ function GuidesScreen({ onNext, onBack }) {
         All five are AI-powered — here to guide, not replace, professional advice.
       </motion.p>
       <motion.div initial={{ y:30, opacity:0 }} animate={{ y:0, opacity:1 }} transition={{ delay:0.9 }}
-        className="relative z-10 px-6 pb-8 pt-3 flex gap-3">
-        <button onPointerDown={onBack} className="flex items-center gap-1.5 px-4 py-3.5 rounded-2xl font-semibold text-sm text-white/50" style={{ background:'rgba(255,255,255,0.07)' }}>
-          <ChevronLeft className="w-4 h-4" /> Back
+        className="relative z-10 px-6 pt-3 flex items-center gap-3"
+        style={{ paddingBottom: 'max(2rem, env(safe-area-inset-bottom))' }}>
+        <button onPointerDown={onBack}
+          aria-label="Back"
+          className="w-11 h-11 flex-shrink-0 rounded-2xl flex items-center justify-center text-white/60 active:scale-95 transition-transform"
+          style={{ background:'rgba(255,255,255,0.07)' }}>
+          <ChevronLeft className="w-5 h-5" />
         </button>
-        <button onPointerDown={onNext} className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-2xl font-bold text-white text-sm" style={{ background:'linear-gradient(135deg, #C9A227, #FD9C2D)' }}>
+        <button onPointerDown={onNext}
+          className="flex-1 flex items-center justify-center gap-2 h-11 rounded-2xl font-bold text-white text-sm shadow-md dark:shadow-none active:scale-[0.98] transition-transform"
+          style={{ background:'linear-gradient(135deg, #C9A227, #FD9C2D)' }}>
           Let's build your profile <ChevronRight className="w-4 h-4" />
         </button>
       </motion.div>
@@ -464,11 +470,18 @@ function FactScreen({ factId, onNext, onBack }) {
         </motion.div>
       </div>
       <motion.div initial={{ y:30, opacity:0 }} animate={{ y:0, opacity:1 }} transition={{ delay:0.55 }}
-        className="relative z-10 px-6 pb-8 flex gap-3" onPointerDown={e => e.stopPropagation()}>
-        <button onPointerDown={onBack} className="flex items-center gap-1.5 px-4 py-3.5 rounded-2xl font-semibold text-sm text-white/50" style={{ background:'rgba(255,255,255,0.07)' }}>
-          <ChevronLeft className="w-4 h-4" /> Back
+        className="relative z-10 px-6 flex items-center gap-3"
+        style={{ paddingBottom: 'max(2rem, env(safe-area-inset-bottom))' }}
+        onPointerDown={e => e.stopPropagation()}>
+        <button onPointerDown={onBack}
+          aria-label="Back"
+          className="w-11 h-11 flex-shrink-0 rounded-2xl flex items-center justify-center text-white/60 active:scale-95 transition-transform"
+          style={{ background:'rgba(255,255,255,0.07)' }}>
+          <ChevronLeft className="w-5 h-5" />
         </button>
-        <button onPointerDown={onNext} className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-2xl font-bold text-white text-sm" style={{ background:`linear-gradient(135deg, ${f.color}BB, ${f.color})` }}>
+        <button onPointerDown={onNext}
+          className="flex-1 flex items-center justify-center gap-2 h-11 rounded-2xl font-bold text-white text-sm shadow-md dark:shadow-none active:scale-[0.98] transition-transform"
+          style={{ background:`linear-gradient(135deg, ${f.color}BB, ${f.color})` }}>
           {f.cta} <ChevronRight className="w-4 h-4" />
         </button>
       </motion.div>
@@ -514,7 +527,7 @@ export default function OnboardingFlow({ onComplete }) {
     bible_level:'', bible_translation:'', bible_topics:[], devotional_depth:'', in_church:'',
     growth_areas:[], core_values:[], coaching_style:'', goal_90_day:'',
     wake_time:'06:30', sleep_time:'22:30', job_type:'',
-    notif_devotional:true, notif_workout:true, notif_meals:true, notif_reflection:true,
+    notif_devotional:false, notif_workout:false, notif_meals:false, notif_reflection:false,
   });
 
   const set    = (k,v) => setD(p => ({ ...p, [k]:v }));
@@ -522,6 +535,31 @@ export default function OnboardingFlow({ onComplete }) {
   const toggleAllergy = v => {
     if (v==='none') { set('allergies',['none']); return; }
     setD(p => ({ ...p, allergies: p.allergies.includes(v) ? p.allergies.filter(i=>i!==v) : [...p.allergies.filter(i=>i!=='none'),v] }));
+  };
+
+  // Request iOS/web notification permission the first time a user opts into ANY
+  // reminder. We only fire the OS prompt once per onboarding session — toggling
+  // a different reminder on later won't re-prompt.
+  // The Capacitor LocalNotifications plugin (when running in the iOS shell)
+  // bridges window.Notification.requestPermission() to the native iOS prompt,
+  // so we just use the standard web API here and let Capacitor handle the
+  // native bridge transparently.
+  const notifPromptedRef = useRef(false);
+  const toggleReminder = async (key) => {
+    const turningOn = !d[key];
+    set(key, turningOn);
+    if (turningOn && !notifPromptedRef.current) {
+      notifPromptedRef.current = true;
+      try {
+        if (typeof window !== 'undefined' && 'Notification' in window
+            && typeof Notification !== 'undefined'
+            && Notification.permission === 'default') {
+          await Notification.requestPermission();
+        }
+      } catch {
+        // Notification API not supported — silently no-op
+      }
+    }
   };
 
   const canAdvance = () => {
@@ -612,7 +650,7 @@ export default function OnboardingFlow({ onComplete }) {
 
           <AnimatePresence mode="wait">
             <motion.div key={step} initial={{ opacity:0, y:16 }} animate={{ opacity:1, y:0 }} exit={{ opacity:0, y:-16 }} transition={{ duration:0.22 }}
-              className="bg-white dark:bg-white/5 rounded-3xl shadow-2xl overflow-hidden flex flex-col" style={{ maxHeight: 'calc(100vh - 140px)' }}>
+              className="bg-white dark:bg-white/5 rounded-3xl shadow-2xl overflow-hidden flex flex-col" style={{ maxHeight: 'calc(100dvh - 140px)' }}>
 
               {/* Card header (fixed) */}
               <div className="flex-shrink-0 px-6 pt-6 pb-4" style={{ background:`linear-gradient(135deg, ${cfg.color}18, ${cfg.color}05)` }}>
@@ -677,7 +715,7 @@ export default function OnboardingFlow({ onComplete }) {
                                 <p className="text-[10px] text-gray-400 dark:text-gray-300 mt-0.5">{sub}</p>
                               </div>
                               {acceptedDocs[key] ? (
-                                <div className="w-7 h-7 rounded-full bg-green-50 dark:bg-green-900/200 flex items-center justify-center flex-shrink-0"><Check className="w-4 h-4 text-white" /></div>
+                                <div className="w-7 h-7 rounded-full bg-green-500 dark:bg-green-600 flex items-center justify-center flex-shrink-0"><Check className="w-4 h-4 text-white" strokeWidth={3} /></div>
                               ) : (
                                 <button onPointerDown={() => setOpenDoc(key)} className="px-3 py-1.5 rounded-xl text-xs font-bold border-2 border-[#C9A227] text-[#C9A227] hover:bg-[#C9A227] hover:text-white transition-all flex-shrink-0">Review</button>
                               )}
@@ -786,7 +824,7 @@ export default function OnboardingFlow({ onComplete }) {
                         onClick={() => next()}
                         className="text-xs text-[#0A1A2F]/40 dark:text-white/30 underline mt-2"
                       >
-                        Skip for now
+                        Skip this step
                       </button>
                     )}
                   </div>
@@ -984,6 +1022,9 @@ export default function OnboardingFlow({ onComplete }) {
                     </div>
                     <div>
                       <SectionLabel>Daily reminders</SectionLabel>
+                      <p className="text-xs text-gray-500 dark:text-gray-300 mb-3 leading-relaxed">
+                        Turn on the reminders that fit your day. We'll ask iOS for permission the first time you toggle one on.
+                      </p>
                       <div className="space-y-2">
                         {[
                           { key:'notif_devotional', label:'📖 Morning devotional', time:'7:00 AM' },
@@ -996,7 +1037,7 @@ export default function OnboardingFlow({ onComplete }) {
                               <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white dark:text-white">{label}</p>
                               <p className="text-xs text-gray-400 dark:text-gray-300">{time}</p>
                             </div>
-                            <button onPointerDown={() => set(key,!d[key])}
+                            <button onPointerDown={() => toggleReminder(key)}
                               className={`w-11 h-6 rounded-full transition-all relative flex-shrink-0 ${d[key]?'bg-[#8B5CF6]':'bg-gray-200'}`}>
                               <div className={`absolute top-0.5 w-5 h-5 bg-white dark:bg-white/5 rounded-full shadow transition-all ${d[key]?'left-[22px]':'left-0.5'}`} />
                             </button>
@@ -1032,7 +1073,7 @@ export default function OnboardingFlow({ onComplete }) {
                   <div className="px-5 pb-3 -mt-2">
                     <button onPointerDown={handleComplete}
                       className="w-full text-center text-[11px] text-gray-400 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
-                      Skip for now — I'll fill this in later
+                      Finish setup later — take me to the app
                     </button>
                   </div>
                 )}

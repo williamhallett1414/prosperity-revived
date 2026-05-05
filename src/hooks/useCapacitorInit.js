@@ -63,12 +63,16 @@ export default function useCapacitorInit() {
       }
 
       // ── Local Notifications (native) ──
+      // We deliberately DO NOT auto-request permission on app launch.
+      // Apple's guidance (and HIG) prefers asking for notification permission
+      // at the moment of value — when the user actively turns on reminders.
+      // The OnboardingFlow routine step requests permission when reminders
+      // are enabled. Settings -> Notifications can re-prompt later if needed.
+      // We still import the plugin here to surface any installation issues
+      // early, but checkPermissions() does not show the iOS prompt.
       try {
         const { LocalNotifications } = await import('@capacitor/local-notifications');
-        const perm = await LocalNotifications.checkPermissions();
-        if (perm.display === 'prompt') {
-          await LocalNotifications.requestPermissions();
-        }
+        await LocalNotifications.checkPermissions();
       } catch {
         // Plugin not installed — web notifications handle this
       }
