@@ -178,8 +178,8 @@ function DiscoverRecipesInner() {
     <div className="bg-white dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Sticky filters/tabs (page title is in Layout's UniversalHeader) ── */}
-      <div className="sticky top-12 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-md border-b border-[#FAD98D]/15 dark:border-[#FAD98D]/8 px-4 pt-1 pb-0 shadow-sm">
-        <div className="max-w-lg mx-auto space-y-2">
+      <div className="sticky top-12 z-30 bg-white dark:bg-[#0A1A2F] border-b border-[#FAD98D]/15 dark:border-[#FAD98D]/8 px-4 pt-0 pb-0 shadow-sm">
+        <div className="max-w-lg mx-auto space-y-1 pt-1">
 
           {/* Filters (hidden on health / collections) */}
           {showFilters && (
