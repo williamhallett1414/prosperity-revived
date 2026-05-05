@@ -59,7 +59,7 @@ export default function RecipeFilters({ filters, onFilterChange }) {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-2">
       {/* Search */}
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0A1A2F]/30 dark:text-white/30" />
@@ -67,7 +67,7 @@ export default function RecipeFilters({ filters, onFilterChange }) {
           placeholder="Search recipes or ingredients…"
           value={filters.search}
           onChange={e => onFilterChange({ ...filters, search: e.target.value })}
-          className="w-full pl-9 pr-9 py-2.5 rounded-lg bg-white dark:bg-white/5 border border-[#FAD98D]/25 dark:border-white/10 text-sm text-[#0A1A2F] dark:text-white placeholder-[#0A1A2F]/35 focus:outline-none focus:border-[#c9a227]/50"
+          className="w-full pl-9 pr-9 py-2 rounded-lg bg-white dark:bg-white/5 border border-[#FAD98D]/25 dark:border-white/10 text-sm text-[#0A1A2F] dark:text-white placeholder-[#0A1A2F]/35 focus:outline-none focus:border-[#c9a227]/50"
         />
         {filters.search && (
           <button onClick={() => onFilterChange({ ...filters, search: '' })}
