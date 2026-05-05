@@ -131,16 +131,16 @@ export default function ShareToFeedButton({
             <motion.div
               initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }}
               transition={{ type: 'spring', damping: 28, stiffness: 300 }}
-              className="fixed bottom-0 left-0 right-0 z-[201] rounded-t-3xl overflow-hidden"
-              style={{ background: '#FFFFFF', maxHeight: '90vh', overflowY: 'auto' }}
+              className="fixed bottom-0 left-0 right-0 z-[201] rounded-t-3xl overflow-hidden flex flex-col"
+              style={{ background: '#FFFFFF', maxHeight: '92vh' }}
             >
               {/* Handle */}
-              <div className="flex justify-center pt-3 pb-1">
+              <div className="flex-shrink-0 flex justify-center pt-3 pb-1">
                 <div className="w-10 h-1 rounded-full bg-gray-200" />
               </div>
 
               {/* Header */}
-              <div className="flex items-center justify-between px-5 py-3 border-b border-gray-100 dark:border-white/10">
+              <div className="flex-shrink-0 flex items-center justify-between px-5 py-3 border-b border-gray-100 dark:border-white/10">
                 <div className="flex items-center gap-2.5">
                   <div className="w-8 h-8 rounded-xl flex items-center justify-center"
                     style={{ background: `${accentColor}20` }}>
@@ -156,8 +156,8 @@ export default function ShareToFeedButton({
                 </button>
               </div>
 
-              {/* Form body */}
-              <div className="px-5 py-4 space-y-4 pb-8">
+              {/* Scrollable form body */}
+              <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4 min-h-0">
 
                 {/* Title */}
                 <div>
@@ -215,8 +215,10 @@ export default function ShareToFeedButton({
                     <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40">Your name won't be shown</p>
                   </div>
                 </button>
+              </div>
 
-                {/* Submit */}
+              {/* Sticky submit footer — always visible above bottom nav */}
+              <div className="flex-shrink-0 px-5 pt-3 pb-4 border-t border-gray-100 dark:border-white/10 bg-white dark:bg-[#0A1A2F]" style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}>
                 <button onClick={handleShare} disabled={saving}
                   className="w-full flex items-center justify-center gap-2 rounded-2xl py-3.5 text-white text-sm font-bold shadow-md dark:shadow-none active:scale-98 transition-all disabled:opacity-60"
                   style={{ background: `linear-gradient(135deg, ${accentColor}dd, ${accentColor})` }}>
