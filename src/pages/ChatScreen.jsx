@@ -1369,6 +1369,33 @@ export default function ChatScreen() {
     }
   }, [messages, cfg.welcomeMsg, handleSpeak]);
 
+  // Auto-speak each new assistant response after a user message.
+  // Skips:
+  //   - the welcome message (handled above)
+  //   - replays of the same message we already auto-spoke
+  //   - cases where the user is currently in voice-input listening mode
+  // Errors are swallowed inside handleSpeak/speakText; if iOS Safari blocks
+  // auto-play (no user gesture), the user can still tap the speaker icon to
+  // play manually. In the iOS native shell (Capacitor WKWebView) auto-play
+  // is permitted, which is the target environment for App Store delivery.
+  const lastAutoSpokenIdxRef = useRef(-1);
+  useEffect(() => {
+    if (messages.length < 2) return; // need at least a welcome + one exchange
+    const lastIdx = messages.length - 1;
+    const last = messages[lastIdx];
+    if (!last || last.role !== 'assistant') return;
+    if (lastAutoSpokenIdxRef.current === lastIdx) return; // already auto-spoke this one
+    if (last.content === cfg.welcomeMsg && lastIdx === 0) return; // covered by the welcome effect
+    if (isListening) return; // don't speak while user is dictating
+    lastAutoSpokenIdxRef.current = lastIdx;
+    // Small delay so the message renders before speech starts; keeps the visual
+    // and audio cues aligned and gives the audio element a tick to mount.
+    const timer = setTimeout(() => {
+      handleSpeak(last.content, lastIdx);
+    }, 250);
+    return () => clearTimeout(timer);
+  }, [messages, cfg.welcomeMsg, handleSpeak, isListening]);
+
   // ── STT ──────────────────────────────────────────────────────────────────────
   const stopListening = useCallback(() => {
     isListeningRef.current = false;
