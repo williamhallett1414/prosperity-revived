@@ -107,13 +107,29 @@ export const AuthProvider = ({ children }) => {
   const logout = (shouldRedirect = true) => {
     setUser(null);
     setIsAuthenticated(false);
-    
+
     if (shouldRedirect) {
-      // Use the SDK's logout method which handles token cleanup and redirect
-      base44.auth.logout(window.location.href);
+      // The SDK's base44.auth.logout(redirectUrl) clears server-side cookies AND
+      // local tokens, then navigates to redirectUrl. Default behavior was to
+      // redirect back to the current page — which left the user on Home looking
+      // signed in (Home doesn't gate on auth, so the UI doesn't change).
+      //
+      // Instead, build a "logout → login" URL chain: after server-side logout
+      // completes, redirect into Base44's login page with a clean from_url so
+      // the user actually sees the sign-in screen.
+      try {
+        const origin = (typeof window !== 'undefined' ? window.location.origin : '/');
+        const loginUrl = `${appParams.appBaseUrl}/login?from_url=${encodeURIComponent(origin)}`;
+        base44.auth.logout(loginUrl);
+        return;
+      } catch (_e) {
+        // Fallback: try plain logout, then redirectToLogin
+        try { base44.auth.logout(); } catch (_e2) {}
+        if (typeof window !== 'undefined') window.location.href = '/';
+      }
     } else {
-      // Just remove the token without redirect
-      base44.auth.logout();
+      // Just remove local tokens without server-side logout or redirect
+      try { base44.auth.logout(); } catch (_e) {}
     }
   };
 
