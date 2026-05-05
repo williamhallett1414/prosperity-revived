@@ -13,6 +13,22 @@ export const AuthProvider = ({ children }) => {
   const [appPublicSettings, setAppPublicSettings] = useState(null); // Contains only { id, public_settings }
 
   useEffect(() => {
+    // If we just logged out via the Sign Out button, force a redirect to the
+    // login page. The flag is set by logout() before navigating to the
+    // server-side logout endpoint, and survives the round-trip back into
+    // the app via sessionStorage.
+    try {
+      if (typeof window !== 'undefined' && window.sessionStorage) {
+        if (window.sessionStorage.getItem('post_logout_redirect_to_login') === '1') {
+          window.sessionStorage.removeItem('post_logout_redirect_to_login');
+          // Use a SAME-ORIGIN relative URL so we don't depend on
+          // appParams.appBaseUrl being set (it can be null in some envs).
+          const fromUrl = encodeURIComponent('/');
+          window.location.href = `/login?from_url=${fromUrl}`;
+          return;
+        }
+      }
+    } catch (_e) {}
     checkAppState();
   }, []);
 
@@ -108,28 +124,28 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     setIsAuthenticated(false);
 
-    if (shouldRedirect) {
-      // The SDK's base44.auth.logout(redirectUrl) clears server-side cookies AND
-      // local tokens, then navigates to redirectUrl. Default behavior was to
-      // redirect back to the current page — which left the user on Home looking
-      // signed in (Home doesn't gate on auth, so the UI doesn't change).
-      //
-      // Instead, build a "logout → login" URL chain: after server-side logout
-      // completes, redirect into Base44's login page with a clean from_url so
-      // the user actually sees the sign-in screen.
+    // Clear local tokens directly. Don't rely on base44.auth.logout() because
+    // its built-in redirect uses ${options.appBaseUrl} which can be null when
+    // the env var isn't set, producing broken URLs like 'null/login?...'.
+    if (typeof window !== 'undefined' && window.localStorage) {
       try {
-        const origin = (typeof window !== 'undefined' ? window.location.origin : '/');
-        const loginUrl = `${appParams.appBaseUrl}/login?from_url=${encodeURIComponent(origin)}`;
-        base44.auth.logout(loginUrl);
-        return;
-      } catch (_e) {
-        // Fallback: try plain logout, then redirectToLogin
-        try { base44.auth.logout(); } catch (_e2) {}
-        if (typeof window !== 'undefined') window.location.href = '/';
-      }
-    } else {
-      // Just remove local tokens without server-side logout or redirect
-      try { base44.auth.logout(); } catch (_e) {}
+        window.localStorage.removeItem('base44_access_token');
+        window.localStorage.removeItem('token');
+      } catch (_e) {}
+    }
+
+    if (shouldRedirect && typeof window !== 'undefined') {
+      // Use a SAME-ORIGIN relative URL to hit Base44's logout endpoint. This
+      // works regardless of whether appBaseUrl is set, since the app and the
+      // auth endpoints are served from the same Base44 origin in production.
+      // After server-side cookie clearing, Base44 redirects to from_url ('/'),
+      // and we use a sessionStorage flag to trigger the actual login redirect
+      // on the next page load (handled in AuthContext's useEffect).
+      try {
+        window.sessionStorage.setItem('post_logout_redirect_to_login', '1');
+      } catch (_e) {}
+      const fromUrl = encodeURIComponent('/');
+      window.location.href = `/api/apps/auth/logout?from_url=${fromUrl}`;
     }
   };
 
