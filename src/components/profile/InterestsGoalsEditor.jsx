@@ -73,7 +73,8 @@ export default function InterestsGoalsEditor({ user }) {
     if (!inputValue.trim()) return;
     if (!user) return;
     
-    const currentItems = user[field] || [];
+    const raw = user[field];
+    const currentItems = Array.isArray(raw) ? raw : [];
     const newItems = [...currentItems, inputValue.trim()];
     
     updateUser.mutate({ [field]: newItems });
@@ -81,7 +82,8 @@ export default function InterestsGoalsEditor({ user }) {
 
   const handleRemoveItem = (field, index) => {
     if (!user) return;
-    const currentItems = user[field] || [];
+    const raw = user[field];
+    const currentItems = Array.isArray(raw) ? raw : [];
     const newItems = currentItems.filter((_, i) => i !== index);
     
     updateUser.mutate({ [field]: newItems });
@@ -130,8 +132,10 @@ export default function InterestsGoalsEditor({ user }) {
       {user && sections.map((section) => {
         const Icon = section.icon;
         const colors = colorClasses[section.color];
-        const interests = user[section.interestsField] || [];
-        const goals = user[section.goalsField] || [];
+        const rawInterests = user[section.interestsField];
+        const rawGoals = user[section.goalsField];
+        const interests = Array.isArray(rawInterests) ? rawInterests : [];
+        const goals = Array.isArray(rawGoals) ? rawGoals : [];
 
         return (
           <Card key={section.key} className={`p-4 ${colors.bg} ${colors.border}`}>

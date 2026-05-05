@@ -22,10 +22,11 @@ class TabErrorBoundary extends React.Component {
   }
   render() {
     if (this.state.error) {
+      const msg = (this.state.error && (this.state.error.message || String(this.state.error))) || 'Unknown error';
       return (
-        <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 p-6 text-center">
-          <p className="text-sm font-bold text-[#0A1A2F] dark:text-white mb-2">This tab couldn't load</p>
-          <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60 mb-4">Something went wrong rendering this section.</p>
+        <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 p-5 text-left">
+          <p className="text-sm font-bold text-[#0A1A2F] dark:text-white mb-1">This tab couldn't load</p>
+          <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60 mb-3">Error: <span className="font-mono break-all">{msg}</span></p>
           <button onClick={() => this.setState({ error: null })} className="px-4 py-2 bg-[#c9a227] text-white rounded-xl text-xs font-bold">Try Again</button>
         </div>
       );

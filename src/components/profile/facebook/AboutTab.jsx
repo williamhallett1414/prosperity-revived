@@ -9,16 +9,16 @@ import InterestsGoalsEditor from '@/components/profile/InterestsGoalsEditor';
 export default function AboutTab({ user }) {
   const [editingBio, setEditingBio] = useState(false);
   const [editingGoal, setEditingGoal] = useState(false);
-  const [bio, setBio] = useState(user?.bio || '');
-  const [goal, setGoal] = useState(user?.spiritual_goal || '');
+  const [bio, setBio] = useState(typeof user?.bio === 'string' ? user.bio : '');
+  const [goal, setGoal] = useState(typeof user?.spiritual_goal === 'string' ? user.spiritual_goal : '');
   const [loading, setLoading] = useState(false);
 
   // Keep local state in sync when user loads asynchronously after first render
   useEffect(() => {
-    if (!editingBio) setBio(user?.bio || '');
+    if (!editingBio) setBio(typeof user?.bio === 'string' ? user.bio : '');
   }, [user?.bio, editingBio]);
   useEffect(() => {
-    if (!editingGoal) setGoal(user?.spiritual_goal || '');
+    if (!editingGoal) setGoal(typeof user?.spiritual_goal === 'string' ? user.spiritual_goal : '');
   }, [user?.spiritual_goal, editingGoal]);
 
   const handleBioSave = async () => {
