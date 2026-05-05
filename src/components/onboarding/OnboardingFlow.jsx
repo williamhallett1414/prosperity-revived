@@ -166,6 +166,7 @@ const JOB_TYPES = [
 ];
 
 const STEPS = [
+  { id: 'hook',           type: 'full', icon: Heart,    label: 'Why',         color: '#FD9C2D', showInDots: false },
   { id: 'legal',          type: 'card', icon: Shield,   label: 'Legal',       color: '#C9A227', showInDots: true  },
   { id: 'guides',         type: 'full', icon: Sparkles, label: 'Your Team',   color: '#C9A227', showInDots: false },
   { id: 'you',            type: 'card', icon: User,     label: 'You',         color: '#0A1A2F', showInDots: true  },
@@ -174,6 +175,7 @@ const STEPS = [
   { id: 'fitness',        type: 'card', icon: Dumbbell, label: 'Fitness',     color: '#38BDF8', showInDots: true  },
   { id: 'nutrition',      type: 'card', icon: Utensils, label: 'Nutrition',   color: '#22C55E', showInDots: true  },
   { id: 'faith',          type: 'card', icon: BookOpen, label: 'Faith',       color: '#C9A227', showInDots: true  },
+  { id: 'growth',         type: 'card', icon: Sparkles, label: 'Goals',       color: '#AFC7E3', showInDots: true  },
   { id: 'routine',        type: 'card', icon: Bell,     label: 'Routine',     color: '#8B5CF6', showInDots: true  },
 ];
 
@@ -222,7 +224,7 @@ function NumberInput({ label, value, onChange, min, max, unit }) {
 }
 
 // ── Hook Screen ──────────────────────────────────────────────────────────────
-function HookScreen({ value, onChange, onNext, onBack }) {
+function HookScreen({ value, onChange, onNext, onBack, showBack = true }) {
   const [focused, setFocused] = useState(false);
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
@@ -265,11 +267,19 @@ function HookScreen({ value, onChange, onNext, onBack }) {
         </motion.div>
       </div>
       <motion.div initial={{ y:30, opacity:0 }} animate={{ y:0, opacity:1 }} transition={{ delay:0.6 }}
-        className="px-6 pb-8 relative z-10 flex gap-3">
-        <button onPointerDown={onBack} className="flex items-center gap-1.5 px-4 py-3.5 rounded-2xl font-semibold text-sm text-white/50" style={{ background:'rgba(255,255,255,0.07)' }}>
-          <ChevronLeft className="w-4 h-4" /> Back
-        </button>
-        <button onPointerDown={onNext} className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-2xl font-bold text-white text-sm" style={{ background:'linear-gradient(135deg, #C9A227, #FD9C2D)' }}>
+        className="px-6 relative z-10 flex items-center gap-3"
+        style={{ paddingBottom: 'max(2rem, env(safe-area-inset-bottom))' }}>
+        {showBack ? (
+          <button onPointerDown={onBack}
+            aria-label="Back"
+            className="w-11 h-11 flex-shrink-0 rounded-2xl flex items-center justify-center text-white/60 active:scale-95 transition-transform"
+            style={{ background:'rgba(255,255,255,0.07)' }}>
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+        ) : <div className="w-0" />}
+        <button onPointerDown={onNext}
+          className="flex-1 flex items-center justify-center gap-2 h-11 rounded-2xl font-bold text-white text-sm shadow-md dark:shadow-none active:scale-[0.98] transition-transform"
+          style={{ background:'linear-gradient(135deg, #C9A227, #FD9C2D)' }}>
           Continue <ChevronRight className="w-4 h-4" />
         </button>
       </motion.div>
@@ -479,6 +489,18 @@ export default function OnboardingFlow({ onComplete }) {
   const [masterChecked, setMasterChecked] = useState(false);
   const [hookAnswer, setHookAnswer]     = useState('');
 
+  // Pre-populate ageGroup from user record. AgeVerificationGate (in Layout)
+  // runs BEFORE OnboardingFlow and saves age_group to the user. We reuse that
+  // value here instead of asking again in the legal step.
+  useEffect(() => {
+    base44.auth.me().then(u => {
+      if (u?.age_group && (u.age_group === '18plus' || u.age_group === '13to17')) {
+        setAgeGroup(u.age_group);
+      }
+      if (u?.full_name) setD(p => ({ ...p, full_name: u.full_name }));
+    }).catch(() => {});
+  }, []);
+
   const allDocsAccepted = Object.values(acceptedDocs).every(Boolean);
   const legalComplete   = ageGroup === '18plus' || ageGroup === '13to17';
   const legalCanAdvance = legalComplete && allDocsAccepted && masterChecked;
@@ -556,7 +578,7 @@ export default function OnboardingFlow({ onComplete }) {
 
   // Route full-bleed screens
   const cfg = STEPS[step];
-  if (cfg.id === 'hook')           return <AnimatePresence mode="wait"><HookScreen   key="hook"   value={hookAnswer} onChange={setHookAnswer} onNext={next} onBack={back} /></AnimatePresence>;
+  if (cfg.id === 'hook')           return <AnimatePresence mode="wait"><HookScreen   key="hook"   value={hookAnswer} onChange={setHookAnswer} onNext={next} onBack={back} showBack={step > 0} /></AnimatePresence>;
   if (cfg.id === 'guides')         return <AnimatePresence mode="wait"><GuidesScreen key="guides" onNext={next} onBack={back} /></AnimatePresence>;
   if (cfg.id.startsWith('fact_'))  return <AnimatePresence mode="wait"><FactScreen   key={cfg.id} factId={cfg.id} onNext={next} onBack={back} /></AnimatePresence>;
 
@@ -590,10 +612,10 @@ export default function OnboardingFlow({ onComplete }) {
 
           <AnimatePresence mode="wait">
             <motion.div key={step} initial={{ opacity:0, y:16 }} animate={{ opacity:1, y:0 }} exit={{ opacity:0, y:-16 }} transition={{ duration:0.22 }}
-              className="bg-white dark:bg-white/5 rounded-3xl shadow-2xl overflow-hidden">
+              className="bg-white dark:bg-white/5 rounded-3xl shadow-2xl overflow-hidden flex flex-col" style={{ maxHeight: 'calc(100vh - 140px)' }}>
 
-              {/* Card header */}
-              <div className="px-6 pt-6 pb-4" style={{ background:`linear-gradient(135deg, ${cfg.color}18, ${cfg.color}05)` }}>
+              {/* Card header (fixed) */}
+              <div className="flex-shrink-0 px-6 pt-6 pb-4" style={{ background:`linear-gradient(135deg, ${cfg.color}18, ${cfg.color}05)` }}>
                 <h2 className="text-xl font-black text-[#0A1A2F] dark:text-white leading-tight">
                   {cfg.id==='legal'     && 'Before you begin 📋'}
                   {cfg.id==='you'       && 'Welcome to Prosperity Revived 🙏'}
@@ -602,8 +624,8 @@ export default function OnboardingFlow({ onComplete }) {
                   {cfg.id==='fitness'   && 'Fitness & Body'}
                   {cfg.id==='nutrition' && 'Nutrition & Eating'}
                   {cfg.id==='faith'     && 'Faith & Bible study'}
-                  {cfg.id==='growth'    && 'Personal growth'}
-                  {cfg.id==='routine'   && 'Your daily routine'}
+                  {cfg.id==='growth'    && 'Your goals 🎯'}
+                  {cfg.id==='routine'   && 'Daily rhythm & reminders 🔔'}
                 </h2>
                 <p className="text-gray-500 dark:text-gray-300 text-xs mt-1">
                   {cfg.id==='legal'     && 'Please review and accept our legal documents to continue.'}
@@ -613,13 +635,13 @@ export default function OnboardingFlow({ onComplete }) {
                   {cfg.id==='fitness'   && 'This helps Coach David personalise your workouts.'}
                   {cfg.id==='nutrition' && "Helps Chef Daniel plan meals you'll actually enjoy."}
                   {cfg.id==='faith'     && 'So Gideon can meet you exactly where you are.'}
-                  {cfg.id==='growth'    && 'Hannah will use this to guide your growth journey.'}
+                  {cfg.id==='growth'    && 'Set the direction you want this journey to take.'}
                   {cfg.id==='routine'   && "We'll send reminders that fit your actual schedule."}
                 </p>
               </div>
 
               {/* Content */}
-              <div className="px-5 py-4 space-y-4 max-h-[60vh] overflow-y-auto">
+              <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4 min-h-0">
 
                 {/* LEGAL */}
                 {cfg.id==='legal' && (() => {
@@ -631,42 +653,23 @@ export default function OnboardingFlow({ onComplete }) {
                   ];
                   return (
                     <div className="space-y-4">
-                      <div>
-                        <p className="text-[10px] font-bold text-gray-400 dark:text-gray-300 uppercase tracking-widest mb-2">Age Confirmation *</p>
-                        <div className="space-y-2">
-                          {[
-                            { id:'18plus',  label:'I am 18 years of age or older' },
-                            { id:'13to17',  label:'I am 13–17 and have parental consent' },
-                            { id:'under13', label:'I am under 13', red:true },
-                          ].map(opt => (
-                            <button key={opt.id} onPointerDown={() => setAgeGroup(opt.id)}
-                              className={`w-full text-left px-4 py-3 rounded-2xl border-2 transition-all flex items-center gap-3 ${ageGroup===opt.id ? (opt.red?'border-red-400 bg-red-50 dark:bg-red-900/20':'border-[#FD9C2D] bg-[#FD9C2D]/8') : 'border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 hover:border-gray-200 dark:border-white/10'}`}>
-                              <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center ${ageGroup===opt.id ? (opt.red?'border-red-400 bg-red-400':'border-[#FD9C2D] bg-[#FD9C2D]') : 'border-gray-300 dark:border-white/15'}`}>
-                                {ageGroup===opt.id && <div className="w-1.5 h-1.5 rounded-full bg-white dark:bg-white/5" />}
-                              </div>
-                              <span className={`text-sm font-semibold ${ageGroup===opt.id ? (opt.red?'text-red-600':'text-[#0A1A2F] dark:text-white dark:text-white') : 'text-gray-700 dark:text-gray-200'}`}>{opt.label}</span>
-                            </button>
-                          ))}
+                      {/* Confirmation chip — age was already captured by AgeVerificationGate */}
+                      {(ageGroup === '18plus' || ageGroup === '13to17') && (
+                        <div className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-[#0A1A2F]/4 border border-[#0A1A2F]/8">
+                          <Check className="w-4 h-4 text-green-600 flex-shrink-0" />
+                          <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
+                            Age confirmed: <strong className="text-[#0A1A2F] dark:text-white">{ageGroup === '18plus' ? '18 or older' : '13–17 with parental consent'}</strong>
+                          </p>
                         </div>
-                        {ageGroup==='under13' && (
-                          <motion.div initial={{ opacity:0, y:-4 }} animate={{ opacity:1, y:0 }} className="mt-3 bg-red-50 dark:bg-red-900/20 border border-red-200 rounded-2xl p-4 flex gap-3">
-                            <AlertTriangle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                            <div>
-                              <p className="text-sm font-bold text-red-700">Sorry — you must be at least 13 to use this app</p>
-                              <p className="text-xs text-red-600 mt-1 leading-relaxed">Prosperity Revived is not available to users under 13 in compliance with COPPA.</p>
-                            </div>
-                          </motion.div>
-                        )}
-                        {ageGroup==='13to17' && (
-                          <motion.div initial={{ opacity:0, y:-4 }} animate={{ opacity:1, y:0 }} className="mt-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/30 rounded-2xl p-3">
-                            <p className="text-xs text-amber-800 leading-relaxed"><strong>Parental consent required.</strong> A parent or guardian must review and approve your use of this app.</p>
-                          </motion.div>
-                        )}
-                      </div>
-                      {(ageGroup==='18plus'||ageGroup==='13to17') && (
-                        <motion.div initial={{ opacity:0, y:8 }} animate={{ opacity:1, y:0 }} className="space-y-2">
-                          <p className="text-[10px] font-bold text-gray-400 dark:text-gray-300 uppercase tracking-widest mb-2">Review & Accept Documents *</p>
-                          {DOCS_LIST.map(({ key, icon, label, sub }) => (
+                      )}
+                      {ageGroup==='13to17' && (
+                        <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/30 rounded-2xl p-3">
+                          <p className="text-xs text-amber-800 leading-relaxed"><strong>Parental consent required.</strong> A parent or guardian must review and approve your use of this app.</p>
+                        </div>
+                      )}
+                      <div className="space-y-2">
+                        <p className="text-[10px] font-bold text-gray-400 dark:text-gray-300 uppercase tracking-widest mb-2">Review & Accept Documents *</p>
+                        {DOCS_LIST.map(({ key, icon, label, sub }) => (
                             <div key={key} className={`flex items-center gap-3 px-4 py-3 rounded-2xl border-2 transition-all ${acceptedDocs[key]?'border-green-300 bg-green-50 dark:bg-green-900/20':'border-gray-100 dark:border-white/10 bg-white dark:bg-white/5'}`}>
                               <span className="text-xl flex-shrink-0">{icon}</span>
                               <div className="flex-1 min-w-0">
@@ -681,8 +684,7 @@ export default function OnboardingFlow({ onComplete }) {
                             </div>
                           ))}
                           <p className="text-xs text-center text-gray-400 dark:text-gray-300 pt-1">{Object.values(acceptedDocs).filter(Boolean).length} of 4 reviewed</p>
-                        </motion.div>
-                      )}
+                        </div>
                       {allDocsAccepted && (
                         <motion.div initial={{ opacity:0, y:8 }} animate={{ opacity:1, y:0 }}>
                           <button onPointerDown={() => setMasterChecked(v=>!v)}
@@ -1007,26 +1009,34 @@ export default function OnboardingFlow({ onComplete }) {
 
               </div>
 
-              {/* Nav */}
-              <div className="px-5 py-4 border-t border-gray-50 dark:border-white/5 flex gap-3">
-                {step > 0 && (
-                  <button onPointerDown={back} className="flex items-center gap-1.5 px-4 py-3 rounded-2xl bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300 font-semibold text-sm">
-                    <ChevronLeft className="w-4 h-4" /> Back
+              {/* Sticky footer (always visible regardless of body scroll) */}
+              <div className="flex-shrink-0 border-t border-gray-100 dark:border-white/8 bg-white dark:bg-white/5">
+                <div className="px-5 pt-3.5 pb-4 flex items-center gap-3" style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}>
+                  {step > 0 ? (
+                    <button onPointerDown={back}
+                      aria-label="Back"
+                      className="w-11 h-11 flex-shrink-0 rounded-2xl bg-gray-100 dark:bg-white/8 text-gray-600 dark:text-gray-300 flex items-center justify-center active:scale-95 transition-transform">
+                      <ChevronLeft className="w-5 h-5" />
+                    </button>
+                  ) : (
+                    <div className="w-0" />
+                  )}
+                  <button onPointerDown={() => { if (!canAdvance()) return; next(); }}
+                    disabled={!canAdvance()||saving}
+                    className={`flex-1 flex items-center justify-center gap-2 h-11 rounded-2xl font-bold text-sm transition-all ${canAdvance()&&!saving?'text-white shadow-md dark:shadow-none active:scale-[0.98]':'bg-gray-100 dark:bg-white/8 text-gray-400 dark:text-gray-300 cursor-not-allowed'}`}
+                    style={canAdvance()&&!saving?{background:`linear-gradient(135deg, ${cfg.color}, #FD9C2D)`}:{}}>
+                    {saving ? <>⏳ Saving…</> : step===STEPS.length-1 ? <><Sparkles className="w-4 h-4" /> Start My Journey</> : <>Continue <ChevronRight className="w-4 h-4" /></>}
                   </button>
+                </div>
+                {step > 0 && step < STEPS.length-1 && cfg.id !== 'legal' && (
+                  <div className="px-5 pb-3 -mt-2">
+                    <button onPointerDown={handleComplete}
+                      className="w-full text-center text-[11px] text-gray-400 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+                      Skip for now — I'll fill this in later
+                    </button>
+                  </div>
                 )}
-                <button onPointerDown={() => { if (!canAdvance()) return; next(); }}
-                  disabled={!canAdvance()||saving}
-                  className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl font-bold text-sm transition-all ${canAdvance()&&!saving?'text-white shadow-lg dark:shadow-none':'bg-gray-100 dark:bg-white/5 text-gray-400 dark:text-gray-300 cursor-not-allowed'}`}
-                  style={canAdvance()&&!saving?{background:`linear-gradient(135deg, ${cfg.color}, #FD9C2D)`}:{}}>
-                  {saving ? <>⏳ Saving…</> : step===STEPS.length-1 ? <><Sparkles className="w-4 h-4" /> Start My Journey</> : <>Continue <ChevronRight className="w-4 h-4" /></>}
-                </button>
               </div>
-
-              {step > 0 && step < STEPS.length-1 && cfg.id !== 'legal' && (
-                <button onPointerDown={handleComplete} className="w-full text-center text-xs text-gray-400 dark:text-gray-300 hover:text-gray-600 dark:text-gray-300 pb-4 transition-colors">
-                  Skip for now — I'll fill this in later
-                </button>
-              )}
 
             </motion.div>
           </AnimatePresence>
