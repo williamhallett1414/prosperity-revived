@@ -190,10 +190,11 @@ export default function FitnessGoalsPage() {
 
 
   return (
-    <div className="min-h-screen pb-28" style={{ background: '#F2F6FA' }}>
+    <div className="bg-white dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Sub-nav (page title is in Layout's UniversalHeader) ── */}
-      <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-2 pb-0">
+      <div className="sticky z-30 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-2 pb-0"
+        style={{ top: 'calc(env(safe-area-inset-top) + 3.75rem)' }}>
         {/* ── Tab Bar ── */}
         <div className="max-w-lg mx-auto px-0 flex gap-0">
           {[
@@ -222,10 +223,11 @@ export default function FitnessGoalsPage() {
         </div>
       </div>
 
-      <div className="max-w-lg mx-auto px-4 pt-4 space-y-4">
+      <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] min-h-[calc(100vh-200px)]">
+        <div className="max-w-lg mx-auto px-4 pt-5 space-y-4">
 
         {/* Hero */}
-        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
+        <motion.div initial={{ opacity: 0, y: 0 }} animate={{ opacity: 1, y: 0 }}>
           <div className="rounded-3xl p-5 relative overflow-hidden shadow-lg dark:shadow-none"
             style={{ background: 'linear-gradient(135deg, #0A1A2F 0%, #1A3050 60%, #38BDF8 180%)' }}>
             <div className="absolute -right-8 -top-8 w-40 h-40 rounded-full bg-white/5" />
@@ -485,6 +487,7 @@ export default function FitnessGoalsPage() {
           </div>
         </motion.div>
 
+      </div>
       </div>
 
       {/* Fitness Profile Setup Modal */}
