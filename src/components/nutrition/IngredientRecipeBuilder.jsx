@@ -3,8 +3,16 @@ import { base44 } from '@/api/base44Client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Plus, X, ChefHat, Loader2, Clock, ChevronDown, ChevronUp, BookmarkPlus, Utensils, Check } from 'lucide-react';
+import { Plus, X, ChefHat, Loader2, Clock, ChevronDown, ChevronUp, BookmarkPlus, Utensils, Check, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
+
+// Tappable starter ingredient suggestions shown when the list is empty.
+// Picked to be common across most kitchens and to span proteins, veg, grains.
+const STARTER_INGREDIENTS = [
+  'Chicken', 'Eggs', 'Rice', 'Spinach', 'Tomatoes', 'Garlic', 'Onion', 'Olive oil',
+];
+
+const capitalize = (s) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s);
 
 export default function IngredientRecipeBuilder() {
   const [ingredients, setIngredients] = useState([]);
@@ -56,10 +64,10 @@ export default function IngredientRecipeBuilder() {
     toast.success(`"${recipe.name}" saved to My Recipes!`);
   };
 
-  const addIngredient = () => {
-    const trimmed = inputValue.trim();
-    if (trimmed && !ingredients.includes(trimmed)) {
-      setIngredients([...ingredients, trimmed]);
+  const addIngredient = (raw = inputValue) => {
+    const trimmed = (raw || '').trim();
+    if (trimmed && !ingredients.find(i => i.toLowerCase() === trimmed.toLowerCase())) {
+      setIngredients([...ingredients, capitalize(trimmed)]);
     }
     setInputValue('');
   };
@@ -146,276 +154,392 @@ Requirements:
     setExpandedRecipe(expandedRecipe === name ? null : name);
   };
 
+  const canGenerate = ingredients.length >= 2 && !isGenerating;
+
   return (
-    <div className="bg-white dark:bg-white/5 rounded-2xl shadow-sm dark:shadow-none p-5">
-      {/* Header */}
-      <div className="flex items-center gap-3 mb-1">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#AFC7E3] to-[#6B7280] flex items-center justify-center flex-shrink-0">
-          <ChefHat className="w-5 h-5 text-white" />
+    <div className="space-y-4">
+
+      {/* ── Hero banner ───────────────────────────────────────────────────────── */}
+      <div className="relative overflow-hidden rounded-3xl shadow-lg dark:shadow-none"
+        style={{ background: 'linear-gradient(135deg, #14532d 0%, #166534 55%, #22c55e 130%)' }}>
+        <div className="absolute -top-10 -right-10 w-44 h-44 rounded-full bg-white/8" />
+        <div className="absolute -bottom-12 -left-6 w-32 h-32 rounded-full bg-[#FAD98D]/10" />
+        <div className="absolute inset-0 opacity-[0.06]" style={{
+          backgroundImage: 'radial-gradient(rgba(255,255,255,0.9) 1px, transparent 1px)',
+          backgroundSize: '14px 14px',
+        }} />
+
+        <div className="relative px-5 pt-5 pb-5">
+          <div className="flex items-start gap-3 mb-3">
+            <div className="w-11 h-11 rounded-2xl bg-white/15 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
+              <ChefHat className="w-5 h-5 text-white" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-[10px] font-bold text-[#FAD98D] uppercase tracking-[0.2em] mb-0.5">Powered by Chef Daniel</p>
+              <h3 className="font-black text-white text-xl leading-tight">What's in your kitchen?</h3>
+              <p className="text-xs text-white/70 mt-0.5 leading-relaxed">Tell me what you have — I'll suggest 3 recipes you can make right now.</p>
+            </div>
+          </div>
+
+          {/* Step indicators */}
+          <div className="flex items-center gap-1.5 mt-4 text-[10px] font-bold uppercase tracking-widest">
+            <span className={`px-2 py-1 rounded-full ${ingredients.length > 0 ? 'bg-white text-[#166534]' : 'bg-white/15 text-white/60'}`}>
+              1 · Add
+            </span>
+            <span className="text-white/30">→</span>
+            <span className={`px-2 py-1 rounded-full ${recipes.length > 0 ? 'bg-white text-[#166534]' : 'bg-white/15 text-white/60'}`}>
+              2 · Cook
+            </span>
+            <span className="text-white/30">→</span>
+            <span className={`px-2 py-1 rounded-full ${Object.keys(loggedRecipes).length > 0 || Object.keys(savedRecipes).length > 0 ? 'bg-white text-[#166534]' : 'bg-white/15 text-white/60'}`}>
+              3 · Save
+            </span>
+          </div>
         </div>
+      </div>
+
+      {/* ── Ingredient input card ─────────────────────────────────────────────── */}
+      <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#22c55e]/15 dark:border-white/10 p-4 space-y-3">
         <div>
-          <h3 className="font-bold text-[#0A1A2F] dark:text-white text-lg">What's in your kitchen?</h3>
-          <p className="text-sm text-[#0A1A2F]/60 dark:text-white/60">Add ingredients you have and we'll suggest recipes you can make right now.</p>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-[#0A1A2F]/40 dark:text-white/40">Step 1</p>
+          <p className="text-sm font-bold text-[#0A1A2F] dark:text-white">
+            Your ingredients
+            <span className="ml-1.5 inline-flex items-center justify-center min-w-[22px] h-[22px] px-1.5 rounded-full text-[11px] font-black"
+              style={{
+                background: ingredients.length > 0 ? 'linear-gradient(135deg,#166534,#22c55e)' : '#E5E7EB',
+                color: ingredients.length > 0 ? 'white' : '#6B7280',
+              }}>
+              {ingredients.length}
+            </span>
+          </p>
         </div>
-      </div>
 
-      {/* Input Row */}
-      <div className="flex gap-2 mt-4">
-        <Input
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="e.g. chicken, rice, garlic..."
-          className="flex-1"
-        />
-        <Button
-          onClick={addIngredient}
-          disabled={!inputValue.trim()}
-          className="bg-gradient-to-r from-[#AFC7E3] to-[#6B7280] text-white px-3"
-          size="sm"
-        >
-          <Plus className="w-4 h-4" />
-        </Button>
-      </div>
+        {/* Input row */}
+        <div className="flex gap-2">
+          <Input
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="e.g. chicken, rice, garlic..."
+            className="flex-1 border-[#22c55e]/20 focus-visible:ring-[#22c55e]/40"
+          />
+          <Button
+            onClick={() => addIngredient()}
+            disabled={!inputValue.trim()}
+            className="bg-gradient-to-r from-[#166534] to-[#22c55e] text-white px-3 disabled:opacity-40"
+            size="sm"
+          >
+            <Plus className="w-4 h-4" />
+          </Button>
+        </div>
 
-      {/* Ingredient Pills */}
-      {ingredients.length > 0 && (
-        <div className="flex flex-wrap gap-2 mt-3">
-          <AnimatePresence>
-            {ingredients.map((ing) => (
-              <motion.span
-                key={ing}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                className="flex items-center gap-1.5 bg-[#FAD98D]/30 text-[#0A1A2F] dark:text-white border border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 rounded-full px-3 py-1 text-sm"
-              >
-                {ing}
-                <button
-                  onClick={() => removeIngredient(ing)}
-                  className="text-[#0A1A2F]/50 dark:text-white/50 hover:text-[#0A1A2F] dark:text-white leading-none"
+        {/* Ingredient pills */}
+        {ingredients.length > 0 ? (
+          <div className="flex flex-wrap gap-1.5">
+            <AnimatePresence>
+              {ingredients.map((ing) => (
+                <motion.span
+                  key={ing}
+                  initial={{ opacity: 0, scale: 0.85 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.85 }}
+                  className="flex items-center gap-1.5 bg-gradient-to-r from-[#22c55e]/15 to-[#166534]/10 dark:from-[#22c55e]/20 dark:to-[#166534]/15 text-[#0A1A2F] dark:text-white border border-[#22c55e]/30 dark:border-[#22c55e]/20 rounded-full pl-3 pr-1.5 py-1 text-xs font-semibold"
                 >
-                  <X className="w-3 h-3" />
+                  {ing}
+                  <button
+                    onClick={() => removeIngredient(ing)}
+                    aria-label={`Remove ${ing}`}
+                    className="text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#dc2626] hover:bg-red-100 dark:hover:bg-red-900/30 rounded-full w-4 h-4 flex items-center justify-center transition-colors"
+                  >
+                    <X className="w-3 h-3" />
+                  </button>
+                </motion.span>
+              ))}
+            </AnimatePresence>
+          </div>
+        ) : (
+          /* Starter suggestions when empty */
+          <div className="bg-[#F2F6FA] dark:bg-white/5 rounded-xl p-3 border border-dashed border-[#22c55e]/25">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-[#0A1A2F]/40 dark:text-white/40 mb-2">Try one of these</p>
+            <div className="flex flex-wrap gap-1.5">
+              {STARTER_INGREDIENTS.map(s => (
+                <button
+                  key={s}
+                  onClick={() => addIngredient(s)}
+                  className="text-xs font-semibold px-2.5 py-1 rounded-full bg-white dark:bg-white/8 text-[#166534] dark:text-[#86EFAC] border border-[#22c55e]/20 hover:bg-[#22c55e]/10 hover:border-[#22c55e]/40 transition-colors"
+                >
+                  + {s}
                 </button>
-              </motion.span>
-            ))}
-          </AnimatePresence>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Generate button */}
+        <Button
+          onClick={generateRecipes}
+          disabled={!canGenerate}
+          className={`w-full text-white font-bold h-11 rounded-xl shadow-md dark:shadow-none transition-all ${
+            !canGenerate
+              ? 'opacity-40 cursor-not-allowed bg-gradient-to-r from-[#9CA3AF] to-[#6B7280]'
+              : 'bg-gradient-to-r from-[#166534] to-[#22c55e] hover:opacity-90 active:scale-[0.98]'
+          }`}
+        >
+          {isGenerating ? (
+            <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Chef Daniel is thinking…</>
+          ) : ingredients.length < 2 ? (
+            <>Add {2 - ingredients.length} more {ingredients.length === 1 ? 'ingredient' : 'ingredients'} to generate</>
+          ) : recipes.length > 0 ? (
+            <><Sparkles className="w-4 h-4 mr-2" />Regenerate recipes</>
+          ) : (
+            <><Sparkles className="w-4 h-4 mr-2" />Generate 3 recipes</>
+          )}
+        </Button>
+
+        {error && <p className="text-red-500 text-xs text-center pt-1">{error}</p>}
+      </div>
+
+      {/* ── Loading skeleton ──────────────────────────────────────────────────── */}
+      {isGenerating && (
+        <div className="space-y-2.5">
+          {[0, 1, 2].map(i => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0.3 }}
+              animate={{ opacity: [0.3, 0.7, 0.3] }}
+              transition={{ duration: 1.4, repeat: Infinity, delay: i * 0.15 }}
+              className="h-32 rounded-2xl bg-gradient-to-r from-[#F2F6FA] via-[#22c55e]/5 to-[#F2F6FA] dark:from-white/5 dark:via-[#22c55e]/10 dark:to-white/5 border border-[#22c55e]/10"
+            />
+          ))}
         </div>
       )}
 
-      {/* Generate Button */}
-      <Button
-        onClick={generateRecipes}
-        disabled={ingredients.length < 2 || isGenerating}
-        className={`w-full mt-4 text-white font-semibold ${
-          ingredients.length < 2 ? 'opacity-50 cursor-not-allowed bg-[#AFC7E3]' : 'bg-gradient-to-r from-[#AFC7E3] to-[#6B7280]'
-        }`}
-      >
-        {isGenerating ? (
-          <>
-            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-            Finding recipes...
-          </>
-        ) : (
-          <>
-            <ChefHat className="w-4 h-4 mr-2" />
-            Generate Recipes {ingredients.length < 2 && '(add 2+ ingredients)'}
-          </>
-        )}
-      </Button>
-
-      {/* Error */}
-      {error && (
-        <p className="text-red-500 text-sm mt-3 text-center">{error}</p>
-      )}
-
-      {/* Recipe Cards */}
+      {/* ── Recipe cards ──────────────────────────────────────────────────────── */}
       <AnimatePresence>
-        {recipes.length > 0 && (
+        {recipes.length > 0 && !isGenerating && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-5 space-y-3"
+            className="space-y-3"
           >
+            <div className="flex items-center justify-between px-1">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-[#0A1A2F]/40 dark:text-white/40">Step 2 · Pick a recipe</p>
+              <p className="text-[10px] text-[#0A1A2F]/30 dark:text-white/30">{recipes.length} suggestions</p>
+            </div>
+
             {recipes.map((recipe, idx) => {
               const isExpanded = expandedRecipe === recipe.name;
-              const difficultyClass = recipe.difficulty === 'Easy'
-                ? 'bg-[#AFC7E3]/20 text-[#3C4E53]'
-                : 'bg-[#FAD98D]/30 text-[#C9A227]';
+              const difficultyColor = recipe.difficulty === 'Easy'
+                ? { bg: 'bg-[#22c55e]/15 dark:bg-[#22c55e]/20', text: 'text-[#166534] dark:text-[#86EFAC]', border: 'border-[#22c55e]/25' }
+                : recipe.difficulty === 'Medium'
+                  ? { bg: 'bg-[#FAD98D]/30 dark:bg-[#FAD98D]/15', text: 'text-[#c9a227]', border: 'border-[#FAD98D]/40 dark:border-[#FAD98D]/20' }
+                  : { bg: 'bg-[#fecaca]/40 dark:bg-red-900/20', text: 'text-[#b91c1c] dark:text-red-300', border: 'border-red-200 dark:border-red-800/30' };
 
               return (
                 <motion.div
                   key={recipe.name}
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.08 }}
-                  className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-4 border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5"
+                  className="bg-white dark:bg-white/5 rounded-2xl border border-[#22c55e]/15 dark:border-white/10 overflow-hidden shadow-sm dark:shadow-none"
                 >
-                  {/* Recipe Header */}
-                  <div className="flex items-start justify-between gap-2 mb-1">
-                    <h4 className="font-bold text-[#0A1A2F] dark:text-white text-base leading-tight">{recipe.name}</h4>
-                    <span className={`text-xs px-2 py-0.5 rounded-full flex-shrink-0 font-medium ${difficultyClass}`}>
-                      {recipe.difficulty}
-                    </span>
-                  </div>
+                  {/* Top color band — subtle visual identity per recipe */}
+                  <div className="h-1 bg-gradient-to-r from-[#166534] via-[#22c55e] to-[#86EFAC]" />
 
-                  <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70 mb-3">{recipe.description}</p>
-
-                  {/* Time & Ingredients */}
-                  <div className="flex items-center gap-4 text-xs text-[#0A1A2F]/60 dark:text-white/60 mb-2">
-                    <span className="flex items-center gap-1">
-                      <Clock className="w-3 h-3" />
-                      Prep: {recipe.prepTime}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Clock className="w-3 h-3" />
-                      Cook: {recipe.cookTime}
-                    </span>
-                  </div>
-
-                  <div className="mb-3">
-                    <p className="text-xs font-semibold text-[#0A1A2F]/60 dark:text-white/60 mb-1">Ingredients needed:</p>
-                    <div className="flex flex-wrap gap-1">
-                      {[...(recipe.usedIngredients || []), ...(recipe.additionalIngredients || [])].map((ing) => (
-                        <span key={ing} className="text-xs bg-white dark:bg-white/5 border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 rounded-full px-2 py-0.5 text-[#0A1A2F]/80 dark:text-white/80">
-                          {ing}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* View Full Recipe Toggle */}
-                  <button
-                    onClick={() => toggleExpand(recipe.name)}
-                    className="flex items-center gap-1 text-[#3C4E53] text-sm font-semibold"
-                  >
-                    {isExpanded ? (
-                      <>Hide Recipe <ChevronUp className="w-4 h-4" /></>
-                    ) : (
-                      <>View Full Recipe <ChevronDown className="w-4 h-4" /></>
-                    )}
-                  </button>
-
-                  {/* Action Buttons */}
-                  <div className="flex gap-2 mt-4 pt-3 border-t border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
-                    <button
-                      onClick={() => handleLogToFoodLog(recipe)}
-                      disabled={!!loggedRecipes[recipe.name]}
-                      className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-2xl text-xs font-bold transition-all shadow-sm dark:shadow-none ${
-                        loggedRecipes[recipe.name]
-                          ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 border border-emerald-200 shadow-none'
-                          : 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white shadow-[#c9a227]/25 active:scale-95 hover:opacity-90'
-                      }`}
-                    >
-                      {loggedRecipes[recipe.name]
-                        ? <><Check className="w-3.5 h-3.5" /> Logged!</>
-                        : <><Utensils className="w-3.5 h-3.5" /> Log to Food Log</>}
-                    </button>
-                    <button
-                      onClick={() => handleSaveRecipe(recipe)}
-                      disabled={!!savedRecipes[recipe.name]}
-                      className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-2xl text-xs font-bold transition-all shadow-sm dark:shadow-none ${
-                        savedRecipes[recipe.name]
-                          ? 'bg-[#AFC7E3]/20 text-[#3C4E53] border border-[#AFC7E3]/40 shadow-none'
-                          : 'bg-[#3C4E53] text-white shadow-[#3C4E53]/20 active:scale-95 hover:opacity-90'
-                      }`}
-                    >
-                      {savedRecipes[recipe.name]
-                        ? <><Check className="w-3.5 h-3.5" /> Saved!</>
-                        : <><BookmarkPlus className="w-3.5 h-3.5" /> Save Recipe</>}
-                    </button>
-                  </div>
-
-                  {/* Expanded Full Recipe */}
-                  <AnimatePresence>
-                    {isExpanded && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="mt-4 space-y-4 overflow-hidden"
-                      >
-                        {/* Servings */}
-                        {recipe.servings && (
-                          <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 font-medium">🍽️ {recipe.servings}</p>
-                        )}
-
-                        {/* Step-by-step instructions */}
-                        <div>
-                          <p className="text-xs font-bold text-[#0A1A2F] dark:text-white uppercase tracking-wide mb-2">Instructions</p>
-                          <ol className="space-y-2">
-                            {(recipe.steps || []).map((step, i) => (
-                              <li key={i} className="flex gap-2 text-sm text-[#0A1A2F]/80 dark:text-white/80 leading-relaxed">
-                                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#6B7280] text-white text-xs flex items-center justify-center font-bold mt-0.5">
-                                  {i + 1}
-                                </span>
-                                <span>{step}</span>
-                              </li>
-                            ))}
-                          </ol>
+                  <div className="p-4">
+                    {/* Recipe header — number badge + name + difficulty */}
+                    <div className="flex items-start gap-3 mb-2">
+                      <div className="flex-shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-[#166534] to-[#22c55e] text-white flex items-center justify-center font-black text-sm shadow-md shadow-[#22c55e]/25">
+                        {idx + 1}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-black text-[#0A1A2F] dark:text-white text-base leading-tight mb-0.5">{recipe.name}</h4>
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border ${difficultyColor.bg} ${difficultyColor.text} ${difficultyColor.border}`}>
+                            {recipe.difficulty}
+                          </span>
+                          <span className="text-[10px] text-[#0A1A2F]/50 dark:text-white/50 flex items-center gap-1">
+                            <Clock className="w-3 h-3" />
+                            {recipe.prepTime} prep · {recipe.cookTime} cook
+                          </span>
                         </div>
+                      </div>
+                    </div>
 
-                        {/* Nutrition Facts */}
-                        {recipe.nutrition && (
-                          <div className="bg-white dark:bg-white/5 rounded-xl p-4 border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
-                            <p className="text-xs font-bold text-[#0A1A2F] dark:text-white uppercase tracking-wide mb-3">Nutrition Facts <span className="font-normal normal-case text-[#0A1A2F]/50 dark:text-white/50">(per serving)</span></p>
-                            <div className="grid grid-cols-5 gap-2 text-center">
-                              {[
-                                { label: 'Calories', value: recipe.nutrition.calories },
-                                { label: 'Protein', value: recipe.nutrition.protein },
-                                { label: 'Carbs', value: recipe.nutrition.carbs },
-                                { label: 'Fat', value: recipe.nutrition.fat },
-                                { label: 'Fiber', value: recipe.nutrition.fiber },
-                              ].map(({ label, value }) => (
-                                <div key={label} className="flex flex-col items-center">
-                                  <p className="text-sm font-bold text-[#3C4E53]">{value || '—'}</p>
-                                  <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 mt-0.5">{label}</p>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
+                    <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70 leading-relaxed mb-3">{recipe.description}</p>
 
-                        {/* Health Benefits */}
-                        {recipe.healthBenefits?.length > 0 && (
+                    {/* Ingredients */}
+                    <div className="mb-3">
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-[#0A1A2F]/40 dark:text-white/40 mb-1.5">Ingredients</p>
+                      <div className="flex flex-wrap gap-1">
+                        {(recipe.usedIngredients || []).map((ing) => (
+                          <span key={`u-${ing}`} className="text-[11px] font-semibold bg-[#22c55e]/10 dark:bg-[#22c55e]/15 border border-[#22c55e]/25 rounded-full px-2 py-0.5 text-[#166534] dark:text-[#86EFAC]">
+                            {ing}
+                          </span>
+                        ))}
+                        {(recipe.additionalIngredients || []).map((ing) => (
+                          <span key={`a-${ing}`} className="text-[11px] bg-[#F2F6FA] dark:bg-white/5 border border-[#0A1A2F]/10 dark:border-white/10 rounded-full px-2 py-0.5 text-[#0A1A2F]/60 dark:text-white/60">
+                            + {ing}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Expand toggle */}
+                    <button
+                      onClick={() => toggleExpand(recipe.name)}
+                      className="flex items-center gap-1 text-[#166534] dark:text-[#86EFAC] text-xs font-bold hover:gap-1.5 transition-all"
+                    >
+                      {isExpanded ? (
+                        <>Hide full recipe <ChevronUp className="w-3.5 h-3.5" /></>
+                      ) : (
+                        <>View full recipe <ChevronDown className="w-3.5 h-3.5" /></>
+                      )}
+                    </button>
+
+                    {/* Action buttons */}
+                    <div className="flex gap-2 mt-4 pt-3 border-t border-[#22c55e]/10 dark:border-white/8">
+                      <button
+                        onClick={() => handleLogToFoodLog(recipe)}
+                        disabled={!!loggedRecipes[recipe.name]}
+                        className={`flex-1 flex items-center justify-center gap-1.5 h-10 rounded-xl text-xs font-bold transition-all ${
+                          loggedRecipes[recipe.name]
+                            ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/30'
+                            : 'bg-gradient-to-r from-[#166534] to-[#22c55e] text-white shadow-md shadow-[#22c55e]/25 active:scale-95 hover:opacity-90'
+                        }`}
+                      >
+                        {loggedRecipes[recipe.name]
+                          ? <><Check className="w-3.5 h-3.5" /> Logged today</>
+                          : <><Utensils className="w-3.5 h-3.5" /> Log to food log</>}
+                      </button>
+                      <button
+                        onClick={() => handleSaveRecipe(recipe)}
+                        disabled={!!savedRecipes[recipe.name]}
+                        className={`flex-1 flex items-center justify-center gap-1.5 h-10 rounded-xl text-xs font-bold transition-all border-2 ${
+                          savedRecipes[recipe.name]
+                            ? 'bg-[#22c55e]/10 dark:bg-[#22c55e]/15 text-[#166534] dark:text-[#86EFAC] border-[#22c55e]/30'
+                            : 'bg-white dark:bg-white/5 text-[#166534] dark:text-[#86EFAC] border-[#22c55e]/30 hover:bg-[#22c55e]/10 dark:hover:bg-[#22c55e]/15 active:scale-95'
+                        }`}
+                      >
+                        {savedRecipes[recipe.name]
+                          ? <><Check className="w-3.5 h-3.5" /> Saved</>
+                          : <><BookmarkPlus className="w-3.5 h-3.5" /> Save recipe</>}
+                      </button>
+                    </div>
+
+                    {/* Expanded detail */}
+                    <AnimatePresence>
+                      {isExpanded && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className="mt-4 space-y-4 overflow-hidden"
+                        >
+                          {/* Servings line */}
+                          {recipe.servings && (
+                            <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60 font-medium flex items-center gap-1.5">
+                              <span>🍽️</span> Makes {recipe.servings}
+                            </p>
+                          )}
+
+                          {/* Instructions */}
                           <div>
-                            <p className="text-xs font-bold text-[#0A1A2F] dark:text-white uppercase tracking-wide mb-2">Health Benefits</p>
-                            <ul className="space-y-1">
-                              {recipe.healthBenefits.map((benefit, i) => (
-                                <li key={i} className="flex gap-2 text-sm text-[#0A1A2F]/75 dark:text-white/75">
-                                  <span className="text-[#AFC7E3] flex-shrink-0">✓</span>
-                                  {benefit}
+                            <p className="text-[10px] font-black text-[#166534] dark:text-[#86EFAC] uppercase tracking-widest mb-2 flex items-center gap-1.5">
+                              <span className="w-1 h-3 bg-[#22c55e] rounded-full" />
+                              Instructions
+                            </p>
+                            <ol className="space-y-2.5">
+                              {(recipe.steps || []).map((step, i) => (
+                                <li key={i} className="flex gap-2.5 text-sm text-[#0A1A2F]/85 dark:text-white/85 leading-relaxed">
+                                  <span className="flex-shrink-0 w-6 h-6 rounded-lg bg-gradient-to-br from-[#166534] to-[#22c55e] text-white text-xs flex items-center justify-center font-black shadow-sm shadow-[#22c55e]/25 mt-0.5">
+                                    {i + 1}
+                                  </span>
+                                  <span>{step}</span>
                                 </li>
                               ))}
-                            </ul>
+                            </ol>
                           </div>
-                        )}
 
-                        {/* Chef Tips */}
-                        {recipe.chefTips?.length > 0 && (
-                          <div className="bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 rounded-xl p-4 border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
-                            <p className="text-xs font-bold text-[#C9A227] uppercase tracking-wide mb-2">👨‍🍳 Chef Daniel's Tips</p>
-                            <ul className="space-y-1">
-                              {recipe.chefTips.map((tip, i) => (
-                                <li key={i} className="text-sm text-[#0A1A2F]/75 dark:text-white/75 flex gap-2">
-                                  <span className="text-[#3C4E53] flex-shrink-0">•</span>
-                                  {tip}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
+                          {/* Nutrition Facts */}
+                          {recipe.nutrition && (
+                            <div className="bg-gradient-to-br from-[#F2F6FA] to-[#22c55e]/5 dark:from-white/5 dark:to-[#22c55e]/10 rounded-xl p-3 border border-[#22c55e]/15">
+                              <p className="text-[10px] font-black text-[#166534] dark:text-[#86EFAC] uppercase tracking-widest mb-2.5 flex items-center justify-between">
+                                <span className="flex items-center gap-1.5">
+                                  <span className="w-1 h-3 bg-[#22c55e] rounded-full" />
+                                  Nutrition
+                                </span>
+                                <span className="text-[9px] font-semibold text-[#0A1A2F]/40 dark:text-white/40 normal-case tracking-normal">per serving</span>
+                              </p>
+                              {/* Calories prominent on top */}
+                              <div className="bg-white dark:bg-white/5 rounded-lg p-2 mb-2 flex items-center justify-between border border-[#22c55e]/15">
+                                <span className="text-[10px] font-bold uppercase tracking-widest text-[#0A1A2F]/50 dark:text-white/50">Calories</span>
+                                <span className="text-base font-black text-[#166534] dark:text-[#86EFAC]">{recipe.nutrition.calories || '—'}</span>
+                              </div>
+                              {/* Macros below */}
+                              <div className="grid grid-cols-4 gap-1.5">
+                                {[
+                                  { label: 'Protein', value: recipe.nutrition.protein },
+                                  { label: 'Carbs', value: recipe.nutrition.carbs },
+                                  { label: 'Fat', value: recipe.nutrition.fat },
+                                  { label: 'Fiber', value: recipe.nutrition.fiber },
+                                ].map(({ label, value }) => (
+                                  <div key={label} className="bg-white dark:bg-white/5 rounded-lg p-2 text-center border border-[#22c55e]/10">
+                                    <p className="text-sm font-black text-[#0A1A2F] dark:text-white leading-tight">{value || '—'}</p>
+                                    <p className="text-[9px] uppercase tracking-wider text-[#0A1A2F]/40 dark:text-white/40 mt-0.5">{label}</p>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
 
-                        {/* Faith Note */}
-                        {recipe.faithNote && (
-                          <div className="bg-[#AFC7E3]/15 rounded-xl p-4 border border-[#AFC7E3]/30 flex gap-3">
-                            <span className="text-lg flex-shrink-0">🙏</span>
-                            <p className="text-sm text-[#3C4E53] italic leading-relaxed">{recipe.faithNote}</p>
-                          </div>
-                        )}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                          {/* Health Benefits */}
+                          {recipe.healthBenefits?.length > 0 && (
+                            <div>
+                              <p className="text-[10px] font-black text-[#166534] dark:text-[#86EFAC] uppercase tracking-widest mb-2 flex items-center gap-1.5">
+                                <span className="w-1 h-3 bg-[#22c55e] rounded-full" />
+                                Health Benefits
+                              </p>
+                              <ul className="space-y-1.5">
+                                {recipe.healthBenefits.map((benefit, i) => (
+                                  <li key={i} className="flex gap-2 text-sm text-[#0A1A2F]/80 dark:text-white/80 leading-snug">
+                                    <span className="text-[#22c55e] flex-shrink-0 mt-0.5">✓</span>
+                                    {benefit}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+
+                          {/* Chef Tips */}
+                          {recipe.chefTips?.length > 0 && (
+                            <div className="bg-gradient-to-br from-[#FAD98D]/20 to-[#FAD98D]/8 dark:from-[#FAD98D]/12 dark:to-[#FAD98D]/4 rounded-xl p-3 border border-[#FAD98D]/30 dark:border-[#FAD98D]/15">
+                              <p className="text-[10px] font-black text-[#c9a227] uppercase tracking-widest mb-2 flex items-center gap-1.5">
+                                <span>👨‍🍳</span>
+                                Chef Daniel's Tips
+                              </p>
+                              <ul className="space-y-1.5">
+                                {recipe.chefTips.map((tip, i) => (
+                                  <li key={i} className="text-sm text-[#0A1A2F]/80 dark:text-white/80 flex gap-2 leading-snug">
+                                    <span className="text-[#c9a227] flex-shrink-0 mt-0.5">•</span>
+                                    {tip}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+
+                          {/* Faith Note */}
+                          {recipe.faithNote && (
+                            <div className="bg-gradient-to-br from-[#22c55e]/10 to-[#166534]/5 dark:from-[#22c55e]/15 dark:to-[#166534]/10 rounded-xl p-3 border border-[#22c55e]/20 flex gap-2.5">
+                              <span className="text-lg flex-shrink-0 leading-none">🙏</span>
+                              <p className="text-sm text-[#166534] dark:text-[#86EFAC] italic leading-relaxed">{recipe.faithNote}</p>
+                            </div>
+                          )}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
                 </motion.div>
               );
             })}
