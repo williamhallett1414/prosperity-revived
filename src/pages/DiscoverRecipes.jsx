@@ -178,15 +178,50 @@ function DiscoverRecipesInner() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Sticky filters/tabs (page title is in Layout's UniversalHeader) ── */}
-      <div className="sticky top-14 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-md border-b border-[#FAD98D]/15 dark:border-[#FAD98D]/8 px-4 pt-3 pb-3 shadow-sm">
+      <div className="sticky top-14 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-md border-b border-[#FAD98D]/15 dark:border-[#FAD98D]/8 px-4 pt-3 pb-0 shadow-sm">
         <div className="max-w-lg mx-auto space-y-3">
 
-          {/* Menu row */}
-          <div className="flex items-center justify-end">
-            {/* Hamburger menu */}
-            <div className="relative">
+          {/* Filters (hidden on health / collections) */}
+          {showFilters && (
+            <RecipeFilters filters={filters} onFilterChange={setFilters} />
+          )}
+
+          {/* Tab bar + actions menu (combined row) */}
+          <div className="flex items-center gap-2 border-b border-[#FAD98D]/20 dark:border-white/10 -mx-4 px-4">
+            <div className="flex-1 min-w-0 flex gap-0 overflow-x-auto scrollbar-hide">
+              {TABS.map(({ id, label, icon: Icon }) => (
+                <button
+                  key={id}
+                  onClick={() => setActiveTab(id)}
+                  className={`flex-shrink-0 flex flex-col items-center gap-1 py-3 px-4 text-xs font-semibold relative transition-colors ${
+                    activeTab === id
+                      ? id === 'health'
+                        ? 'text-red-500 dark:text-red-400'
+                        : 'text-[#c9a227] dark:text-[#FAD98D]'
+                      : 'text-[#0A1A2F]/50 dark:text-white/50 hover:text-[#0A1A2F]/70 dark:hover:text-white/70'
+                  }`}
+                >
+                  <Icon className="w-4 h-4" />
+                  {label}
+                  {id !== 'collections' && counts[id] > 0 && activeTab !== id && (
+                    <span className="absolute top-2 right-2 bg-[#c9a227] text-white text-[7px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                      {counts[id]}
+                    </span>
+                  )}
+                  {activeTab === id && (
+                    <div className={`absolute bottom-0 left-0 right-0 h-0.5 ${
+                      id === 'health' ? 'bg-red-500 dark:bg-red-400' : 'bg-[#c9a227] dark:bg-[#FAD98D]'
+                    }`} />
+                  )}
+                </button>
+              ))}
+            </div>
+
+            {/* Hamburger menu — inline with tabs on the right */}
+            <div className="relative flex-shrink-0 self-center pb-1">
               <button onClick={() => setShowMenu(v => !v)}
-                className="relative w-9 h-9 rounded-xl bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 flex items-center justify-center text-[#c9a227] hover:bg-[#FAD98D]/25 dark:bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 transition-colors">
+                aria-label="More actions"
+                className="relative w-9 h-9 rounded-xl bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 flex items-center justify-center text-[#c9a227] hover:bg-[#FAD98D]/25 transition-colors">
                 {showMenu ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
                 {totalCount > 0 && !showMenu && (
                   <span className="absolute -top-1.5 -right-1.5 bg-[#c9a227] text-white text-[9px] font-bold rounded-full flex items-center justify-center shadow-sm"
@@ -235,41 +270,6 @@ function DiscoverRecipesInner() {
                 </div>
               )}
             </div>
-          </div>
-
-          {/* Filters (hidden on health / collections) */}
-          {showFilters && (
-            <RecipeFilters filters={filters} onFilterChange={setFilters} />
-          )}
-
-          {/* Tab bar */}
-          <div className="flex gap-0 overflow-x-auto scrollbar-hide border-b border-[#FAD98D]/20 dark:border-white/10 -mx-4 px-4">
-            {TABS.map(({ id, label, icon: Icon }) => (
-              <button
-                key={id}
-                onClick={() => setActiveTab(id)}
-                className={`flex-shrink-0 flex flex-col items-center gap-1 py-3 px-4 text-xs font-semibold relative transition-colors ${
-                  activeTab === id
-                    ? id === 'health'
-                      ? 'text-red-500 dark:text-red-400'
-                      : 'text-[#c9a227] dark:text-[#FAD98D]'
-                    : 'text-[#0A1A2F]/50 dark:text-white/50 hover:text-[#0A1A2F]/70 dark:hover:text-white/70'
-                }`}
-              >
-                <Icon className="w-4 h-4" />
-                {label}
-                {id !== 'collections' && counts[id] > 0 && activeTab !== id && (
-                  <span className="absolute top-2 right-2 bg-[#c9a227] text-white text-[7px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
-                    {counts[id]}
-                  </span>
-                )}
-                {activeTab === id && (
-                  <div className={`absolute bottom-0 left-0 right-0 h-0.5 ${
-                    id === 'health' ? 'bg-red-500 dark:bg-red-400' : 'bg-[#c9a227] dark:bg-[#FAD98D]'
-                  }`} />
-                )}
-              </button>
-            ))}
           </div>
 
         </div>
