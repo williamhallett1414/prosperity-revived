@@ -292,24 +292,19 @@ function WorkoutsInner() {
       </div>
 
 
-      {/* ── Header ── */}
+      {/* ── Sub-nav (page title is in Layout's UniversalHeader) ── */}
       <div className="sticky top-14 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#BAE6FD]/40">
-        <div className="px-4 py-3 max-w-2xl mx-auto flex items-center justify-between">
-          <div>
-            <h1 className="text-xl font-black text-[#0A1A2F] dark:text-white">Fitness</h1>
+        {streak > 0 && (
+          <div className="px-4 pt-2 max-w-2xl mx-auto flex items-center justify-end">
+            <div className="flex items-center gap-1 bg-orange-50 dark:bg-orange-900/20 border border-orange-100 dark:border-orange-800/30 px-2.5 py-1 rounded-full">
+              <Flame className="w-3.5 h-3.5 text-orange-500" />
+              <span className="text-xs font-bold text-orange-600">{streak}d</span>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            {streak > 0 &&
-            <div className="flex items-center gap-1 bg-orange-50 dark:bg-orange-900/20 border border-orange-100 dark:border-orange-800/30 px-2.5 py-1.5 rounded-full">
-                <Flame className="w-3.5 h-3.5 text-orange-500" />
-                <span className="text-xs font-bold text-orange-600">{streak}d</span>
-              </div>
-            }
-          </div>
-        </div>
+        )}
 
         {/* ── Tab Bar ── */}
-         <div className="max-w-2xl mx-auto px-3 sm:px-4 flex gap-0 overflow-x-auto">
+         <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-2 flex gap-0 overflow-x-auto">
            <div className="flex gap-0 w-full">
              {[
              { id: 'today', label: 'Today', icon: <Dumbbell className="w-3.5 h-3.5" /> },

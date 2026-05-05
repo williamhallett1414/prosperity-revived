@@ -7,8 +7,7 @@ import { motion } from 'framer-motion';
 import {
   Target, TrendingUp, Trophy, CheckCircle2,
   Sparkles, ChevronRight,
-  Flame, Crown, Calendar, ArrowLeft
-} from 'lucide-react';
+  Flame, Crown, Calendar } from 'lucide-react';
 import { format } from 'date-fns';
 
 import HolisticProgressReport from '@/components/journey/HolisticProgressReport';
@@ -27,8 +26,7 @@ const MEMORY_ICONS = {
   goal:        { icon: Target,       color: 'text-[#AFC7E3]',  bg: 'bg-[#AFC7E3]/15' },
   milestone:   { icon: TrendingUp,   color: 'text-[#c9a227]',  bg: 'bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8' },
   achievement: { icon: Trophy,       color: 'text-yellow-500', bg: 'bg-yellow-50 dark:bg-yellow-900/20'      },
-  success:     { icon: CheckCircle2, color: 'text-green-500',  bg: 'bg-green-50 dark:bg-green-900/20'       },
-};
+  success:     { icon: CheckCircle2, color: 'text-green-500',  bg: 'bg-green-50 dark:bg-green-900/20'       } };
 
 // ─── Streak / level banner ─────────────────────────────────────────────────────
 function ProgressBanner({ progress }) {
@@ -175,8 +173,7 @@ export default function ProgressDashboard() {
   // ── 3 queries (chatbot context is now lazy — fetched only when that chatbot opens) ──
   const { data: user } = useQuery({
     queryKey: ['currentUser'],
-    queryFn: async () => { try { return await base44.auth.me(); } catch (_e) { return null; } },
-  });
+    queryFn: async () => { try { return await base44.auth.me(); } catch (_e) { return null; } } });
 
   const { data: userProgress } = useQuery({
     queryKey: ['userProgress', user?.email],
@@ -184,8 +181,7 @@ export default function ProgressDashboard() {
       try { const list = await base44.entities.UserProgress.filter({ created_by: user.email }); return list[0] || null; }
       catch (_e) { return null; }
     },
-    enabled: !!user?.email,
-  });
+    enabled: !!user?.email });
 
   const { data: allMemories = [], isLoading } = useQuery({
     queryKey: ['allChatbotMemories', user?.email],
@@ -193,14 +189,12 @@ export default function ProgressDashboard() {
       try {
         const m = await base44.entities.ChatbotMemory.filter({
           created_by: user.email,
-          memory_type: ['goal', 'milestone', 'achievement', 'success'],
-        });
+          memory_type: ['goal', 'milestone', 'achievement', 'success'] });
         return m.sort((a, b) => new Date(b.created_date) - new Date(a.created_date));
       } catch (_e) { return []; }
     },
     enabled: !!user?.email,
-    initialData: [],
-  });
+    initialData: [] });
 
   const hasActivity = allMemories.length > 0 || userProgress?.workouts_completed || userProgress?.prayers_logged;
 
@@ -223,28 +217,11 @@ export default function ProgressDashboard() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
-      {/* ── Standard Header ── */}
-      <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-4 pb-3">
-        <div className="max-w-lg mx-auto flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#AFC7E3] to-[#3C4E53] flex items-center justify-center">
-            <TrendingUp className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">My Progress</h1>
-            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Your growth journey</p>
-          </div>
-        </div>
-      </div>
+      {/* (Page header is provided by Layout's UniversalHeader) */}
 
       <div className="max-w-lg mx-auto px-4 pt-4 pb-6 space-y-5">
 
-        {/* 1. Page header */}
-        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-2xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">Your Journey</h1>
-          <p className="text-sm text-[#0A1A2F]/50 dark:text-white/50 mt-0.5">Progress across all areas of growth</p>
-        </motion.div>
-
-        {/* 2. Streak / level banner (taps to Achievements) */}
+        {/* 1. Streak / level banner (taps to Achievements) */}
         <ProgressBanner progress={userProgress} />
 
         {/* 3. New user nudge — only shown with no activity */}

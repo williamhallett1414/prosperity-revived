@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Play, Square, Clock, Flame, BookOpen, Plus } from 'lucide-react';
+import { Play, Square, Clock, Flame, BookOpen, Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -49,8 +49,7 @@ function FastingTrackerInner() {
   const { data: fasts = [] } = useQuery({
     queryKey: ['fasts'],
     queryFn: () => base44.entities.FastingLog.filter({ created_by: user.email }),
-    enabled: !!user,
-  });
+    enabled: !!user });
 
   const createFast = useMutation({
     mutationFn: (data) => base44.entities.FastingLog.create(data),
@@ -59,13 +58,11 @@ function FastingTrackerInner() {
       setShowNew(false);
       setIntention('');
       toast.success('Your fast has begun. God sees your sacrifice.');
-    },
-  });
+    } });
 
   const updateFast = useMutation({
     mutationFn: ({ id, data }) => base44.entities.FastingLog.update(id, data),
-    onSuccess: () => queryClient.invalidateQueries(['fasts']),
-  });
+    onSuccess: () => queryClient.invalidateQueries(['fasts']) });
 
 
   const activeFast = fasts.find(f => f.status === 'active');
@@ -82,15 +79,7 @@ function FastingTrackerInner() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
       <div className="max-w-lg mx-auto px-4 pt-4 space-y-4">
-        <div className="flex items-center gap-3 mb-2">
-          <button onClick={() => navigate(-1)} className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center">
-            <ArrowLeft className="w-5 h-5 text-[#0A1A2F] dark:text-white" />
-          </button>
-          <div>
-            <h1 className="text-xl font-bold text-[#0A1A2F] dark:text-white">Fasting</h1>
-            <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">Draw near to God through sacrifice</p>
-          </div>
-        </div>
+        {/* (Page header is provided by Layout's UniversalHeader) */}
 
         {/* Scripture banner */}
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
@@ -152,8 +141,7 @@ function FastingTrackerInner() {
                     title: `Fast Day ${getDaysIn(activeFast)}: ${FAST_TYPES.find(t => t.id === activeFast.fast_type)?.label}`,
                     content: journalText.trim(),
                     category: 'fasting',
-                    date: today,
-                  });
+                    date: today });
                   setJournalText('');
                   toast.success('Fasting reflection saved');
                 }
@@ -234,8 +222,7 @@ function FastingTrackerInner() {
                 duration,
                 intention: intention.trim(),
                 start_date: today,
-                status: 'active',
-              })} className="flex-1 bg-[#c9a227] text-white min-h-[44px]">
+                status: 'active' })} className="flex-1 bg-[#c9a227] text-white min-h-[44px]">
                 Begin Fast
               </Button>
             </div>

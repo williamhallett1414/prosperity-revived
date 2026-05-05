@@ -68,14 +68,10 @@ function SpiritualAssessmentInner() {
     return (
       <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
         <div className="max-w-lg mx-auto px-4 pt-4 space-y-4">
-          <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-sm text-[#0A1A2F]/60 dark:text-white/60 dark:text-white/50 min-h-[44px]">
-            <ArrowLeft className="w-4 h-4" /> Back
-          </button>
-
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             className="bg-gradient-to-br from-[#0A1A2F] to-[#1a3050] dark:from-white/8 dark:to-white/4 rounded-2xl p-6 border border-white/10 text-center">
             <span className="text-4xl block mb-3">🌱</span>
-            <h1 className="text-xl font-bold text-white mb-2">Spiritual Growth Assessment</h1>
+            <h1 className="text-xl font-bold text-white mb-2">Where are you in your walk?</h1>
             <p className="text-white/60 text-sm leading-relaxed mb-4">
               10 honest questions about your faith journey. No right or wrong answers — just an honest look at where you are so you can see where God takes you.
             </p>

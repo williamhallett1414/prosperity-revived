@@ -546,14 +546,13 @@ export default function WorkoutPlanner() {
 
       
 
-      {/* ── Page Header ── */}
-      <div className="bg-[#3C4E53] px-5 pt-7 pb-6 relative overflow-hidden">
+      {/* ── Page hero (page title is in Layout's UniversalHeader) ── */}
+      <div className="bg-[#3C4E53] px-5 pt-6 pb-6 relative overflow-hidden">
         <div className="absolute -top-8 -right-8 w-40 h-40 rounded-full bg-[#FD9C2D]/10" />
         <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#FD9C2D] via-[#FAD98D] to-transparent" />
         <div className="relative z-10 max-w-2xl mx-auto text-center">
           <p className="text-[#FAD98D] text-xs font-bold tracking-widest uppercase mb-2">Prosperity Revived</p>
-          <h1 className="text-white text-2xl font-black mb-1">Workout Planner 🏋️</h1>
-          <p className="text-white/60 text-sm">Train your body. Strengthen your faith.</p>
+          <p className="text-white/80 text-base font-medium">Train your body. <span className="text-[#FAD98D]">Strengthen your faith.</span> 🏋️</p>
         </div>
       </div>
 

@@ -782,11 +782,10 @@ export default function Prayer() {
   return (
     <div className="min-h-screen pb-28" style={{ background: 'linear-gradient(180deg, #FEF7EE 0%, #FDF3E6 50%, #FCE8D6 100%)' }}>
 
-      {/* ── Sticky top bar ── */}
-      <div className="sticky top-14 z-30 flex items-center justify-between px-5 py-3"
+      {/* ── Sticky sub-bar (page title is in Layout's UniversalHeader) ── */}
+      <div className="sticky top-14 z-30 flex items-center justify-between px-5 py-2.5"
         style={{ background: 'rgba(255,247,238,0.95)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(201,162,39,0.15)' }}>
         <div className="flex items-center gap-3">
-          <h1 className="text-lg font-bold text-[#3C4E53]" style={{ fontFamily: 'Georgia, serif' }}>Prayer</h1>
           <div className="flex items-center gap-1.5">
             <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
             <span className="text-[11px] text-[#3C4E53]/50 font-medium">{prayerRequests.length} requests</span>

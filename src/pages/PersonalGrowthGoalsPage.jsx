@@ -6,8 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
   Brain, Heart, Sparkles, Target, ChevronRight,
   Compass, Zap,
-  AlertTriangle, Star, Briefcase, ArrowLeft
-} from 'lucide-react';
+  AlertTriangle, Star, Briefcase } from 'lucide-react';
 
 // ── Label maps ─────────────────────────────────────────────────────────────────
 const GROWTH_AREA_INFO = {
@@ -46,8 +45,7 @@ const GROWTH_AREA_INFO = {
   identity:               { label: 'Identity', emoji: '✨',
     desc: 'Knowing deeply who you are and who you\'re becoming.',
     tools: ['Affirmations', 'Emotional Check-in', 'Hannah coaching'],
-    pages: ['AffirmationsPage', 'EmotionalCheckInPage'] },
-};
+    pages: ['AffirmationsPage', 'EmotionalCheckInPage'] } };
 
 const CORE_VALUE_INFO = {
   family:       { label: 'Family',       emoji: '👨‍👩‍👧' },
@@ -61,8 +59,7 @@ const CORE_VALUE_INFO = {
   creativity:   { label: 'Creativity',   emoji: '🎨' },
   security:     { label: 'Security',     emoji: '🏡' },
   adventure:    { label: 'Adventure',    emoji: '🧭' },
-  connection:   { label: 'Connection',   emoji: '🤝' },
-};
+  connection:   { label: 'Connection',   emoji: '🤝' } };
 
 const COACHING_STYLE_INFO = {
   gentle:      { label: 'Gentle & Supportive', emoji: '🌸', time: 'Warm, encouraging, at your pace',
@@ -76,8 +73,7 @@ const COACHING_STYLE_INFO = {
     tip: 'Best for people who want to deeply understand themselves.' },
   structured:  { label: 'Structured', emoji: '📋', time: 'Frameworks, tools, exercises',
     desc: 'Hannah uses proven frameworks — she gives you structured exercises, models, and tools you can use immediately.',
-    tip: 'Best for analytical thinkers who love systems and clarity.' },
-};
+    tip: 'Best for analytical thinkers who love systems and clarity.' } };
 
 const MOTIVATION_INFO = {
   lose_weight:      { label: 'Lose weight',           emoji: '🔥' },
@@ -88,8 +84,7 @@ const MOTIVATION_INFO = {
   better_habits:    { label: 'Build better habits',    emoji: '✅' },
   relationships:    { label: 'Improve relationships',  emoji: '💞' },
   find_purpose:     { label: 'Find purpose',           emoji: '🌟' },
-  just_exploring:   { label: 'Just exploring',         emoji: '🔍' },
-};
+  just_exploring:   { label: 'Just exploring',         emoji: '🔍' } };
 
 const LIFE_STAGE_INFO = {
   student:      { label: 'Student',        emoji: '🎓', focus: 'Identity, habits, and academic/social resilience.' },
@@ -97,8 +92,7 @@ const LIFE_STAGE_INFO = {
   mid_career:   { label: 'Mid-career',     emoji: '💼', focus: 'Leadership, balance, and reigniting your vision.' },
   parent:       { label: 'Parent',         emoji: '👶', focus: 'Patience, boundaries, and modelling growth for your kids.' },
   transition:   { label: 'In transition',  emoji: '🔄', focus: 'Clarity, resilience, and building a new foundation.' },
-  other:        { label: 'Other',          emoji: '✨', focus: 'Your growth journey is unique — Hannah meets you where you are.' },
-};
+  other:        { label: 'Other',          emoji: '✨', focus: 'Your growth journey is unique — Hannah meets you where you are.' } };
 
 // ── Tools each growth area maps to ────────────────────────────────────────────
 const DAILY_TOOLS = [
@@ -124,8 +118,7 @@ const VALUE_AFFIRMATIONS = {
   creativity:   'I bring something unique into the world that only I can.',
   security:     'I am grounded, stable, and at peace in who I am.',
   adventure:    'I say yes to growth, newness, and the unexpected.',
-  connection:   'Deep relationships are worth the risk of vulnerability.',
-};
+  connection:   'Deep relationships are worth the risk of vulnerability.' };
 
 // ── Mini chip ──────────────────────────────────────────────────────────────────
 function Chip({ emoji, label, color = '#AFC7E3', bg = '#EFF9FF' }) {
@@ -189,19 +182,9 @@ export default function PersonalGrowthGoalsPage() {
   return (
     <div className="min-h-screen pb-28" style={{ background: '#F2F6FA' }}>
 
-      {/* ── Standard Header with Tabs ── */}
+      {/* ── Sub-nav (page title is in Layout's UniversalHeader) ── */}
       <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#AFC7E3]/25">
-        <div className="px-4 pt-4 pb-3 max-w-lg mx-auto flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#AFC7E3] to-[#3C4E53] flex items-center justify-center">
-            <Target className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Growth Goals</h1>
-            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Your growth profile</p>
-          </div>
-        </div>
-
-        <div className="max-w-lg mx-auto px-4 flex gap-1.5 overflow-x-auto items-center pb-3">
+        <div className="max-w-lg mx-auto px-4 pt-2 flex gap-1.5 overflow-x-auto items-center pb-3">
           {[
             { id: 'overview', label: 'Overview', icon: <Target className="w-3.5 h-3.5" /> },
             { id: 'areas', label: 'Growth Areas', icon: <Brain className="w-3.5 h-3.5" /> },

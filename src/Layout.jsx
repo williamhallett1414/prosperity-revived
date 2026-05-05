@@ -237,6 +237,8 @@ export default function Layout({ children, currentPageName }) {
     PrivacyPolicy: 'Privacy Policy',
     SubscriptionTerms: 'Subscription Terms',
     GuidedMeditationsPage: 'Meditations',
+    FastingTracker: 'Fasting',
+    SpiritualAssessment: 'Spiritual Assessment',
   };
 
   // Dynamic title for ChatScreen based on bot parameter

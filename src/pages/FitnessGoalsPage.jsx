@@ -5,8 +5,7 @@ import { createPageUrl } from '@/utils';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Scale, Target, Flame, Activity, Zap, Droplets,
-  ChevronRight, Info, Edit2, Check, BarChart2, Clock, Dumbbell, Calendar, TrendingUp, ArrowLeft
-} from 'lucide-react';
+  ChevronRight, Info, Edit2, Check, BarChart2, Clock, Dumbbell, Calendar, TrendingUp } from 'lucide-react';
 import FitnessProfileSetup from '@/components/fitness/FitnessProfileSetup';
 
 // ── Calculations ──────────────────────────────────────────────────────────────
@@ -76,8 +75,7 @@ const GOAL_LABELS = {
   lose_weight: 'Lose Weight', lose_weight_fast: 'Lose Weight (Fast)',
   build_muscle: 'Build Muscle', bulk: 'Bulk Up', maintain: 'Maintain Weight',
   improve_endurance: 'Improve Endurance', improve_flexibility: 'Improve Flexibility',
-  general_fitness: 'General Fitness',
-};
+  general_fitness: 'General Fitness' };
 
 // ── BMI gauge ─────────────────────────────────────────────────────────────────
 function BMIGauge({ bmi }) {
@@ -194,18 +192,8 @@ export default function FitnessGoalsPage() {
   return (
     <div className="min-h-screen pb-28" style={{ background: '#F2F6FA' }}>
 
-      {/* ── Standard Header ── */}
-      <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-4 pb-0">
-        <div className="max-w-lg mx-auto flex items-center gap-3 pb-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#38BDF8] to-[#0EA5E9] flex items-center justify-center">
-            <Target className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Fitness Goals</h1>
-            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Your fitness profile</p>
-          </div>
-        </div>
-
+      {/* ── Sub-nav (page title is in Layout's UniversalHeader) ── */}
+      <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-2 pb-0">
         {/* ── Tab Bar ── */}
         <div className="max-w-lg mx-auto px-0 flex gap-0">
           {[

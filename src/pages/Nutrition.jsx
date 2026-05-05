@@ -204,46 +204,40 @@ function NutritionInner() {
       </div>
 
 
-      {/* ── Sticky header ── */}
+      {/* ── Sub-nav (page title is in Layout's UniversalHeader) ── */}
       <div className="sticky top-14 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none">
-        <div className="max-w-lg mx-auto px-4 pt-3 pb-0">
-
-          {/* Title row */}
-          <div className="flex items-center justify-between mb-3">
-            <div>
-              <h1 className="text-lg font-black text-[#0A1A2F] dark:text-white leading-tight">Nutrition</h1>
-              <p className="text-[11px] text-[#0A1A2F]/40 dark:text-white/40 font-medium">Track · Plan · Nourish</p>
+        <div className="max-w-lg mx-auto px-4 pt-2 pb-0">
+          <div className="flex items-center gap-2">
+            {/* Nav tabs */}
+            <div id="tour-nutrition-goals-entry" className="flex-1 min-w-0 flex gap-0 border-b border-transparent -mb-px overflow-x-auto">
+              {TABS.filter(t => t.id !== 'log').map((tab) => {
+                const isActive = activeTab === tab.id && tab.id !== 'goals' && tab.id !== 'history';
+                const TabIcon = tab.icon;
+                return (
+                  <button key={tab.id} onClick={() => {
+                    if (tab.id === 'goals') navigate(createPageUrl('NutritionGoalsPage'));
+                    else if (tab.id === 'history') navigate(createPageUrl('FoodLogHistory'));
+                    else setActiveTab(tab.id);
+                  }}
+                  className={`flex items-center gap-1 px-3 py-2.5 text-xs font-semibold border-b-2 transition-all whitespace-nowrap ${
+                    isActive
+                      ? 'border-[#c9a227] text-[#c9a227]'
+                      : 'border-transparent text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#0A1A2F]/65 dark:text-white/65'
+                  }`}>
+                    <TabIcon className="w-3.5 h-3.5" />
+                    {tab.label}
+                  </button>
+                );
+              })}
             </div>
+            {/* Log Food — compact icon-only button, aligned with tabs */}
             <button
               onClick={() => setShowLogModal(true)}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white text-xs font-bold shadow-md dark:shadow-none shadow-[#c9a227]/25 active:scale-95 transition-transform"
+              aria-label="Log Food"
+              className="flex-shrink-0 w-9 h-9 rounded-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white flex items-center justify-center shadow-md dark:shadow-none shadow-[#c9a227]/25 active:scale-95 transition-transform"
             >
-              <Plus className="w-3.5 h-3.5" />
-              Log Food
+              <Plus className="w-4 h-4" />
             </button>
-          </div>
-
-          {/* Nav tabs — only the navigation ones, no Log Food here */}
-          <div id="tour-nutrition-goals-entry" className="flex gap-0 border-b border-transparent -mb-px">
-            {TABS.filter(t => t.id !== 'log').map((tab) => {
-              const isActive = activeTab === tab.id && tab.id !== 'goals' && tab.id !== 'history';
-              const TabIcon = tab.icon;
-              return (
-                <button key={tab.id} onClick={() => {
-                  if (tab.id === 'goals') navigate(createPageUrl('NutritionGoalsPage'));
-                  else if (tab.id === 'history') navigate(createPageUrl('FoodLogHistory'));
-                  else setActiveTab(tab.id);
-                }}
-                className={`flex items-center gap-1 px-3 py-2.5 text-xs font-semibold border-b-2 transition-all whitespace-nowrap ${
-                  isActive
-                    ? 'border-[#c9a227] text-[#c9a227]'
-                    : 'border-transparent text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#0A1A2F]/65 dark:text-white/65'
-                }`}>
-                  <TabIcon className="w-3.5 h-3.5" />
-                  {tab.label}
-                </button>
-              );
-            })}
           </div>
         </div>
       </div>
