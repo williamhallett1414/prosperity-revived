@@ -20,6 +20,7 @@ import { Switch } from '@/components/ui/switch';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { useAuth } from '@/lib/AuthContext';
+import { deleteUserAccount } from '@/lib/deleteAccount';
 import { Label } from '@/components/ui/label';
 const CoachDavidNotificationSettings = lazy(() => import('@/components/settings/CoachDavidNotificationSettings'));
 const ChefDanielNotificationSettings = lazy(() => import('@/components/settings/ChefDanielNotificationSettings'));
@@ -433,7 +434,7 @@ function SettingsInner() {
                     <AlertDialogTitle className="text-[#0A1A2F] dark:text-white">Delete Account Permanently?</AlertDialogTitle>
                   </div>
                   <AlertDialogDescription className="text-[#0A1A2F]/60 dark:text-white/60 text-sm leading-relaxed">
-                    This will permanently erase <span className="font-semibold text-red-600 dark:text-red-400">all your data</span> — posts, reading plans, workout logs, journal entries, achievements, and points. <br /><br />
+                    This will scrub your <span className="font-semibold text-red-600 dark:text-red-400">personal data</span> — posts, journal entries, prayers, photos, and conversations — and schedule your account for permanent removal. You will be signed out immediately and unable to log back in. <br /><br />
                     <strong className="text-[#0A1A2F] dark:text-white">This action cannot be undone.</strong>
                   </AlertDialogDescription>
                 </AlertDialogHeader>
@@ -444,9 +445,15 @@ function SettingsInner() {
                     onClick={async () => {
                       setIsDeleting(true);
                       try {
-                        await base44.auth.deleteAccount();
-                        window.location.href = '/';
-                      } catch {
+                        const result = await deleteUserAccount();
+                        if (!result.marked) {
+                          toast.error('Could not record deletion request — please try again or contact support.');
+                          setIsDeleting(false);
+                          return;
+                        }
+                        toast.success('Account deleted. You have been signed out.');
+                        setTimeout(() => logout(), 800);
+                      } catch (e) {
                         toast.error('Failed to delete account — please try again');
                         setIsDeleting(false);
                       }

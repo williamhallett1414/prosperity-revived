@@ -6,6 +6,8 @@ import { Settings, Camera, ChevronRight, Trophy, TrendingUp, MessageCircle } fro
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { toast } from 'sonner';
+import { useAuth } from '@/lib/AuthContext';
+import { deleteUserAccount } from '@/lib/deleteAccount';
 
 const AboutTab = React.lazy(() => import('@/components/profile/facebook/AboutTab'));
 const FriendsTab = React.lazy(() => import('@/components/profile/facebook/FriendsTab'));
@@ -392,6 +394,7 @@ export default function Profile() {
   const [activeTab, setActiveTab] = useState('overview');
   const [isDeleting, setIsDeleting] = useState(false);
   const [uploading, setUploading] = useState({ cover: false, avatar: false });
+  const { logout } = useAuth();
 
   useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
@@ -557,11 +560,23 @@ export default function Profile() {
 
                 <button
                   onClick={async () => {
-                    if (!window.confirm('Are you absolutely sure?\n\nThis permanently deletes your account and all data — posts, reading plans, workout logs, journal entries, achievements, and points.\n\nThis cannot be undone.')) return;
-                    if (!window.confirm('Last chance — press OK to permanently delete your account.')) return;
+                    if (!window.confirm('Are you absolutely sure?\n\nThis will scrub your personal data — posts, journal entries, prayers, photos, and conversations — and schedule your account for permanent removal. You will be signed out immediately and unable to log back in.\n\nThis cannot be undone.')) return;
+                    if (!window.confirm('Last chance — press OK to delete your account.')) return;
                     setIsDeleting(true);
-                    try { await base44.auth.deleteAccount(); window.location.href = '/'; }
-                    catch { toast.error('Failed to delete account — please try again'); setIsDeleting(false); }
+                    try {
+                      const result = await deleteUserAccount();
+                      if (!result.marked) {
+                        toast.error('Could not record deletion request — please try again or contact support.');
+                        setIsDeleting(false);
+                        return;
+                      }
+                      toast.success('Account deleted. You have been signed out.');
+                      // Brief pause so the user sees the toast before redirect
+                      setTimeout(() => logout(), 800);
+                    } catch (e) {
+                      toast.error('Failed to delete account — please try again.');
+                      setIsDeleting(false);
+                    }
                   }}
                   disabled={isDeleting}
                   className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors text-left">
