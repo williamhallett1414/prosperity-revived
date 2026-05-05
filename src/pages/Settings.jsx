@@ -19,6 +19,7 @@ import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+import { useAuth } from '@/lib/AuthContext';
 import { Label } from '@/components/ui/label';
 const CoachDavidNotificationSettings = lazy(() => import('@/components/settings/CoachDavidNotificationSettings'));
 const ChefDanielNotificationSettings = lazy(() => import('@/components/settings/ChefDanielNotificationSettings'));
@@ -46,6 +47,7 @@ function SettingsInner() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [showTour, setShowTour] = useState(false);
   const queryClient = useQueryClient();
+  const { logout } = useAuth();
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
@@ -81,6 +83,14 @@ function SettingsInner() {
       applyTheme(user.theme);
     }
   }, [user?.theme]);
+
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-[#c9a227]/30 border-t-[#c9a227] rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
@@ -396,13 +406,7 @@ function SettingsInner() {
           <Suspense fallback={<div className="flex justify-center py-4"><div className="w-5 h-5 border-2 border-[#c9a227] border-t-transparent rounded-full animate-spin"/></div>}><ManageMyData user={user} /></Suspense>
 
           <Button
-            onClick={() => {
-              try {
-                base44.auth.logout('/');
-              } catch {
-                window.location.href = '/';
-              }
-            }}
+            onClick={() => logout()}
             variant="outline"
             className="w-full mt-4 border-red-200 text-red-600 hover:bg-red-50 dark:bg-red-900/20 dark:border-red-900 dark:hover:bg-red-950 min-h-[44px]"
           >
