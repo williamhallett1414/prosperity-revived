@@ -1,7 +1,7 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { ArrowLeft, Moon, Sun, Monitor, Bell, User, Palette, Trash2, Play, Database, ChevronRight, RotateCcw, Clock, AlertTriangle } from 'lucide-react';
+import { Moon, Sun, Monitor, Bell, User, Palette, Trash2, Play, Database, ChevronRight, RotateCcw, Clock, AlertTriangle } from 'lucide-react';
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader,
@@ -95,19 +95,7 @@ function SettingsInner() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
-      {/* Header */}
-      {/* ── Standard Header ── */}
-      <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-4 pb-3">
-        <div className="max-w-lg mx-auto flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#3C4E53] to-[#AFC7E3] flex items-center justify-center">
-            <Palette className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white">Settings</h1>
-            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Customize your experience</p>
-          </div>
-        </div>
-      </div>
+      {/* (Page header is provided by Layout's UniversalHeader) */}
 
       <div className="px-4 pt-4">
         {/* Chatbot Personalities */}
