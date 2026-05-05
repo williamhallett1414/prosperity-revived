@@ -85,10 +85,11 @@ export default function FoodLogHistory() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
+    <div className="bg-white dark:bg-[#0A1A2F] pb-24">
 
       {/* ── Sub-nav (page title is in Layout's UniversalHeader) ── */}
-      <div className="sticky top-14 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none">
+      <div className="sticky z-30 bg-white dark:bg-[#0A1A2F] border-b border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none"
+        style={{ top: 'calc(env(safe-area-inset-top) + 3.75rem)' }}>
         <div className="max-w-2xl mx-auto px-4 pt-2 pb-0">
           <div className="flex items-center gap-2">
             <div className="flex-1 min-w-0 flex gap-0 border-b border-transparent -mb-px overflow-x-auto">
@@ -117,7 +118,8 @@ export default function FoodLogHistory() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-4">
+      <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] min-h-[calc(100vh-200px)]">
+        <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-4">
         {isLoading ? (
           /* Loading skeleton — three shimmering day cards */
           <div className="space-y-3">
@@ -318,6 +320,7 @@ export default function FoodLogHistory() {
             </button>
           </div>
         )}
+        </div>
       </div>
 
       <DetailedFoodLogModal
