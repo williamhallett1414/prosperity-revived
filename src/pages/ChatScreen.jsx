@@ -1215,6 +1215,11 @@ export default function ChatScreen() {
   const stopSpeechRef      = useRef(null);
   const pendingSendRef      = useRef(null);
   const videoBlobRef        = useRef(null);
+  // Audio element primed inside the user-gesture of sendMessage, consumed by
+  // the response auto-speak useEffect after the LLM responds. iOS WKWebView
+  // requires the audio element to be created synchronously inside the gesture
+  // for autoplay to work.
+  const pendingPrimedAudioRef = useRef(null);
 
   const avatarSpeaking  = speakingIdx !== null;
   const avatarListening = isListening;
@@ -1259,6 +1264,22 @@ export default function ChatScreen() {
 
     stopSpeechRef.current?.();
     setSpeakingIdx(null);
+
+    // Prime an audio element synchronously inside this user-gesture so that
+    // when we auto-speak the assistant's response (after the async LLM await),
+    // iOS WKWebView still permits playback. The auto-speak useEffect consumes
+    // this ref and clears it once used.
+    try {
+      const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) ||
+                    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      if (isIOS) {
+        const a = new Audio();
+        a.preload = 'auto';
+        a.load();
+        pendingPrimedAudioRef.current = a;
+      }
+    } catch {}
+
     setInput('');
     setMessages(prev => [...prev, { role: 'user', content: trimmed }]);
     setIsLoading(true);
@@ -1323,12 +1344,18 @@ export default function ChatScreen() {
     };
 
     // iOS Safari requires an <audio> element to be created and .load()-ed
-    // synchronously within the user gesture. Desktop browsers don't need this
-    // and work fine creating Audio after the async call.
+    // synchronously within the user gesture. When handleSpeak is called
+    // directly from a button click (the speaker icon), we can prime here.
+    // When it's called from setTimeout via auto-speak, the gesture is gone —
+    // sendMessage primes pendingPrimedAudioRef inside its own gesture for
+    // the response auto-speak case to consume here.
     const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) ||
                   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     let primedAudio = null;
-    if ((cfg?.character === 'gideon' || cfg?.character === 'chef' || cfg?.character === 'coach' || cfg?.character === 'paul' || cfg?.character === 'hannah') && isIOS) {
+    if (pendingPrimedAudioRef.current) {
+      primedAudio = pendingPrimedAudioRef.current;
+      pendingPrimedAudioRef.current = null; // consume once
+    } else if ((cfg?.character === 'gideon' || cfg?.character === 'chef' || cfg?.character === 'coach' || cfg?.character === 'paul' || cfg?.character === 'hannah') && isIOS) {
       try {
         primedAudio = new Audio();
         primedAudio.preload = 'auto';
@@ -1356,6 +1383,12 @@ export default function ChatScreen() {
     });
   }, [speakingIdx, cfg]);
 
+  // Stable ref to the latest handleSpeak so the auto-speak useEffects below
+  // don't list handleSpeak in their deps (its identity changes every time
+  // speakingIdx flips, which would re-fire and clean up our pending timers).
+  const handleSpeakRef = useRef(handleSpeak);
+  useEffect(() => { handleSpeakRef.current = handleSpeak; }, [handleSpeak]);
+
   // Auto-speak welcome message when chat opens (first visit only)
   const hasAutoSpokenRef = useRef(false);
   useEffect(() => {
@@ -1363,21 +1396,23 @@ export default function ChatScreen() {
     if (messages.length === 1 && messages[0].role === 'assistant' && messages[0].content === cfg.welcomeMsg) {
       hasAutoSpokenRef.current = true;
       const timer = setTimeout(() => {
-        handleSpeak(cfg.welcomeMsg, 0);
+        handleSpeakRef.current?.(cfg.welcomeMsg, 0);
       }, 1000);
       return () => clearTimeout(timer);
     }
-  }, [messages, cfg.welcomeMsg, handleSpeak]);
+  }, [messages, cfg.welcomeMsg]);
 
   // Auto-speak each new assistant response after a user message.
   // Skips:
   //   - the welcome message (handled above)
   //   - replays of the same message we already auto-spoke
   //   - cases where the user is currently in voice-input listening mode
-  // Errors are swallowed inside handleSpeak/speakText; if iOS Safari blocks
-  // auto-play (no user gesture), the user can still tap the speaker icon to
-  // play manually. In the iOS native shell (Capacitor WKWebView) auto-play
-  // is permitted, which is the target environment for App Store delivery.
+  // We use handleSpeakRef instead of handleSpeak directly so this effect's
+  // re-firing isn't tied to handleSpeak's changing identity. Errors are
+  // swallowed inside handleSpeak/speakText; if iOS Safari blocks auto-play
+  // (no user gesture), the user can still tap the speaker icon to play
+  // manually. In the iOS native shell (Capacitor WKWebView) auto-play is
+  // permitted, which is the target environment for App Store delivery.
   const lastAutoSpokenIdxRef = useRef(-1);
   useEffect(() => {
     if (messages.length < 2) return; // need at least a welcome + one exchange
@@ -1391,10 +1426,10 @@ export default function ChatScreen() {
     // Small delay so the message renders before speech starts; keeps the visual
     // and audio cues aligned and gives the audio element a tick to mount.
     const timer = setTimeout(() => {
-      handleSpeak(last.content, lastIdx);
+      handleSpeakRef.current?.(last.content, lastIdx);
     }, 250);
     return () => clearTimeout(timer);
-  }, [messages, cfg.welcomeMsg, handleSpeak, isListening]);
+  }, [messages, cfg.welcomeMsg, isListening]);
 
   // ── STT ──────────────────────────────────────────────────────────────────────
   const stopListening = useCallback(() => {
