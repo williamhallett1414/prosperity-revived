@@ -9,6 +9,7 @@ import { Flame, ChevronRight } from 'lucide-react';
 import { RitualButton, QuickNav, ResumeCard, ActiveChallengesWidget, StartHereCard } from '@/components/home/HomeComponents';
 import HelpChatbot from '@/components/home/HelpChatbot';
 import { GRACE_MOMENTS } from '@/components/home/graceMoments';
+const StartMyDayModal = React.lazy(() => import('@/components/home/StartMyDayModal'));
 import gideonImg from '@/assets/gideon-avatar.png';
 import hannahImg from '@/assets/hannah-avatar.png';
 import coachDavidImg from '@/assets/coach-david-avatar.png';
@@ -39,6 +40,7 @@ function Home() {
   const today = todayKey();
   const ritualKey = greeting.isMorning ? `ritual_morning_${today}` : `ritual_evening_${today}`;
   const [ritualDone, setRitualDone] = useState(() => !!localStorage.getItem(ritualKey));
+  const [startMyDayOpen, setStartMyDayOpen] = useState(false);
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
@@ -80,24 +82,8 @@ function Home() {
         {!ritualDone && (
           <RitualButton
             isMorning={greeting.isMorning}
-            onStartDay={async () => {
-              // Mark ritual as done
-              localStorage.setItem(ritualKey, '1');
-              setRitualDone(true);
-              // Award XP
-              try {
-                if (userProgress?.id) {
-                  const pts = (userProgress.total_points || 0) + 15;
-                  const streak = (userProgress.current_streak || 0) + 1;
-                  await base44.entities.UserProgress.update(userProgress.id, {
-                    total_points: pts,
-                    current_streak: streak,
-                    last_activity_date: today,
-                  });
-                }
-              } catch {}
-              // Navigate to a morning flow: Scripture → Affirmation → Intention
-              navigate(createPageUrl('Bible'));
+            onStartDay={() => {
+              setStartMyDayOpen(true);
             }}
             onEndDay={async () => {
               localStorage.setItem(ritualKey, '1');
@@ -115,6 +101,33 @@ function Home() {
               navigate(createPageUrl('GratitudeJournalPage'));
             }}
           />
+        )}
+
+        {/* Start My Day modal — opened from RitualButton in the morning */}
+        {startMyDayOpen && (
+          <React.Suspense fallback={null}>
+            <StartMyDayModal
+              isOpen={startMyDayOpen}
+              user={user}
+              onClose={async (success) => {
+                setStartMyDayOpen(false);
+                if (success !== true) return; // dismissed without completing
+                localStorage.setItem(ritualKey, '1');
+                setRitualDone(true);
+                try {
+                  if (userProgress?.id) {
+                    const pts = (userProgress.total_points || 0) + 15;
+                    const streak = (userProgress.current_streak || 0) + 1;
+                    await base44.entities.UserProgress.update(userProgress.id, {
+                      total_points: pts,
+                      current_streak: streak,
+                      last_activity_date: today,
+                    });
+                  }
+                } catch {}
+              }}
+            />
+          </React.Suspense>
         )}
 
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}>
