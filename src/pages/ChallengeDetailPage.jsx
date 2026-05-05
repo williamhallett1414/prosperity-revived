@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Trophy, Users, CheckCircle2, Calendar, Target, Flame, Clock, TrendingUp, Award, Dumbbell, Zap, Star } from 'lucide-react';
+import { Trophy, Users, CheckCircle2, Calendar, Target, Flame, Clock, TrendingUp, Award, Dumbbell, Zap, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
@@ -224,19 +224,7 @@ export default function ChallengeDetailPage() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
-      {/* Header */}
-      <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#F2F6FA] px-4 py-3">
-        
-
-
-
-
-
-
-
-
-        
-      </div>
+      {/* (Page header is provided by Layout's UniversalHeader) */}
 
       <div className="max-w-2xl mx-auto px-3 sm:px-4 py-6 space-y-6">
         {/* Challenge Header */}

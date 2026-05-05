@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Search, X, ChevronRight } from 'lucide-react';
+import { Search, X, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { bibleBooks } from '@/components/bible/BibleData';
@@ -33,8 +33,7 @@ const START_HERE = {
     { book: 'John',      ch: 1,  desc: 'The life of Jesus' },
     { book: 'Romans',    ch: 1,  desc: 'The gospel explained' },
     { book: 'Matthew',   ch: 1,  desc: 'Jesus through Jewish eyes' },
-  ],
-};
+  ] };
 
 export default function BibleBooks() {
   const navigate   = useNavigate();
@@ -65,19 +64,12 @@ export default function BibleBooks() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
-      {/* ── Sticky header ── */}
+      {/* ── Sub-header (page title is in Layout's UniversalHeader) ── */}
       <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 py-3">
         <div className="max-w-lg mx-auto space-y-3">
 
-          {/* Back + title + testament toggle */}
-          <div className="flex items-center gap-3">
-            <button onClick={() => window.history.back()}
-              className="w-9 h-9 rounded-full bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors flex-shrink-0">
-              <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
-            </button>
-            <h1 className="flex-1 text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Choose a Book</h1>
-
-            {/* OT / NT toggle */}
+          {/* OT / NT toggle */}
+          <div className="flex justify-end">
             <div className="flex rounded-xl overflow-hidden border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 bg-[#F2F6FA] dark:bg-[#0A1A2F]">
               {[['old','OT'],['new','NT']].map(([val, label]) => (
                 <button key={val} onClick={() => { setTestament(val); setSearch(''); }}

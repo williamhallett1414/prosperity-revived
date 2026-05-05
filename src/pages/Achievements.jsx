@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Trophy, Flame, Crown, TrendingUp, Sparkles, ArrowLeft } from 'lucide-react';
+import { Trophy, Flame, Crown, TrendingUp, Sparkles } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import BadgeCard from '@/components/gamification/BadgeCard';
 import MultiActivityLeaderboard from '@/components/gamification/MultiActivityLeaderboard';
@@ -91,8 +91,7 @@ function AchievementsInner() {
       const list = await base44.entities.UserProgress.filter({ created_by: user.email });
       return list[0] || null;
     },
-    enabled: !!user?.email,
-  });
+    enabled: !!user?.email });
 
   const earned    = BADGES.filter(b =>  progress?.badges?.includes(b.id));
   const available = BADGES.filter(b => !progress?.badges?.includes(b.id));
@@ -102,24 +101,7 @@ function AchievementsInner() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
-      {/* ── Hero header ── */}
-      <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-0 pb-2">
-        <div className="max-w-lg mx-auto">
-          <div className="flex items-center gap-3">
-            <button onClick={() => navigate(-1)}
-              className="w-9 h-9 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center flex-shrink-0">
-              <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
-            </button>
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center">
-              <Trophy className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Achievements</h1>
-              <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Your badges & milestones</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* (Page header is provided by Layout's UniversalHeader) */}
 
       <div className="max-w-lg mx-auto px-4 pt-4">
         {/* ── Stat grid (overlaps header) ── */}

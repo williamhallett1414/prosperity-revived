@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  ArrowLeft, Play, Pause, X, Loader2,
+  Play, Pause, X, Loader2,
   Wind, Moon, Sun, Heart, BookOpen, Leaf, Flame, Star as StarIcon,
   Zap, Shield, Feather, Eye, Coffee, Cloud, Music, Sunrise,
   Waves, Anchor, Rainbow } from
@@ -500,20 +500,13 @@ function GuidedMeditationsPageInner() {
     <>
       <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
-        {/* ── Sticky header ─────────────────────────────────────────────── */}
+        {/* ── Sub-header (page title is in Layout's UniversalHeader) ── */}
         <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#F2F6FA] px-4 py-3">
-          <div className="max-w-2xl mx-auto flex items-center gap-3">
-            <button onClick={() => navigate(-1)}
-            className="w-9 h-9 rounded-full bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-white dark:bg-white/5 flex items-center justify-center transition-colors">
-              <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
-            </button>
-            <div className="flex-1">
-              <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Guided Meditations</h1>
-              <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">
-                {count > 0 ? `${count} session${count !== 1 ? 's' : ''} completed · ` : ''}{MEDITATIONS.length} sessions available
-              </p>
-            </div>
-            <div className="flex items-center gap-1.5 bg-white dark:bg-white/5 border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 rounded-full px-2.5 py-1">
+          <div className="max-w-2xl mx-auto flex items-center justify-between gap-3">
+            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">
+              {count > 0 ? `${count} session${count !== 1 ? 's' : ''} completed · ` : ''}{MEDITATIONS.length} sessions available
+            </p>
+            <div className="flex items-center gap-1.5 bg-white dark:bg-white/5 border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 rounded-full px-2.5 py-1 flex-shrink-0">
               <span className="text-[10px]">🎧</span>
               <span className="text-[10px] font-bold text-[#c9a227]">Use headphones</span>
             </div>

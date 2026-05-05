@@ -8,8 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import {
   Heart, Users, Copy, CheckCircle, BookOpen, MessageCircle,
-  Target, Sparkles, ChevronRight, RefreshCw, Send, Lock, ArrowLeft
-} from 'lucide-react';
+  Target, Sparkles, ChevronRight, RefreshCw, Send, Lock } from 'lucide-react';
 import { getVerseOfDay } from '@/components/bible/BibleData';
 
 // ─── Partner linking helpers ──────────────────────────────────────────────────
@@ -73,8 +72,7 @@ export default function CouplesMode() {
       queryClient.invalidateQueries(['user']);
       toast.success('Invite code generated!');
     },
-    onError: () => toast.error('Failed to generate code'),
-  });
+    onError: () => toast.error('Failed to generate code') });
 
   // Link partner via code
   const linkPartner = useMutation({
@@ -83,15 +81,13 @@ export default function CouplesMode() {
       // and create a bidirectional link. For now, we store the intent.
       await base44.auth.updateMe({
         partner_invite_entered: code,
-        couples_mode_enabled: true,
-      });
+        couples_mode_enabled: true });
     },
     onSuccess: () => {
       toast.success('Partner code submitted! You\'ll be linked once they confirm.');
       setPartnerCode('');
     },
-    onError: () => toast.error('Invalid code or partner not found'),
-  });
+    onError: () => toast.error('Invalid code or partner not found') });
 
   // Shared prayer wall
   const { data: sharedPrayers = [] } = useQuery({
@@ -100,28 +96,24 @@ export default function CouplesMode() {
       try {
         const mine = await base44.entities.JournalEntry.filter({
           created_by: user?.email,
-          entry_type: 'couples_prayer',
-        });
+          entry_type: 'couples_prayer' });
         return mine.sort((a, b) => (b.created_date || '').localeCompare(a.created_date || ''));
       } catch { return []; }
     },
-    enabled: !!user?.email,
-  });
+    enabled: !!user?.email });
 
   const addPrayer = useMutation({
     mutationFn: async (text) => {
       return base44.entities.JournalEntry.create({
         title: 'Couples Prayer',
         content: text,
-        entry_type: 'couples_prayer',
-      });
+        entry_type: 'couples_prayer' });
     },
     onSuccess: () => {
       queryClient.invalidateQueries(['couplesPrayers']);
       setPrayerText('');
       toast.success('Prayer added');
-    },
-  });
+    } });
 
   const verse = getVerseOfDay();
   const today = new Date();
@@ -138,20 +130,7 @@ export default function CouplesMode() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
-      {/* Header */}
-      <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-4 pb-3">
-        <div className="max-w-lg mx-auto">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#EC4899] to-[#F472B6] flex items-center justify-center">
-              <Heart className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Couples Mode</h1>
-              <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Grow closer together</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* (Page header is provided by Layout's UniversalHeader) */}
 
       <div className="max-w-lg mx-auto px-4 py-4 space-y-4">
 
@@ -245,8 +224,7 @@ export default function CouplesMode() {
                     const { shareContent } = await import('@/utils/sharing');
                     const result = await shareContent({
                       title: `Date Night: ${todayDate.title}`,
-                      text: `${todayDate.desc}\n\nFrom Prosperity Revived Couples Mode 💕`,
-                    });
+                      text: `${todayDate.desc}\n\nFrom Prosperity Revived Couples Mode 💕` });
                     if (result.method === 'clipboard') toast.success('Copied!');
                   }}
                   className="mt-3 w-full py-2 bg-rose-50 dark:bg-rose-900/20 text-rose-500 text-xs font-bold rounded-xl">

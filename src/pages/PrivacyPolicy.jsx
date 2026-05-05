@@ -1,41 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { createPageUrl } from '@/utils';
-import { ArrowLeft, Shield } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 export default function PrivacyPolicy() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
-
-      {/* ── Standard Header ── */}
-      <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-4 pb-3">
-        <div className="max-w-lg mx-auto flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#3C4E53] to-[#AFC7E3] flex items-center justify-center">
-            <Shield className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Privacy Policy</h1>
-            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">How we protect your data</p>
-          </div>
-        </div>
-      </div>
+      {/* (Page header is provided by Layout's UniversalHeader) */}
 
       <div className="px-4 py-6">
-        <div className="mb-6">
-          <div className="flex items-center gap-3 mb-2">
-            <Link
-              to={createPageUrl('Settings')}
-              className="w-9 h-9 rounded-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 flex items-center justify-center transition-colors">
-              <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
-            </Link>
-            <h1 className="text-2xl font-bold text-[#0A1A2F] dark:text-white flex items-center gap-2">
-              <Shield className="w-6 h-6 text-[#FD9C2D]" />
-              Privacy Policy
-            </h1>
-          </div>
-        </div>
-
         <div className="bg-white dark:bg-white/5 rounded-2xl p-6 shadow-sm dark:shadow-none">
           <ScrollArea className="h-[calc(100vh-200px)]">
             <div className="space-y-6 text-[#0A1A2F] dark:text-white pr-4">

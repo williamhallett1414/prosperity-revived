@@ -233,6 +233,10 @@ export default function Layout({ children, currentPageName }) {
     Search: 'Search',
     CouplesMode: 'Couples Mode',
     CoachingPlans: 'Coaching Plans',
+    HealthWellnessWaiver: 'Health Waiver',
+    PrivacyPolicy: 'Privacy Policy',
+    SubscriptionTerms: 'Subscription Terms',
+    GuidedMeditationsPage: 'Meditations',
   };
 
   // Dynamic title for ChatScreen based on bot parameter

@@ -177,24 +177,12 @@ function DiscoverRecipesInner() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
-      {/* ── Sticky header ── */}
+      {/* ── Sticky filters/tabs (page title is in Layout's UniversalHeader) ── */}
       <div className="sticky top-14 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-md border-b border-[#FAD98D]/15 dark:border-[#FAD98D]/8 px-4 pt-3 pb-3 shadow-sm">
         <div className="max-w-lg mx-auto space-y-3">
 
-          {/* Title row */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center shadow-lg shadow-[#c9a227]/25">
-                <UtensilsCrossed className="w-4.5 h-4.5 text-white" />
-              </div>
-              <div>
-                <h1 className="text-base font-black text-[#0A1A2F] dark:text-white leading-tight tracking-tight">Discover Recipes</h1>
-                <p className="text-[11px] text-[#0A1A2F]/40 dark:text-white/40 font-medium">
-                  {isLoading ? 'Loading…' : `${recipes.length} recipes in library`}
-                </p>
-              </div>
-            </div>
-
+          {/* Menu row */}
+          <div className="flex items-center justify-end">
             {/* Hamburger menu */}
             <div className="relative">
               <button onClick={() => setShowMenu(v => !v)}

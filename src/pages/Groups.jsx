@@ -4,10 +4,10 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
 import {
-  Plus, Search, ArrowLeft, X, Users, Lock, Globe,
+  Plus, Search, X, Users, Lock, Globe,
   ChevronRight, Loader2, Star, SlidersHorizontal
 } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Switch } from '@/components/ui/switch';
 import GroupCard from '@/components/groups/GroupCard';
 import { toast } from 'sonner';
@@ -36,8 +36,7 @@ const CAT_GRADIENT = {
   youth:       'from-[#c9a227] to-[#AFC7E3]',
   parents:     'from-[#FAD98D] to-[#AFC7E3]',
   marriage:    'from-[#c9a227] to-[#0A1A2F]',
-  other:       'from-[#3C4E53] to-[#FAD98D]',
-};
+  other:       'from-[#3C4E53] to-[#FAD98D]' };
 
 const SORT_OPTIONS = [
   { value: 'popular',  label: 'Most Popular' },
@@ -357,13 +356,9 @@ export default function Groups() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
-      {/* ── Sticky header ── */}
+      {/* ── Sticky search + create (page title is in Layout's UniversalHeader) ── */}
       <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#AFC7E3]/20 px-4 py-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
-          <Link to={createPageUrl('Community')}
-            className="w-9 h-9 rounded-full bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-white dark:bg-white/5 flex items-center justify-center transition-colors flex-shrink-0">
-            <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
-          </Link>
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0A1A2F]/30 dark:text-white/30" />
             <input ref={searchRef} type="text" placeholder="Search groups…"

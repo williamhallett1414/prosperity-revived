@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { motion } from 'framer-motion';
-import { ArrowLeft } from 'lucide-react';
+import { } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { nutritionArticles } from '@/components/nutrition/nutritionArticlesData';
 
@@ -32,21 +32,7 @@ export default function NutritionArticle() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
-      {/* Header */}
-      <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#F2F6FA] px-4 py-3">
-        <div className="max-w-2xl mx-auto flex items-center gap-3">
-          <Link
-            to={createPageUrl('NutritionGuidance')}
-            className="w-9 h-9 rounded-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 flex items-center justify-center transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
-          </Link>
-          <div>
-            <h1 className="text-lg font-bold text-[#0A1A2F] dark:text-white line-clamp-1">{article.title}</h1>
-            <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60">Nutrition Guide</p>
-          </div>
-        </div>
-      </div>
+      {/* (Page header is provided by Layout's UniversalHeader) */}
 
       <div className="max-w-2xl mx-auto px-3 sm:px-4 py-6">
         {/* Title and Description */}

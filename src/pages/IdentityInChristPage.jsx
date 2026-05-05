@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Crown, ArrowLeft, Star, ChevronRight, ChevronLeft,
+  Crown, Star, ChevronRight, ChevronLeft,
   BookOpen, X, Check, Mic
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -17,48 +17,42 @@ const DECLARATIONS = [
     pillar: 'Beloved',
     verse: 'John 1:12',
     fullVerse: 'Yet to all who did receive him, to those who believed in his name, he gave the right to become children of God.',
-    explanation: "You are not an orphan navigating life alone. God didn't just tolerate your existence — He gave you the legal right to be called His child. That is your permanent address in the universe.",
-  },
+    explanation: "You are not an orphan navigating life alone. God didn't just tolerate your existence — He gave you the legal right to be called His child. That is your permanent address in the universe." },
   {
     id: 'chosen-loved',
     truth: 'I am chosen and dearly loved',
     pillar: 'Beloved',
     verse: 'Colossians 3:12',
     fullVerse: "Therefore, as God's chosen people, holy and dearly loved, clothe yourselves with compassion, kindness, humility, gentleness and patience.",
-    explanation: "God didn't choose you reluctantly or as a last resort. He handpicked you with deliberate intention before the world was made. You are not chosen despite your flaws — you are chosen, full stop.",
-  },
+    explanation: "God didn't choose you reluctantly or as a last resort. He handpicked you with deliberate intention before the world was made. You are not chosen despite your flaws — you are chosen, full stop." },
   {
     id: 'lavished-love',
     truth: 'I am lavishly loved by the Father',
     pillar: 'Beloved',
     verse: '1 John 3:1',
     fullVerse: 'See how great a love the Father has given to us, that we should be called children of God! And that is what we are!',
-    explanation: "John uses the word 'lavished' — extravagant, over-the-top, wasteful by human standards. God's love for you is not measured or earned. It is poured out without restraint.",
-  },
+    explanation: "John uses the word 'lavished' — extravagant, over-the-top, wasteful by human standards. God's love for you is not measured or earned. It is poured out without restraint." },
   {
     id: 'known-fully',
     truth: 'I am fully known and still fully loved',
     pillar: 'Beloved',
     verse: 'Psalm 139:1–3',
     fullVerse: 'You have searched me, Lord, and you know me. You know when I sit and when I rise; you perceive my thoughts from afar.',
-    explanation: "God has seen everything — every failure, every secret, every darkest thought — and He has not moved. You cannot lose His love by being fully seen. He already knows and He already chose you.",
-  },
+    explanation: "God has seen everything — every failure, every secret, every darkest thought — and He has not moved. You cannot lose His love by being fully seen. He already knows and He already chose you." },
   {
     id: 'wonderfully-made',
     truth: 'I am fearfully and wonderfully made',
     pillar: 'Beloved',
     verse: 'Psalm 139:14',
     fullVerse: 'I praise you because I am fearfully and wonderfully made; your works are wonderful, I know that full well.',
-    explanation: "The word 'fearfully' means with reverence and awe — as if God stepped back from His work and marveled. That is how you were made. Not hastily. Not accidentally. With wonder.",
-  },
+    explanation: "The word 'fearfully' means with reverence and awe — as if God stepped back from His work and marveled. That is how you were made. Not hastily. Not accidentally. With wonder." },
   {
     id: 'engraved-hands',
     truth: 'I am engraved on the palms of His hands',
     pillar: 'Beloved',
     verse: 'Isaiah 49:16',
     fullVerse: 'See, I have engraved you on the palms of my hands; your walls are ever before me.',
-    explanation: "Engravings are permanent. God doesn't have you on a sticky note that might fall off. Your name is carved into Him — a permanent part of who He is toward you.",
-  },
+    explanation: "Engravings are permanent. God doesn't have you on a sticky note that might fall off. Your name is carved into Him — a permanent part of who He is toward you." },
   // ── REDEEMED ─────────────────────────────────────────────────────────────
   {
     id: 'new-creation',
@@ -66,48 +60,42 @@ const DECLARATIONS = [
     pillar: 'Redeemed',
     verse: '2 Corinthians 5:17',
     fullVerse: 'Therefore if anyone is in Christ, he is a new creation. The old things have passed away. Behold, all things have become new.',
-    explanation: "This is not renovation — it's recreation. God didn't patch up the old version of you and call it good. He made you new. Your past does not have a vote on your present identity.",
-  },
+    explanation: "This is not renovation — it's recreation. God didn't patch up the old version of you and call it good. He made you new. Your past does not have a vote on your present identity." },
   {
     id: 'forgiven',
     truth: 'I am completely forgiven',
     pillar: 'Redeemed',
     verse: 'Colossians 1:14',
     fullVerse: 'In whom we have our redemption, the forgiveness of our sins.',
-    explanation: "Forgiven means the debt is gone — not deferred, not on a payment plan, not held over you. The record has been cleared. You don't have to keep paying for what has already been paid.",
-  },
+    explanation: "Forgiven means the debt is gone — not deferred, not on a payment plan, not held over you. The record has been cleared. You don't have to keep paying for what has already been paid." },
   {
     id: 'redeemed',
     truth: 'I am redeemed and set free',
     pillar: 'Redeemed',
     verse: 'Galatians 5:1',
     fullVerse: 'It is for freedom that Christ has set us free. Stand firm, then, and do not let yourselves be burdened again by a yoke of slavery.',
-    explanation: "Redemption means to buy back what was lost. Christ paid the price to get you back — not so you'd live cautiously, but so you'd live free. The chains are gone. Stop picking them back up.",
-  },
+    explanation: "Redemption means to buy back what was lost. Christ paid the price to get you back — not so you'd live cautiously, but so you'd live free. The chains are gone. Stop picking them back up." },
   {
     id: 'not-condemned',
     truth: 'I am free from condemnation',
     pillar: 'Redeemed',
     verse: 'Romans 8:1',
     fullVerse: 'There is therefore now no condemnation to those who are in Christ Jesus.',
-    explanation: "Condemnation is the voice that says you are what you've done. Paul says that voice has no legal standing. 'No condemnation' is not qualified. It doesn't say 'usually' or 'mostly.' It says none.",
-  },
+    explanation: "Condemnation is the voice that says you are what you've done. Paul says that voice has no legal standing. 'No condemnation' is not qualified. It doesn't say 'usually' or 'mostly.' It says none." },
   {
     id: 'seated-with-christ',
     truth: 'I am seated with Christ in heavenly places',
     pillar: 'Redeemed',
     verse: 'Ephesians 2:6',
     fullVerse: 'And God raised us up with Christ and seated us with him in the heavenly realms in Christ Jesus.',
-    explanation: "You are not beneath your circumstances — you are above them. Positionally, you have already been raised and seated in victory. The battle you're facing has already been won from that vantage point.",
-  },
+    explanation: "You are not beneath your circumstances — you are above them. Positionally, you have already been raised and seated in victory. The battle you're facing has already been won from that vantage point." },
   {
     id: 'citizenship',
     truth: 'My citizenship is in heaven',
     pillar: 'Redeemed',
     verse: 'Philippians 3:20',
     fullVerse: 'But our citizenship is in heaven. And we eagerly await a Savior from there, the Lord Jesus Christ.',
-    explanation: "This world is not your home — it's your assignment. You carry a different passport. That means earthly rejection, failure, and loss don't have final authority over who you are.",
-  },
+    explanation: "This world is not your home — it's your assignment. You carry a different passport. That means earthly rejection, failure, and loss don't have final authority over who you are." },
   // ── EQUIPPED ─────────────────────────────────────────────────────────────
   {
     id: 'more-than-conqueror',
@@ -115,48 +103,42 @@ const DECLARATIONS = [
     pillar: 'Equipped',
     verse: 'Romans 8:37',
     fullVerse: 'No, in all these things we are more than conquerors through him who loved us.',
-    explanation: "More than a conqueror means you don't just win — you win decisively, and the victory costs you less than it would cost the enemy. Through Christ, you don't just get through hard things — you become stronger for them.",
-  },
+    explanation: "More than a conqueror means you don't just win — you win decisively, and the victory costs you less than it would cost the enemy. Through Christ, you don't just get through hard things — you become stronger for them." },
   {
     id: 'no-fear',
     truth: 'I have a spirit of power, love, and a sound mind',
     pillar: 'Equipped',
     verse: '2 Timothy 1:7',
     fullVerse: 'For the Spirit God gave us does not make us timid, but gives us power, love and self-discipline.',
-    explanation: "Fear is not your inheritance. God didn't give you anxiety as a default setting. He gave you power to act, love to connect deeply, and a sound mind to think clearly — even when circumstances say otherwise.",
-  },
+    explanation: "Fear is not your inheritance. God didn't give you anxiety as a default setting. He gave you power to act, love to connect deeply, and a sound mind to think clearly — even when circumstances say otherwise." },
   {
     id: 'strength-in-christ',
     truth: 'I can do all things through Christ',
     pillar: 'Equipped',
     verse: 'Philippians 4:13',
     fullVerse: 'I can do all things through Christ, who strengthens me.',
-    explanation: "Paul wrote this from prison — not from a victory lap. Confidence in Christ doesn't depend on your circumstances. The strength is available in the valley, not just on the mountaintop.",
-  },
+    explanation: "Paul wrote this from prison — not from a victory lap. Confidence in Christ doesn't depend on your circumstances. The strength is available in the valley, not just on the mountaintop." },
   {
     id: 'grace-sufficient',
     truth: `God's grace is sufficient for me`,
     pillar: 'Equipped',
     verse: '2 Corinthians 12:9',
     fullVerse: 'My grace is sufficient for you, for my power is made perfect in weakness.',
-    explanation: "Your weakness is not disqualifying — it's the very place God shows up most clearly. Where you run out, He begins. Sufficient means exactly enough. Not barely enough. Exactly enough.",
-  },
+    explanation: "Your weakness is not disqualifying — it's the very place God shows up most clearly. Where you run out, He begins. Sufficient means exactly enough. Not barely enough. Exactly enough." },
   {
     id: 'wisdom',
     truth: `I have access to God's wisdom`,
     pillar: 'Equipped',
     verse: 'James 1:5',
     fullVerse: 'If any of you lacks wisdom, you should ask God, who gives generously to all without finding fault.',
-    explanation: "You are not on your own when it comes to decisions, discernment, or understanding. God gives wisdom generously — the word means 'lavishly, without reproach.' Ask without shame.",
-  },
+    explanation: "You are not on your own when it comes to decisions, discernment, or understanding. God gives wisdom generously — the word means 'lavishly, without reproach.' Ask without shame." },
   {
     id: 'rooted',
     truth: 'I am rooted and built up in Christ',
     pillar: 'Equipped',
     verse: 'Colossians 2:7',
     fullVerse: 'Rooted and built up in him, strengthened in the faith as you were taught, and overflowing with thankfulness.',
-    explanation: "A rooted tree doesn't topple in a storm — the wind that would uproot a shallow tree only drives the roots deeper. When you are grounded in Christ, the pressures of life deepen rather than destroy you.",
-  },
+    explanation: "A rooted tree doesn't topple in a storm — the wind that would uproot a shallow tree only drives the roots deeper. When you are grounded in Christ, the pressures of life deepen rather than destroy you." },
   // ── CALLED ───────────────────────────────────────────────────────────────
   {
     id: 'light-of-world',
@@ -164,40 +146,35 @@ const DECLARATIONS = [
     pillar: 'Called',
     verse: 'Matthew 5:14',
     fullVerse: 'You are the light of the world. A town built on a hill cannot be hidden.',
-    explanation: "Light doesn't try to shine — it just is what it is. You are not supposed to perform or manufacture influence. Your presence, your character, your faithfulness — these carry light naturally into every space you enter.",
-  },
+    explanation: "Light doesn't try to shine — it just is what it is. You are not supposed to perform or manufacture influence. Your presence, your character, your faithfulness — these carry light naturally into every space you enter." },
   {
     id: 'salt-earth',
     truth: 'I am the salt of the earth',
     pillar: 'Called',
     verse: 'Matthew 5:13',
     fullVerse: 'You are the salt of the earth. But if the salt loses its saltiness, how can it be made salty again?',
-    explanation: "Salt preserves and flavors. You have been placed where you are to prevent decay and add meaning. Your presence in your workplace, family, and community is not accidental — it is strategic.",
-  },
+    explanation: "Salt preserves and flavors. You have been placed where you are to prevent decay and add meaning. Your presence in your workplace, family, and community is not accidental — it is strategic." },
   {
     id: 'handiwork',
     truth: `I am God's handiwork, created for good works`,
     pillar: 'Called',
     verse: 'Ephesians 2:10',
     fullVerse: `For we are God's handiwork, created in Christ Jesus to do good works, which God prepared in advance for us to do.`,
-    explanation: "The Greek word for handiwork is poiema — the root of 'poem.' You are God's masterwork, not a mass-produced item. And the good works He prepared for you are specific to you — not generic volunteer work, but your particular assignment.",
-  },
+    explanation: "The Greek word for handiwork is poiema — the root of 'poem.' You are God's masterwork, not a mass-produced item. And the good works He prepared for you are specific to you — not generic volunteer work, but your particular assignment." },
   {
     id: 'royal-priesthood',
     truth: 'I am part of a royal priesthood',
     pillar: 'Called',
     verse: '1 Peter 2:9',
     fullVerse: "But you are a chosen people, a royal priesthood, a holy nation, God's special possession, that you may declare the praises of him who called you out of darkness into his wonderful light.",
-    explanation: "Royalty speaks to authority. Priesthood speaks to access. You have both. You are not a commoner hoping for an audience with God — you are a member of His household with full access and delegated authority.",
-  },
+    explanation: "Royalty speaks to authority. Priesthood speaks to access. You have both. You are not a commoner hoping for an audience with God — you are a member of His household with full access and delegated authority." },
   {
     id: 'ambassador',
     truth: 'I am an ambassador for Christ',
     pillar: 'Called',
     verse: '2 Corinthians 5:20',
     fullVerse: `We are therefore Christ's ambassadors, as though God were making his appeal through us.`,
-    explanation: "An ambassador carries the full weight of the nation they represent. When you speak, when you love, when you serve — God is making an appeal through you. You represent the Kingdom in every room you enter.",
-  },
+    explanation: "An ambassador carries the full weight of the nation they represent. When you speak, when you love, when you serve — God is making an appeal through you. You represent the Kingdom in every room you enter." },
   // ── PROTECTED ────────────────────────────────────────────────────────────
   {
     id: 'upheld',
@@ -205,40 +182,35 @@ const DECLARATIONS = [
     pillar: 'Protected',
     verse: 'Isaiah 41:10',
     fullVerse: 'So do not fear, for I am with you; do not be dismayed, for I am your God. I will strengthen you and help you; I will uphold you with my righteous right hand.',
-    explanation: "Uphold means to support from beneath so you do not fall. God is not watching you from a distance hoping you make it — He is actively holding you up. You cannot fall beyond His reach.",
-  },
+    explanation: "Uphold means to support from beneath so you do not fall. God is not watching you from a distance hoping you make it — He is actively holding you up. You cannot fall beyond His reach." },
   {
     id: 'peace-guards',
     truth: 'The peace of God guards my heart',
     pillar: 'Protected',
     verse: 'Philippians 4:7',
     fullVerse: 'And the peace of God, which transcends all understanding, will guard your heart and your mind in Christ Jesus.',
-    explanation: "The peace of God doesn't wait for your circumstances to improve before it shows up. It transcends understanding — meaning it operates outside of logic. It guards your heart even when your mind can't figure out why it should be okay.",
-  },
+    explanation: "The peace of God doesn't wait for your circumstances to improve before it shows up. It transcends understanding — meaning it operates outside of logic. It guards your heart even when your mind can't figure out why it should be okay." },
   {
     id: 'nothing-separate',
     truth: "Nothing can separate me from God's love",
     pillar: 'Protected',
     verse: 'Romans 8:38–39',
     fullVerse: 'For I am convinced that neither death nor life, neither angels nor demons... will be able to separate us from the love of God that is in Christ Jesus our Lord.',
-    explanation: "Paul lists every conceivable category — supernatural, natural, past, future, height, depth — and says none of it is enough to cut you off. The love of God is not a fragile thread. It is an unbreakable bond.",
-  },
+    explanation: "Paul lists every conceivable category — supernatural, natural, past, future, height, depth — and says none of it is enough to cut you off. The love of God is not a fragile thread. It is an unbreakable bond." },
   {
     id: 'shepherd',
     truth: 'The Lord is my shepherd — I lack nothing',
     pillar: 'Protected',
     verse: 'Psalm 23:1',
     fullVerse: 'The Lord is my shepherd, I lack nothing.',
-    explanation: "A shepherd doesn't just occasionally check on the flock — they give their life for it. When the Lord is your shepherd, the promise isn't comfort everywhere. It's provision and presence everywhere, including the darkest valleys.",
-  },
+    explanation: "A shepherd doesn't just occasionally check on the flock — they give their life for it. When the Lord is your shepherd, the promise isn't comfort everywhere. It's provision and presence everywhere, including the darkest valleys." },
   {
     id: 'needs-met',
     truth: 'God will meet all my needs',
     pillar: 'Protected',
     verse: 'Philippians 4:19',
     fullVerse: 'And my God will meet all your needs according to the riches of his glory in Christ Jesus.',
-    explanation: "Not some of your needs. All of them. And the source isn't your paycheck or your connections — it's 'the riches of his glory.' That is an inexhaustible account. You can make requests without fear of running out.",
-  },
+    explanation: "Not some of your needs. All of them. And the source isn't your paycheck or your connections — it's 'the riches of his glory.' That is an inexhaustible account. You can make requests without fear of running out." },
 ];
 
 const PILLARS = [
@@ -570,19 +542,12 @@ export default function IdentityInChristPage() {
     <>
       <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
-        {/* ── Header ─────────────────────────────────────────────────────── */}
+        {/* ── Sub-action bar (page title is in Layout's UniversalHeader) ── */}
         <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#F2F6FA] px-4 py-3">
-          <div className="max-w-2xl mx-auto flex items-center gap-3">
-            <Link to={createPageUrl('PersonalGrowth')}
-              className="w-9 h-9 rounded-full bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-white dark:bg-white/5 flex items-center justify-center transition-colors">
-              <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
-            </Link>
-            <div className="flex-1">
-              <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Identity in Christ</h1>
-              <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">
-                {memorizedCount > 0 ? `${memorizedCount} memorized · ` : ''}{DECLARATIONS.length} declarations
-              </p>
-            </div>
+          <div className="max-w-2xl mx-auto flex items-center justify-between gap-3">
+            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">
+              {memorizedCount > 0 ? `${memorizedCount} memorized · ` : ''}{DECLARATIONS.length} declarations
+            </p>
             <button onClick={startDeclareAll}
               className="flex items-center gap-1.5 min-h-[44px] min-w-[44px] bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white rounded-xl px-3 py-1.5 hover:opacity-90 transition-opacity">
               <Mic className="w-3.5 h-3.5" />
@@ -702,8 +667,7 @@ export default function IdentityInChristPage() {
                 style={{
                   borderColor: PILLAR_MAP[pillarFilter]?.color + '60',
                   color: PILLAR_MAP[pillarFilter]?.color,
-                  background: PILLAR_MAP[pillarFilter]?.color + '10',
-                }}
+                  background: PILLAR_MAP[pillarFilter]?.color + '10' }}
               >
                 <Mic className="w-3 h-3" />
                 Declare all {pillarFilter} truths ({DECLARATIONS.filter(d => d.pillar === pillarFilter).length})

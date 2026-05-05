@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Heart, ArrowLeft, Flame, ChevronRight,
+  Heart, Flame, ChevronRight,
   BookOpen, Sparkles, CheckCircle2
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -18,78 +18,67 @@ const MOODS = [
     color: 'from-amber-400 to-yellow-300', bg: 'bg-amber-50 dark:bg-amber-900/20', border: 'border-amber-300', dot: '#f59e0b',
     scripture: { text: 'Rejoice in the Lord always! Again I will say, rejoice!', ref: 'Philippians 4:4' },
     practice: 'Gratitude Prayer', practiceIcon: '🙏', practicePage: 'Prayer',
-    prompt: 'What are you grateful for right now?',
-  },
+    prompt: 'What are you grateful for right now?' },
   {
     emoji: '🙏', label: 'Grateful', value: 'grateful',
     color: 'from-green-400 to-emerald-300', bg: 'bg-green-50 dark:bg-green-900/20', border: 'border-green-300', dot: '#22c55e',
     scripture: { text: 'In everything give thanks, for this is the will of God in Christ Jesus toward you.', ref: '1 Thessalonians 5:18' },
     practice: 'Scripture Meditation', practiceIcon: '📖', practicePage: 'Bible',
-    prompt: 'Name three specific blessings from today.',
-  },
+    prompt: 'Name three specific blessings from today.' },
   {
     emoji: '🌟', label: 'Hopeful', value: 'hopeful',
     color: 'from-sky-400 to-blue-300', bg: 'bg-sky-50 dark:bg-sky-900/20', border: 'border-sky-300', dot: '#3b82f6',
     scripture: { text: 'For I know the thoughts that I think toward you, thoughts of peace and not of evil, to give you hope and a future.', ref: 'Jeremiah 29:11' },
     practice: 'Affirmations', practiceIcon: '✨', practicePage: 'AffirmationsPage',
-    prompt: 'What are you looking forward to?',
-  },
+    prompt: 'What are you looking forward to?' },
   {
     emoji: '😌', label: 'Peaceful', value: 'peaceful',
     color: 'from-teal-400 to-cyan-300', bg: 'bg-teal-50 dark:bg-teal-900/20', border: 'border-teal-300', dot: '#14b8a6',
     scripture: { text: 'And the peace of God, which surpasses all understanding, will guard your hearts and your thoughts in Christ Jesus.', ref: 'Philippians 4:7' },
     practice: 'Guided Meditation', practiceIcon: '🧘', practicePage: 'GuidedMeditationsPage',
-    prompt: 'What is bringing you peace right now?',
-  },
+    prompt: 'What is bringing you peace right now?' },
   {
     emoji: '😔', label: 'Sad', value: 'sad',
     color: 'from-blue-400 to-indigo-300', bg: 'bg-blue-50', border: 'border-blue-300', dot: '#6366f1',
     scripture: { text: 'Yahweh is near to those who have a broken heart, and saves those who have a crushed spirit.', ref: 'Psalm 34:18' },
     practice: 'Comforting Verses', practiceIcon: '📖', practicePage: 'Bible',
-    prompt: 'What is weighing on your heart today?',
-  },
+    prompt: 'What is weighing on your heart today?' },
   {
     emoji: '😰', label: 'Anxious', value: 'anxious',
     color: 'from-purple-400 to-violet-300', bg: 'bg-purple-50 dark:bg-purple-900/20', border: 'border-purple-300', dot: '#a855f7',
     scripture: { text: 'Casting all your worries on him, because he cares for you.', ref: '1 Peter 5:7' },
     practice: 'Breathing Exercise', practiceIcon: '🌬️', practicePage: 'GuidedMeditationsPage',
-    prompt: 'What is making you feel anxious? Try to name it.',
-  },
+    prompt: 'What is making you feel anxious? Try to name it.' },
   {
     emoji: '😤', label: 'Frustrated', value: 'frustrated',
     color: 'from-orange-400 to-red-300', bg: 'bg-orange-50 dark:bg-orange-900/20', border: 'border-orange-300', dot: '#f97316',
     scripture: { text: 'A gentle answer turns away wrath, but a harsh word stirs up anger.', ref: 'Proverbs 15:1' },
     practice: 'Grounding Practice', practiceIcon: '🌿', practicePage: 'MindsetResetPage',
-    prompt: 'What triggered this feeling? What do you need right now?',
-  },
+    prompt: 'What triggered this feeling? What do you need right now?' },
   {
     emoji: '😐', label: 'Neutral', value: 'neutral',
     color: 'from-slate-400 to-gray-300', bg: 'bg-slate-50', border: 'border-slate-300', dot: '#94a3b8',
     scripture: { text: 'Be still, and know that I am God.', ref: 'Psalm 46:10' },
     practice: 'Reflection', practiceIcon: '💭', practicePage: 'MyJournalEntries',
-    prompt: 'Even in stillness, what is your heart saying?',
-  },
+    prompt: 'Even in stillness, what is your heart saying?' },
   {
     emoji: '😩', label: 'Overwhelmed', value: 'overwhelmed',
     color: 'from-rose-400 to-pink-300', bg: 'bg-rose-50 dark:bg-rose-900/20', border: 'border-rose-300', dot: '#f43f5e',
     scripture: { text: 'Come to me, all you who labor and are heavily burdened, and I will give you rest.', ref: 'Matthew 11:28' },
     practice: 'Mindset Reset', practiceIcon: '🔄', practicePage: 'MindsetResetPage',
-    prompt: 'What feels like too much right now? What can you set down?',
-  },
+    prompt: 'What feels like too much right now? What can you set down?' },
   {
     emoji: '😞', label: 'Guilty', value: 'guilty',
     color: 'from-stone-400 to-zinc-300', bg: 'bg-stone-50', border: 'border-stone-300', dot: '#78716c',
     scripture: { text: 'If we confess our sins, he is faithful and righteous to forgive us the sins, and to cleanse us from all unrighteousness.', ref: '1 John 1:9' },
     practice: 'Talk to Gideon', practiceIcon: '🕊️', practicePage: 'ChatScreen?bot=Gideon',
-    prompt: 'What is weighing on your conscience? God\'s grace is bigger than any mistake.',
-  },
+    prompt: 'What is weighing on your conscience? God\'s grace is bigger than any mistake.' },
   {
     emoji: '🥀', label: 'Struggling', value: 'struggling',
     color: 'from-amber-600 to-amber-400', bg: 'bg-amber-50 dark:bg-amber-900/20', border: 'border-amber-400', dot: '#d97706',
     scripture: { text: 'My grace is sufficient for you, for my power is made perfect in weakness.', ref: '2 Corinthians 12:9' },
     practice: 'Forgiveness Meditation', practiceIcon: '🤍', practicePage: 'GuidedMeditationsPage',
-    prompt: 'You don\'t have to carry this alone. What do you need God to hold for you right now?',
-  },
+    prompt: 'You don\'t have to carry this alone. What do you need God to hold for you right now?' },
 ];
 
 const INTENSITY_LABELS = ['Barely', 'Slightly', 'Moderately', 'Strongly', 'Intensely'];
@@ -178,8 +167,7 @@ function EmotionalCheckInPageInner() {
 
   const { data: recentEntries = [] } = useQuery({
     queryKey: ['journalEntries_checkin'],
-    queryFn: () => base44.entities.JournalEntry.list('-created_date', 60),
-  });
+    queryFn: () => base44.entities.JournalEntry.list('-created_date', 60) });
 
   useEffect(() => {
     setWeekDays(buildWeekHistory(recentEntries));
@@ -198,8 +186,7 @@ function EmotionalCheckInPageInner() {
         mood: selectedMood.value,
         content: reflection,
         suggested_practice: selectedMood.practice,
-        tags: [`intensity:${intensity}`],
-      });
+        tags: [`intensity:${intensity}`] });
       const todayChecked = weekDays.find(d => d.label === 'Today')?.mood;
       if (!todayChecked) setStreak(s => s + 1);
       setDone(true);
@@ -229,27 +216,7 @@ function EmotionalCheckInPageInner() {
       </div>
 
 
-      {/* ── Header ── */}
-      <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#AFC7E3]/20 px-4 py-3">
-        <div className="max-w-lg mx-auto flex items-center gap-3">
-          <button onClick={() => navigate(-1)}
-            className="w-9 h-9 rounded-full bg-[#AFC7E3]/20 hover:bg-[#AFC7E3]/30 flex items-center justify-center transition-colors">
-            <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
-          </button>
-          <div className="flex-1">
-            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Emotional Check-In</h1>
-            <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">
-              {getGreeting()} · {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
-            </p>
-          </div>
-          {streak > 0 && (
-            <div className="flex items-center gap-1 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 rounded-full px-2.5 py-1">
-              <Flame className="w-3.5 h-3.5 text-orange-400" />
-              <span className="text-xs font-bold text-orange-500">{streak}</span>
-            </div>
-          )}
-        </div>
-      </div>
+      {/* (Page header is provided by Layout's UniversalHeader) */}
 
       <div className="max-w-lg mx-auto px-4 py-5 space-y-4">
 

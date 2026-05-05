@@ -401,27 +401,18 @@ export default function MindsetResetPage() {
         <a href="sms:741741&body=HELLO" className="text-[10px] font-bold text-blue-700 dark:text-blue-200 underline">Text 741741</a>
       </div>
 
-        {/* Header */}
-        <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#F2F6FA] px-4 py-3">
-          <div className="max-w-2xl mx-auto flex items-center gap-3">
-            
-
-
-            
-            <div className="flex-1">
-              <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Mindset Reset</h1>
-              <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">
-                {todayCount > 0 ? `${todayCount} reset${todayCount > 1 ? 's' : ''} today` : 'Rewire how you think'}
-              </p>
-            </div>
-            <button onClick={() => setShowHistory((h) => !h)}
+        {/* History toggle (page title is in Layout's UniversalHeader) */}
+        <div className="max-w-2xl mx-auto px-4 pt-3 pb-1 flex items-center justify-between">
+          <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">
+            {todayCount > 0 ? `${todayCount} reset${todayCount > 1 ? 's' : ''} today` : 'Rewire how you think'}
+          </p>
+          <button onClick={() => setShowHistory((h) => !h)}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all ${
-            showHistory ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]' : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA]'}`
-            }>
-              <Clock className="w-3.5 h-3.5" />
-              History
-            </button>
-          </div>
+              showHistory ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]' : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA]'
+            }`}>
+            <Clock className="w-3.5 h-3.5" />
+            History
+          </button>
         </div>
 
         <div className="max-w-2xl mx-auto px-3 sm:px-4 py-5 space-y-5">

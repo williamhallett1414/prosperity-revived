@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Zap, BookOpen, Brain,
   ArrowLeft, ChevronRight, CheckCircle2, Pencil, ExternalLink,
-  Flame, Sparkles, Lock
+  Flame, Lock
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
@@ -220,13 +220,9 @@ function AssessmentQuiz({ onComplete, onSkip }) {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex flex-col pb-24">
-      {/* Header */}
+      {/* Skip action (page title is in Layout's UniversalHeader) */}
       <div className="bg-white dark:bg-white/5 border-b border-[#F2F6FA] px-4 py-3 sticky top-14 z-30">
-        <div className="max-w-2xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-[#c9a227]" />
-            <span className="font-bold text-[#0A1A2F] dark:text-white text-sm">Find Your Pathway</span>
-          </div>
+        <div className="max-w-2xl mx-auto flex items-center justify-end">
           <button onClick={onSkip} className="text-xs text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#0A1A2F]/60 dark:text-white/60 transition-colors">
             Skip →
           </button>
