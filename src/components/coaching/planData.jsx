@@ -88,7 +88,7 @@ export const PLAN_DAYS = [
     },
     journal: { prompt: 'Write about a time when you operated in your unique gifts and felt truly alive. What were you doing? What made it feel different from other activities?', entry_type: 'general' },
     affirmation: 'I was created with intention and precision. My life has purpose that is worth pursuing with my whole heart.',
-    personal_growth_page: 'IdentityInChristPage',
+    personal_growth_page: 'IdentityInChristPage?focus=wonderfully-made',
     personal_growth_label: 'Identity in Christ',
   },
 
@@ -157,7 +157,7 @@ export const PLAN_DAYS = [
     },
     journal: { prompt: 'What lies about your identity have you been carrying? Write them out — then write the truth from Scripture that counters each one.', entry_type: 'scripture_reflection' },
     affirmation: 'I am chosen, holy, and dearly loved. Nothing I do today can make God love me more or less.',
-    personal_growth_page: 'IdentityInChristPage',
+    personal_growth_page: 'IdentityInChristPage?focus=chosen-loved',
     personal_growth_label: 'Identity in Christ',
   },
 
@@ -630,7 +630,7 @@ export const PLAN_DAYS = [
     },
     journal: { prompt: 'Hebrews 11 lists the great cloud of witnesses. Write your own personal "faith hall of fame" — three people whose lives inspire your faith, and what specifically you\'ve learned from each.', entry_type: 'scripture_reflection' },
     affirmation: 'I am confident in what I hope for. I am certain of what I cannot yet see. My faith is a substance, not just a feeling.',
-    personal_growth_page: 'IdentityInChristPage',
+    personal_growth_page: 'IdentityInChristPage?focus=more-than-conqueror',
     personal_growth_label: 'Identity in Christ',
   },
 
@@ -984,7 +984,7 @@ export const PLAN_DAYS = [
     journal: { prompt: 'What specific temptation has most threatened your transformation over these 40 days? What Scripture truth has helped you most? Write the verse out by hand and place it somewhere you will see it daily.',
       entry_type: 'scripture_reflection' },
     affirmation: 'I stand in the wilderness armed with truth. Every temptation is met with the Word of God, and the Word always wins.',
-    personal_growth_page: 'IdentityInChristPage',
+    personal_growth_page: 'IdentityInChristPage?focus=upheld',
     personal_growth_label: 'Identity in Christ',
   },
 

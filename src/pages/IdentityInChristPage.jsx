@@ -1,11 +1,13 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Crown, Star, ChevronRight, ChevronLeft,
-  BookOpen, X, Check, Mic
+  BookOpen, X, Check, Mic, ArrowRight, Sparkles, PenLine, RefreshCw, Info
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+import { base44 } from '@/api/base44Client';
+import { todayKey } from '@/utils/localDate';
 import { toast } from 'sonner';
 
 // ─── 28 Identity Declarations across 5 pillars ───────────────────────────────
@@ -226,17 +228,546 @@ const PILLAR_MAP = Object.fromEntries(PILLARS.slice(1).map(p => [p.id, p]));
 
 const FAVS_KEY    = 'identity_favs_v1';
 const MEMORIZED_KEY = 'identity_memorized_v1';
+// Real recall-test results — supersedes the binary `_memorized` checkbox.
+// Shape: { [declarationId]: { passed: true, ts: 1700000000000, attempts: 2 } }
+// We keep MEMORIZED_KEY around for backward compat (legacy users have entries
+// there) but new "memorized" claims go through the recall test. The progress
+// indicator counts a declaration as "recalled" if recallResults[id]?.passed.
+const RECALL_KEY  = 'identity_recall_v1';
+// Per-day "spoke this aloud" tracker, parallel to AffirmationsPage's design.
+// Resets each day. Shape: { 'YYYY-MM-DD': { [declarationId]: count } }
+const SPOKEN_KEY  = 'identity_spoken_v1';
 
 const loadFavs       = () => { try { return JSON.parse(localStorage.getItem(FAVS_KEY) || '[]'); } catch { return []; } };
 const loadMemorized  = () => { try { return JSON.parse(localStorage.getItem(MEMORIZED_KEY) || '[]'); } catch { return []; } };
+const loadRecall     = () => { try { return JSON.parse(localStorage.getItem(RECALL_KEY) || '{}'); } catch { return {}; } };
+const loadSpokenToday = () => {
+  try {
+    const all = JSON.parse(localStorage.getItem(SPOKEN_KEY) || '{}');
+    return all[todayKey()] || {};
+  } catch { return {}; }
+};
+const saveSpokenToday = (next) => {
+  try { localStorage.setItem(SPOKEN_KEY, JSON.stringify({ [todayKey()]: next })); } catch {}
+};
+
+// ─── Keyword extraction for the recall test ──────────────────────────────────
+// Picks ~3 substantive content words from a verse to mask. Algorithm:
+//   1. Tokenize on word boundaries (preserve apostrophes for contractions).
+//   2. Drop stopwords + short words (<4 chars).
+//   3. Dedupe by 5-char stem so e.g. "wonderfully" and "wonderful" don't both
+//      get masked (the user would type the same thing).
+//   4. Sort by length desc — longest words tend to be the most semantically
+//      loaded (Christ, redemption, righteousness, etc.).
+//   5. Take the first 3.
+// We compute these once per declaration via useMemo; the verse text never
+// changes at runtime, so the extracted keywords are stable across renders.
+const STOP = new Set([
+  'the','and','for','that','with','this','from','your','have','will','they','their','them','they',
+  'when','what','which','were','was','been','being','where','here','there','then','than',
+  'all','any','our','ours','yours','his','her','him','its','about','into','out','off','over','under',
+  'above','below','before','after','during','through','because','since','while','until',
+  'a','an','as','of','in','on','at','to','by','is','are','be','am','do','did','does',
+  'i','you','he','she','it','we','me','my','us','if','so','or','but','not','no'
+]);
+function extractRecallKeywords(verse, n = 3) {
+  const tokens = (verse.match(/[A-Za-z][A-Za-z']+/g) || []);
+  const seenStems = new Set();
+  const candidates = [];
+  for (const w of tokens) {
+    const wl = w.toLowerCase().replace(/'.*$/, ''); // drop apostrophe + rest ("God's" → "god")
+    if (wl.length < 4) continue;
+    if (STOP.has(wl)) continue;
+    const stem = wl.slice(0, 5);
+    if (seenStems.has(stem)) continue;
+    seenStems.add(stem);
+    candidates.push(w);
+  }
+  candidates.sort((a, b) => b.length - a.length);
+  return candidates.slice(0, n);
+}
+
+// String comparison for the recall test. Strips punctuation, normalizes case.
+// Tolerates pluralization differences and the word's apostrophe variants
+// ("Gods" vs "God's"). Not lemmatization — just enough to be forgiving.
+const recallNormalize = (s) => (s || '').trim().toLowerCase().replace(/['"\.,;:!?]/g, '').replace(/s$/, '');
+const recallMatches = (typed, target) => recallNormalize(typed) === recallNormalize(target);
 
 function getTodaysDeclaration() {
   const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
   return DECLARATIONS[dayOfYear % DECLARATIONS.length];
 }
 
+// ─── Recall test (real memorization mechanic) ────────────────────────────────
+// Replaces the old binary "I know it" checkbox. The verse is rendered with 3
+// keywords masked as input fields; the user types what's missing and submits.
+// Pass = at least 2 of 3 correct (typo-tolerant, case-insensitive). Pass
+// updates RECALL_KEY localStorage. Fail offers a retry with the keywords
+// hinted by their first letter.
+//
+// Why 2/3 not 3/3: scripture memory work is probabilistic in real life — a
+// single typo or remembered synonym shouldn't fail the user. The signal "I
+// roughly recall this verse" is what we want to capture; perfectionism would
+// punish exactly the users this feature is meant to help.
+function RecallTest({ decl, onPass, onClose }) {
+  const keywords = useMemo(() => extractRecallKeywords(decl.fullVerse, 3), [decl.fullVerse]);
+  const pillar = PILLAR_MAP[decl.pillar];
+
+  // Build a render plan: array of { kind: 'text'|'blank', value, idx? } that
+  // the verse splits into. We mask the FIRST occurrence of each keyword so we
+  // don't ask the user to fill in the same word twice in one verse.
+  const segments = useMemo(() => {
+    const remaining = new Set(keywords.map(k => k.toLowerCase()));
+    const out = [];
+    const re = /[A-Za-z][A-Za-z']+|[^A-Za-z]+/g;
+    let blankIdx = 0;
+    let m;
+    while ((m = re.exec(decl.fullVerse)) !== null) {
+      const tok = m[0];
+      const isWord = /^[A-Za-z]/.test(tok);
+      const tokLower = tok.toLowerCase();
+      if (isWord && remaining.has(tokLower)) {
+        remaining.delete(tokLower);
+        out.push({ kind: 'blank', target: tok, idx: blankIdx++ });
+      } else {
+        out.push({ kind: 'text', value: tok });
+      }
+    }
+    return out;
+  }, [decl.fullVerse, keywords]);
+
+  const numBlanks = segments.filter(s => s.kind === 'blank').length;
+  const [answers, setAnswers] = useState(() => Array(numBlanks).fill(''));
+  const [result, setResult] = useState(null); // null | 'pass' | 'fail'
+  const [showHints, setShowHints] = useState(false);
+  const inputRefs = useRef([]);
+
+  const submit = () => {
+    let correct = 0;
+    segments.forEach(s => {
+      if (s.kind !== 'blank') return;
+      if (recallMatches(answers[s.idx], s.target)) correct++;
+    });
+    const passed = correct >= Math.max(2, Math.ceil(numBlanks * 2 / 3));
+    setResult(passed ? 'pass' : 'fail');
+    if (passed) {
+      const map = loadRecall();
+      const prev = map[decl.id] || { attempts: 0 };
+      map[decl.id] = {
+        passed: true,
+        ts: Date.now(),
+        attempts: prev.attempts + 1,
+      };
+      try { localStorage.setItem(RECALL_KEY, JSON.stringify(map)); } catch {}
+      onPass?.(decl.id);
+    } else {
+      // Track the failed attempt too so the user sees their persistence
+      const map = loadRecall();
+      const prev = map[decl.id] || { attempts: 0 };
+      map[decl.id] = { ...prev, attempts: prev.attempts + 1 };
+      try { localStorage.setItem(RECALL_KEY, JSON.stringify(map)); } catch {}
+    }
+  };
+
+  const retry = () => { setAnswers(Array(numBlanks).fill('')); setResult(null); setShowHints(true); inputRefs.current[0]?.focus(); };
+
+  return (
+    <div className="rounded-2xl p-4 border" style={{ borderColor: `${pillar?.color}33`, background: `${pillar?.color}08` }}>
+      <div className="flex items-center justify-between mb-3">
+        <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: pillar?.color }}>
+          Recall Test · {decl.verse}
+        </p>
+        {onClose && (
+          <button onClick={onClose} className="text-[#0A1A2F]/30 dark:text-white/30 hover:text-[#0A1A2F]/60">
+            <X className="w-4 h-4" />
+          </button>
+        )}
+      </div>
+
+      {/* The verse with blanks inline */}
+      <div className="text-sm leading-relaxed mb-4" style={{ fontFamily: 'Georgia, serif', color: '#0A1A2F' }}>
+        {segments.map((s, i) => {
+          if (s.kind === 'text') return <span key={i} className="dark:text-white/85">{s.value}</span>;
+          const targetLen = s.target.length;
+          const isPass = result === 'pass';
+          const isFail = result === 'fail';
+          const correct = recallMatches(answers[s.idx], s.target);
+          return (
+            <input
+              key={i}
+              ref={(el) => { inputRefs.current[s.idx] = el; }}
+              type="text"
+              value={answers[s.idx]}
+              onChange={(e) => {
+                const v = e.target.value;
+                setAnswers(a => { const next = [...a]; next[s.idx] = v; return next; });
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  // Tab to next blank or submit if last
+                  if (s.idx < numBlanks - 1) inputRefs.current[s.idx + 1]?.focus();
+                  else submit();
+                }
+              }}
+              disabled={result !== null}
+              placeholder={showHints ? s.target[0] + '…' : '_'.repeat(Math.max(3, Math.min(targetLen, 8)))}
+              className="inline-block mx-0.5 px-1.5 py-0.5 rounded border-b-2 outline-none text-center font-bold"
+              style={{
+                width: `${Math.max(targetLen + 1, 4)}ch`,
+                borderColor: result === null ? `${pillar?.color}80` : (correct ? '#10b981' : '#ef4444'),
+                background: result === null ? '#fff' : (correct ? '#ecfdf5' : '#fef2f2'),
+                color: result === null ? '#0A1A2F' : (correct ? '#059669' : '#dc2626'),
+                fontFamily: '-apple-system, sans-serif',
+              }}
+            />
+          );
+        })}
+      </div>
+
+      {/* Action / result */}
+      {result === null && (
+        <button
+          onClick={submit}
+          disabled={answers.every(a => !a.trim())}
+          className="w-full py-2.5 rounded-xl text-xs font-bold transition-all text-white disabled:opacity-40 min-h-[44px]"
+          style={{ background: `linear-gradient(135deg, ${pillar?.color}, ${pillar?.color}cc)` }}
+        >
+          Check my recall
+        </button>
+      )}
+      {result === 'pass' && (
+        <div className="rounded-xl px-3 py-2.5 flex items-center gap-2" style={{ background: '#ecfdf5', borderLeft: '3px solid #10b981' }}>
+          <Check className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+          <p className="text-xs font-semibold text-emerald-700">
+            You've internalized this. It's part of you now.
+          </p>
+        </div>
+      )}
+      {result === 'fail' && (
+        <div className="space-y-2">
+          <div className="rounded-xl px-3 py-2.5" style={{ background: '#fef2f2', borderLeft: '3px solid #ef4444' }}>
+            <p className="text-xs font-semibold text-red-700 mb-1">Almost there.</p>
+            <p className="text-[11px] text-red-700/85 leading-relaxed">
+              Memorization is repetition. Try once more — the hints below will help.
+            </p>
+          </div>
+          <button
+            onClick={retry}
+            className="w-full py-2.5 rounded-xl text-xs font-bold transition-all border min-h-[44px]"
+            style={{ borderColor: pillar?.color, color: pillar?.color }}
+          >
+            <RefreshCw className="w-3 h-3 inline mr-1" />
+            Try again with hints
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── Reflection journaling ───────────────────────────────────────────────────
+// Writing area that saves to JournalEntry. Bridges this page's content to the
+// user's actual journal so reflections aren't a silo. Uses entry_type
+// 'identity_reflection' — visible from the main journal alongside other types.
+function ReflectionJournal({ decl, onSaved }) {
+  const [text, setText] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [savedId, setSavedId] = useState(null);
+  const pillar = PILLAR_MAP[decl.pillar];
+
+  const save = async () => {
+    if (!text.trim() || saving) return;
+    setSaving(true);
+    try {
+      const entry = await base44.entities.JournalEntry.create({
+        entry_type: 'identity_reflection',
+        content: `Identity in Christ — ${decl.truth} (${decl.verse})\n\n${text.trim()}`,
+        // Tag a few fields so future surfacing can filter by declaration if we want
+        category: 'identity_reflection',
+        prompt: `What does "${decl.truth}" mean for me today?`,
+      });
+      setSavedId(entry?.id || 'saved');
+      setText('');
+      toast.success('Saved to your journal 📖', { duration: 1500 });
+      onSaved?.(decl.id);
+    } catch (e) {
+      toast.error('Could not save — try again');
+    }
+    setSaving(false);
+  };
+
+  return (
+    <div className="rounded-2xl p-4 border" style={{ borderColor: `${pillar?.color}33`, background: `${pillar?.color}08` }}>
+      <div className="flex items-center gap-2 mb-2">
+        <PenLine className="w-3.5 h-3.5" style={{ color: pillar?.color }} />
+        <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: pillar?.color }}>
+          Reflect
+        </p>
+      </div>
+      <p className="text-xs italic mb-3" style={{ color: '#0A1A2F', fontFamily: 'Georgia, serif' }}>
+        What does "{decl.truth}" mean for you today?
+      </p>
+      <textarea
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        rows={4}
+        placeholder="Write what surfaces…"
+        disabled={!!savedId}
+        className="w-full px-3 py-2.5 rounded-xl text-sm outline-none transition-colors mb-3 resize-none"
+        style={{
+          background: '#fff',
+          border: '1px solid rgba(10,26,47,0.10)',
+          color: '#0A1A2F',
+          fontFamily: 'Georgia, serif',
+          lineHeight: 1.6,
+        }}
+      />
+      {savedId ? (
+        <div className="rounded-xl px-3 py-2.5 flex items-center gap-2 bg-emerald-50 border-l-2 border-emerald-500">
+          <Check className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+          <p className="text-xs font-semibold text-emerald-700">Saved to your journal</p>
+        </div>
+      ) : (
+        <button
+          onClick={save}
+          disabled={!text.trim() || saving}
+          className="w-full py-2.5 rounded-xl text-xs font-bold transition-all text-white disabled:opacity-40 min-h-[44px]"
+          style={{ background: `linear-gradient(135deg, ${pillar?.color}, ${pillar?.color}cc)` }}
+        >
+          {saving ? 'Saving…' : 'Save to journal'}
+        </button>
+      )}
+    </div>
+  );
+}
+
+// ─── Focused practice — Read → Reflect → Speak → Recall ──────────────────────
+// One-declaration deep practice. Used when the user lands via ?focus=<id>
+// from a coaching plan, or when they tap "Practice" on a card. The four
+// steps are presented as collapsible sections rather than a forced-march
+// stepper — the user can engage with whichever step calls to them and skip
+// the rest. We mark the declaration as fully-practiced when speak + recall
+// both fire, but neither is required.
+function FocusedPractice({ decl, onClose, onSpoken, onPassed, isMemorized, isFav, onToggleFav }) {
+  const pillar = PILLAR_MAP[decl.pillar];
+  const [openStep, setOpenStep] = useState('reflect');
+
+  const Step = ({ id, label, icon, children, badge }) => {
+    const isOpen = openStep === id;
+    return (
+      <div className="rounded-2xl bg-white dark:bg-white/5 border overflow-hidden"
+        style={{ borderColor: isOpen ? `${pillar?.color}55` : 'rgba(10,26,47,0.08)' }}>
+        <button
+          onClick={() => setOpenStep(isOpen ? null : id)}
+          className="w-full flex items-center gap-3 px-4 py-3.5 text-left min-h-[44px]"
+        >
+          <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+            style={{ background: `${pillar?.color}18`, color: pillar?.color }}>
+            {icon}
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-bold text-[#0A1A2F] dark:text-white">{label}</p>
+          </div>
+          {badge && (
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full"
+              style={{ background: `${pillar?.color}18`, color: pillar?.color }}>
+              {badge}
+            </span>
+          )}
+          <ChevronRight className="w-4 h-4 transition-transform"
+            style={{ transform: isOpen ? 'rotate(90deg)' : 'rotate(0deg)', color: '#0A1A2F33' }} />
+        </button>
+        <AnimatePresence initial={false}>
+          {isOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden"
+            >
+              <div className="px-4 pb-4 pt-1">{children}</div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    );
+  };
+
+  const [spokenLocal, setSpokenLocal] = useState(false);
+  const handleSpeakConfirm = () => {
+    setSpokenLocal(true);
+    onSpoken?.(decl.id);
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="space-y-3"
+    >
+      {/* Hero card showing what we're practicing */}
+      <div className="rounded-3xl p-5 relative overflow-hidden border"
+        style={{
+          background: 'linear-gradient(160deg, #0A1A2F 0%, #0f2440 100%)',
+          borderColor: `${pillar?.color}30`,
+        }}>
+        <div className="absolute top-0 right-0 w-40 h-40 rounded-full opacity-20 pointer-events-none"
+          style={{ background: `radial-gradient(circle at 100% 0%, ${pillar?.color} 0%, transparent 70%)` }} />
+        <div className="relative">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <span className="text-base">{pillar?.emoji}</span>
+              <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: pillar?.color }}>
+                {decl.pillar}
+              </span>
+            </div>
+            <div className="flex items-center gap-1">
+              <button onClick={() => onToggleFav?.(decl.id)}
+                className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors ${
+                  isFav ? 'text-amber-400' : 'text-white/30 hover:text-amber-300'
+                }`}>
+                <Star className={`w-4 h-4 ${isFav ? 'fill-amber-400' : ''}`} />
+              </button>
+              {onClose && (
+                <button onClick={onClose}
+                  className="w-9 h-9 rounded-full flex items-center justify-center text-white/50 hover:text-white/80">
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+          </div>
+          <h2 className="text-white font-bold leading-tight mb-2"
+            style={{ fontSize: 'clamp(1.25rem, 4vw, 1.75rem)', fontFamily: 'Georgia, serif' }}>
+            "{decl.truth}"
+          </h2>
+          <p className="text-sm font-bold mb-3" style={{ color: pillar?.color }}>{decl.verse}</p>
+          <p className="text-white/70 text-sm leading-relaxed italic" style={{ fontFamily: 'Georgia, serif' }}>
+            "{decl.fullVerse}"
+          </p>
+        </div>
+      </div>
+
+      {/* The 4 steps, accordion-style */}
+      <Step id="read" label="Read what this means" icon={<BookOpen className="w-4 h-4" />}>
+        <p className="text-sm leading-relaxed text-[#0A1A2F]/75 dark:text-white/75" style={{ fontFamily: 'Georgia, serif' }}>
+          {decl.explanation}
+        </p>
+      </Step>
+
+      <Step id="reflect" label="Reflect" icon={<PenLine className="w-4 h-4" />}>
+        <ReflectionJournal decl={decl} onSaved={() => {}} />
+      </Step>
+
+      <Step id="speak" label="Speak it aloud"
+        icon={<Mic className="w-4 h-4" />}
+        badge={spokenLocal ? '✓' : null}
+      >
+        <div className="space-y-3">
+          <p className="text-xs italic text-[#0A1A2F]/60 dark:text-white/60" style={{ fontFamily: 'Georgia, serif' }}>
+            Speak it out loud. Repetition is how truth becomes belief.
+          </p>
+          <p className="text-base font-bold leading-snug" style={{ fontFamily: 'Georgia, serif', color: '#0A1A2F' }}>
+            "{decl.truth}"
+          </p>
+          {spokenLocal ? (
+            <div className="rounded-xl px-3 py-2.5 flex items-center gap-2 bg-emerald-50 border-l-2 border-emerald-500">
+              <Check className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+              <p className="text-xs font-semibold text-emerald-700">Declared today</p>
+            </div>
+          ) : (
+            <button
+              onClick={handleSpeakConfirm}
+              className="w-full py-2.5 rounded-xl text-xs font-bold text-white transition-all min-h-[44px]"
+              style={{ background: `linear-gradient(135deg, ${pillar?.color}, ${pillar?.color}cc)` }}
+            >
+              <Mic className="w-3 h-3 inline mr-1" />
+              I declared this
+            </button>
+          )}
+        </div>
+      </Step>
+
+      <Step id="recall" label={isMemorized ? 'Recall — already passed' : 'Recall test'}
+        icon={<Sparkles className="w-4 h-4" />}
+        badge={isMemorized ? '✓' : null}
+      >
+        <RecallTest decl={decl} onPass={onPassed} />
+      </Step>
+    </motion.div>
+  );
+}
+
+// ─── Explainer card distinguishing this from Affirmations ────────────────────
+// Affirmations and identity declarations look superficially similar
+// (scripture-backed truths to declare). The theological distinction matters:
+// affirmations are general truths to internalize; identity declarations are
+// specifically about who you are *in Christ* — positional, derived from union
+// with Him. This card surfaces the distinction once and dismisses (stored in
+// localStorage so we don't nag returning users).
+function ExplainerCard({ onDismiss }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="rounded-2xl p-4 border bg-gradient-to-br from-amber-50/80 to-rose-50/80 border-amber-200/60"
+    >
+      <div className="flex items-start gap-3">
+        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-rose-400 flex items-center justify-center flex-shrink-0">
+          <Crown className="w-4 h-4 text-white" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-bold text-[#0A1A2F] mb-1">What is "Identity in Christ"?</p>
+          <p className="text-xs text-[#0A1A2F]/70 leading-relaxed mb-2">
+            These aren't just affirmations. Each declaration is a <em>positional truth</em> — who Scripture says you are because you're in Christ. Not aspirational. Already true.
+          </p>
+          <p className="text-[11px] text-[#0A1A2F]/55 leading-relaxed">
+            Affirmations build mindset. Identity declarations build foundation.
+          </p>
+        </div>
+        <button onClick={onDismiss}
+          className="w-7 h-7 rounded-full flex items-center justify-center text-[#0A1A2F]/30 hover:text-[#0A1A2F]/60 flex-shrink-0">
+          <X className="w-3.5 h-3.5" />
+        </button>
+      </div>
+    </motion.div>
+  );
+}
+
+// ─── Progress bar — meaningful counts ────────────────────────────────────────
+// Shows three real signals: how many declarations the user has spoken today,
+// reflected on (any time), and passed the recall test on. Counts are derived
+// from existing state — nothing new to track.
+function ProgressBar({ spokenTodayCount, reflectedCount, recalledCount, total }) {
+  const Bar = ({ label, count, color }) => (
+    <div className="flex-1 min-w-0">
+      <div className="flex items-baseline justify-between mb-1">
+        <span className="text-[10px] font-bold uppercase tracking-widest text-[#0A1A2F]/45 dark:text-white/45">{label}</span>
+        <span className="text-xs font-bold tabular-nums" style={{ color }}>{count}<span className="text-[#0A1A2F]/30 dark:text-white/30 font-normal">/{total}</span></span>
+      </div>
+      <div className="h-1.5 rounded-full bg-[#F2F6FA] dark:bg-white/5 overflow-hidden">
+        <div className="h-full rounded-full transition-all duration-500"
+          style={{ width: `${(count / total) * 100}%`, background: color }} />
+      </div>
+    </div>
+  );
+  return (
+    <div className="rounded-2xl p-4 bg-white dark:bg-white/5 border border-[#F2F6FA] dark:border-white/5">
+      <div className="flex items-center gap-3 mb-3">
+        <Sparkles className="w-3.5 h-3.5 text-[#c9a227]" />
+        <p className="text-[10px] font-bold uppercase tracking-widest text-[#0A1A2F]/55 dark:text-white/55">Your practice</p>
+      </div>
+      <div className="flex gap-4">
+        <Bar label="Spoken today" count={spokenTodayCount} color="#FAD98D" />
+        <Bar label="Reflected" count={reflectedCount} color="#8B5CF6" />
+        <Bar label="Recalled" count={recalledCount} color="#10b981" />
+      </div>
+    </div>
+  );
+}
+
 // ─── Declaration Mode (full-screen speak-aloud practice) ─────────────────────
-function DeclarationMode({ declarations, startIndex, onClose }) {
+function DeclarationMode({ declarations, startIndex, onClose, onSpoken }) {
   const [idx, setIdx] = useState(startIndex);
   const [spoken, setSpoken] = useState(new Set());
   const [confirmed, setConfirmed] = useState(false);
@@ -248,6 +779,7 @@ function DeclarationMode({ declarations, startIndex, onClose }) {
   const markSpoken = () => {
     setSpoken(s => new Set([...s, decl.id]));
     setConfirmed(true);
+    onSpoken?.(decl.id); // bubble up to the page so the progress bar updates
     setTimeout(() => setConfirmed(false), 1200);
   };
 
@@ -393,7 +925,7 @@ function DeclarationMode({ declarations, startIndex, onClose }) {
 }
 
 // ─── Declaration card (browse view) ──────────────────────────────────────────
-function DeclarationCard({ decl, isFav, isMemorized, onToggleFav, onToggleMemorized, onDeclare, index }) {
+function DeclarationCard({ decl, isFav, isMemorized, onToggleFav, onDeclare, onPractice, index }) {
   const [expanded, setExpanded] = useState(false);
   const pillar = PILLAR_MAP[decl.pillar];
 
@@ -417,9 +949,17 @@ function DeclarationCard({ decl, isFav, isMemorized, onToggleFav, onToggleMemori
             {pillar?.emoji}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: pillar?.color }}>
-              {decl.pillar}
-            </p>
+            <div className="flex items-center gap-1.5 mb-0.5">
+              <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: pillar?.color }}>
+                {decl.pillar}
+              </p>
+              {isMemorized && (
+                <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full inline-flex items-center gap-0.5 bg-emerald-50 text-emerald-600 border border-emerald-200">
+                  <Check className="w-2.5 h-2.5" />
+                  Recalled
+                </span>
+              )}
+            </div>
             <h3 className="font-bold text-sm text-[#0A1A2F] dark:text-white leading-snug">{decl.truth}</h3>
             <p className="text-[11px] text-[#0A1A2F]/40 dark:text-white/40 mt-0.5">{decl.verse}</p>
           </div>
@@ -465,7 +1005,11 @@ function DeclarationCard({ decl, isFav, isMemorized, onToggleFav, onToggleMemori
           )}
         </AnimatePresence>
 
-        {/* Footer: Declare + Memorized buttons */}
+        {/* Footer: Declare + Practice buttons.
+            Practice opens FocusedPractice (Read → Reflect → Speak → Recall),
+            which includes the real recall test. The binary "Know it" toggle
+            is gone — memorization is now claimed through real recall, not a
+            checkbox. A small ✓ chip in the header surfaces memorized state. */}
         <div className="flex gap-2 pt-1">
           <button
             onClick={() => onDeclare(decl)}
@@ -476,15 +1020,12 @@ function DeclarationCard({ decl, isFav, isMemorized, onToggleFav, onToggleMemori
             Declare
           </button>
           <button
-            onClick={() => onToggleMemorized(decl.id)}
-            className={`flex items-center justify-center gap-1 px-3 py-2 rounded-xl text-xs font-bold border transition-all ${
-              isMemorized
-                ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 text-emerald-600'
-                : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] border-[#F2F6FA] text-[#0A1A2F]/40 dark:text-white/40 hover:border-emerald-200'
-            }`}
+            onClick={() => onPractice?.(decl)}
+            className="flex items-center justify-center gap-1 px-3 py-2 rounded-xl text-xs font-bold border transition-all bg-white dark:bg-white/5 hover:border-[#FAD98D]/60"
+            style={{ borderColor: `${pillar?.color}40`, color: pillar?.color }}
           >
-            <Check className="w-3 h-3" />
-            {isMemorized ? 'Memorized' : 'Know it'}
+            <Sparkles className="w-3 h-3" />
+            Practice
           </button>
         </div>
       </div>
@@ -494,11 +1035,50 @@ function DeclarationCard({ decl, isFav, isMemorized, onToggleFav, onToggleMemori
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 export default function IdentityInChristPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [pillarFilter, setPillarFilter] = useState('all');
   const [favs,         setFavs]         = useState(loadFavs);
   const [memorized,    setMemorized]    = useState(loadMemorized);
+  const [recallResults, setRecallResults] = useState(loadRecall);
+  const [spokenToday,  setSpokenToday]  = useState(loadSpokenToday);
   const [declareMode,  setDeclareMode]  = useState(null); // { declarations, startIndex }
   const [showFavOnly,  setShowFavOnly]  = useState(false);
+
+  // Reflection tracking — derived from JournalEntry but cached locally so the
+  // progress bar updates immediately without a network round-trip. We mark a
+  // declaration as "reflected on" once the user successfully saves a journal
+  // entry from its FocusedPractice flow this session. The map persists in
+  // localStorage so the count survives page refresh; full server-side counts
+  // would require a JournalEntry query and aren't worth the complexity.
+  const REFLECTED_KEY = 'identity_reflected_v1';
+  const [reflectedSet, setReflectedSet] = useState(() => {
+    try { return new Set(JSON.parse(localStorage.getItem(REFLECTED_KEY) || '[]')); } catch { return new Set(); }
+  });
+
+  // Explainer dismissal — once the user has seen and dismissed the "What is
+  // Identity in Christ?" card, we don't show it again on this device.
+  const EXPLAINER_KEY = 'identity_explainer_dismissed_v1';
+  const [explainerOpen, setExplainerOpen] = useState(() => {
+    try { return localStorage.getItem(EXPLAINER_KEY) !== '1'; } catch { return true; }
+  });
+  const dismissExplainer = () => {
+    try { localStorage.setItem(EXPLAINER_KEY, '1'); } catch {}
+    setExplainerOpen(false);
+  };
+
+  // ── URL-param-driven focused practice ──
+  // Coaching plans deep-link via ?focus=<declaration-id> to land the user on
+  // a single declaration in focused practice mode. We resolve it once on
+  // mount + when search params change. Invalid IDs fall back to no-focus.
+  const focusId = searchParams.get('focus');
+  const focusedDecl = focusId ? DECLARATIONS.find(d => d.id === focusId) : null;
+
+  const closeFocus = () => {
+    // Strip the param from the URL while staying on this page
+    const next = new URLSearchParams(searchParams);
+    next.delete('focus');
+    setSearchParams(next, { replace: true });
+  };
 
   const today = getTodaysDeclaration();
   const todayPillar = PILLAR_MAP[today.pillar];
@@ -511,11 +1091,48 @@ export default function IdentityInChristPage() {
     });
   }, []);
 
+  // Legacy "Memorized" toggle — kept for users who don't engage with the
+  // recall test. New flows should prefer recordRecallPass below.
   const toggleMemorized = useCallback((id) => {
     setMemorized(prev => {
       const next = prev.includes(id) ? prev.filter(m => m !== id) : [...prev, id];
       localStorage.setItem(MEMORIZED_KEY, JSON.stringify(next));
       if (!prev.includes(id)) toast.success('Marked as memorized 🎉', { duration: 1500 });
+      return next;
+    });
+  }, []);
+
+  // Called by RecallTest.onPass — records a passed recall test for the
+  // declaration. The user is now genuinely "memorized" by a real signal.
+  const recordRecallPass = useCallback((id) => {
+    setRecallResults(loadRecall()); // re-read what RecallTest just persisted
+    // Auto-mark legacy memorized too so the existing UI is consistent
+    setMemorized(prev => {
+      if (prev.includes(id)) return prev;
+      const next = [...prev, id];
+      localStorage.setItem(MEMORIZED_KEY, JSON.stringify(next));
+      return next;
+    });
+  }, []);
+
+  // Called when user taps "I declared this" anywhere. Bumps the per-day
+  // spoken count for the declaration. Resets automatically each day.
+  const recordSpoken = useCallback((id) => {
+    setSpokenToday(prev => {
+      const next = { ...prev, [id]: (prev[id] || 0) + 1 };
+      saveSpokenToday(next);
+      return next;
+    });
+  }, []);
+
+  // Called when ReflectionJournal saves successfully. Marks the declaration
+  // as having been reflected on at least once.
+  const recordReflected = useCallback((id) => {
+    setReflectedSet(prev => {
+      if (prev.has(id)) return prev;
+      const next = new Set(prev);
+      next.add(id);
+      try { localStorage.setItem(REFLECTED_KEY, JSON.stringify([...next])); } catch {}
       return next;
     });
   }, []);
@@ -530,6 +1147,13 @@ export default function IdentityInChristPage() {
     setDeclareMode({ declarations: list, startIndex: 0 });
   };
 
+  // Open a single declaration in focused practice mode (the new 4-step UI).
+  const openFocus = (decl) => {
+    const next = new URLSearchParams(searchParams);
+    next.set('focus', decl.id);
+    setSearchParams(next, { replace: false });
+  };
+
   // Filtered list
   let filtered = DECLARATIONS;
   if (showFavOnly)         filtered = filtered.filter(d => favs.includes(d.id));
@@ -537,6 +1161,11 @@ export default function IdentityInChristPage() {
 
   const memorizedCount = memorized.length;
   const favCount = favs.length;
+
+  // Derived progress counts for the bar
+  const spokenTodayCount = Object.keys(spokenToday).length;
+  const recalledCount = Object.values(recallResults).filter(r => r?.passed).length;
+  const reflectedCount = reflectedSet.size;
 
   return (
     <>
@@ -546,7 +1175,7 @@ export default function IdentityInChristPage() {
         <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#F2F6FA] px-4 py-3">
           <div className="max-w-2xl mx-auto flex items-center justify-between gap-3">
             <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">
-              {memorizedCount > 0 ? `${memorizedCount} memorized · ` : ''}{DECLARATIONS.length} declarations
+              {recalledCount > 0 ? `${recalledCount} recalled · ` : ''}{DECLARATIONS.length} declarations
             </p>
             <button onClick={startDeclareAll}
               className="flex items-center gap-1.5 min-h-[44px] min-w-[44px] bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white rounded-xl px-3 py-1.5 hover:opacity-90 transition-opacity">
@@ -557,6 +1186,47 @@ export default function IdentityInChristPage() {
         </div>
 
         <div className="max-w-2xl mx-auto px-3 sm:px-4 py-5 space-y-5">
+
+          {/* ── Focused practice mode ──
+              When ?focus=<id> is in the URL, render a focused single-
+              declaration practice surface INSTEAD of the normal list view.
+              Used by coaching plans deep-linking to a specific declaration.
+              The user can dismiss the focus mode (X button or the close
+              callback) to return to the normal page. */}
+          {focusedDecl && (
+            <>
+              <button
+                onClick={closeFocus}
+                className="flex items-center gap-1.5 text-xs font-semibold text-[#0A1A2F]/55 dark:text-white/55 hover:text-[#0A1A2F]/80 transition-colors min-h-[44px]"
+              >
+                <ChevronLeft className="w-3.5 h-3.5" />
+                Back to all declarations
+              </button>
+              <FocusedPractice
+                decl={focusedDecl}
+                onClose={closeFocus}
+                onSpoken={recordSpoken}
+                onPassed={(id) => { recordRecallPass(id); recordReflected(id); }}
+                isMemorized={memorized.includes(focusedDecl.id) || !!recallResults[focusedDecl.id]?.passed}
+                isFav={favs.includes(focusedDecl.id)}
+                onToggleFav={toggleFav}
+              />
+            </>
+          )}
+
+          {/* ── Default landing (only when not in focus mode) ── */}
+          {!focusedDecl && (
+            <>
+              {/* Explainer card — shown until dismissed */}
+              {explainerOpen && <ExplainerCard onDismiss={dismissExplainer} />}
+
+              {/* Progress bar — meaningful counts of practice */}
+              <ProgressBar
+                spokenTodayCount={spokenTodayCount}
+                reflectedCount={reflectedCount}
+                recalledCount={recalledCount}
+                total={DECLARATIONS.length}
+              />
 
           {/* ── Today's featured declaration ─────────────────────────────── */}
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
@@ -689,30 +1359,45 @@ export default function IdentityInChristPage() {
                   key={decl.id}
                   decl={decl}
                   isFav={favs.includes(decl.id)}
-                  isMemorized={memorized.includes(decl.id)}
+                  isMemorized={memorized.includes(decl.id) || !!recallResults[decl.id]?.passed}
                   onToggleFav={toggleFav}
-                  onToggleMemorized={toggleMemorized}
                   onDeclare={startDeclareSingle}
+                  onPractice={openFocus}
                   index={i}
                 />
               ))}
             </div>
           )}
 
-          {/* ── Cross-link to Growth Pathways ─────────────────────────────── */}
+          {/* ── Cross-link to Growth Pathways ──
+              Promoted visually — this is how users find the curriculum side
+              of identity work (the 4-step Identity pathway lives there). */}
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
             <Link to={createPageUrl('GrowthPathwaysPage')}
-              className="flex items-center gap-3 bg-white dark:bg-white/5 rounded-2xl border border-[#F2F6FA] hover:border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 p-4 transition-all group">
-              <div className="w-10 h-10 bg-gradient-to-br from-rose-500 to-pink-400 rounded-xl flex items-center justify-center flex-shrink-0">
-                <Crown className="w-5 h-5 text-white" />
+              className="block rounded-2xl p-4 transition-all group relative overflow-hidden"
+              style={{
+                background: 'linear-gradient(135deg, #fff7ed 0%, #fef3c7 50%, #fce7f3 100%)',
+                border: '1px solid rgba(217, 119, 6, 0.25)',
+              }}>
+              <div className="absolute -top-4 -right-4 w-32 h-32 rounded-full opacity-40 pointer-events-none"
+                style={{ background: 'radial-gradient(circle, rgba(251, 146, 60, 0.3) 0%, transparent 70%)' }} />
+              <div className="relative flex items-center gap-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-rose-500 to-amber-400 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-md">
+                  <Crown className="w-5 h-5 text-white" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-amber-700 mb-0.5">
+                    Want guided structure?
+                  </p>
+                  <p className="font-bold text-sm text-[#0A1A2F] mb-0.5">Identity in Christ Pathway</p>
+                  <p className="text-xs text-[#0A1A2F]/65">Step-by-step journey into your true identity</p>
+                </div>
+                <ArrowRight className="w-4 h-4 text-amber-700 flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
               </div>
-              <div className="flex-1">
-                <p className="font-bold text-sm text-[#0A1A2F] dark:text-white dark:text-white">Identity in Christ Pathway</p>
-                <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">5-step guided journey into your true identity</p>
-              </div>
-              <ChevronRight className="w-4 h-4 text-[#0A1A2F]/20 dark:text-white/20 group-hover:text-[#0A1A2F]/40 dark:text-white/40 transition-colors" />
             </Link>
           </motion.div>
+            </>
+          )}
 
         </div>
       </div>
@@ -724,6 +1409,7 @@ export default function IdentityInChristPage() {
             declarations={declareMode.declarations}
             startIndex={declareMode.startIndex}
             onClose={() => setDeclareMode(null)}
+            onSpoken={recordSpoken}
           />
         )}
       </AnimatePresence>

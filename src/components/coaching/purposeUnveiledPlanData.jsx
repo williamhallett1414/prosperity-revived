@@ -30,7 +30,7 @@ export const PURPOSE_UNVEILED_DAYS = [
     nutrition: { focus: 'Honoring Your Temple', meal_theme: 'Self-Respect', plan: 'Eat foods that honor the body you\'ve been given. Feed yourself like someone worthy of care — because you are.', tip: 'Self-respect in nutrition mirrors self-respect in pursuing purpose.', recipe_search: 'honoring nourishing meals' },
     journal: { prompt: 'List 10 gifts, skills, or strengths you have. Don\'t be humble — be honest. What are you genuinely good at?', entry_type: 'general' },
     affirmation: 'I am wonderfully designed. My gifts are not accidents — they are my calling.',
-    personal_growth_page: 'IdentityInChristPage', personal_growth_label: 'Identity in Christ',
+    personal_growth_page: 'IdentityInChristPage?focus=wonderfully-made', personal_growth_label: 'Identity in Christ',
   },
   {
     day: 3, week: 1, title: 'The Difference Between Purpose & Career',

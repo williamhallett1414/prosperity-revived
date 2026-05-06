@@ -496,7 +496,7 @@ export const prosperityRevivedPlan = {
           'Holy Spirit, produce these fruits in every area of my life — including how I treat my body and live in it. I cannot produce them myself. You can. Amen.'),
         wrk('HIIT: Spirit Empowered Interval Training', 'cardio', 30, 'Push hard. Rest fully. Notice the joy, peace, and self-control required. These are Spirit fruits working in a very physical way.'),
         nut('Whole Life Nourishment', 'Today eat as if every meal is a spiritual act: with prayer, without screens, with gratitude, with appropriate portions. Let the Spirit guide your eating.', 'Log your meals and note your emotional state at each eating. Spirit-guided eating looks different from willpower eating.', 'Spirit-guided eating is not a list of rules — it is sensitivity to your body\'s actual needs, gratitude for provision, and freedom from food obsession.'),
-        grow('Which of the 9 fruits of the Spirit is most evident in your life now compared to Day 1? Which one needs the most growth?', 'The fruit of the Spirit is not produced by trying harder. It grows when you stay connected to the Vine.', 'Choose one fruit of the Spirit to focus on expressing through your body this week. Write what that looks like practically.', 'IdentityInChristPage', 'Identity in Christ')
+        grow('Which of the 9 fruits of the Spirit is most evident in your life now compared to Day 1? Which one needs the most growth?', 'The fruit of the Spirit is not produced by trying harder. It grows when you stay connected to the Vine.', 'Choose one fruit of the Spirit to focus on expressing through your body this week. Write what that looks like practically.', 'IdentityInChristPage?focus=rooted', 'Identity in Christ')
       ),
 
       day(48,
