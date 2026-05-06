@@ -9,7 +9,9 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { MEDITATION_VOICE, findHannahVoice } from '@/utils/meditationVoice';
+import { getMeditationScript } from '@/utils/meditationScripts';
 import SerenityBackground, { BreathingCircle } from '@/components/meditations/SerenityBackground';
+import MeditationPlayerBackground from '@/components/meditations/MeditationPlayerBackground';
 
 // ─── Meditation catalogue with categories ────────────────────────────────────
 const MEDITATIONS = [
@@ -84,18 +86,106 @@ function getTimeLabel() {
 
 // ─── Audio engine ─────────────────────────────────────────────────────────────
 
-// ─── Speak using Hannah's TTS voice ───────────────────────────────────────────
-// Uses Google Cloud TTS for Hannah's professional narration
-// NOTE: audioRef is passed as closure so pause can stop playback
-const speakSegment = (text, audioRef) => new Promise(async (resolve) => {
-  const cleaned = text.
-  replace(/\*\*(.+?)\*\*/g, '$1').replace(/\*(.+?)\*/g, '$1').
-  replace(/#{1,6}\s+/g, '').replace(/`{1,3}[^`]*`{1,3}/g, '').
-  replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').trim().slice(0, 4500);
+/**
+ * iOS / Capacitor WKWebView locks audio playback until a user gesture
+ * fires. Once unlocked, both <audio> and SpeechSynthesis are free to play.
+ * Call this from a click handler (the Begin button) to play a tiny silent
+ * buffer that satisfies the gesture requirement. Subsequent audio plays
+ * without further interaction. Idempotent — only runs once per session.
+ */
+let _audioUnlocked = false;
+function unlockAudioContext() {
+  if (_audioUnlocked) return;
+  _audioUnlocked = true;
+  try {
+    // 1. Unlock <audio> via a silent data-URI MP3 (44 bytes, 0.001s)
+    const silent = new Audio(
+      'data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tQwAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAACAAACcQCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgID/////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAAnE6f8VkAAAAAAAAAAAAAAAAAAAA//sQxAADwAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//sQxFqDwAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//sQxLkDwAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//sQxP+DwAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV'
+    );
+    silent.volume = 0;
+    const p = silent.play();
+    if (p?.then) p.then(() => {}, () => {});
+  } catch {}
+  try {
+    // 2. Unlock SpeechSynthesis: iOS requires a real utterance call
+    if (window.speechSynthesis) {
+      const u = new SpeechSynthesisUtterance(' ');
+      u.volume = 0;
+      window.speechSynthesis.speak(u);
+    }
+  } catch {}
+}
 
-  if (!cleaned) {resolve();return;}
+/**
+ * Voice prewarming. window.speechSynthesis.getVoices() is async on most
+ * browsers — it returns [] on first call and populates later via the
+ * 'voiceschanged' event. If we just call getVoices() at speak-time on a
+ * fresh page, we'll find no voices and fall back to an arbitrary default
+ * (often a male system voice that doesn't match Hannah).
+ *
+ * This module-level singleton kicks off the voice load early and caches
+ * the result. By the time the first segment plays, voices are usually
+ * populated.
+ */
+let _cachedVoices = [];
+let _voicesPromise = null;
+function ensureVoicesLoaded() {
+  if (typeof window === 'undefined' || !window.speechSynthesis) return Promise.resolve([]);
+  if (_voicesPromise) return _voicesPromise;
+  _voicesPromise = new Promise((resolve) => {
+    const got = window.speechSynthesis.getVoices();
+    if (got && got.length > 0) {
+      _cachedVoices = got;
+      resolve(got);
+      return;
+    }
+    // Listen for voiceschanged. Some browsers fire this immediately;
+    // others take 100-500ms. Resolve at first non-empty result.
+    const handler = () => {
+      const v = window.speechSynthesis.getVoices();
+      if (v && v.length > 0) {
+        _cachedVoices = v;
+        window.speechSynthesis.removeEventListener('voiceschanged', handler);
+        resolve(v);
+      }
+    };
+    window.speechSynthesis.addEventListener('voiceschanged', handler);
+    // Timeout fallback: never block forever, just give up after 1.5s
+    setTimeout(() => {
+      const v = window.speechSynthesis.getVoices() || [];
+      _cachedVoices = v;
+      window.speechSynthesis.removeEventListener('voiceschanged', handler);
+      resolve(v);
+    }, 1500);
+  });
+  return _voicesPromise;
+}
 
-  // Use Hannah's TTS voice (Google Cloud)
+/**
+ * speakSegment — play one segment of the meditation script.
+ * Tries Hannah's Google Cloud TTS first, falls back to browser
+ * SpeechSynthesis with a Hannah-like voice. If both fail, signals
+ * the caller via onAudioState so the player can show a degraded
+ * "text-only mode" banner instead of going silent.
+ *
+ * Returns a Promise that resolves when the segment is done speaking
+ * (or fails) so the run loop can move to the pause phase.
+ *
+ * @param {string} text
+ * @param {React.MutableRefObject} audioRef - holds the live <audio> for pause/stop
+ * @param {(state: 'cloud-ok'|'fallback-ok'|'all-failed') => void} [onAudioState]
+ *        Called once per segment with the result so the UI can react.
+ */
+const speakSegment = (text, audioRef, onAudioState) => new Promise(async (resolve) => {
+  const cleaned = text
+    .replace(/\*\*(.+?)\*\*/g, '$1').replace(/\*(.+?)\*/g, '$1')
+    .replace(/#{1,6}\s+/g, '').replace(/`{1,3}[^`]*`{1,3}/g, '')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').trim().slice(0, 4500);
+
+  if (!cleaned) { resolve(); return; }
+
+  // Path 1: Hannah's Google Cloud TTS
+  let cloudFailed = false;
   try {
     const result = await base44.functions.invoke('hannahTTS', { text: cleaned });
     const audioContent = result?.audioContent ?? result?.data?.audioContent;
@@ -106,30 +196,78 @@ const speakSegment = (text, audioRef) => new Promise(async (resolve) => {
       const blob = new Blob([bytes], { type: 'audio/mpeg' });
       const url = URL.createObjectURL(blob);
       const audio = new Audio(url);
+      // Apply MEDITATION_VOICE.volume — Blob audio doesn't read it otherwise.
+      // 0.93 (intimate, not loud) matches the rest of Hannah's voice profile.
+      audio.volume = MEDITATION_VOICE.volume;
       audioRef.current = audio;
-      audio.onended = () => {URL.revokeObjectURL(url);audioRef.current = null;resolve();};
-      audio.onerror = () => {URL.revokeObjectURL(url);audioRef.current = null;resolve();};
-      await audio.play();
-      return;
+      audio.onended = () => { URL.revokeObjectURL(url); audioRef.current = null; resolve(); };
+      audio.onerror = () => {
+        URL.revokeObjectURL(url);
+        audioRef.current = null;
+        console.warn('[Meditation] Cloud audio playback error');
+        resolve();
+      };
+      try {
+        await audio.play();
+        // Diagnostic so we can verify Hannah TTS is reaching the device
+        if (typeof console !== 'undefined') console.info('[Meditation] Hannah cloud TTS ▶');
+        onAudioState?.('cloud-ok');
+        return;
+      } catch (playErr) {
+        // play() can reject on iOS without a prior user gesture, or if the
+        // tab is backgrounded. Fall through to the SpeechSynthesis path.
+        console.warn('[Meditation] Cloud audio.play() rejected:', playErr?.message || playErr);
+        URL.revokeObjectURL(url);
+        audioRef.current = null;
+        cloudFailed = true;
+      }
+    } else {
+      // Cloud function returned no audio (server-side issue, quota, etc.)
+      console.warn('[Meditation] hannahTTS returned no audioContent');
+      cloudFailed = true;
     }
   } catch (err) {
-    console.warn('[Meditation] Hannah TTS failed:', err);
+    console.warn('[Meditation] hannahTTS invoke failed:', err?.message || err);
+    cloudFailed = true;
   }
 
-  // Fallback: browser speechSynthesis (if Hannah TTS unavailable)
-  if (window.speechSynthesis) {
+  // Path 2: Browser SpeechSynthesis fallback
+  if (!window.speechSynthesis) {
+    console.warn('[Meditation] No speechSynthesis available — text only');
+    onAudioState?.('all-failed');
+    resolve();
+    return;
+  }
+
+  try {
+    const voices = await ensureVoicesLoaded();
     window.speechSynthesis.cancel();
     const utter = new SpeechSynthesisUtterance(cleaned);
     utter.rate = MEDITATION_VOICE.rate;
     utter.pitch = MEDITATION_VOICE.pitch;
     utter.volume = MEDITATION_VOICE.volume;
-    const voices = window.speechSynthesis.getVoices();
     const preferred = findHannahVoice(voices);
-    if (preferred) utter.voice = preferred;
-    utter.onend = resolve;
-    utter.onerror = resolve;
+    if (preferred) {
+      utter.voice = preferred;
+      console.info(`[Meditation] Fallback voice: ${preferred.name}`);
+    } else {
+      console.warn('[Meditation] No suitable fallback voice found');
+    }
+    let resolved = false;
+    const finish = () => { if (!resolved) { resolved = true; resolve(); } };
+    utter.onend = finish;
+    utter.onerror = (e) => {
+      console.warn('[Meditation] SpeechSynthesis error:', e?.error || e);
+      finish();
+    };
     window.speechSynthesis.speak(utter);
-  } else {
+    onAudioState?.(cloudFailed ? 'fallback-ok' : 'fallback-ok');
+    // Safety timeout — if speechSynthesis silently drops the utterance
+    // (a known iOS/Chrome issue), don't hang the player forever.
+    setTimeout(finish, Math.max(3000, cleaned.length * 90));
+  } catch (e) {
+    console.warn('[Meditation] Fallback speak threw:', e);
+    onAudioState?.('all-failed');
     resolve();
   }
 });
@@ -138,12 +276,19 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // ─── Full-screen player overlay ───────────────────────────────────────────────
 function MeditationPlayer({ meditation, onClose }) {
+  // 'loading' is now nearly instant — just one render cycle while the
+  // static script is fetched. Kept for code clarity and the brief
+  // moment of transition into 'playing'.
   const [phase, setPhase] = useState('loading');
   const [script, setScript] = useState([]);
   const [currentSegment, setCurrentSeg] = useState(0);
   const [currentText, setCurrentText] = useState('');
   const [elapsed, setElapsed] = useState(0);
   const [breathState, setBreathState] = useState('in');
+  // 'cloud-ok' = Hannah cloud TTS playing; 'fallback-ok' = browser
+  // SpeechSynthesis playing; 'all-failed' = both audio paths failed,
+  // user is in text-only mode.
+  const [audioState, setAudioState] = useState(null);
 
   const pausedRef = useRef(false);
   const stoppedRef = useRef(false);
@@ -152,11 +297,21 @@ function MeditationPlayer({ meditation, onClose }) {
   const audioRef = useRef(null);
 
   useEffect(() => {
+    // Prewarm the speech synthesis voice list early. On most browsers
+    // getVoices() returns [] until 'voiceschanged' fires — kicking it off
+    // here means by the time the first segment plays, voices are populated.
+    ensureVoicesLoaded();
+    // Unlock audio playback. The user clicked the meditation card to get
+    // here — that's a valid gesture for iOS audio. Calling unlock NOW
+    // (still inside the gesture's microtask chain in some browsers, but
+    // also valid from the mount handler in WKWebView) means the silent
+    // primer plays before the first cloud TTS request.
+    unlockAudioContext();
+
     run();
     return () => {
       stoppedRef.current = true;
-      // Stop any playing audio
-      if (audioRef.current) {try {audioRef.current.pause();audioRef.current.src = '';} catch {}}
+      if (audioRef.current) { try { audioRef.current.pause(); audioRef.current.src = ''; } catch {} }
       window.speechSynthesis?.cancel();
       clearInterval(timerRef.current);
       clearInterval(breathRef.current);
@@ -164,47 +319,31 @@ function MeditationPlayer({ meditation, onClose }) {
   }, []);
 
   const run = async () => {
-    stoppedRef.current = false;pausedRef.current = false;
-    let segments = [];
-    try {
-      const raw = await base44.integrations.Core.InvokeLLM({
-        prompt: `You are a professional guided meditation narrator. Create a script for: ${meditation.prompt}\n\nReturn ONLY a valid JSON array. Each element: {"text": "spoken words", "pause": seconds_of_silence_after}\nRequirements:\n- 15-25 segments total\n- pause values: 2-4 for normal, 6-10 for breathing exercises, 3-5 for visualization\n- Include breathing cues like "Breathe in... and breathe out..."\n- Warm, peaceful, unhurried language\n- No markdown, no explanation, just the JSON array`
-      });
-      const cleaned = (raw?.data || raw)?.replace(/```json\n?|```\n?/g, '').trim() || '';
-      const s = cleaned.indexOf('['),e = cleaned.lastIndexOf(']');
-      if (s !== -1 && e !== -1) {
-        const parsed = JSON.parse(cleaned.substring(s, e + 1));
-        if (Array.isArray(parsed) && parsed.length > 0) segments = parsed;
-      }
-    } catch (err) {
-      console.warn('[Meditation] LLM script generation failed:', err);
-      segments = [
-      { text: "Welcome. Find a comfortable position and gently close your eyes.", pause: 4 },
-      { text: "Take a slow, deep breath in through your nose.", pause: 3 },
-      { text: "And release it slowly through your mouth.", pause: 4 },
-      { text: "Let your body begin to soften and relax.", pause: 5 },
-      { text: "You are held. You are safe. You are loved.", pause: 6 },
-      { text: `This is your time for ${meditation.title}. Simply be present.`, pause: 8 },
-      { text: "Breathe in peace... and breathe out tension.", pause: 6 },
-      { text: "Let every exhale carry away what you no longer need.", pause: 8 },
-      { text: "Rest here for a moment. Simply breathe.", pause: 10 },
-      { text: "As you prepare to return, carry this peace with you.", pause: 4 },
-      { text: "Gently wiggle your fingers and toes.", pause: 3 },
-      { text: "When you are ready, slowly open your eyes. Amen.", pause: 3 }];
+    stoppedRef.current = false; pausedRef.current = false;
 
-    }
+    // Pre-authored script per meditation id — instant load, zero LLM
+    // latency, consistent spiritual quality. The previous implementation
+    // sent meditation.prompt to InvokeLLM and waited 5-15s for a JSON
+    // response, blocking the user behind a "Preparing your session…"
+    // spinner. Static scripts eliminate that wait entirely.
+    const segments = getMeditationScript(meditation.id);
 
-    setScript(segments);setPhase('playing');
+    setScript(segments); setPhase('playing');
 
     timerRef.current = setInterval(() => setElapsed((e) => e + 1), 1000);
     breathRef.current = setInterval(() => setBreathState((s) => s === 'in' ? 'out' : 'in'), 4000);
+
+    // Track the most recent audio-state result so the UI can surface
+    // a "text-only" banner if both Hannah TTS and the browser fallback
+    // fail. Only the most recent state matters; we don't need history.
+    const onAudioState = (state) => setAudioState(state);
 
     for (let i = 0; i < segments.length; i++) {
       if (stoppedRef.current) break;
       while (pausedRef.current && !stoppedRef.current) await sleep(200);
       if (stoppedRef.current) break;
-      setCurrentSeg(i);setCurrentText(segments[i].text);
-      await speakSegment(segments[i].text, audioRef);
+      setCurrentSeg(i); setCurrentText(segments[i].text);
+      await speakSegment(segments[i].text, audioRef, onAudioState);
       if (stoppedRef.current) break;
       const pauseMs = (segments[i].pause || 3) * 1000;
       const t0 = Date.now();
@@ -216,7 +355,7 @@ function MeditationPlayer({ meditation, onClose }) {
     }
     if (!stoppedRef.current) {
       setPhase('done');
-      clearInterval(timerRef.current);clearInterval(breathRef.current);
+      clearInterval(timerRef.current); clearInterval(breathRef.current);
 
       // Record completion
       const count = loadCount() + 1;
@@ -268,20 +407,30 @@ function MeditationPlayer({ meditation, onClose }) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
     className="fixed inset-0 z-50 flex flex-col"
-    style={{ background: 'linear-gradient(160deg, #0A1A2F 0%, #0A1A2F 40%, #2a4a6c 70%, #3C4E53 100%)' }}>
-      
-      {/* Breathing bg orb */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+    style={{ background: '#0a1024' }}>
+      {/* Nature-themed ambient layer. Themed by meditation.category:
+          morning -> sunrise + rays + golden particles
+          calm    -> ocean waves + drifting leaves
+          faith   -> warm dawn glow + slow particles
+          heal    -> soft rose with falling petals
+          focus   -> clear sky with drifting clouds
+          sleep   -> deep night with twinkling stars
+          The breathing orb (below) sits in front of this layer so it
+          remains the visual focal point during the session. */}
+      <MeditationPlayerBackground category={meditation.category} />
+
+      {/* Breathing bg orb — stays in front of the nature scene as the
+          main focal point, tinted by the meditation's accentColor. */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none" style={{ zIndex: 1 }}>
         <motion.div
-          animate={{ scale: breathState === 'in' ? 1.15 : 0.9, opacity: breathState === 'in' ? 0.12 : 0.06 }}
+          animate={{ scale: breathState === 'in' ? 1.15 : 0.9, opacity: breathState === 'in' ? 0.18 : 0.10 }}
           transition={{ duration: 4, ease: 'easeInOut' }}
           className="w-96 h-96 rounded-full"
-          style={{ background: `radial-gradient(circle, ${meditation.accentColor}88 0%, transparent 70%)` }} />
-        
+          style={{ background: `radial-gradient(circle, ${meditation.accentColor}aa 0%, transparent 70%)` }} />
       </div>
 
       {/* Top bar */}
-      <div className="relative z-10 flex items-center justify-between px-5 pt-12 pb-4">
+      <div className="relative flex items-center justify-between px-5 pt-12 pb-4" style={{ zIndex: 10 }}>
 
       {/* Crisis Resources — required for App Store approval */}
       
@@ -312,8 +461,8 @@ function MeditationPlayer({ meditation, onClose }) {
           <AnimatePresence mode="wait">
             {phase === 'loading' &&
             <motion.div key="l" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex flex-col items-center gap-3">
-                <Loader2 className="w-8 h-8 text-white/50 animate-spin" />
-                <p className="text-white/50 text-sm">Preparing your session…</p>
+                <Loader2 className="w-6 h-6 text-white/40 animate-spin" />
+                <p className="text-white/50 text-sm">Settling in…</p>
               </motion.div>
             }
             {phase === 'done' &&
@@ -334,6 +483,25 @@ function MeditationPlayer({ meditation, onClose }) {
             }
           </AnimatePresence>
         </div>
+
+        {/* Text-only-mode banner.
+            Surfaces only when both Hannah cloud TTS AND the browser
+            SpeechSynthesis fallback have failed. Without this banner,
+            audio failure was completely silent — the user saw text
+            appear and disappear with no indication that audio was
+            supposed to be playing. */}
+        {audioState === 'all-failed' && (phase === 'playing' || phase === 'paused') && (
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-6 mx-6 px-4 py-2.5 rounded-2xl text-center"
+            style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)' }}
+          >
+            <p className="text-white/70 text-[11px] leading-relaxed">
+              Audio is unavailable on this device — read along at your own pace.
+            </p>
+          </motion.div>
+        )}
 
         {/* Breath guide */}
         {(phase === 'playing' || phase === 'paused') &&
