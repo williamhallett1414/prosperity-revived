@@ -526,7 +526,14 @@ function MeditationPlayer({ meditation, onClose }) {
       </div>
 
       {/* Bottom controls */}
-      <div className="relative z-10 px-8 pb-12">
+      {/* Bottom padding clears the Layout's fixed bottom tab bar
+          (Home/Wellness/Bible/Community/Profile, ~75px tall on iPhone +
+          safe-area-inset-bottom for the home indicator). The progress
+          bar and play/pause button sit above the nav, not behind it. */}
+      <div
+        className="relative z-10 px-8"
+        style={{ paddingBottom: 'calc(8rem + env(safe-area-inset-bottom))' }}
+      >
         <div className="mb-6">
           <div className="w-full h-0.5 bg-white/10 rounded-full overflow-hidden mb-2">
             <motion.div className="h-full rounded-full" style={{ width: `${prog}%`, background: meditation.accentColor }} transition={{ duration: 1 }} />
