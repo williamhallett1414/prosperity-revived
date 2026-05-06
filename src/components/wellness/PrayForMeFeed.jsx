@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Heart, MessageCircle, Share2, X, Image as ImageIcon, Video as VideoIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import { getFirstName, getDisplayName, getInitial } from '@/lib/userName';
 
 export default function PrayForMeFeed({ user }) {
   const [showCreateBox, setShowCreateBox] = useState(false);
@@ -134,14 +135,14 @@ export default function PrayForMeFeed({ user }) {
           {/* Input Area */}
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FAD98D] to-[#FAD98D] flex items-center justify-center text-white font-bold text-sm">
-              {user?.full_name?.charAt(0).toUpperCase() || 'U'}
+              {getInitial(user)}
             </div>
             <div className="flex-1">
               <button
                 onClick={() => setShowCreateBox(!showCreateBox)}
                 className="w-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 transition rounded-full px-4 py-2.5 text-left text-gray-600 dark:text-gray-300 text-sm"
               >
-                What's on your heart, {user?.full_name?.split(' ')[0]}?
+                What's on your heart, {getFirstName(user)}?
               </button>
             </div>
           </div>

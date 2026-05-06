@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Sparkles, Loader2, Save, RefreshCw } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { getFirstName } from '@/lib/userName';
 
 export default function AIPrayerGenerator({ isOpen, onClose, user }) {
   const [prayerType, setPrayerType] = useState('general');
@@ -33,7 +34,7 @@ export default function AIPrayerGenerator({ isOpen, onClose, user }) {
       const prompt = `Create a heartfelt, personal prayer based on the following:
 
 USER CONTEXT:
-- Name: ${user?.full_name?.split(' ')[0] || 'Beloved'}
+- Name: ${getFirstName(user, 'Beloved')}
 - Spiritual Goal: ${user?.spiritual_goal || 'Grow closer to God'}
 - Prayer Type: ${prayerType}
 - Personal Intention: ${intention}

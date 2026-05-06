@@ -8,13 +8,14 @@ import { Textarea } from '@/components/ui/textarea';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { getFirstName } from '@/lib/userName';
 
 export default function AIWellnessCoach({ user }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: `Hi ${user?.full_name?.split(' ')[0] || 'there'}! 👋 I'm your AI wellness coach. I'm here to support you on your journey to better health and spiritual growth. How can I help you today?`,
+      content: `Hi ${getFirstName(user, 'there')}! 👋 I'm your AI wellness coach. I'm here to support you on your journey to better health and spiritual growth. How can I help you today?`,
       timestamp: new Date().toISOString()
     }
   ]);
@@ -368,7 +369,7 @@ Keep response brief (3-4 sentences), warm, and specific to their entry.`;
     }, 0);
 
     const context = {
-      user_name: user?.full_name?.split(' ')[0] || 'User',
+      user_name: getFirstName(user, 'User'),
       user_profile: {
         spiritual_goal: user?.spiritual_goal,
         fitness_level: user?.fitness_level,

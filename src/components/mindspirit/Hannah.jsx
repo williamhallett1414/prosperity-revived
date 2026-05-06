@@ -23,6 +23,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getPersonalityPromptAddition, fetchUserPreferences } from '../chatbot/PersonalityAdapter';
 import { getHannahCrossContext } from '../chatbot/CrossChatbotContext';
 import { useProactiveInsights } from '../chatbot/useProactiveInsights';
+import { getFirstName } from '@/lib/userName';
 import ProactiveInsightCard from '../chatbot/ProactiveInsightCard';
 
 export default function Hannah({ user, autoOpen = false, onClose }) {
@@ -273,7 +274,7 @@ export default function Hannah({ user, autoOpen = false, onClose }) {
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
-      const userName = user?.full_name?.split(' ')[0] || 'friend';
+      const userName = getFirstName(user);
       const isFirstTime = !localStorage.getItem('hannahVisited');
       const newSessionId = `hannah-${Date.now()}`;
       setSessionId(newSessionId);
@@ -351,7 +352,7 @@ export default function Hannah({ user, autoOpen = false, onClose }) {
     }
 
     try {
-      const userName = user?.full_name?.split(' ')[0] || '';
+      const userName = getFirstName(user, '');
 
       // Search for relevant knowledge sources
       let knowledgeSources = [];

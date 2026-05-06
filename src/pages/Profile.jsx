@@ -8,12 +8,13 @@ import { createPageUrl } from '@/utils';
 import { toast } from 'sonner';
 import { useAuth } from '@/lib/AuthContext';
 import { deleteUserAccount } from '@/lib/deleteAccount';
+import ChatbotPreferencesTab from '@/components/profile/ChatbotPreferencesTab';
+import { getFirstName, getDisplayName, getInitial } from '@/lib/userName';
 
 const AboutTab = React.lazy(() => import('@/components/profile/facebook/AboutTab'));
 const FriendsTab = React.lazy(() => import('@/components/profile/facebook/FriendsTab'));
 const PhotosTab = React.lazy(() => import('@/components/profile/facebook/PhotosTab'));
 const TimelineTab = React.lazy(() => import('@/components/profile/facebook/TimelineTab'));
-import ChatbotPreferencesTab from '@/components/profile/ChatbotPreferencesTab';
 
 // ─── Per-tab error boundary so a crash in one lazy tab doesn't show an infinite spinner
 class TabErrorBoundary extends React.Component {
@@ -71,9 +72,9 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
           <div className="relative flex-shrink-0">
             <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white shadow-xl overflow-hidden bg-gradient-to-br from-[#3C4E53] to-[#FD9C2D]">
               {user?.profile_image_url ?
-              <img src={user.profile_image_url} alt={user?.full_name} className="w-full h-full object-cover" /> :
+              <img src={user.profile_image_url} alt={getDisplayName(user)} className="w-full h-full object-cover" /> :
               <div className="w-full h-full flex items-center justify-center text-white text-3xl font-bold">
-                    {user?.full_name?.charAt(0).toUpperCase() || 'U'}
+                    {getInitial(user)}
                   </div>
               }
             </div>
@@ -85,7 +86,7 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
 
           {/* Name + meta */}
           <div className="flex-1 min-w-0 pt-10">
-            <h1 className="text-[#0A1A2F] dark:text-white py-3 text-base font-bold leading-tight">{user?.full_name || 'Your Profile'}</h1>
+            <h1 className="text-[#0A1A2F] dark:text-white py-3 text-base font-bold leading-tight">{getDisplayName(user, 'Your Profile')}</h1>
             <p className="text-sm text-[#0A1A2F]/50 dark:text-white/50">{friendsCount} {friendsCount === 1 ? 'friend' : 'friends'}</p>
           </div>
 
@@ -161,7 +162,7 @@ function SectionHeading({ children, accent }) {
 // ─── North Star hero card ─────────────────────────────────────────────────────
 function NorthStarCard({ user }) {
   const goal = user?.main_goal_text || user?.goal_90_day;
-  const firstName = user?.full_name?.split(' ')[0] || 'Friend';
+  const firstName = getFirstName(user, 'Friend');
 
   if (!goal) {
     return (

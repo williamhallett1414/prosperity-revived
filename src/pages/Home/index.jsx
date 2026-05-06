@@ -9,6 +9,7 @@ import { Flame, ChevronRight } from 'lucide-react';
 import { RitualButton, QuickNav, ResumeCard, ActiveChallengesWidget, StartHereCard } from '@/components/home/HomeComponents';
 import HelpChatbot from '@/components/home/HelpChatbot';
 import { GRACE_MOMENTS } from '@/components/home/graceMoments';
+import { getFirstName } from '@/lib/userName';
 const StartMyDayModal = React.lazy(() => import('@/components/home/StartMyDayModal'));
 import gideonImg from '@/assets/gideon-avatar.png';
 import hannahImg from '@/assets/hannah-avatar.png';
@@ -23,18 +24,6 @@ function getGreeting() {
   if (h < 17) return { text: 'Good Afternoon',emoji: '☀️', isMorning: false };
   if (h < 21) return { text: 'Good Evening',  emoji: '🌇', isMorning: false };
   return       { text: 'Good Night',    emoji: '🌙', isMorning: false };
-}
-
-function getFirstName(user) {
-  // Use the name the user entered in onboarding. We deliberately do NOT fall
-  // back to the email-prefix (e.g. "william.hallett1414") because that's
-  // unfriendly and looks like a system bug to the user. If full_name isn't
-  // set yet, greet them as "friend" — that prompts them to set their name
-  // in Profile when they notice it.
-  const raw = (user?.full_name || '').trim();
-  if (!raw) return 'friend';
-  const first = raw.split(/\s+/)[0];
-  return first || 'friend';
 }
 
 function getTodayFormatted() {
