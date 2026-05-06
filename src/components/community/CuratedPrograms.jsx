@@ -875,7 +875,11 @@ function CuratedProgramsInner({ onDetailModeChange }) {
   };
   const handleReset    = id => { const u={...localData}; delete u[id]; setLocalData(u); saveLocal(u); setSelectedId(null); };
 
+  // Filter out the featured challenge from the regular list — it now
+  // renders in its own pinned banner at the top of the page, so showing
+  // it again in the list would be a visual duplicate.
   const filtered = [...(activeCat==="All" ? ALL_CHALLENGES : ALL_CHALLENGES.filter(c=>c.category===activeCat))]
+    .filter(c => !c.featured)
     .sort((a,b)=>{
       const aA=localData[a.id]&&getCompletedDays(localData[a.id]).length<a.duration;
       const bA=localData[b.id]&&getCompletedDays(localData[b.id]).length<b.duration;
@@ -984,34 +988,11 @@ function CuratedProgramsInner({ onDetailModeChange }) {
           </div>
         )}
 
-        {/* Onboarding */}
-        {!hasAny && (
-          <div style={{background:"linear-gradient(135deg,#0A1A2F,#0A1A2F)",borderRadius:24,padding:"20px",marginBottom:20,position:"relative",overflow:"hidden"}}>
-            <div style={{position:"absolute",right:-10,top:-10,fontSize:80,opacity:0.08}}>🌱</div>
-            <div style={{color:"#FAD98D",fontFamily:"Lora,serif",fontWeight:700,fontSize:18,marginBottom:6}}>Start Your Growth Journey</div>
-            <div style={{color:"rgba(255,255,255,0.7)",fontSize:13,lineHeight:1.6,marginBottom:14}}>Each challenge builds one positive habit — for your faith, mind, body, and relationships.</div>
-            <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
-              {["Complete a day","Write your reflection","Earn XP & level up","Build real habits"].map(s=>(
-                <div key={s} style={{background:"rgba(217,184,120,0.15)",border:"1px solid rgba(217,184,120,0.3)",borderRadius:99,padding:"4px 10px",fontSize:11,color:"#FAD98D",fontWeight:700}}>✦ {s}</div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Category filter */}
-        <div className="sc-cat" style={{display:"flex",gap:8,overflowX:"auto",marginBottom:16,paddingBottom:4,scrollbarWidth:"none",msOverflowStyle:"none"}}>
-          {CATS.map(cat=>(
-            <button key={cat} onClick={()=>setActiveCat(cat)}
-              style={{flexShrink:0,fontSize:12,fontWeight:800,padding:"7px 16px",borderRadius:99,border:"1.5px solid",
-                borderColor:activeCat===cat?"#0A1A2F":"#F2F6FA",
-                background:activeCat===cat?"#0A1A2F":"white",
-                color:activeCat===cat?"white":"#0A1A2F66",cursor:"pointer"}}>
-              {cat}
-            </button>
-          ))}
-        </div>
-
-        {/* Featured Challenge Banner */}
+        {/* Featured Challenge Banner — sits at the TOP of the page as the
+            visual anchor. The flagship 40 Days in the Wilderness deserves
+            the most prominent position; the intro card and category
+            filter below remain useful but no longer compete for the
+            top-of-page real estate. */}
         {(() => {
           const featured = CHALLENGES.find(c => c.featured);
           if (!featured) return null;
@@ -1025,7 +1006,7 @@ function CuratedProgramsInner({ onDetailModeChange }) {
                 borderRadius: 24, padding: "24px 20px", cursor: "pointer",
                 background: featured.bg,
                 boxShadow: "0 16px 48px rgba(69,26,3,0.4)",
-                marginBottom: 16, position: "relative", overflow: "hidden",
+                marginBottom: 20, position: "relative", overflow: "hidden",
                 border: "1px solid rgba(255,255,255,0.08)"
               }}>
               <div style={{position:"absolute",top:-30,right:-30,fontSize:120,opacity:0.06,pointerEvents:"none"}}>✝</div>
@@ -1065,6 +1046,33 @@ function CuratedProgramsInner({ onDetailModeChange }) {
             </div>
           );
         })()}
+
+        {/* Onboarding */}
+        {!hasAny && (
+          <div style={{background:"linear-gradient(135deg,#0A1A2F,#0A1A2F)",borderRadius:24,padding:"20px",marginBottom:20,position:"relative",overflow:"hidden"}}>
+            <div style={{position:"absolute",right:-10,top:-10,fontSize:80,opacity:0.08}}>🌱</div>
+            <div style={{color:"#FAD98D",fontFamily:"Lora,serif",fontWeight:700,fontSize:18,marginBottom:6}}>Start Your Growth Journey</div>
+            <div style={{color:"rgba(255,255,255,0.7)",fontSize:13,lineHeight:1.6,marginBottom:14}}>Each challenge builds one positive habit — for your faith, mind, body, and relationships.</div>
+            <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+              {["Complete a day","Write your reflection","Earn XP & level up","Build real habits"].map(s=>(
+                <div key={s} style={{background:"rgba(217,184,120,0.15)",border:"1px solid rgba(217,184,120,0.3)",borderRadius:99,padding:"4px 10px",fontSize:11,color:"#FAD98D",fontWeight:700}}>✦ {s}</div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Category filter */}
+        <div className="sc-cat" style={{display:"flex",gap:8,overflowX:"auto",marginBottom:16,paddingBottom:4,scrollbarWidth:"none",msOverflowStyle:"none"}}>
+          {CATS.map(cat=>(
+            <button key={cat} onClick={()=>setActiveCat(cat)}
+              style={{flexShrink:0,fontSize:12,fontWeight:800,padding:"7px 16px",borderRadius:99,border:"1.5px solid",
+                borderColor:activeCat===cat?"#0A1A2F":"#F2F6FA",
+                background:activeCat===cat?"#0A1A2F":"white",
+                color:activeCat===cat?"white":"#0A1A2F66",cursor:"pointer"}}>
+              {cat}
+            </button>
+          ))}
+        </div>
 
         {/* Challenge list */}
          <div style={{display:"flex",flexDirection:"column",gap:12}}>
