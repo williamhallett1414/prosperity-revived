@@ -1548,6 +1548,43 @@ export default function Prayer() {
     refetchInterval,
   });
 
+  // Lightweight summary used by the Prayer Partners entry-point card.
+  // We fetch the user's partnerships (both directions) and count active
+  // ones + how many partner-shared requests still need prayer today.
+  // Kept minimal — the full UI lives on the dedicated PrayerPartners page.
+  const { data: partnerSummary = { active: 0, needPrayer: 0 } } = useQuery({
+    queryKey: ['prayerPartnersSummary', user?.email],
+    queryFn: async () => {
+      const today = (() => {
+        const d = new Date();
+        return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+      })();
+      const [a, b] = await Promise.all([
+        base44.entities.PrayerPartnership.filter({ user_email: user.email }),
+        base44.entities.PrayerPartnership.filter({ partner_email: user.email }),
+      ]);
+      const partnerships = [...a, ...b].filter(p => p.status === 'accepted');
+      if (partnerships.length === 0) return { active: 0, needPrayer: 0 };
+      const partnerEmails = partnerships.map(p =>
+        p.user_email === user.email ? p.partner_email : p.user_email
+      );
+      // Count partner-shared requests where the user hasn't prayed today
+      let needPrayer = 0;
+      for (const email of partnerEmails) {
+        try {
+          const reqs = await base44.entities.PrayerRequest.filter({ created_by: email, is_active: true });
+          for (const r of reqs) {
+            const prayedToday = r.prayed_by?.includes(user.email) && r.last_prayed_date === today;
+            if (!prayedToday && !r.is_answered) needPrayer++;
+          }
+        } catch {}
+      }
+      return { active: partnerships.length, needPrayer };
+    },
+    enabled: !!user,
+    staleTime: 60_000, // 1 minute — this card doesn't need to be live
+  });
+
   const filtered = activeCategory === 'All' ? prayerRequests : prayerRequests.filter(r => r.category === activeCategory);
   const spotlightRequests = prayerRequests.slice(0, 10);
 
@@ -1991,6 +2028,77 @@ export default function Prayer() {
             <SectionHeader label="My Private Prayers" />
             <MyPrayers releaseDove={releaseDove} />
           </div>
+
+          {/* ── Prayer Partners entry-point card ──
+              The full Prayer Partners experience lives on its own route
+              (registered in pages.config.js as 'PrayerPartners'). This
+              card sits between the user's most-private prayers and the
+              broader Talk-to CTA, marking the natural step from
+              "just me" → "me + a small trusted circle" → "the community".
+              Live stats pull from `partnerSummary` query above. */}
+          <Link to={createPageUrl('PrayerPartners')}>
+            <div
+              className="rounded-[28px] p-5 relative overflow-hidden transition-all active:scale-[0.98]"
+              style={{
+                background: 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)',
+                border: '1px solid rgba(251,191,36,0.20)',
+                backdropFilter: 'blur(12px)',
+              }}
+            >
+              <div
+                className="absolute -top-6 left-0 right-0 h-24 pointer-events-none opacity-50"
+                style={{ background: 'radial-gradient(ellipse 50% 100% at 50% 100%, rgba(251,191,36,0.18) 0%, transparent 70%)' }}
+              />
+              <div className="relative flex items-center gap-4">
+                <div
+                  className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 text-xl"
+                  style={{
+                    background: 'rgba(251,191,36,0.15)',
+                    border: '1px solid rgba(251,191,36,0.30)',
+                  }}
+                >
+                  🙏
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p
+                    className="font-semibold mb-0.5"
+                    style={{
+                      color: '#f5f1e8',
+                      fontFamily: '"Cormorant Garamond", Georgia, serif',
+                      fontSize: '17px',
+                      fontWeight: 500,
+                    }}
+                  >
+                    Prayer Partners
+                  </p>
+                  {partnerSummary.active > 0 ? (
+                    <p className="text-xs leading-relaxed" style={{ color: 'rgba(245,241,232,0.65)' }}>
+                      {partnerSummary.active} {partnerSummary.active === 1 ? 'partner' : 'partners'}
+                      {partnerSummary.needPrayer > 0 && (
+                        <>
+                          {' · '}
+                          <span style={{ color: '#fcd34d', fontWeight: 600 }}>
+                            {partnerSummary.needPrayer} {partnerSummary.needPrayer === 1 ? 'request needs' : 'requests need'} prayer today
+                          </span>
+                        </>
+                      )}
+                    </p>
+                  ) : (
+                    <p
+                      className="text-xs italic leading-relaxed"
+                      style={{
+                        color: 'rgba(245,241,232,0.60)',
+                        fontFamily: '"Cormorant Garamond", Georgia, serif',
+                      }}
+                    >
+                      Pray together with a trusted friend
+                    </p>
+                  )}
+                </div>
+                <ChevronRight className="w-4 h-4 flex-shrink-0" style={{ color: 'rgba(251,191,36,0.65)' }} />
+              </div>
+            </div>
+          </Link>
 
           {/* ── Talk to Hannah ── */}
           <Link to={createPageUrl('ChatScreen?bot=Hannah')}>

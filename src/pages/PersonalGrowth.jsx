@@ -563,11 +563,12 @@ function PersonalGrowthInner() {
             </div>
           </Link>
 
-          {/* ── Spiritual Disciplines ── */}
+          {/* ── Spiritual Disciplines ──
+              Prayer Partners moved to the Prayer page (where it belongs);
+              entry card sits between My Private Prayers and Talk to Hannah. */}
           <div className="space-y-2 mt-2">
             <p className="text-xs font-bold text-[#c9a227] uppercase tracking-widest px-1">Spiritual Disciplines</p>
             {[
-              { to: 'PrayerPartners', emoji: '🙏', title: 'Prayer Partners', sub: 'Pray together with a trusted friend', color: '#8B5CF6' },
               { to: 'RepentanceJournal', emoji: '🕊️', title: 'Heart Journal', sub: 'Repentance & forgiveness — private', color: '#0A1A2F' },
               { to: 'DarkNightDevotionals', emoji: '🌙', title: 'Dark Night Devotionals', sub: 'For seasons of suffering and doubt', color: '#475569' },
               { to: 'FastingTracker', emoji: '🔥', title: 'Fasting', sub: 'Draw near to God through sacrifice', color: '#D97706' },
