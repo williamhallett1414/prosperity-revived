@@ -20,6 +20,7 @@ const IdentityInChristTab = lazy(() => import('@/pages/IdentityInChristPage'));
 const WeeklyReflectionTab = lazy(() => import('@/pages/WeeklyReflectionPage'));
 const GrowthPathwaysTab = lazy(() => import('@/pages/GrowthPathwaysPage'));
 const MyJournalEntriesTab = lazy(() => import('@/pages/MyJournalEntries'));
+const HeartJournalTab = lazy(() => import('@/pages/RepentanceJournal'));
 
 // ── Affirmations rotation ────────────────────────────────────────────────────
 const DAILY_AFFIRMATIONS = [
@@ -192,7 +193,8 @@ function ToolRow({ page, icon: Icon, grad, label, sub, done, onTabSwitch }) {
     GuidedMeditationsPage: null, // stays as separate page
     WeeklyReflectionPage: 'journal-weekly',
     GrowthPathwaysPage: 'pathways',
-    SelfCareChallengesPage: null // stays as separate page
+    SelfCareChallengesPage: null, // stays as separate page
+    RepentanceJournal: 'journal-heart',
   };
   const tabId = tabMap[page];
 
@@ -451,7 +453,8 @@ function PersonalGrowthInner() {
               {[
             { id: 'journal', label: 'My Journal' },
             { id: 'journal-gratitude', label: 'Gratitude' },
-            { id: 'journal-weekly', label: 'Weekly Reflection' }].
+            { id: 'journal-weekly', label: 'Weekly Reflection' },
+            { id: 'journal-heart', label: 'Heart Journal' }].
             map((sub) =>
             <button key={sub.id}
             onClick={() => setActiveTab(sub.id)}
@@ -471,6 +474,9 @@ function PersonalGrowthInner() {
       }
       {activeTab === 'journal-weekly' &&
       <Suspense fallback={<TabSpinner />}><WeeklyReflectionTab /></Suspense>
+      }
+      {activeTab === 'journal-heart' &&
+      <Suspense fallback={<TabSpinner />}><HeartJournalTab /></Suspense>
       }
 
       {/* ── Mindset Tab ── */}
@@ -565,11 +571,12 @@ function PersonalGrowthInner() {
 
           {/* ── Spiritual Disciplines ──
               Prayer Partners moved to the Prayer page (where it belongs);
-              entry card sits between My Private Prayers and Talk to Hannah. */}
+              entry card sits between My Private Prayers and Talk to Hannah.
+              Heart Journal moved to the Journal sub-tab row, alongside
+              Gratitude and Weekly Reflection — same shape of feature. */}
           <div className="space-y-2 mt-2">
             <p className="text-xs font-bold text-[#c9a227] uppercase tracking-widest px-1">Spiritual Disciplines</p>
             {[
-              { to: 'RepentanceJournal', emoji: '🕊️', title: 'Heart Journal', sub: 'Repentance & forgiveness — private', color: '#0A1A2F' },
               { to: 'DarkNightDevotionals', emoji: '🌙', title: 'Dark Night Devotionals', sub: 'For seasons of suffering and doubt', color: '#475569' },
               { to: 'FastingTracker', emoji: '🔥', title: 'Fasting', sub: 'Draw near to God through sacrifice', color: '#D97706' },
               { to: 'SpiritualAssessment', emoji: '🌱', title: 'Spiritual Assessment', sub: 'Where are you in your walk with God?', color: '#22C55E' },
@@ -648,7 +655,7 @@ function PersonalGrowthInner() {
           {/* ── Do This Next ── */}
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
             <button className="w-full text-left" onClick={() => {
-              const tabMap = { HabitBuilderPage: 'habits', EmotionalCheckInPage: 'habits-emotional', GratitudeJournalPage: 'journal-gratitude', AffirmationsPage: 'mindset-affirm', WeeklyReflectionPage: 'journal-weekly' };
+              const tabMap = { HabitBuilderPage: 'habits', EmotionalCheckInPage: 'habits-emotional', GratitudeJournalPage: 'journal-gratitude', AffirmationsPage: 'mindset-affirm', WeeklyReflectionPage: 'journal-weekly', RepentanceJournal: 'journal-heart' };
               setActiveTab(tabMap[nextCard.page] || 'dashboard');
             }}>
               <div
