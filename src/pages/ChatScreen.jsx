@@ -288,7 +288,15 @@ GRACE AND FORGIVENESS: When someone admits to eating poorly, binging, or falling
 
 ALLERGEN SAFETY (CRITICAL): Before suggesting ANY recipe, meal, or food recommendation, you MUST ask about food allergies and dietary restrictions if they have not already been disclosed in this conversation. When allergies are known, NEVER suggest foods containing those allergens. Always include an allergen notice with your recipes listing common allergens present (nuts, dairy, gluten, eggs, soy, shellfish, sesame). If unsure whether a food contains an allergen, say so explicitly and recommend the user verify ingredients. This is a safety issue — allergic reactions can be life-threatening.
 
-SAFETY: For medical nutrition needs — diabetes, eating disorders, kidney disease — defer to a registered dietitian. You are a culinary and wellness guide, not a clinical nutritionist.`,
+FASTING (CRITICAL): When users talk about fasting — starting one, currently on one, breaking one, or asking for advice — your role is to honor the spiritual practice while making sure they fast safely. Cover the basics whenever it is relevant:
+- HYDRATION is non-negotiable on any food fast. Water, herbal tea, and broth (for fasts longer than 24 hours) keep electrolytes from crashing.
+- BREAKING A FAST MATTERS. The longer the fast, the more carefully it must be broken. Refeeding too fast after 3+ days of food restriction can cause refeeding syndrome — a real medical emergency. Recommend slow reintroduction: bone broth, soft-cooked vegetables, then small portions of easy-to-digest protein. No buffet. No "just one cheat meal."
+- WARNING SIGNS to listen to (and stop the fast if they appear): dizziness that doesn't pass, heart palpitations, severe fatigue, fainting, confusion, persistent nausea, irregular heartbeat. These are not "spiritual breakthrough" — they are the body asking for food.
+- WHO SHOULD NOT FOOD-FAST: pregnant or nursing women, people with diabetes (especially insulin-dependent), people with active or past eating disorders, people on medications that require food, people under 18, people who are underweight. For these populations, encourage other forms of fasting (social media, entertainment, complaining, spending) rather than food.
+- PARTIAL FASTS can be just as spiritually meaningful as full water-only fasts, and they are far safer for most people. The Daniel Fast (vegetables, fruits, water — no meat, no leavened bread, no sweets) is biblically rooted and nutritionally sound for most adults.
+- GENTLE FRAMING when concerned: never shame, never lecture. Say things like "I want to make sure your body is with you in this — let's talk about how you're feeling physically." or "Fasting is a beautiful practice when it's done in a way that honors the body God gave you."
+
+SAFETY: For medical nutrition needs — diabetes, eating disorders, kidney disease, prolonged or extreme fasts — defer to a registered dietitian or physician. You are a culinary and wellness guide, not a clinical nutritionist. If a user describes symptoms suggesting an eating disorder or a medical emergency, gently encourage them to talk to a doctor and offer the Hannah chatbot for emotional support.`,
   },
   Gideon: {
     name:        'Gideon',
@@ -1318,6 +1326,72 @@ export default function ChatScreen() {
       setIsLoading(false);
     }
   }, [input, isLoading, messages, cfg]);
+
+  // ── Topic-driven auto-open ────────────────────────────────────────────────
+  // Some flows want to launch this chat already focused on a specific topic
+  // (e.g. tapping "Chat with Chef Daniel" on a freshly-completed fast). The
+  // calling code passes `?topic=...` (and optional context params) on the
+  // ChatScreen URL. On mount, if the chat is empty and the URL contains a
+  // recognised topic, we synthesise a natural opening message *as if the user
+  // typed it* and dispatch it through the normal sendMessage flow. This
+  // matches the established Quick-Prompt UX where a tap surfaces a user
+  // message and the bot responds; we just wire the trigger to a URL param
+  // instead of an in-screen chip.
+  //
+  // Topic registry — keep messages first-person, brief, and natural-sounding
+  // so the user doesn't feel words have been put in their mouth. Each topic
+  // can read additional params (fast_type, duration, etc.) for specificity.
+  const topicAutoSentRef = useRef(false);
+  useEffect(() => {
+    if (topicAutoSentRef.current) return;
+    const topic = searchParams.get('topic');
+    if (!topic) return;
+    // Only auto-send when the chat is empty or shows just the welcome message
+    // (avoid spamming an existing conversation if the user shares this URL).
+    const onlyWelcome = messages.length === 0 ||
+      (messages.length === 1 && messages[0].role === 'assistant');
+    if (!onlyWelcome) return;
+    if (isLoading) return;
+    if (!userProfile) return; // wait for profile so personalisation lands
+
+    const fastType = searchParams.get('fast_type') || '';
+    const duration = searchParams.get('duration') || '';
+    const fastTypeLabel = ({
+      food: 'food',
+      social_media: 'social media',
+      entertainment: 'entertainment',
+      complaining: 'complaining',
+      spending: 'spending',
+      custom: 'custom',
+    })[fastType] || fastType || 'fast';
+
+    const messageForTopic = (() => {
+      switch (topic) {
+        case 'fast_complete':
+          return duration
+            ? `I just finished a ${duration}-day ${fastTypeLabel} fast. Can you walk me through how to break it safely, and help me reflect on what God may have been doing in me through it?`
+            : `I just completed a ${fastTypeLabel} fast. Can you walk me through how to break it safely, and help me reflect on what this season has shown me?`;
+        case 'fast_safety':
+          return duration
+            ? `I'm currently on day-by-day with a ${duration}-day ${fastTypeLabel} fast. What should I be watching for to fast safely, and how do I tell the difference between healthy hunger and warning signs I should listen to?`
+            : `I'm in the middle of a ${fastTypeLabel} fast. What should I be watching for to fast safely, and how do I tell the difference between healthy hunger and warning signs I should listen to?`;
+        case 'fast_starting':
+          return duration
+            ? `I'm thinking about starting a ${duration}-day ${fastTypeLabel} fast. Can you help me prepare well — what should I do in the days before, and how do I set this up in a way that's safe and spiritually meaningful?`
+            : `I'm thinking about starting a ${fastTypeLabel} fast. Can you help me prepare well — what should I do beforehand, and how do I set this up in a way that's safe and spiritually meaningful?`;
+        default:
+          return null;
+      }
+    })();
+
+    if (!messageForTopic) return;
+
+    topicAutoSentRef.current = true;
+    // Small delay so the welcome message has a moment to land first;
+    // makes the conversation feel paced rather than mashed together.
+    const t = setTimeout(() => sendMessage(messageForTopic), 600);
+    return () => clearTimeout(t);
+  }, [searchParams, messages, userProfile, isLoading, sendMessage]);
 
   // ── TTS — human voice ────────────────────────────────────────────────────────
   const handleSpeak = useCallback((content, idx) => {

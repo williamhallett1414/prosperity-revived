@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Play, Square, Clock, Flame, BookOpen, Plus } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Play, Square, Clock, Flame, BookOpen, Plus, ChevronRight, Sparkles, Heart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { todayKey } from '@/utils/localDate';
+import { createPageUrl } from '@/utils';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 
@@ -42,7 +43,22 @@ function FastingTrackerInner() {
   const [duration, setDuration] = useState(3);
   const [intention, setIntention] = useState('');
   const [journalText, setJournalText] = useState('');
+  // After tapping Complete, hold the just-finished fast briefly so we can
+  // show a celebration card with the Chef Daniel CTA before navigating away
+  // or returning to the empty state. Cleared by either tapping the chat CTA
+  // (which navigates to ChatScreen) or "Maybe later" (returns to empty state).
+  const [justCompleted, setJustCompleted] = useState(null);
   const today = todayKey();
+
+  // Helper: build a deep-link to Chef Daniel pre-loaded with a topic + the
+  // fast context. ChatScreen reads ?topic, ?fast_type, and ?duration on
+  // mount and synthesises a natural opening message in the user's voice.
+  const chefDanielUrl = (topic, fast) => {
+    const params = new URLSearchParams({ bot: 'ChefDaniel', topic });
+    if (fast?.fast_type) params.set('fast_type', fast.fast_type);
+    if (fast?.duration) params.set('duration', String(fast.duration));
+    return createPageUrl(`ChatScreen?${params.toString()}`);
+  };
 
   useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
@@ -89,6 +105,59 @@ function FastingTrackerInner() {
           </p>
           <p className="text-[10px] text-[#c9a227] font-medium mt-2">Matthew 6:16-18</p>
         </motion.div>
+
+        {/* ── Post-completion celebration ──
+            Shown briefly after a fast is marked complete. The primary CTA
+            takes the user to Chef Daniel pre-loaded with a "fast_complete"
+            topic so he can guide them through breaking the fast safely and
+            help them reflect. "Maybe later" simply dismisses the card. */}
+        <AnimatePresence>
+          {justCompleted && (
+            <motion.div
+              initial={{ opacity: 0, y: 16, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.97 }}
+              transition={{ duration: 0.4 }}
+              className="rounded-2xl p-5 border bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/15 border-green-200/40 dark:border-green-800/30 shadow-sm dark:shadow-none"
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-11 h-11 rounded-2xl bg-green-500/15 dark:bg-green-400/10 flex items-center justify-center text-2xl flex-shrink-0">
+                  🙌
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-bold text-green-700 dark:text-green-300 uppercase tracking-widest">Fast Complete</p>
+                  <h3 className="text-base font-bold text-[#0A1A2F] dark:text-white leading-tight">
+                    {justCompleted.duration} {justCompleted.duration === 1 ? 'day' : 'days'} —{' '}
+                    {FAST_TYPES.find(t => t.id === justCompleted.fast_type)?.label || 'Fast'}
+                  </h3>
+                </div>
+              </div>
+              <p className="text-xs text-[#0A1A2F]/70 dark:text-white/70 leading-relaxed mb-1">
+                God honors your sacrifice. Before you return to your normal rhythm, take a moment with Chef Daniel to break the fast safely and reflect on what these days have shown you.
+              </p>
+              {justCompleted.fast_type === 'food' && justCompleted.duration >= 3 && (
+                <p className="text-[11px] text-amber-700 dark:text-amber-400 italic mb-3 leading-relaxed">
+                  Important: food fasts of 3+ days should be broken slowly to avoid refeeding syndrome. Chef Daniel can walk you through it.
+                </p>
+              )}
+              <div className="flex gap-2 mt-3">
+                <Button
+                  onClick={() => navigate(chefDanielUrl('fast_complete', justCompleted))}
+                  className="flex-1 bg-gradient-to-r from-[#c9a227] to-[#FD9C2D] text-white font-bold min-h-[44px] hover:shadow-md transition-all"
+                >
+                  <Sparkles className="w-4 h-4 mr-1.5" /> Chat with Chef Daniel
+                </Button>
+                <Button
+                  onClick={() => setJustCompleted(null)}
+                  variant="outline"
+                  className="min-h-[44px] dark:border-white/15 dark:text-white/70"
+                >
+                  Maybe later
+                </Button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Active Fast */}
         {activeFast && (
@@ -150,14 +219,47 @@ function FastingTrackerInner() {
               </Button>
               {getDaysIn(activeFast) >= activeFast.duration && (
                 <Button onClick={() => {
+                  // Snapshot the fast for the celebration card BEFORE
+                  // updating, since the mutation invalidates the query and
+                  // activeFast becomes undefined as soon as it resolves.
+                  const snapshot = { ...activeFast };
                   updateFast.mutate({ id: activeFast.id, data: { status: 'completed', end_date: today } });
-                  toast.success('Fast complete! God honors your sacrifice. 🙌');
+                  setJustCompleted(snapshot);
                 }} className="bg-green-600 text-white min-h-[44px]">
                   <Flame className="w-4 h-4 mr-1" /> Complete
                 </Button>
               )}
             </div>
           </motion.div>
+        )}
+
+        {/* ── Chef Daniel guidance card during an active fast ──
+            Always-visible touchpoint while a fast is underway. For food
+            fasts, leads with safety. For all other fast types, leads with
+            encouragement and reflection. Tapping deep-links Chef Daniel
+            with a "fast_safety" topic so the conversation opens already
+            focused on how to fast well in this specific kind of fast. */}
+        {activeFast && (
+          <motion.button
+            initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+            onClick={() => navigate(chefDanielUrl('fast_safety', activeFast))}
+            className="w-full text-left rounded-2xl p-4 border bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/15 dark:to-orange-900/10 border-amber-200/40 dark:border-amber-800/25 hover:shadow-md transition-all flex items-center gap-3"
+          >
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FD9C2D] to-[#c9a227] flex items-center justify-center flex-shrink-0">
+              <Heart className="w-5 h-5 text-white" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-bold text-[#0A1A2F] dark:text-white leading-tight">
+                {activeFast.fast_type === 'food' ? 'Fasting safely?' : 'How is the fast going?'}
+              </p>
+              <p className="text-[11px] text-[#0A1A2F]/55 dark:text-white/55 leading-snug mt-0.5">
+                {activeFast.fast_type === 'food'
+                  ? 'Chat with Chef Daniel about hydration, warning signs, and breaking the fast well.'
+                  : 'Chef Daniel can offer guidance, encouragement, and Scripture for the journey.'}
+              </p>
+            </div>
+            <ChevronRight className="w-4 h-4 text-[#0A1A2F]/30 dark:text-white/30 flex-shrink-0" />
+          </motion.button>
         )}
 
         {/* Start New Fast */}
@@ -214,6 +316,33 @@ function FastingTrackerInner() {
                 className="w-full px-3 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-[#F2F6FA] dark:bg-white/5 text-sm text-[#0A1A2F] dark:text-white placeholder:text-gray-400"
               />
             </div>
+
+            {/* ── Pre-start Chef Daniel advisory ──
+                Surfaces specifically for food fasts (where safety matters
+                most) and for fasts 7+ days of any kind (where preparation
+                pays off). The user can tap straight into Chef Daniel
+                pre-loaded with a "fast_starting" topic, OR continue with
+                Begin Fast and consult later. */}
+            {(fastType === 'food' || duration >= 7) && (
+              <button
+                type="button"
+                onClick={() => navigate(chefDanielUrl('fast_starting', { fast_type: fastType, duration }))}
+                className="w-full text-left rounded-xl p-3 border bg-amber-50/70 dark:bg-amber-900/15 border-amber-200/60 dark:border-amber-800/30 hover:bg-amber-50 dark:hover:bg-amber-900/25 transition-all flex items-start gap-2.5"
+              >
+                <span className="text-base flex-shrink-0 leading-none mt-0.5">⚠️</span>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[11px] font-bold text-amber-800 dark:text-amber-300 leading-tight">
+                    {fastType === 'food' ? 'Prepare with Chef Daniel before you start' : 'A longer fast — prepare well'}
+                  </p>
+                  <p className="text-[10px] text-amber-700/80 dark:text-amber-400/70 leading-snug mt-0.5">
+                    {fastType === 'food'
+                      ? 'Food fasting is biblical and powerful — and safest when you prepare. Chef Daniel can walk you through hydration, who should not food-fast, and how to ease into it.'
+                      : 'A week or more of fasting deserves preparation. Tap to chat with Chef Daniel about how to set yourself up well.'}
+                  </p>
+                </div>
+                <ChevronRight className="w-3.5 h-3.5 text-amber-700/60 dark:text-amber-400/60 flex-shrink-0 mt-1" />
+              </button>
+            )}
 
             <div className="flex gap-2">
               <Button onClick={() => setShowNew(false)} variant="outline" className="flex-1 min-h-[44px] dark:border-white/10 dark:text-white">Cancel</Button>
