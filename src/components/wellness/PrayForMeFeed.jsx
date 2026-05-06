@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Heart, MessageCircle, Share2, X, Image as ImageIcon, Video as VideoIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-import { getFirstName, getDisplayName, getInitial } from '@/lib/userName';
+import { getFirstName, getDisplayName, getInitial, getDisplayNameFromString } from '@/lib/userName';
 
 export default function PrayForMeFeed({ user }) {
   const [showCreateBox, setShowCreateBox] = useState(false);
@@ -52,7 +52,7 @@ export default function PrayForMeFeed({ user }) {
       const postData = {
         content,
         topic: 'prayer',
-        user_name: user?.full_name || 'Anonymous',
+        user_name: getDisplayName(user, 'Anonymous'),
         likes: 0,
         ...(mediaUrlType === 'image' && { image_url: mediaUrl }),
         ...(mediaUrlType === 'video' && { video_url: mediaUrl })
@@ -86,7 +86,7 @@ export default function PrayForMeFeed({ user }) {
       return base44.entities.Comment.create({
         post_id: postId,
         content: text,
-        user_name: user?.full_name || 'Anonymous',
+        user_name: getDisplayName(user, 'Anonymous'),
         likes: 0
       });
     },
@@ -261,7 +261,7 @@ export default function PrayForMeFeed({ user }) {
             >
               {/* Post Header */}
               <div>
-               <p className="font-semibold text-white text-sm">{post.user_name}</p>
+               <p className="font-semibold text-white text-sm">{getDisplayNameFromString(post.user_name)}</p>
                <p className="text-xs text-gray-500 dark:text-gray-300">{new Date(post.created_date).toLocaleDateString()}</p>
               </div>
 
@@ -311,7 +311,7 @@ export default function PrayForMeFeed({ user }) {
                  {/* Existing Comments */}
                  {postComments(post.id).map((comment) => (
                    <div key={comment.id} className="bg-gray-900 rounded-lg p-3">
-                     <p className="font-semibold text-white text-xs">{comment.user_name}</p>
+                     <p className="font-semibold text-white text-xs">{getDisplayNameFromString(comment.user_name)}</p>
                      <p className="text-gray-100 text-xs mt-1">{comment.content}</p>
                    </div>
                  ))}

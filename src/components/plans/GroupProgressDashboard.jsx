@@ -5,6 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Users, TrendingUp, CheckCircle2, EyeOff } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { getDisplayNameFromString, getInitialFromString } from '@/lib/userName';
 
 export default function GroupProgressDashboard({ groupId, totalDays }) {
   const { data: members = [] } = useQuery({
@@ -91,10 +92,10 @@ export default function GroupProgressDashboard({ groupId, totalDays }) {
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <div className="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center text-white text-sm font-semibold">
-                      {member.user_name?.charAt(0).toUpperCase() || '?'}
+                      {getInitialFromString(member.user_name)}
                     </div>
                     <div>
-                      <p className="font-medium text-sm text-gray-900 dark:text-white">{member.user_name}</p>
+                      <p className="font-medium text-sm text-gray-900 dark:text-white">{getDisplayNameFromString(member.user_name)}</p>
                       {member.role === 'admin' && (
                         <span className="text-xs text-green-600">Admin</span>
                       )}

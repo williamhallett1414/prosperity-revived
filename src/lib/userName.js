@@ -115,3 +115,46 @@ export function getNameInputValue(user) {
   if (isEmailPrefixName(raw, user.email)) return '';
   return raw;
 }
+
+/**
+ * Read-side counterpart to getDisplayName. Use this when you have a
+ * raw name string from a stored record (e.g. `post.user_name`,
+ * `comment.user_name`, `recipe.user_name`) — i.e. a name that some
+ * earlier code wrote with the buggy `user.full_name || 'Anonymous'`
+ * pattern, baking the email-prefix value into the record.
+ *
+ * Falls back to `fallback` (default "Friend") when:
+ *   - the name is empty/null/undefined
+ *   - the name looks like an auto-derived email prefix
+ *
+ * Note: with no email available we can only apply rules 2 & 3 of the
+ * detector (dot/underscore, digit-without-whitespace), which catches
+ * the test account ("prosperityrevivedtest1") and most realistic
+ * Base44 auto-fills, but is necessarily best-effort.
+ */
+export function getDisplayNameFromString(name, fallback = 'Friend') {
+  if (!name) return fallback;
+  const trimmed = String(name).trim();
+  if (!trimmed) return fallback;
+  if (isEmailPrefixName(trimmed)) return fallback;
+  return trimmed;
+}
+
+/**
+ * Read-side counterpart to getInitial. Use this when you have a raw
+ * name string and want a single uppercase letter for an avatar
+ * fallback. Returns the first letter of the name unless the name
+ * looks email-prefix-derived, in which case it falls back to '?'.
+ *
+ * If you also have access to the user's email, prefer using getInitial
+ * with a {full_name, email} object so it can fall back to the email's
+ * initial. This string-only variant is for stored records where email
+ * isn't available.
+ */
+export function getInitialFromString(name) {
+  if (!name) return '?';
+  const trimmed = String(name).trim();
+  if (!trimmed) return '?';
+  if (isEmailPrefixName(trimmed)) return '?';
+  return trimmed.charAt(0).toUpperCase();
+}

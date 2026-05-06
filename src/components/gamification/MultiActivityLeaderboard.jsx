@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
 import { Trophy, Flame, Zap, Target } from 'lucide-react';
+import { getDisplayName } from '@/lib/userName';
 
 const BOARDS = [
   { id: 'points',      label: 'Points',     icon: Trophy, gradient: 'from-[#c9a227] to-[#FAD98D]'  },
@@ -49,7 +50,7 @@ export default function MultiActivityLeaderboard() {
 
   const userMap = new Map(allUsers.map(u => [u.email, u]));
   const ranked = allProgress
-    .map(p => ({ ...p, userName: userMap.get(p.created_by)?.full_name || 'Anonymous' }))
+    .map(p => ({ ...p, userName: getDisplayName(userMap.get(p.created_by), 'Anonymous') }))
     .sort((a, b) => getValue(b, selected) - getValue(a, selected))
     .slice(0, 10);
 

@@ -22,6 +22,7 @@ import {
   TrendingUp
 } from 'lucide-react';
 import { format } from 'date-fns';
+import { getDisplayName, getDisplayNameFromString, getInitialFromString } from '@/lib/userName';
 
 const chatbotIcons = {
   Hannah: Heart,
@@ -106,7 +107,7 @@ export default function CommunityFeed({ user }) {
         encouragement_type: type,
         message: message || null,
         is_anonymous: false,
-        user_display_name: user.full_name
+        user_display_name: getDisplayName(user, 'Community Member')
       });
 
       // Update encouragement count
@@ -217,18 +218,18 @@ export default function CommunityFeed({ user }) {
                             <HoverCard>
                               <HoverCardTrigger asChild>
                                 <button className="font-semibold text-gray-900 dark:text-white hover:text-[#C9A227] transition-colors">
-                                  {share.user_display_name}
+                                  {getDisplayNameFromString(share.user_display_name, 'Community Member')}
                                 </button>
                               </HoverCardTrigger>
                               <HoverCardContent className="w-80">
                                 <div className="flex gap-4">
                                   <Avatar className="h-12 w-12">
                                     <AvatarFallback className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] text-white">
-                                      {share.user_display_name?.split(' ').map(n => n[0]).join('') || '?'}
+                                      {getInitialFromString(share.user_display_name)}
                                     </AvatarFallback>
                                   </Avatar>
                                   <div className="flex-1 space-y-2">
-                                    <h4 className="text-sm font-semibold">{share.user_display_name}</h4>
+                                    <h4 className="text-sm font-semibold">{getDisplayNameFromString(share.user_display_name, 'Community Member')}</h4>
                                     <p className="text-xs text-gray-600 dark:text-gray-300">
                                       Member since {share.created_date ? format(new Date(share.created_date), 'MMM yyyy') : ''}
                                     </p>
@@ -341,18 +342,18 @@ export default function CommunityFeed({ user }) {
                                     <HoverCard>
                                       <HoverCardTrigger asChild>
                                         <button className="font-semibold text-sm text-gray-900 dark:text-white hover:text-[#C9A227] transition-colors">
-                                          {enc.user_display_name}
+                                          {getDisplayNameFromString(enc.user_display_name, 'Community Member')}
                                         </button>
                                       </HoverCardTrigger>
                                       <HoverCardContent className="w-64">
                                         <div className="flex gap-3">
                                           <Avatar className="h-10 w-10">
                                             <AvatarFallback className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] text-white text-xs">
-                                              {enc.user_display_name?.split(' ').map(n => n[0]).join('') || '?'}
+                                              {getInitialFromString(enc.user_display_name)}
                                             </AvatarFallback>
                                           </Avatar>
                                           <div className="flex-1">
-                                            <h4 className="text-sm font-semibold">{enc.user_display_name}</h4>
+                                            <h4 className="text-sm font-semibold">{getDisplayNameFromString(enc.user_display_name, 'Community Member')}</h4>
                                             <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">Community supporter</p>
                                           </div>
                                         </div>

@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { format } from 'date-fns';
 import { createPageUrl } from '@/utils';
+import { getDisplayNameFromString } from '@/lib/userName';
 
 export default function ChatInterface({ 
   selectedEmail, 
@@ -27,9 +28,10 @@ export default function ChatInterface({
     )
     .sort((a, b) => new Date(a.created_date) - new Date(b.created_date));
 
-  const otherUser = conversationMessages[0]?.sender_email === user.email 
-    ? conversationMessages[0]?.receiver_name || selectedEmail
-    : conversationMessages[0]?.sender_name || selectedEmail;
+  const otherUserRaw = conversationMessages[0]?.sender_email === user.email 
+    ? conversationMessages[0]?.receiver_name
+    : conversationMessages[0]?.sender_name;
+  const otherUser = getDisplayNameFromString(otherUserRaw, selectedEmail);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });

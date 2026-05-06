@@ -8,7 +8,7 @@ import { MessageSquare, Send, Image, Video, Heart } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
-
+import { getDisplayName, getDisplayNameFromString, getInitialFromString } from '@/lib/userName';
 export default function CommentSection({ contentId, contentType }) {
   const [user, setUser] = useState(null);
   const [newComment, setNewComment] = useState('');
@@ -88,7 +88,7 @@ export default function CommentSection({ contentId, contentType }) {
       content_id: contentId,
       content_type: contentType,
       content: newComment,
-      user_name: user?.full_name || 'Anonymous',
+      user_name: getDisplayName(user, 'Anonymous'),
       image_url: imageUrl || undefined,
       video_url: videoUrl || undefined
     });
@@ -221,14 +221,14 @@ export default function CommentSection({ contentId, contentType }) {
                   <div className="flex items-start gap-3">
                     <Avatar className="w-8 h-8">
                       <AvatarFallback className="bg-[#38BDF8]/15 text-[#0EA5E9] text-sm">
-                        {comment.user_name?.charAt(0)?.toUpperCase() || 'U'}
+                        {getInitialFromString(comment.user_name)}
                       </AvatarFallback>
                     </Avatar>
                     
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
                         <span className="font-medium text-sm text-[#0A1A2F] dark:text-white dark:text-white">
-                          {comment.user_name}
+                          {getDisplayNameFromString(comment.user_name)}
                         </span>
                         <span className="text-xs text-[#0A1A2F]/45 dark:text-white/45">
                           {format(new Date(comment.created_date), 'MMM d, yyyy')}

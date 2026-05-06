@@ -6,6 +6,7 @@ import {
   ChevronDown, ChevronUp
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getDisplayNameFromString } from '@/lib/userName';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
@@ -92,7 +93,7 @@ export default function WorkoutCard({
               )}
             </div>
             {showCommunityStats && workout.creator_name && (
-              <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40 mb-1">by {workout.creator_name}</p>
+              <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40 mb-1">by {getDisplayNameFromString(workout.creator_name)}</p>
             )}
           </div>
           <div className="flex gap-1 flex-shrink-0 ml-2">

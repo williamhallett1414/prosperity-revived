@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { TIMEZONES } from '@/utils/localDate';
 import { toast } from 'sonner';
+import { getFirstName } from '@/lib/userName';
 const AppTour = lazy(() => import('@/components/onboarding/AppTour'));
 const ReminderSettings = lazy(() => import('@/components/settings/ReminderSettings'));
 const ManageMyData = lazy(() => import('@/components/settings/ManageMyData'));
@@ -459,7 +460,7 @@ function SettingsInner() {
       {showTour && (
         <Suspense fallback={null}>
           <AppTour
-            userName={user?.full_name?.split(' ')[0]}
+            userName={getFirstName(user, '')}
             onComplete={() => setShowTour(false)}
           />
         </Suspense>

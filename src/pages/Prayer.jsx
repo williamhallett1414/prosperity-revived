@@ -12,6 +12,7 @@ import { toast } from 'sonner';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import ShareToFeedButton from '@/components/community/ShareToFeedButton';
+import { getDisplayName, getDisplayNameFromString } from '@/lib/userName';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const SPOTLIGHT_DURATION = 30;
@@ -101,7 +102,7 @@ function SpotlightCard({ request, countdown, total, onPray, onNext, onClick, has
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <div className="w-1.5 h-1.5 bg-[#c9a227] rounded-full animate-pulse" />
-            <span className="text-[10px] font-bold text-[#c9a227] uppercase tracking-widest">Praying for {request?.user_name || '...'}</span>
+            <span className="text-[10px] font-bold text-[#c9a227] uppercase tracking-widest">Praying for {getDisplayNameFromString(request?.user_name, '...')}</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="text-[10px] text-white/40 font-medium">Next in</span>
@@ -153,12 +154,12 @@ function PrayerRow({ request, index, onOpen, user }) {
       <div className="flex items-start gap-3">
         <div className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm text-[#F5F5F5]"
           style={{ background: request.is_answered ? 'linear-gradient(135deg, #065f46, #059669)' : 'linear-gradient(135deg, #1a3a4a, #2d5a70)' }}>
-          {initials(request.user_name)}
+          {initials(getDisplayNameFromString(request.user_name, ''))}
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-1">
             <div className="flex items-center gap-1.5">
-              <span className="font-semibold text-[#3C4E53] text-sm">{request.user_name}</span>
+              <span className="font-semibold text-[#3C4E53] text-sm">{getDisplayNameFromString(request.user_name, 'Anonymous')}</span>
               {request.is_answered && (
                 <span className="flex items-center gap-0.5 text-[9px] font-bold text-emerald-400 bg-emerald-50 dark:bg-emerald-900/200/15 border border-emerald-500/25 rounded-full px-1.5 py-0.5 uppercase tracking-wide">
                   <CheckCircle2 className="w-2.5 h-2.5" /> Answered
@@ -196,6 +197,12 @@ function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onM
   const isOwner = user?.email && (
     request?.created_by === user.email ||
     request?.user_email === user.email ||
+    // Fallback string-equality ownership check for legacy records that have
+    // user_name but no user_email. Both sides intentionally use the RAW
+    // user.full_name (not getDisplayName), because the stored record was
+    // written with raw full_name and we'd lose ownership detection if we
+    // cleaned only one side. Don't "fix" this without also rewriting the
+    // existing PrayerRequest records.
     (!request?.is_anonymous && request?.user_name === user?.full_name)
   );
 
@@ -228,10 +235,10 @@ function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onM
         <div className="flex items-center gap-3 mb-5">
           <div className="w-12 h-12 rounded-full flex items-center justify-center font-bold text-[#F5F5F5]"
             style={{ background: request?.is_answered ? 'linear-gradient(135deg, #065f46, #059669)' : 'linear-gradient(135deg, #1a3a4a, #2d5a70)' }}>
-            {initials(request?.user_name)}
+            {initials(getDisplayNameFromString(request?.user_name, ''))}
           </div>
           <div>
-            <p className="font-bold text-[#3C4E53]">{request?.user_name}</p>
+            <p className="font-bold text-[#3C4E53]">{getDisplayNameFromString(request?.user_name, 'Anonymous')}</p>
              <p className="text-xs text-[#3C4E53]/50">{timeAgo(request?.created_date)}</p>
           </div>
           <div className="ml-auto flex items-center gap-2">
@@ -281,7 +288,7 @@ function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onM
               <div key={comment.comment_id} className="rounded-xl p-4"
               style={{ background: 'rgba(60,78,83,0.04)', border: '1px solid rgba(60,78,83,0.08)' }}>
               <div className="flex items-center justify-between mb-1.5">
-                <span className="text-sm font-semibold text-[#3C4E53]">{comment.user_name}</span>
+                <span className="text-sm font-semibold text-[#3C4E53]">{getDisplayNameFromString(comment.user_name, 'Anonymous')}</span>
                 <span className="text-[10px] text-[#3C4E53]/40">{timeAgo(comment.timestamp)}</span>
                 </div>
                 <p className="text-sm text-[#3C4E53]/65 leading-relaxed">{comment.comment_text}</p>
@@ -410,10 +417,10 @@ function NewPrayerModal({ user, onClose, onSubmit }) {
             <div className="rounded-2xl p-4 mb-3" style={{ background: 'rgba(201,162,39,0.08)', border: '1px solid rgba(201,162,39,0.2)' }}>
               <div className="flex items-center gap-2 mb-3">
                 <div className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs text-[#F5F5F5]" style={{ background: 'linear-gradient(135deg, #1a3a4a, #2d5a70)' }}>
-                    {initials(anonymous ? 'Anonymous' : user?.full_name)}
+                    {initials(anonymous ? 'Anonymous' : getDisplayName(user, ''))}
                   </div>
                   <div>
-                    <p className="text-[#3C4E53] text-sm font-semibold">{anonymous ? 'Anonymous' : user?.full_name}</p>
+                    <p className="text-[#3C4E53] text-sm font-semibold">{anonymous ? 'Anonymous' : getDisplayName(user, 'Anonymous')}</p>
                   <span className={`text-[9px] px-1.5 py-0.5 rounded-full border font-bold uppercase tracking-wide ${CATEGORY_COLORS[category] || CATEGORY_COLORS.Other}`}>{category}</span>
                 </div>
               </div>
@@ -721,7 +728,7 @@ export default function Prayer() {
       const newComment = {
         comment_id: `${Date.now()}_${Math.random().toString(36).slice(2)}`,
         user_email: user.email,
-        user_name: user.full_name || 'Anonymous',
+        user_name: getDisplayName(user, 'Anonymous'),
         comment_text: commentText,
         timestamp: new Date().toISOString(),
       };
@@ -745,7 +752,7 @@ export default function Prayer() {
 
   const createRequest = useMutation({
     mutationFn: ({ text, category, anonymous }) => base44.entities.PrayerRequest.create({
-      user_name: anonymous ? 'Anonymous' : user?.full_name || 'Anonymous',
+      user_name: anonymous ? 'Anonymous' : getDisplayName(user, 'Anonymous'),
       user_email: anonymous ? null : user?.email,
       prayer_text: text,
       category,

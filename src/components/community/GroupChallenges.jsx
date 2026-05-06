@@ -13,7 +13,7 @@ import {
 import { differenceInDays } from 'date-fns';
 import { toast } from 'sonner';
 import { SEED_CHALLENGES } from '@/components/challenges/ChallengeSeed';
-
+import { getDisplayName, getDisplayNameFromString } from '@/lib/userName';
 // ─── Type config (gradient is the fallback when API strips custom fields) ─────
 const TYPE_CONFIG = {
   prayer:       { label: 'Prayer',      emoji: '🙏', gradient: 'from-violet-600 to-purple-400',  bg: 'bg-violet-50 dark:bg-violet-900/20 text-violet-700'  },
@@ -78,7 +78,7 @@ function CreateChallengeModal({ user, onClose, onCreated }) {
         start_date: fmt(today),
         end_date: fmt(end),
         chatbot_facilitator: 'Gideon',
-        created_by_name: user?.full_name || 'Community Member',
+        created_by_name: getDisplayName(user, 'Community Member'),
       });
       toast.success('Challenge created! 🎉');
       onCreated();
@@ -194,9 +194,13 @@ function ParticipantStrip({ participations }) {
       <div className="flex items-center gap-1 flex-wrap">
         {participations.slice(0, 14).map((p, i) => {
           const done     = p.last_check_in_date === today;
-          const initials = (p.user_name || p.user_email || '?')[0].toUpperCase();
+          const cleanedName = getDisplayNameFromString(p.user_name, '');
+          // initials: prefer cleaned name first letter; fall back to email; else '?'
+          const initials = cleanedName
+            ? cleanedName.charAt(0).toUpperCase()
+            : (p.user_email ? p.user_email.charAt(0).toUpperCase() : '?');
           return (
-            <div key={i} title={p.user_name || 'Member'}
+            <div key={i} title={cleanedName || 'Member'}
               className={`w-6 h-6 rounded-full text-[9px] font-bold flex items-center justify-center border-2 transition-all ${
                 done ? 'bg-emerald-50 dark:bg-emerald-900/200 text-white border-emerald-300' : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/30 dark:text-white/30 border-white'
               }`}>{initials}</div>
@@ -575,7 +579,7 @@ export default function GroupChallenges({ user }) {
       await base44.entities.ChallengeParticipation.create({
         challenge_id: challengeId,
         user_email:   user.email,
-        user_name:    user.full_name || user.email,
+        user_name:    getDisplayName(user, user.email || 'Member'),
         current_day:  1, completed_days: [],
         current_streak: 0, longest_streak: 0, reflection_entries: [],
       });

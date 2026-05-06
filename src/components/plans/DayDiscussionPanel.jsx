@@ -8,6 +8,7 @@ import { MessageCircle, Send, Heart, MessageSquare, Loader2 } from 'lucide-react
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 import moment from 'moment';
+import { getDisplayName, getDisplayNameFromString, getInitial, getInitialFromString } from '@/lib/userName';
 
 export default function DayDiscussionPanel({ groupId, dayNumber, currentUser }) {
   const [newPost, setNewPost] = useState('');
@@ -43,7 +44,7 @@ export default function DayDiscussionPanel({ groupId, dayNumber, currentUser }) 
         group_id: groupId,
         day_number: dayNumber,
         user_email: currentUser.email,
-        user_name: currentUser.full_name,
+        user_name: getDisplayName(currentUser, currentUser.email || 'Member'),
         content
       });
     },
@@ -60,7 +61,7 @@ export default function DayDiscussionPanel({ groupId, dayNumber, currentUser }) 
       await base44.entities.DiscussionReply.create({
         discussion_id: discussionId,
         user_email: currentUser.email,
-        user_name: currentUser.full_name,
+        user_name: getDisplayName(currentUser, currentUser.email || 'Member'),
         content
       });
       
@@ -108,7 +109,7 @@ export default function DayDiscussionPanel({ groupId, dayNumber, currentUser }) 
       <Card className="p-4">
         <div className="flex items-start gap-3">
           <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#AFC7E3] flex items-center justify-center text-white text-sm font-semibold flex-shrink-0">
-            {currentUser?.full_name?.charAt(0).toUpperCase() || '?'}
+            {getInitial(currentUser)}
           </div>
           <div className="flex-1">
             <Textarea
@@ -153,11 +154,11 @@ export default function DayDiscussionPanel({ groupId, dayNumber, currentUser }) 
               <Card className="p-4">
                 <div className="flex items-start gap-3 mb-3">
                   <div className="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center text-white text-sm font-semibold flex-shrink-0">
-                    {discussion.user_name?.charAt(0).toUpperCase() || '?'}
+                    {getInitialFromString(discussion.user_name)}
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
-                      <p className="font-medium text-sm text-gray-900 dark:text-white">{discussion.user_name}</p>
+                      <p className="font-medium text-sm text-gray-900 dark:text-white">{getDisplayNameFromString(discussion.user_name)}</p>
                       <span className="text-xs text-gray-500 dark:text-gray-300">
                         {moment(discussion.created_date).fromNow()}
                       </span>
@@ -225,11 +226,11 @@ export default function DayDiscussionPanel({ groupId, dayNumber, currentUser }) 
                       <div key={reply.id} className="pl-3">
                         <div className="flex items-start gap-2">
                           <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#AFC7E3] flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">
-                            {reply.user_name?.charAt(0).toUpperCase() || '?'}
+                            {getInitialFromString(reply.user_name)}
                           </div>
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-1">
-                              <p className="font-medium text-xs text-gray-900 dark:text-white">{reply.user_name}</p>
+                              <p className="font-medium text-xs text-gray-900 dark:text-white">{getDisplayNameFromString(reply.user_name)}</p>
                               <span className="text-xs text-gray-400 dark:text-gray-300">
                                 {moment(reply.created_date).fromNow()}
                               </span>

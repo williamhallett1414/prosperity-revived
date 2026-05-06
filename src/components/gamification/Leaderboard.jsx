@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
 import { Trophy, Medal, Crown } from 'lucide-react';
+import { getDisplayName, getInitial } from '@/lib/userName';
 
 export default function Leaderboard() {
   const [user, setUser] = useState(null);
@@ -64,15 +65,15 @@ export default function Leaderboard() {
               
               <div className="w-10 h-10 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#AFC7E3] flex items-center justify-center text-white font-semibold">
                 {entry.user.profile_image_url ? (
-                  <img src={entry.user.profile_image_url} alt={entry.user.full_name} className="w-full h-full object-cover" />
+                  <img src={entry.user.profile_image_url} alt={getDisplayName(entry.user, 'User')} className="w-full h-full object-cover" />
                 ) : (
-                  entry.user.full_name?.charAt(0) || entry.user.email.charAt(0)
+                  getInitial(entry.user)
                 )}
               </div>
               
               <div className="flex-1">
                 <p className={`font-semibold ${isCurrentUser ? 'text-amber-900 dark:text-amber-100' : 'text-[#0A1A2F] dark:text-white dark:text-white'}`}>
-                  {entry.user.full_name || 'User'} {isCurrentUser && '(You)'}
+                  {getDisplayName(entry.user, 'User')} {isCurrentUser && '(You)'}
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Level {entry.level || 1}</p>
               </div>

@@ -6,7 +6,7 @@ import { Share2, Copy, Check, Globe } from 'lucide-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
-
+import { getDisplayName } from '@/lib/userName';
 export default function ShareWorkoutModal({ isOpen, onClose, workout, user }) {
   const [copied, setCopied] = useState(false);
   const [shareLink, setShareLink] = useState('');
@@ -22,7 +22,7 @@ export default function ShareWorkoutModal({ isOpen, onClose, workout, user }) {
       await base44.entities.WorkoutPlan.update(workout.id, {
         is_shared: true,
         share_code: shareCode,
-        creator_name: user?.full_name || user?.email || 'Anonymous'
+        creator_name: getDisplayName(user, user?.email || 'Anonymous')
       });
       return shareCode;
     },

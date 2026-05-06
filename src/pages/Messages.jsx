@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
+import { getDisplayName, getDisplayNameFromString } from '@/lib/userName';
 import { motion } from 'framer-motion';
 import {
   MessageCircle, Search, ArrowLeft, Send, Loader2,
@@ -50,9 +51,8 @@ function buildConversations(messages, userEmail) {
   const map = new Map();
   messages.forEach(msg => {
     const other = msg.sender_email === userEmail ? msg.receiver_email : msg.sender_email;
-    const name  = msg.sender_email === userEmail
-      ? (msg.receiver_name || msg.receiver_email)
-      : (msg.sender_name  || msg.sender_email);
+    const rawName = msg.sender_email === userEmail ? msg.receiver_name : msg.sender_name;
+    const name = getDisplayNameFromString(rawName, other);
     if (!map.has(other)) map.set(other, { email: other, name, messages: [], unread: 0 });
     const c = map.get(other);
     c.messages.push(msg);
@@ -262,8 +262,8 @@ export default function Messages() {
         sender_email:   user.email,
         receiver_email: receiverEmail,
         content,
-        sender_name:    user.full_name || user.email,
-        receiver_name:  receiver?.full_name || receiverEmail,
+        sender_name:    getDisplayName(user, user.email || 'Member'),
+        receiver_name:  getDisplayName(receiver, receiverEmail),
         read: false,
       });
     },
@@ -311,7 +311,7 @@ export default function Messages() {
     if (existing) return existing;
     // Stub for new conversation (no messages yet)
     const u = users.find(u => u.email === selectedEmail);
-    return { email: selectedEmail, name: u?.full_name || selectedEmail, messages: [], unread: 0 };
+    return { email: selectedEmail, name: getDisplayName(u, selectedEmail), messages: [], unread: 0 };
   }, [selectedEmail, conversations, users]);
 
   const totalUnread = messages.filter(m => m.receiver_email === user?.email && !m.read).length;

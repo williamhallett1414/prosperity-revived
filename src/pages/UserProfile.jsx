@@ -13,6 +13,7 @@ import UserPostsFeed from '@/components/profile/UserPostsFeed';
 import BannerCustomizer from '@/components/profile/BannerCustomizer';
 import ProfileStats from '@/components/profile/ProfileStats';
 import { notifyFriendRequest, notifyFriendAccepted } from '@/components/notifications/NotificationHelper';
+import { getDisplayName, getFirstName, getInitial, getNameInputValue } from '@/lib/userName';
 
 export default function UserProfile() {
   const navigate = useNavigate();
@@ -149,15 +150,15 @@ export default function UserProfile() {
       sendFriendRequest.mutate({
         user_email: currentUser.email,
         friend_email: profileEmail,
-        user_name: currentUser.full_name || currentUser.email,
-        friend_name: profileUser.full_name || profileUser.email,
+        user_name: getDisplayName(currentUser, currentUser.email || 'Member'),
+        friend_name: getDisplayName(profileUser, profileUser.email || 'Member'),
         status: 'pending'
       });
       
       // Notify recipient
       await notifyFriendRequest(
         currentUser.email,
-        currentUser.full_name || currentUser.email,
+        getDisplayName(currentUser, currentUser.email || 'Member'),
         profileEmail
       );
     } else if (existingFriendship.status === 'pending' && existingFriendship.friend_email === currentUser.email) {
@@ -166,7 +167,7 @@ export default function UserProfile() {
       // Notify the sender that their request was accepted
       await notifyFriendAccepted(
         currentUser.email,
-        currentUser.full_name || currentUser.email,
+        getDisplayName(currentUser, currentUser.email || 'Member'),
         existingFriendship.user_email
       );
     }
@@ -239,7 +240,7 @@ export default function UserProfile() {
             )}
             {!isOwnProfile && (
               <Link
-                to={createPageUrl(`Messages?recipient=${profileEmail}&name=${profileUser.full_name || profileEmail}`)}
+                to={createPageUrl(`Messages?recipient=${profileEmail}&name=${getDisplayName(profileUser, profileEmail)}`)}
                 className="flex items-center gap-1.5 px-3 h-10 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-colors text-white text-sm font-medium"
               >
                 <MessageCircle className="w-4 h-4" />
@@ -254,14 +255,14 @@ export default function UserProfile() {
           <div className="flex items-end gap-4">
             <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center text-3xl font-bold border-4 border-white shadow-xl">
               {profileUser.profile_image_url ? (
-                <img src={profileUser.profile_image_url} alt={profileUser.full_name} className="w-full h-full object-cover" />
+                <img src={profileUser.profile_image_url} alt={getDisplayName(profileUser, 'User')} className="w-full h-full object-cover" />
               ) : (
-                profileUser.full_name?.charAt(0) || profileUser.email.charAt(0)
+                getInitial(profileUser)
               )}
             </div>
             
             <div className="flex-1 pb-2">
-              <h1 className="text-2xl font-bold drop-shadow-lg dark:shadow-none">{profileUser.full_name || 'User'}</h1>
+              <h1 className="text-2xl font-bold drop-shadow-lg dark:shadow-none">{getDisplayName(profileUser, 'User')}</h1>
               <p className="text-white/90 text-sm drop-shadow">{profileUser.email}</p>
             </div>
 
@@ -302,7 +303,7 @@ export default function UserProfile() {
       {!isOwnProfile && (
         <div className="px-4 pt-3 pb-1 flex gap-3">
           <Link
-            to={createPageUrl(`Messages?recipient=${profileEmail}&name=${profileUser.full_name || profileEmail}`)}
+            to={createPageUrl(`Messages?recipient=${profileEmail}&name=${getDisplayName(profileUser, profileEmail)}`)}
             className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-2xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white font-bold text-sm hover:opacity-90 transition-opacity shadow-sm dark:shadow-none"
           >
             <MessageCircle className="w-4 h-4" />
@@ -386,13 +387,13 @@ export default function UserProfile() {
                     className="w-16 h-16 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center text-white font-semibold shadow-md dark:shadow-none"
                   >
                     {friend.profile_image_url ? (
-                      <img src={friend.profile_image_url} alt={friend.full_name} className="w-full h-full object-cover" />
+                      <img src={friend.profile_image_url} alt={getDisplayName(friend, 'User')} className="w-full h-full object-cover" />
                     ) : (
-                      friend.full_name?.charAt(0) || friend.email.charAt(0)
+                      getInitial(friend)
                     )}
                   </motion.div>
                   <p className="text-xs text-center text-[#0A1A2F]/75 dark:text-white/75 line-clamp-2 w-full">
-                    {friend.full_name?.split(' ')[0] || 'User'}
+                    {getFirstName(friend, 'User')}
                   </p>
                 </Link>
               ))}
@@ -521,7 +522,11 @@ export default function UserProfile() {
 }
 
 function EditProfileSheet({ open, onOpenChange, currentUser, onSave }) {
-  const [fullName, setFullName] = useState(currentUser?.full_name || '');
+  // Use getNameInputValue (not getDisplayName) so the input pre-fills with
+  // empty string when full_name looks auto-derived from the email prefix.
+  // That way the placeholder shows instead of the user having to delete a
+  // value they never typed.
+  const [fullName, setFullName] = useState(getNameInputValue(currentUser));
   const [bio, setBio] = useState(currentUser?.bio || '');
   const [profileImageUrl, setProfileImageUrl] = useState(currentUser?.profile_image_url || '');
   const [uploading, setUploading] = useState(false);
@@ -530,7 +535,7 @@ function EditProfileSheet({ open, onOpenChange, currentUser, onSave }) {
   // Sync state when currentUser changes
   useEffect(() => {
     if (currentUser) {
-      setFullName(currentUser.full_name || '');
+      setFullName(getNameInputValue(currentUser));
       setBio(currentUser.bio || '');
       setProfileImageUrl(currentUser.profile_image_url || '');
     }
@@ -565,7 +570,7 @@ function EditProfileSheet({ open, onOpenChange, currentUser, onSave }) {
               {profileImageUrl ? (
                 <img src={profileImageUrl} alt="Profile" className="w-full h-full object-cover" />
               ) : (
-                currentUser?.full_name?.charAt(0) || '?'
+                fullName?.charAt(0)?.toUpperCase() || getInitial(currentUser)
               )}
             </div>
             <label className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#FAD98D]/50 dark:border-[#FAD98D]/20 text-[#0A1A2F]/70 dark:text-white/70 text-sm cursor-pointer hover:border-[#c9a227] hover:text-[#c9a227] transition-colors bg-white dark:bg-white/5">

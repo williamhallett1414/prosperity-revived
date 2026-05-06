@@ -11,7 +11,7 @@ import { useQueryClient, useMutation, useQuery } from '@tanstack/react-query';
 import ContentModeration from '@/components/community/ContentModeration';
 import PostSummary from '@/components/community/PostSummary';
 import { checkInteractionAllowed } from '@/utils/MinorSafety';
-
+import { getDisplayName, getDisplayNameFromString, getInitialFromString } from '@/lib/userName';
 export default function PostCard({ post, comments = [], onLike, onComment, index, user, friends = [] }) {
   const navigate = useNavigate();
   const [showComments, setShowComments] = useState(false);
@@ -26,8 +26,8 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
       return base44.entities.Friend.create({
         user_email: user.email,
         friend_email: post.created_by,
-        user_name: user.full_name || user.email,
-        friend_name: post.user_name,
+        user_name: getDisplayName(user, user.email || 'Member'),
+        friend_name: getDisplayNameFromString(post.user_name, 'Member'),
         status: 'pending'
       });
     },
@@ -74,7 +74,7 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
       return await base44.entities.Comment.create({
         post_id: post.id,
         content: text,
-        user_name: user?.full_name || user?.email || 'Anonymous'
+        user_name: getDisplayName(user, user?.email || 'Anonymous')
       });
     },
     onMutate: async (text) => {
@@ -86,7 +86,7 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
         id: `temp-${Date.now()}`,
         post_id: post.id,
         content: text,
-        user_name: user?.full_name || user?.email || 'Anonymous',
+        user_name: getDisplayName(user, user?.email || 'Anonymous'),
         created_date: new Date().toISOString()
       };
       
@@ -128,13 +128,13 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
-        title: `Post by ${post.user_name}`,
+        title: `Post by ${getDisplayNameFromString(post.user_name, 'a community member')}`,
         text: post.content,
         url: window.location.href
       }).catch(() => {});
     } else {
       // Fallback: copy to clipboard
-      navigator.clipboard.writeText(`${post.content}\n\n- ${post.user_name}`);
+      navigator.clipboard.writeText(`${post.content}\n\n- ${getDisplayNameFromString(post.user_name, 'a community member')}`);
       alert('Post copied to clipboard!');
     }
   };
@@ -165,14 +165,14 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
           className="w-10 h-10 rounded-full bg-gradient-to-br from-[#0A1A2F] to-[#c9a227] flex items-center justify-center text-white font-semibold cursor-pointer hover:opacity-80"
           onClick={() => post.created_by && navigate(createPageUrl(`UserProfile?email=${post.created_by}`))}
         >
-          {post.user_name?.[0]?.toUpperCase() || 'U'}
+          {getInitialFromString(post.user_name)}
         </div>
         <div className="flex-1">
           <p 
             className="font-semibold text-[#0A1A2F] dark:text-white cursor-pointer hover:text-[#c9a227]"
             onClick={() => post.created_by && navigate(createPageUrl(`UserProfile?email=${post.created_by}`))}
           >
-            {post.user_name || 'Anonymous'}
+            {getDisplayNameFromString(post.user_name, 'Anonymous')}
           </p>
           <p className="text-xs text-gray-500 dark:text-gray-300">{post.created_date ? format(new Date(post.created_date), 'MMM d, yyyy') : ''}</p>
         </div>
@@ -195,7 +195,7 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
           <>
             <button
               onClick={async () => {
-                if (window.confirm(`Block ${post.author_name || 'this user'}? You won't see their posts anymore.`)) {
+                if (window.confirm(`Block ${getDisplayNameFromString(post.author_name, 'this user')}? You won't see their posts anymore.`)) {
                   try {
                     const blocked = JSON.parse(localStorage.getItem('pr_blocked_users') || '[]');
                     if (!blocked.includes(post.created_by)) blocked.push(post.created_by);
@@ -316,10 +316,10 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
           {postComments.map(comment => (
             <div key={comment.id} className="flex gap-2">
               <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-slate-600 flex items-center justify-center text-xs font-semibold text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 flex-shrink-0">
-                {comment.user_name?.[0]?.toUpperCase() || 'U'}
+                {getInitialFromString(comment.user_name)}
               </div>
               <div className="flex-1 bg-gray-50 dark:bg-white/5 dark:bg-slate-700 rounded-lg p-2">
-                <p className="text-sm font-medium text-gray-900 dark:text-white dark:text-gray-200">{comment.user_name || 'Anonymous'}</p>
+                <p className="text-sm font-medium text-gray-900 dark:text-white dark:text-gray-200">{getDisplayNameFromString(comment.user_name, 'Anonymous')}</p>
                 <p className="text-sm text-gray-700 dark:text-gray-200 dark:text-gray-400 dark:text-gray-300">{comment.content}</p>
               </div>
             </div>

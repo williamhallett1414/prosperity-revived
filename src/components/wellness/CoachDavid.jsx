@@ -19,7 +19,7 @@ import ReactMarkdown from 'react-markdown';
 import { getChefDanielNutritionContext } from '../chatbot/CrossChatbotContext';
 import { useProactiveInsights } from '../chatbot/useProactiveInsights';
 import ProactiveInsightCard from '../chatbot/ProactiveInsightCard';
-
+import { getFirstName } from '@/lib/userName';
 export default function CoachDavid({ user, userWorkouts = [], workoutSessions = [], autoOpen = false, onClose }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -59,12 +59,12 @@ export default function CoachDavid({ user, userWorkouts = [], workoutSessions = 
     if (isOpen && messages.length === 0) {
       const newSessionId = `coach-david-${Date.now()}`;
       setSessionId(newSessionId);
-      const userName = user?.full_name?.split(' ')[0] || '';
+      const userName = getFirstName(user, '');
       const isFirstTime = !localStorage.getItem('coachDavidVisited');
       
       if (isFirstTime) {
         setShowOnboarding(true);
-        const welcomeMsg = `Yo ${userName}! 💪 I'm Coach David.\n\nI'm here to build your discipline, unlock your strength, and transform your mindset. We're not just doing workouts—we're building an identity as someone who's unstoppable.\n\nWhether it's strength, endurance, mobility, or overcoming mental blocks, I've got the knowledge and the motivation to push you forward.\n\nWhat's your fitness goal today?`;
+        const welcomeMsg = `Yo${userName ? ' ' + userName : ''}! 💪 I'm Coach David.\n\nI'm here to build your discipline, unlock your strength, and transform your mindset. We're not just doing workouts—we're building an identity as someone who's unstoppable.\n\nWhether it's strength, endurance, mobility, or overcoming mental blocks, I've got the knowledge and the motivation to push you forward.\n\nWhat's your fitness goal today?`;
         setMessages([{ role: 'assistant', content: welcomeMsg }]);
         localStorage.setItem('coachDavidVisited', 'true');
       } else {

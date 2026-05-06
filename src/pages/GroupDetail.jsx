@@ -14,6 +14,7 @@ import CreatePostModal from '@/components/community/CreatePostModal';
 import MemberManagement from '@/components/groups/MemberManagement';
 import CreateChallengeModal from '@/components/challenges/CreateChallengeModal';
 import ChallengeCard from '@/components/challenges/ChallengeCard';
+import { getDisplayName } from '@/lib/userName';
 
 // ─── Category config ────────────────────────────────────────────────────────
 const CATEGORY_CONFIG = {
@@ -234,7 +235,7 @@ export default function GroupDetail() {
     mutationFn: (data) => base44.entities.Post.create({
       ...data,
       group_id: groupId,
-      user_name: user?.full_name || user?.email || 'Anonymous'
+      user_name: getDisplayName(user, user?.email || 'Anonymous')
     }),
     onSuccess: () => queryClient.invalidateQueries(['groupPosts']),
     onError: () => toast.error('Failed to create post'),
@@ -250,7 +251,7 @@ export default function GroupDetail() {
     mutationFn: ({ postId, content }) => base44.entities.Comment.create({
       post_id: postId,
       content,
-      user_name: user?.full_name || user?.email || 'Anonymous'
+      user_name: getDisplayName(user, user?.email || 'Anonymous')
     }),
     onSuccess: () => queryClient.invalidateQueries(['comments']),
     onError: () => toast.error('Failed to post comment'),
@@ -270,7 +271,7 @@ export default function GroupDetail() {
       await base44.entities.ChallengeParticipant.create({
         challenge_id: challengeId,
         user_email: user.email,
-        user_name: user.full_name || user.email,
+        user_name: getDisplayName(user, user.email || 'Member'),
         current_progress: 0,
         progress_percentage: 0,
         progress_logs: []

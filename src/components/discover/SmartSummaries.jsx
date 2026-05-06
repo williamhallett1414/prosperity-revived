@@ -7,7 +7,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-
+import { getDisplayNameFromString } from '@/lib/userName';
 export default function SmartSummaries({ user }) {
   const [summaries, setSummaries] = useState({});
   const [loading, setLoading] = useState({});
@@ -79,7 +79,7 @@ Provide a clear, engaging summary that captures the main points and key discussi
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-xs font-medium text-gray-500 dark:text-gray-300">
-                      by {post.user_name || 'Anonymous'}
+                      by {getDisplayNameFromString(post.user_name, 'Anonymous')}
                     </span>
                     <span className="flex items-center gap-1 text-xs text-gray-400 dark:text-gray-300">
                       <MessageCircle className="w-3 h-3" />

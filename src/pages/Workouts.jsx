@@ -14,6 +14,7 @@ import PullToRefresh from '@/components/ui/PullToRefresh';
 import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
 import { awardPoints, checkAndAwardBadges } from '@/components/gamification/ProgressManager';
 import { toast } from 'sonner';
+import { getFirstName } from '@/lib/userName';
 
 const WorkoutPlannerTab = lazy(() => import('@/pages/WorkoutPlanner'));
 const WorkoutTrendsTab = lazy(() => import('@/pages/WorkoutTrends'));
@@ -259,7 +260,7 @@ function WorkoutsInner() {
   const totalMins = sessions.reduce((sum, s) => sum + (s.duration_minutes || 0), 0);
 
   const verse = TRAINING_VERSES[Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 1)) / 86400000 / 7) % TRAINING_VERSES.length];
-  const greeting = getTimeGreeting(user?.full_name);
+  const greeting = getTimeGreeting(getFirstName(user, ''));
 
   // Smart recommendation: pick from category not done recently, appropriate duration for time of day
   const recommendedWorkout = useMemo(() => {

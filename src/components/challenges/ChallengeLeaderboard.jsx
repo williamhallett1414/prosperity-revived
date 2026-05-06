@@ -2,7 +2,7 @@ import React from 'react';
 import { Trophy, Medal, Award } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Avatar } from '@/components/ui/avatar';
-
+import { getDisplayNameFromString, getInitialFromString } from '@/lib/userName';
 export default function ChallengeLeaderboard({ participants, challenge }) {
   const sortedParticipants = [...participants].sort((a, b) => b.current_progress - a.current_progress);
   
@@ -35,11 +35,11 @@ export default function ChallengeLeaderboard({ participants, challenge }) {
           </div>
 
           <Avatar className="w-10 h-10 bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 text-[#C9A227] flex items-center justify-center font-semibold">
-            {participant.user_name?.charAt(0)?.toUpperCase() || '?'}
+            {getInitialFromString(participant.user_name)}
           </Avatar>
 
           <div className="flex-1 min-w-0">
-            <p className="font-medium text-gray-900 dark:text-white truncate">{participant.user_name}</p>
+            <p className="font-medium text-gray-900 dark:text-white truncate">{getDisplayNameFromString(participant.user_name)}</p>
             <div className="flex items-center gap-2">
               <div className="flex-1 bg-gray-200 rounded-full h-2">
                 <div

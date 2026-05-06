@@ -12,6 +12,7 @@ import ChatInputMenu from '@/components/chatbot/ChatInputMenu';
 import { ArrowLeft, Send, Loader2, RotateCcw, Mic, MicOff, Volume2, Square, X, Zap, Video, PhoneCall, Menu, MessageSquareText, EyeOff } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { base44 } from '@/api/base44Client';
+import { getDisplayName } from '@/lib/userName';
 import { elevenLabsSpeak } from '@/utils/elevenLabsTTS';
 import { getChatbotMemories, buildMemoryContext, getCrossContext, saveMemories } from '@/utils/adaptiveMemory';
 import CloudAvatar    from '@/components/avatar/CloudAvatar';
@@ -1170,7 +1171,7 @@ export default function ChatScreen() {
     const age = u.dob ? Math.floor((Date.now() - new Date(u.dob)) / 31557600000) : null;
     const lines = [
       `USER PROFILE:`,
-      u.full_name              && `- Name: ${u.full_name}`,
+      u.full_name              && `- Name: ${getDisplayName(u, '')}`,
       age                      && `- Age: ${age}`,
       u.biological_sex         && `- Sex: ${u.biological_sex}`,
       u.life_stage             && `- Life stage: ${u.life_stage}`,

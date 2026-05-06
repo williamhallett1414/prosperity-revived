@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { toast } from 'sonner';
-
+import { getDisplayName, getDisplayNameFromString, getInitial } from '@/lib/userName';
 export default function AIFriendSuggestions({ user, limit = 5, showHeader = true }) {
   const [suggestions, setSuggestions] = useState([]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -45,8 +45,8 @@ export default function AIFriendSuggestions({ user, limit = 5, showHeader = true
       return base44.entities.Friend.create({
         user_email: user.email,
         friend_email: friendEmail,
-        user_name: user.full_name || user.email,
-        friend_name: friendUser?.full_name || friendEmail,
+        user_name: getDisplayName(user, user.email || 'Member'),
+        friend_name: getDisplayName(friendUser, friendEmail),
         status: 'pending'
       });
     },
@@ -99,7 +99,7 @@ ${potentialFriends.slice(0, 20).map((u, i) => {
   const theirGroups = memberships.filter(m => m.user_email === u.email).map(m => m.group_id);
   const sharedGroups = theirGroups.filter(g => myGroups.includes(g)).length;
   
-  return `${i + 1}. ${u.full_name || u.email} - Posts: ${theirPosts.length}, Shared groups: ${sharedGroups}, Bio: ${u.bio || 'None'}`;
+  return `${i + 1}. ${getDisplayName(u, u.email)} - Posts: ${theirPosts.length}, Shared groups: ${sharedGroups}, Bio: ${u.bio || 'None'}`;
 }).join('\n')}
 
 Return ONLY a JSON array with top ${limit} email addresses in order of compatibility, like: ["email1@example.com", "email2@example.com"]
@@ -197,14 +197,14 @@ Return ONLY a JSON array with top ${limit} email addresses in order of compatibi
               >
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#c9a227] to-[#AFC7E3] flex items-center justify-center text-white font-semibold">
                   {suggestedUser.profile_image_url ? (
-                    <img src={suggestedUser.profile_image_url} alt={suggestedUser.full_name} className="w-full h-full object-cover rounded-full" />
+                    <img src={suggestedUser.profile_image_url} alt={getDisplayName(suggestedUser, 'User')} className="w-full h-full object-cover rounded-full" />
                   ) : (
-                    suggestedUser.full_name?.charAt(0) || suggestedUser.email.charAt(0)
+                    getInitial(suggestedUser)
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-semibold text-[#0A1A2F] dark:text-white truncate">
-                    {suggestedUser.full_name || 'User'}
+                    {getDisplayName(suggestedUser, 'User')}
                   </p>
                   <p className="text-sm text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 truncate">
                     {suggestedUser.bio?.slice(0, 40) || suggestedUser.email}

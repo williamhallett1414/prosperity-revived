@@ -6,6 +6,7 @@ import { Trophy, Users, CheckCircle2, Calendar, Target, Flame, Clock, TrendingUp
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+import { getDisplayName, getDisplayNameFromString, getInitialFromString } from '@/lib/userName';
 import { toast } from 'sonner';
 import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
 
@@ -77,7 +78,7 @@ export default function ChallengeDetailPage() {
       return await base44.entities.ChallengeParticipant.create({
         challenge_id: challengeId,
         user_email: user?.email,
-        user_name: user?.full_name || user?.email,
+        user_name: getDisplayName(user, user?.email || 'Member'),
         progress: 0,
         status: 'active',
         completed_days: [],
@@ -504,11 +505,11 @@ export default function ChallengeDetailPage() {
                       {idx + 1}
                     </div>
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FAD98D] to-[#AFC7E3] flex items-center justify-center text-white font-bold shrink-0">
-                      {participant.user_name?.charAt(0).toUpperCase() || 'U'}
+                      {getInitialFromString(participant.user_name)}
                     </div>
                     <div className="flex-1">
                       <h4 className="font-semibold text-[#0A1A2F] dark:text-white text-sm">
-                        {participant.user_name || 'Anonymous'}
+                        {getDisplayNameFromString(participant.user_name, 'Anonymous')}
                         {participant.user_email === user?.email && <span className="text-[#FAD98D] ml-1">(You)</span>}
                       </h4>
                       <div className="flex items-center gap-3 text-xs text-[#0A1A2F]/60 dark:text-white/60">
@@ -586,11 +587,11 @@ export default function ChallengeDetailPage() {
                 className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-white/5 hover:bg-gray-100 dark:bg-white/5 transition-colors">
 
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FAD98D] to-[#AFC7E3] flex items-center justify-center text-white font-bold shrink-0">
-                      {participant.user_name?.charAt(0).toUpperCase() || 'U'}
+                      {getInitialFromString(participant.user_name)}
                     </div>
                     <div className="flex-1">
                       <h4 className="font-semibold text-[#0A1A2F] dark:text-white text-sm">
-                        {participant.user_name || 'Anonymous'}
+                        {getDisplayNameFromString(participant.user_name, 'Anonymous')}
                       </h4>
                       <div className="flex items-center gap-2 mt-1">
                         <div className="flex-1 h-1.5 bg-gray-200 rounded-full overflow-hidden">

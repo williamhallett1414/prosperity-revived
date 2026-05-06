@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
+import { getDisplayNameFromString } from '@/lib/userName';
 import WorkoutCard from './WorkoutCard';
 import { PREMADE_WORKOUTS } from './WorkoutLibrary';
 import PersonalizedWorkouts from '@/components/recommendations/PersonalizedWorkouts';
@@ -199,7 +200,7 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
                     {workout.description}
                   </p>
                   <p className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-500 dark:text-gray-300">
-                    by {workout.creator_name || 'Anonymous'}
+                    by {getDisplayNameFromString(workout.creator_name, 'Anonymous')}
                   </p>
                 </div>
                 <Badge className={difficultyColors[workout.difficulty]}>
@@ -287,7 +288,7 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
                       {workout.description}
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-500 dark:text-gray-300">
-                      by {workout.creator_name || 'Anonymous'}
+                      by {getDisplayNameFromString(workout.creator_name, 'Anonymous')}
                     </p>
                   </div>
                   <Badge className={difficultyColors[workout.difficulty]}>

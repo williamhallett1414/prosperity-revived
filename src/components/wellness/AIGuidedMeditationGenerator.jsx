@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Slider } from '@/components/ui/slider';
 import { Sparkles, Loader2, Save } from 'lucide-react';
 import { motion } from 'framer-motion';
-
+import { getFirstName } from '@/lib/userName';
 export default function AIGuidedMeditationGenerator({ isOpen, onClose, user }) {
   const [mood, setMood] = useState('neutral');
   const [stressLevel, setStressLevel] = useState(5);
@@ -42,7 +42,7 @@ export default function AIGuidedMeditationGenerator({ isOpen, onClose, user }) {
     setIsGenerating(true);
     try {
       const context = {
-        user_name: user?.full_name?.split(' ')[0] || 'friend',
+        user_name: getFirstName(user, 'friend'),
         spiritual_goal: user?.spiritual_goal,
         health_goals: user?.health_goals,
         current_streak: userProgress?.current_streak || 0,

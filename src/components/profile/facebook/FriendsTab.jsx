@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
+import { getDisplayName, getDisplayNameFromString, getInitialFromString } from '@/lib/userName';
 
 export default function FriendsTab({ friends, user }) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -35,8 +36,8 @@ export default function FriendsTab({ friends, user }) {
     mutationFn: (friendEmail) => base44.entities.Friend.create({
       user_email: user.email,
       friend_email: friendEmail,
-      user_name: user.full_name,
-      friend_name: allUsers.find(u => u.email === friendEmail)?.full_name || friendEmail,
+      user_name: getDisplayName(user, user.email || 'Member'),
+      friend_name: getDisplayName(allUsers.find(u => u.email === friendEmail), friendEmail),
       status: 'pending'
     }),
     onSuccess: () => {
@@ -50,7 +51,10 @@ export default function FriendsTab({ friends, user }) {
     if (!searchTerm) return friends;
     return friends.filter(f => {
       const friendEmail = f.user_email === user?.email ? f.friend_email : f.user_email;
-      const friendName = f.user_email === user?.email ? f.friend_name : f.user_name;
+      const friendName = getDisplayNameFromString(
+        f.user_email === user?.email ? f.friend_name : f.user_name,
+        ''
+      );
       return friendName?.toLowerCase().includes(searchTerm.toLowerCase()) || 
              friendEmail?.toLowerCase().includes(searchTerm.toLowerCase());
     });
@@ -62,7 +66,7 @@ export default function FriendsTab({ friends, user }) {
       u.email !== user?.email &&
       !friendEmails.includes(u.email) &&
       !sentRequests.some(r => r.friend_email === u.email) &&
-      (u.full_name?.toLowerCase().includes(userSearchTerm.toLowerCase()) ||
+      (getDisplayName(u, '').toLowerCase().includes(userSearchTerm.toLowerCase()) ||
        u.email?.toLowerCase().includes(userSearchTerm.toLowerCase()))
     ).slice(0, 20);
   }, [allUsers, userSearchTerm, user, friendEmails, sentRequests]);
@@ -92,10 +96,10 @@ export default function FriendsTab({ friends, user }) {
                 >
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#FAD98D] flex items-center justify-center text-white font-bold">
-                      {searchUser.full_name?.charAt(0).toUpperCase() || 'U'}
+                      {(getDisplayName(searchUser, '').charAt(0) || searchUser.email?.charAt(0) || 'U').toUpperCase()}
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-900 dark:text-white">{searchUser.full_name}</p>
+                      <p className="font-semibold text-gray-900 dark:text-white">{getDisplayName(searchUser, searchUser.email || 'User')}</p>
                       <p className="text-xs text-gray-500 dark:text-gray-300">{searchUser.email}</p>
                     </div>
                   </div>
@@ -179,7 +183,8 @@ export default function FriendsTab({ friends, user }) {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {filteredFriends.map((friend, index) => {
           const friendEmail = friend.user_email === user?.email ? friend.friend_email : friend.user_email;
-          const friendName = friend.user_email === user?.email ? friend.friend_name : friend.user_name;
+          const rawName = friend.user_email === user?.email ? friend.friend_name : friend.user_name;
+          const friendName = getDisplayNameFromString(rawName, '');
 
           return (
             <motion.div
@@ -190,7 +195,7 @@ export default function FriendsTab({ friends, user }) {
               className="flex flex-col items-center p-4 hover:bg-gray-50 dark:bg-white/5 dark:text-white rounded-xl transition-all cursor-pointer group"
             >
               <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#FAD98D] flex items-center justify-center text-white text-2xl font-bold mb-3 shadow-md dark:shadow-none group-hover:shadow-lg dark:shadow-none transition-shadow">
-                {friendName?.charAt(0).toUpperCase() || 'F'}
+                {(friendName.charAt(0) || friendEmail?.charAt(0) || 'F').toUpperCase()}
               </div>
               <p className="font-semibold text-gray-900 dark:text-white text-center text-sm line-clamp-2 mb-1">
                 {friendName || friendEmail}

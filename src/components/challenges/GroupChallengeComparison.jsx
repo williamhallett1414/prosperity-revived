@@ -1,14 +1,14 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { Trophy, TrendingUp, Award } from 'lucide-react';
-
+import { getDisplayNameFromString } from '@/lib/userName';
 export default function GroupChallengeComparison({ participants, challenge, currentUserEmail }) {
   const topParticipants = [...participants]
     .sort((a, b) => b.current_progress - a.current_progress)
     .slice(0, 10);
 
   const chartData = topParticipants.map((p, index) => ({
-    name: p.user_name?.split(' ')[0] || 'User',
+    name: getDisplayNameFromString(p.user_name, 'User').split(' ')[0],
     progress: p.current_progress,
     isCurrentUser: p.user_email === currentUserEmail,
     rank: index + 1

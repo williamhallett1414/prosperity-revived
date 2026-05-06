@@ -13,7 +13,7 @@ import {
   DialogTrigger } from
 '@/components/ui/dialog';
 import { toast } from 'sonner';
-
+import { getDisplayName, getDisplayNameFromString } from '@/lib/userName';
 export default function CommunityRecipeFeed({ user }) {
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [postContent, setPostContent] = useState('');
@@ -35,7 +35,7 @@ export default function CommunityRecipeFeed({ user }) {
     mutationFn: async (data) => {
       return base44.entities.Post.create({
         content: data.content,
-        user_name: user?.full_name || 'Anonymous',
+        user_name: getDisplayName(user, 'Anonymous'),
         image_url: data.imageUrl,
         video_url: data.videoUrl,
         topic: 'general'
@@ -123,7 +123,7 @@ export default function CommunityRecipeFeed({ user }) {
           <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 border border-gray-200 dark:border-white/10 dark:border-gray-700">
             <div className="flex items-center gap-3 mb-3">
               {user?.profile_image ?
-              <img src={user.profile_image} alt={user.full_name} className="w-10 h-10 rounded-full object-cover" /> :
+              <img src={user.profile_image} alt={getDisplayName(user, 'User')} className="w-10 h-10 rounded-full object-cover" /> :
 
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#6B7280]" />
               }
@@ -259,7 +259,7 @@ export default function CommunityRecipeFeed({ user }) {
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#6B7280]" />
                     <div>
-                      <p className="font-semibold text-sm text-[#0A1A2F] dark:text-white dark:text-white">{post.user_name}</p>
+                      <p className="font-semibold text-sm text-[#0A1A2F] dark:text-white dark:text-white">{getDisplayNameFromString(post.user_name)}</p>
                       <p className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                         {new Date(post.created_date).toLocaleDateString()}
                       </p>

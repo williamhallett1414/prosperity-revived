@@ -5,7 +5,7 @@ import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 import ReactMarkdown from 'react-markdown';
 import { useQueryClient } from '@tanstack/react-query';
-
+import { getDisplayName } from '@/lib/userName';
 const TOPICS = [
   { value: 'faith',           label: 'Faith',          emoji: '✝️' },
   { value: 'fitness',         label: 'Fitness',         emoji: '💪' },
@@ -138,7 +138,7 @@ EXCERPT: [one compelling sentence that makes someone want to read, max 25 words]
         excerpt,
         topic,
         tone,
-        author_name: user?.full_name || 'Community Member',
+        author_name: getDisplayName(user, 'Community Member'),
         is_published: true,
         likes: 0,
       });

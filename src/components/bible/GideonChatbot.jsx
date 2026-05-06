@@ -16,7 +16,7 @@ import AvatarPanel from '../chatbot/AvatarPanel';
 import { useProactiveInsights } from '../chatbot/useProactiveInsights';
 import ProactiveInsightCard from '../chatbot/ProactiveInsightCard';
 import ProactiveSuggestionBanner from '../chatbot/ProactiveSuggestionBanner';
-
+import { getDisplayName, getFirstName } from '@/lib/userName';
 export default function GideonChatbot({ user, autoOpen = false, onClose }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -86,7 +86,7 @@ export default function GideonChatbot({ user, autoOpen = false, onClose }) {
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
-      const userName = user?.full_name?.split(' ')[0] || '';
+      const userName = getFirstName(user, '');
       const welcomeMsg = `Peace be with you${userName ? ', ' + userName : ''}! 🙏\n\nI'm Gideon, your spiritual guide and companion in faith.\n\nI'm here to help you:\n• Study and understand Scripture\n• Deepen your prayer life\n• Navigate spiritual questions\n• Grow closer to God\n• Find biblical wisdom for life's challenges\n\nHow can I support your faith journey today?`;
       setMessages([{ role: 'assistant', content: welcomeMsg }]);
       loadPersonalityPreferences();
@@ -168,9 +168,11 @@ export default function GideonChatbot({ user, autoOpen = false, onClose }) {
     saveGideonConversation('user', userMessage);
 
     try {
-      // Build context from memories and journals
+      // Use a cleaned display name; if we don't have a real name, omit the
+      // "about X" framing rather than telling the LLM the user is "Friend".
+      const cleanedName = getDisplayName(user, '');
       const memoryContext = memories.length > 0 
-        ? `\n\nPast spiritual insights about ${user.full_name}:\n${memories.slice(0, 10).map(m => `- ${m.content}`).join('\n')}`
+        ? `\n\nPast spiritual insights${cleanedName ? ' about ' + cleanedName : ''}:\n${memories.slice(0, 10).map(m => `- ${m.content}`).join('\n')}`
         : '';
 
       const journalContext = journals.length > 0
@@ -192,8 +194,7 @@ Your approach:
 - Recognize patterns in their spiritual journey
 - Celebrate growth and milestones
 
-User: ${user.full_name}
-${memoryContext}${journalContext}${prayerContext}
+${cleanedName ? `User: ${cleanedName}\n` : ''}${memoryContext}${journalContext}${prayerContext}
 
 Respond with wisdom, compassion, and biblical insight. Keep responses conversational and supportive.${getPersonalityPromptAddition(personalityPrefs)}`;
 

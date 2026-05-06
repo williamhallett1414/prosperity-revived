@@ -6,6 +6,7 @@ import { Trash2, Edit, MoreVertical, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
+import { getDisplayNameFromString, getInitialFromString } from '@/lib/userName';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -113,11 +114,11 @@ export default function UserPostsFeed({ userEmail, isOwnProfile }) {
                 <div className="flex-1">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center font-bold text-white">
-                      {post.user_name?.charAt(0) || 'U'}
+                      {getInitialFromString(post.user_name)}
                     </div>
                     <div>
                       <p className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">
-                        {post.user_name || 'Anonymous'}
+                        {getDisplayNameFromString(post.user_name, 'Anonymous')}
                       </p>
                       <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60">
                         {new Date(post.created_date).toLocaleDateString()}
@@ -242,7 +243,7 @@ export default function UserPostsFeed({ userEmail, isOwnProfile }) {
                       {postComments.slice(0, 2).map(comment => (
                         <div key={comment.id} className="bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded-lg p-3">
                           <p className="font-semibold text-sm text-[#0A1A2F] dark:text-white dark:text-white">
-                            {comment.user_name}
+                            {getDisplayNameFromString(comment.user_name)}
                           </p>
                           <p className="text-sm text-[#0A1A2F]/75 dark:text-white/75">
                             {comment.content}

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Sparkles, Loader2, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
-
+import { getDisplayNameFromString } from '@/lib/userName';
 export default function PostSummary({ content, comments }) {
   const [summary, setSummary] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -14,7 +14,7 @@ export default function PostSummary({ content, comments }) {
   const generateSummary = async () => {
     setLoading(true);
     try {
-      const commentsText = comments.map(c => `${c.user_name}: ${c.content}`).join('\n');
+      const commentsText = comments.map(c => `${getDisplayNameFromString(c.user_name)}: ${c.content}`).join('\n');
       
       const result = await base44.integrations.Core.InvokeLLM({
         prompt: `Summarize this community post and its discussion in 2-3 sentences. Post: "${content}". Comments: ${commentsText || 'No comments yet.'}`,

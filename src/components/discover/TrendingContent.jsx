@@ -6,7 +6,7 @@ import { TrendingUp, Heart, MessageCircle, Users } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-
+import { getDisplayNameFromString } from '@/lib/userName';
 export default function TrendingContent({ user }) {
   const { data: posts = [] } = useQuery({
     queryKey: ['allPosts'],
@@ -76,7 +76,7 @@ export default function TrendingContent({ user }) {
                           {post.commentCount}
                         </span>
                         <span className="text-gray-400 dark:text-gray-300">
-                          by {post.user_name || 'Anonymous'}
+                          by {getDisplayNameFromString(post.user_name, 'Anonymous')}
                         </span>
                       </div>
                     </div>

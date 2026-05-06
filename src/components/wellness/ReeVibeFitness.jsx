@@ -13,7 +13,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
 import CommentSection from './CommentSection';
-
+import { getDisplayName, getDisplayNameFromString, getInitial, getInitialFromString } from '@/lib/userName';
 export default function ReeVibeFitness({ user }) {
   const [filter, setFilter] = useState('recent');
   const [showCreatePost, setShowCreatePost] = useState(false);
@@ -98,7 +98,7 @@ export default function ReeVibeFitness({ user }) {
 
     const postData = {
       content: postContent,
-      user_name: user?.full_name || 'Anonymous',
+      user_name: getDisplayName(user, 'Anonymous'),
       topic: 'general',
       image_url: mediaType === 'image' ? mediaUrl : undefined,
       video_url: mediaType === 'video' ? mediaUrl : undefined
@@ -135,7 +135,7 @@ export default function ReeVibeFitness({ user }) {
         <div className="flex items-center gap-3 mb-3">
           <Avatar className="w-10 h-10">
             <AvatarFallback className="bg-[#FD9C2D]/20 text-[#FD9C2D]">
-              {user?.full_name?.charAt(0)?.toUpperCase() || 'U'}
+              {getInitial(user)}
             </AvatarFallback>
           </Avatar>
           <button
@@ -219,12 +219,12 @@ export default function ReeVibeFitness({ user }) {
                 <div className="flex items-center gap-3 mb-3">
                   <Avatar className="w-10 h-10">
                     <AvatarFallback className="bg-[#FD9C2D]/20 text-[#FD9C2D]">
-                      {post.user_name?.charAt(0)?.toUpperCase() || 'U'}
+                      {getInitialFromString(post.user_name)}
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex-1">
                     <p className="font-semibold text-sm text-[#0A1A2F] dark:text-white dark:text-white">
-                      {post.user_name}
+                      {getDisplayNameFromString(post.user_name)}
                     </p>
                     <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">
                       {format(new Date(post.created_date), 'MMM d, yyyy • h:mm a')}
@@ -321,11 +321,11 @@ export default function ReeVibeFitness({ user }) {
             <div className="flex items-center gap-3 mb-3">
               <Avatar className="w-10 h-10">
                 <AvatarFallback className="bg-[#FD9C2D]/20 text-[#FD9C2D]">
-                  {user?.full_name?.charAt(0)?.toUpperCase() || 'U'}
+                  {getInitial(user)}
                 </AvatarFallback>
               </Avatar>
               <div>
-                <p className="font-semibold text-sm">{user?.full_name || 'User'}</p>
+                <p className="font-semibold text-sm">{getDisplayName(user, 'User')}</p>
               </div>
             </div>
             <Textarea

@@ -10,6 +10,7 @@ import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import { localDateKey, todayKey } from '@/utils/localDate';
 import ChatButton from '@/components/chatbot/ChatButton';
+import { getFirstName } from '@/lib/userName';
 const HabitBuilderTab = lazy(() => import('@/pages/HabitBuilderPage'));
 const GratitudeJournalTab = lazy(() => import('@/pages/GratitudeJournalPage').catch(() => ({ default: () => <div>Unable to load</div> })));
 const MindsetResetTab = lazy(() => import('@/pages/MindsetResetPage'));
@@ -280,7 +281,7 @@ function PersonalGrowthInner() {
   const [weeklyDone, setWeeklyDone] = useState(false);
 
   const affirmation = DAILY_AFFIRMATIONS[getDayOfYear() % DAILY_AFFIRMATIONS.length];
-  const greeting = getGreeting(user?.full_name);
+  const greeting = getGreeting(getFirstName(user, ''));
   const GreetIcon = greeting.Icon;
   const today = todayKey();
 

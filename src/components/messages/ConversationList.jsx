@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { MessageCircle, Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { format } from 'date-fns';
+import { getDisplayNameFromString } from '@/lib/userName';
 
 export default function ConversationList({ messages, user, onSelectConversation, selectedEmail, searchQuery, onSearchChange }) {
   // Group messages by conversation
@@ -13,9 +14,8 @@ export default function ConversationList({ messages, user, onSelectConversation,
     
     messages.forEach(msg => {
       const otherEmail = msg.sender_email === user.email ? msg.receiver_email : msg.sender_email;
-      const otherName = msg.sender_email === user.email ? 
-        (msg.receiver_name || msg.receiver_email) : 
-        (msg.sender_name || msg.sender_email);
+      const rawName = msg.sender_email === user.email ? msg.receiver_name : msg.sender_name;
+      const otherName = getDisplayNameFromString(rawName, otherEmail);
       
       if (!convMap.has(otherEmail)) {
         convMap.set(otherEmail, {

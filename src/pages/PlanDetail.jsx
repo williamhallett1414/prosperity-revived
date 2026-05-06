@@ -5,6 +5,7 @@ import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
 import { ArrowLeft, Calendar, CheckCircle2, Play, RotateCcw, FileText, BarChart3, Bell, BookOpen, Trash2, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { getDisplayName } from '@/lib/userName';
 import CreateGroupPlanModal from '@/components/plans/CreateGroupPlanModal';
 import { Progress } from '@/components/ui/progress';
 import { readingPlans } from '@/components/bible/BibleData';
@@ -114,7 +115,7 @@ export default function PlanDetail() {
         group_name: groupData.group_name,
         description: groupData.description,
         creator_email: user.email,
-        creator_name: user.full_name,
+        creator_name: getDisplayName(user, user.email || 'Member'),
         total_days: plan.duration,
         is_custom: progress?.is_custom || false,
         custom_readings: progress?.custom_readings,
@@ -128,7 +129,7 @@ export default function PlanDetail() {
       await base44.entities.GroupReadingMember.create({
         group_id: group.id,
         user_email: user.email,
-        user_name: user.full_name,
+        user_name: getDisplayName(user, user.email || 'Member'),
         progress_id: progress?.id,
         share_progress: true,
         role: 'admin',

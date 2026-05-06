@@ -20,7 +20,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import { Share2, X, Send, Loader2, Lock, Users, Globe } from 'lucide-react';
 import { toast } from 'sonner';
-
+import { getDisplayName } from '@/lib/userName';
 const TYPE_META = {
   fitness_goal:           { label: '🏋️ Fitness Goal',          color: '#38BDF8' },
   emotional_breakthrough: { label: '💜 Emotional Breakthrough', color: '#A78BFA' },
@@ -73,7 +73,7 @@ export default function ShareToFeedButton({
         chatbot_source: source,
         is_anonymous: anonymous,
         visibility,
-        user_display_name: anonymous ? null : (user?.full_name || null),
+        user_display_name: anonymous ? null : (getDisplayName(user, '') || null),
         encouragement_count: 0,
       });
       toast.success('Shared to the community! 🎉');

@@ -9,7 +9,7 @@ import { motion } from 'framer-motion';
 import { X, Share2, Loader2 } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
-
+import { getDisplayName } from '@/lib/userName';
 export default function ShareMilestoneModal({ user, onClose, onSuccess }) {
   const [formData, setFormData] = useState({
     share_type: 'general_win',
@@ -24,7 +24,7 @@ export default function ShareMilestoneModal({ user, onClose, onSuccess }) {
     mutationFn: async (data) => {
       return await base44.entities.CommunityShare.create({
         ...data,
-        user_display_name: data.is_anonymous ? null : user.full_name,
+        user_display_name: data.is_anonymous ? null : getDisplayName(user, 'Community Member'),
         encouragement_count: 0
       });
     },

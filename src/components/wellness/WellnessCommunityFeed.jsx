@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Heart, MessageCircle, TrendingUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+import { getDisplayNameFromString } from '@/lib/userName';
 
 export default function WellnessCommunityFeed({ 
   posts, 
@@ -22,7 +23,7 @@ export default function WellnessCommunityFeed({
           id: p.id,
           type: 'post',
           title: p.content?.slice(0, 60) || 'Community Post',
-          author: p.user_name || 'Anonymous',
+          author: getDisplayNameFromString(p.user_name, 'Anonymous'),
           likes: p.likes || 0,
           comments: comments?.filter(c => c.post_id === p.id)?.length || 0,
           engagement: (p.likes || 0) + (comments?.filter(c => c.post_id === p.id)?.length || 0),
@@ -76,7 +77,7 @@ export default function WellnessCommunityFeed({
           id: w.id,
           type: 'workout',
           title: w.title || 'New Workout',
-          author: w.creator_name || 'Anonymous',
+          author: getDisplayNameFromString(w.creator_name, 'Anonymous'),
           likes: w.times_copied || 0,
           comments: 0,
           engagement: w.times_copied || 0,

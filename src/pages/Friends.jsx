@@ -11,6 +11,7 @@ import { createPageUrl } from '@/utils';
 import { toast } from 'sonner';
 import { checkInteractionAllowed } from '@/utils/MinorSafety';
 import AIFriendSuggestions from '@/components/friends/AIFriendSuggestions';
+import { getDisplayName, getDisplayNameFromString } from '@/lib/userName';
 
 // ─── Avatar helper ─────────────────────────────────────────────────────────
 function Avatar({ name, email, imageUrl, size = 'md' }) {
@@ -32,9 +33,9 @@ function RequestCard({ request, onAccept, onDecline, accepting, declining }) {
       initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, x: -20 }}
       className="bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-4 flex items-center gap-3"
     >
-      <Avatar name={request.user_name} email={request.user_email} size="md" />
+      <Avatar name={getDisplayNameFromString(request.user_name, '')} email={request.user_email} size="md" />
       <div className="flex-1 min-w-0">
-        <p className="font-bold text-[#0A1A2F] dark:text-white text-sm truncate">{request.user_name || request.user_email}</p>
+        <p className="font-bold text-[#0A1A2F] dark:text-white text-sm truncate">{getDisplayNameFromString(request.user_name, request.user_email)}</p>
         <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40 truncate">{request.user_email}</p>
         <p className="text-[10px] text-[#0A1A2F]/30 dark:text-white/30 mt-0.5">wants to connect</p>
       </div>
@@ -61,7 +62,10 @@ function RequestCard({ request, onAccept, onDecline, accepting, declining }) {
 // ─── Friend card ───────────────────────────────────────────────────────────
 function FriendCard({ friend, currentUserEmail, navigate }) {
   const friendEmail = friend.user_email === currentUserEmail ? friend.friend_email : friend.user_email;
-  const friendName = friend.user_email === currentUserEmail ? friend.friend_name : friend.user_name;
+  const friendName = getDisplayNameFromString(
+    friend.user_email === currentUserEmail ? friend.friend_name : friend.user_name,
+    ''
+  );
 
   return (
     <motion.div
@@ -152,8 +156,8 @@ export default function Friends() {
       return base44.entities.Friend.create({
         user_email: user.email,
         friend_email: friendEmail,
-        user_name: user.full_name || user.email,
-        friend_name: friendUser?.full_name || friendEmail,
+        user_name: getDisplayName(user, user.email || 'Member'),
+        friend_name: getDisplayName(friendUser, friendEmail),
         status: 'pending'
       });
     },
@@ -378,9 +382,9 @@ export default function Friends() {
                       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                       className="bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-3.5 flex items-center gap-3"
                     >
-                      <Avatar name={f.friend_name} email={f.friend_email} size="sm" />
+                      <Avatar name={getDisplayNameFromString(f.friend_name, '')} email={f.friend_email} size="sm" />
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white truncate">{f.friend_name || f.friend_email}</p>
+                        <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white truncate">{getDisplayNameFromString(f.friend_name, f.friend_email)}</p>
                         <p className="text-xs text-[#0A1A2F]/35 dark:text-white/35">Awaiting response…</p>
                       </div>
                       <button

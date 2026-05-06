@@ -7,7 +7,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-
+import { getDisplayName, getDisplayNameFromString } from '@/lib/userName';
 export default function PersonalizedContentFeed({ user, userProgress, existingPosts = [] }) {
   const [recommendations, setRecommendations] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -81,7 +81,7 @@ export default function PersonalizedContentFeed({ user, userProgress, existingPo
         const prompt = `Based on this user's profile and activity, recommend relevant content to boost engagement:
 
 USER PROFILE:
-- Name: ${user.full_name}
+- Name: ${getDisplayName(user, 'Friend')}
 - Level: ${userProgress?.level || 1}
 - Points: ${userProgress?.total_points || 0}
 - Posts Created: ${userPosts}
@@ -90,10 +90,10 @@ USER PROFILE:
 - Recent Activities: ${recentActivities.join(', ') || 'None yet'}
 
 AVAILABLE POSTS (Sample):
-${topPosts.slice(0, 5).map(p => `- "${p.content?.substring(0, 50)}..." by ${p.user_name} (${p.likes || 0} likes)`).join('\n')}
+${topPosts.slice(0, 5).map(p => `- "${p.content?.substring(0, 50)}..." by ${getDisplayNameFromString(p.user_name)} (${p.likes || 0} likes)`).join('\n')}
 
 TRENDING USERS:
-${topUsers.slice(0, 3).map(u => `- ${u.full_name} (${u.email})`).join('\n')}
+${topUsers.slice(0, 3).map(u => `- ${getDisplayName(u)} (${u.email})`).join('\n')}
 
 Please recommend 3-4 highly personalized recommendations that would interest this user. Focus on:
 1. Posts from similar-interest users they don't follow yet

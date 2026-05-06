@@ -17,7 +17,7 @@ import ReactMarkdown from 'react-markdown';
 import { getGideonWellnessContext } from '../chatbot/CrossChatbotContext';
 import { useProactiveInsights } from '../chatbot/useProactiveInsights';
 import ProactiveInsightCard from '../chatbot/ProactiveInsightCard';
-
+import { getFirstName } from '@/lib/userName';
 export default function ChefDaniel({ user, userRecipes = [], mealLogs = [], autoOpen = false, onClose }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -115,7 +115,7 @@ export default function ChefDaniel({ user, userRecipes = [], mealLogs = [], auto
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
-      const userName = user?.full_name?.split(' ')[0] || 'friend';
+      const userName = getFirstName(user, 'friend');
       const isFirstTime = !localStorage.getItem('chefDanielVisited');
       
       if (isFirstTime) {
@@ -173,7 +173,7 @@ export default function ChefDaniel({ user, userRecipes = [], mealLogs = [], auto
         ? `\n- Recent average intake: ${avgCalories} calories/day, ${avgProtein}g protein/day`
         : '';
 
-      const userName = user?.full_name?.split(' ')[0] || '';
+      const userName = getFirstName(user, '');
 
       const context = `
 You are Chef Daniel — a world-class chef and nutrition expert with a warm, conversational, expert-mentor personality.

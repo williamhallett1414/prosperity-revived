@@ -7,6 +7,7 @@ import ReactMarkdown from 'react-markdown';
 import { formatDistanceToNow } from 'date-fns';
 import { toast } from 'sonner';
 import { SEED_POSTS, BLOG_SEED_KEY } from '@/components/community/BlogSeed';
+import { getDisplayNameFromString, getInitialFromString } from '@/lib/userName';
 
 // ─── Topic config ─────────────────────────────────────────────────────────────
 const TOPICS = {
@@ -96,7 +97,7 @@ function ShareButton({ title }) {
 function HeroBlogCard({ post }) {
   const [expanded, setExpanded] = useState(false);
   const topic   = TOPICS[post.topic] || TOPICS.general;
-  const grad    = avatarGradient(post.author_name);
+  const grad    = avatarGradient(getDisplayNameFromString(post.author_name, ''));
   const mins    = readTime(post.content);
 
   return (
@@ -123,10 +124,10 @@ function HeroBlogCard({ post }) {
         {/* Author */}
         <div className="flex items-center gap-2 mb-3">
           <div className={`w-7 h-7 rounded-full bg-gradient-to-br ${grad} flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0`}>
-            {(post.author_name || 'U')[0].toUpperCase()}
+            {getInitialFromString(post.author_name)}
           </div>
           <div>
-            <p className="text-xs font-semibold text-[#0A1A2F] dark:text-white dark:text-white">{post.author_name || 'Community Member'}</p>
+            <p className="text-xs font-semibold text-[#0A1A2F] dark:text-white dark:text-white">{getDisplayNameFromString(post.author_name, 'Community Member')}</p>
             <p className="text-[10px] text-[#0A1A2F]/30 dark:text-white/30">{formatDistanceToNow(new Date(post.created_date), { addSuffix: true })}</p>
           </div>
         </div>
@@ -165,7 +166,7 @@ function HeroBlogCard({ post }) {
 function BlogCard({ post, index }) {
   const [expanded, setExpanded] = useState(false);
   const topic = TOPICS[post.topic] || TOPICS.general;
-  const grad  = avatarGradient(post.author_name);
+  const grad  = avatarGradient(getDisplayNameFromString(post.author_name, ''));
   const mins  = readTime(post.content);
 
   return (
@@ -176,10 +177,10 @@ function BlogCard({ post, index }) {
         {/* Author row */}
         <div className="flex items-center gap-2 mb-2.5">
           <div className={`w-8 h-8 rounded-full bg-gradient-to-br ${grad} flex items-center justify-center text-white text-xs font-bold flex-shrink-0`}>
-            {(post.author_name || 'U')[0].toUpperCase()}
+            {getInitialFromString(post.author_name)}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-semibold text-[#0A1A2F] dark:text-white truncate">{post.author_name || 'Community Member'}</p>
+            <p className="text-xs font-semibold text-[#0A1A2F] dark:text-white truncate">{getDisplayNameFromString(post.author_name, 'Community Member')}</p>
             <p className="text-[10px] text-[#0A1A2F]/30 dark:text-white/30">{formatDistanceToNow(new Date(post.created_date), { addSuffix: true })}</p>
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
