@@ -447,28 +447,23 @@ function PersonalGrowthInner() {
       {activeTab === 'journal' &&
       <Suspense fallback={<TabSpinner />}>
           <div className="px-4 pt-4 max-w-2xl mx-auto space-y-3">
-            <div className="flex gap-2 mb-4 overflow-x-auto">
+            <div className="flex gap-2 mb-3 overflow-x-auto pb-1">
               {[
-            { id: 'journal-entries', label: 'My Journal' },
+            { id: 'journal', label: 'My Journal' },
             { id: 'journal-gratitude', label: 'Gratitude' },
             { id: 'journal-weekly', label: 'Weekly Reflection' }].
             map((sub) =>
             <button key={sub.id}
             onClick={() => setActiveTab(sub.id)}
-            className={`text-xs font-semibold px-3 py-1.5 rounded-full border flex-shrink-0 transition-all ${
-            activeTab === sub.id ? 'bg-[#3C4E53] text-white border-[#3C4E53]' : 'bg-[#AFC7E3]/15 text-[#3C4E53] border-[#AFC7E3]/25'}`
+            className={`text-xs font-semibold px-3 py-2 rounded-lg border-2 flex-shrink-0 transition-all ${
+            activeTab === sub.id ? 'bg-gradient-to-r from-[#3C4E53] to-[#AFC7E3] text-white border-[#3C4E53] shadow-sm dark:shadow-none' : 'bg-white dark:bg-white/5 text-[#3C4E53] border-[#AFC7E3]/25 hover:border-[#AFC7E3]/50 hover:bg-[#AFC7E3]/10'}`
             }>
-              
-                  {sub.label}
+              {sub.label}
                 </button>
             )}
             </div>
+            <MyJournalEntriesTab />
           </div>
-        </Suspense>
-      }
-      {activeTab === 'journal-entries' &&
-      <Suspense fallback={<TabSpinner />}>
-          <MyJournalEntriesTab />
         </Suspense>
       }
       {activeTab === 'journal-gratitude' &&
