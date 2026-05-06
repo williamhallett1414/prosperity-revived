@@ -379,7 +379,7 @@ function PersonalGrowthInner() {
     </div>;
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
+    <div className="bg-white dark:bg-[#0A1A2F] pb-28">
 
       {/* Crisis Resources — required for App Store approval */}
       <motion.div
@@ -395,8 +395,16 @@ function PersonalGrowthInner() {
       </motion.div>
 
 
-      {/* ── Sticky Header + Tab Bar ── */}
-      <div className="sticky top-14 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#AFC7E3]/25">
+      {/* ── Sticky Header + Tab Bar ──
+          See FoodLogHistory commit 38b2c561 for the rationale. Three-part
+          surgery to kill the gray gap that appears between UniversalHeader
+          and this sticky bar at scroll 0:
+          (1) Outer page bg is white so any peek-through is invisible.
+          (2) `top` value matches UniversalHeader's actual rendered height
+              (handles phone notches via env(safe-area-inset-top)).
+          (3) Solid white bg on the sticky itself, no /95 transparency. */}
+      <div className="sticky z-30 bg-white dark:bg-[#0A1A2F] border-b border-[#AFC7E3]/25"
+        style={{ top: 'calc(env(safe-area-inset-top) + 3.75rem)' }}>
         <div className="px-4 py-3 max-w-2xl mx-auto flex items-center justify-between">
           <div>
             <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white leading-tight">Personal Growth</h1>
@@ -430,6 +438,10 @@ function PersonalGrowthInner() {
           </Link>
         </div>
       </div>
+
+      {/* ── Page content area — restores the gray card-separator visual
+          below the sticky bar without bleeding above it ── */}
+      <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F]">
 
       {/* ── Journal Tab ── */}
       {activeTab === 'journal' &&
@@ -715,6 +727,8 @@ function PersonalGrowthInner() {
         </div>
       </div>
       }
+
+      </div>{/* end .bg-[#F2F6FA] page-content wrap */}
 
       {/* Floating ChatButton — same style as Gideon on Bible page */}
       <ChatButton bot="Hannah" id="tour-hannah-btn" />
