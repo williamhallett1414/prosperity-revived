@@ -1365,6 +1365,24 @@ export default function ChatScreen() {
       custom: 'custom',
     })[fastType] || fastType || 'fast';
 
+    // Spiritual Assessment context. The SpiritualAssessment results screen
+    // passes the user's overall score, percentage, level label, and the
+    // names of their strongest/weakest categories so Gideon has enough to
+    // give specific, biblically-grounded reflection rather than a generic
+    // "tell me more" response. Categories are pipe-separated since some
+    // labels contain spaces (e.g. "Sharing Faith") — keeps the URL clean.
+    const assessmentPct       = searchParams.get('pct') || '';
+    const assessmentLevel     = searchParams.get('level') || '';
+    const assessmentStrengths = (searchParams.get('strengths') || '').split('|').filter(Boolean);
+    const assessmentGrowth    = (searchParams.get('growth_areas') || '').split('|').filter(Boolean);
+    // Friendly list joiner: ["A", "B"] -> "A and B"; ["A", "B", "C"] -> "A, B, and C"
+    const joinList = (arr) => {
+      if (arr.length === 0) return '';
+      if (arr.length === 1) return arr[0];
+      if (arr.length === 2) return `${arr[0]} and ${arr[1]}`;
+      return `${arr.slice(0, -1).join(', ')}, and ${arr[arr.length - 1]}`;
+    };
+
     const messageForTopic = (() => {
       switch (topic) {
         case 'fast_complete':
@@ -1379,6 +1397,30 @@ export default function ChatScreen() {
           return duration
             ? `I'm thinking about starting a ${duration}-day ${fastTypeLabel} fast. Can you help me prepare well — what should I do in the days before, and how do I set this up in a way that's safe and spiritually meaningful?`
             : `I'm thinking about starting a ${fastTypeLabel} fast. Can you help me prepare well — what should I do beforehand, and how do I set this up in a way that's safe and spiritually meaningful?`;
+        case 'assessment_results': {
+          // Build a natural-sounding opening message that includes enough
+          // context for Gideon to respond specifically. Falls back gracefully
+          // if any of the optional params are missing.
+          const parts = ['I just took the Spiritual Assessment'];
+          if (assessmentPct && assessmentLevel) {
+            parts.push(` and scored ${assessmentPct}% — "${assessmentLevel}"`);
+          } else if (assessmentPct) {
+            parts.push(` and scored ${assessmentPct}%`);
+          }
+          parts.push('.');
+          if (assessmentStrengths.length > 0) {
+            parts.push(` My strongest areas were ${joinList(assessmentStrengths)}`);
+            if (assessmentGrowth.length > 0) {
+              parts.push(`, and the areas where I scored lowest were ${joinList(assessmentGrowth)}.`);
+            } else {
+              parts.push('.');
+            }
+          } else if (assessmentGrowth.length > 0) {
+            parts.push(` The areas where I scored lowest were ${joinList(assessmentGrowth)}.`);
+          }
+          parts.push(' Can you help me reflect on what God might be saying through these results, and where I should focus next in my walk with Him?');
+          return parts.join('');
+        }
         default:
           return null;
       }

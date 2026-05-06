@@ -6,6 +6,7 @@ import { base44 } from '@/api/base44Client';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { todayKey } from '@/utils/localDate';
+import { createPageUrl } from '@/utils';
 import { toast } from 'sonner';
 
 const QUESTIONS = [
@@ -166,6 +167,41 @@ function SpiritualAssessmentInner() {
   const lastPct = lastAssessment ? Math.round((lastAssessment.total_score / lastAssessment.max_score) * 100) : null;
   const growth = lastPct !== null ? pct - lastPct : null;
 
+  // Compute the 2 highest-scoring categories ("strengths") and the 2 lowest-
+  // scoring categories ("growth areas") for context-aware coaching. Ties are
+  // broken by the order they appear in the QUESTIONS array, which is fine —
+  // any tie-broken pair is conceptually equivalent for Gideon's response.
+  const sortedByScore = QUESTIONS
+    .map(q => ({ category: q.category, score: answers[q.id] || 0 }))
+    .sort((a, b) => b.score - a.score);
+  const strengthCategories   = sortedByScore.slice(0, 2).map(x => x.category);
+  const growthCategories     = sortedByScore.slice(-2).map(x => x.category).reverse();
+
+  // Build the Discuss-with-Gideon URL using the same URLSearchParams pattern
+  // as FastingTracker. strengths/growth_areas are pipe-joined since some
+  // category labels contain spaces (e.g. "Sharing Faith"); ChatScreen splits
+  // on '|' to recover them.
+  const buildGideonUrl = () => {
+    const params = new URLSearchParams({
+      bot: 'Gideon',
+      topic: 'assessment_results',
+      pct: String(pct),
+      level: level.label,
+      strengths: strengthCategories.join('|'),
+      growth_areas: growthCategories.join('|'),
+    });
+    return createPageUrl(`ChatScreen?${params.toString()}`);
+  };
+
+  // We save the assessment record before navigating to chat so the user's
+  // results aren't lost if they don't tap "Save Results" afterward. We don't
+  // strictly de-dupe — a user who taps both Discuss and then Save will end
+  // up with two records (different created_dates), which is harmless.
+  const handleDiscussWithGideon = async () => {
+    try { await saveAssessment(); } catch {}
+    navigate(buildGideonUrl());
+  };
+
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
       <div className="max-w-lg mx-auto px-4 pt-4 space-y-4">
@@ -184,6 +220,35 @@ function SpiritualAssessmentInner() {
               {growth > 0 && ' since last assessment'}
             </div>
           )}
+        </motion.div>
+
+        {/* ── Discuss with Gideon CTA ──
+            Sits between the score card and the breakdown so it appears at the
+            moment of highest emotional engagement (right when the user first
+            sees their result). Gideon receives the score, level, and the
+            user's strongest + weakest categories via URL params and opens the
+            chat with a synthesised first-person message that matches the
+            "as if the user typed it" pattern used by the Fasting flow. */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25 }}
+        >
+          <button
+            onClick={handleDiscussWithGideon}
+            className="w-full bg-gradient-to-r from-[#c9a227] to-[#d4af37] text-white rounded-2xl p-4 flex items-center gap-4 min-h-[44px] active:scale-[0.98] transition-all shadow-md"
+          >
+            <div className="w-11 h-11 rounded-xl bg-white/15 flex items-center justify-center text-xl flex-shrink-0">
+              📖
+            </div>
+            <div className="flex-1 text-left">
+              <p className="text-sm font-bold leading-tight">Discuss with Gideon</p>
+              <p className="text-[11px] text-white/85 leading-snug mt-0.5">
+                Reflect on what God may be saying through your results
+              </p>
+            </div>
+            <ChevronRight className="w-4 h-4 flex-shrink-0 opacity-80" />
+          </button>
         </motion.div>
 
         {/* Category Breakdown */}
