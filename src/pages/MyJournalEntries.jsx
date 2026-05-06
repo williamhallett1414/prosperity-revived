@@ -368,15 +368,22 @@ export default function MyJournalEntries() {
             <div className="w-1 h-5 bg-gradient-to-b from-[#3C4E53] to-[#AFC7E3] rounded-full" />
             <h3 className="text-sm font-bold text-[#0A1A2F] dark:text-white uppercase tracking-wide">Filter Entries</h3>
           </div>
-          <div className="flex overflow-x-auto gap-2 pb-2 scrollbar-hide">
+          {/* Horizontal-scroll row of category pills.
+              Each pill MUST have flex-shrink-0 — without it, flex layout
+              compresses all 11 chips to fit inside the container, which
+              squashes them into narrow circles with labels clipped or
+              bleeding past the chip edge. With flex-shrink-0, every pill
+              keeps its natural width and the row overflows horizontally
+              as intended. */}
+          <div className="flex overflow-x-auto gap-2 pb-2 px-0.5 scrollbar-hide">
             {CATEGORIES.map(category => (
               <button
                 key={category.value}
                 onClick={() => setSelectedCategory(category.value)}
-                className={`px-4 py-2.5 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${
+                className={`flex-shrink-0 px-4 py-2.5 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${
                   selectedCategory === category.value
                     ? 'bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] text-white shadow-md dark:shadow-none'
-                    : 'bg-white dark:bg-white/5 text-[#0A1A2F]/70 dark:text-white/70 border border-[#AFC7E3]/30 hover:border-[#FD9C2D]/50 hover:bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5'
+                    : 'bg-white dark:bg-white/5 text-[#0A1A2F]/70 dark:text-white/70 border border-[#AFC7E3]/30 hover:border-[#FD9C2D]/50 hover:bg-[#FAD98D]/10'
                 }`}
               >
                 <span className="mr-1.5">{category.emoji}</span>
