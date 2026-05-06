@@ -31,8 +31,18 @@ export default function ChatButton({ bot = 'Hannah', id }) {
     <motion.button
       id={id}
       onClick={() => navigate(createPageUrl(`ChatScreen?bot=${bot}`))}
-      className="fixed bottom-24 right-4 z-50 flex items-center gap-2 px-4 py-3 rounded-full shadow-xl text-white text-sm font-semibold"
-      style={{ background: `linear-gradient(135deg, ${style.from}, ${style.to})` }}
+      className="fixed right-4 z-50 flex items-center gap-2 px-4 py-3 rounded-full shadow-xl text-white text-sm font-semibold"
+      style={{
+        // Lift above the bottom tab bar with breathing room. The Layout's
+        // <nav> uses pb-[env(safe-area-inset-bottom)] + py-2 internal
+        // padding; on notched iPhones (X and later) the home indicator
+        // adds ~34px more. The previous `bottom-24` (96px) sat the bubble
+        // right at the top of the nav with no visible gap, overlapping
+        // page content above. calc() with safe-area-inset-bottom adapts
+        // to all device classes automatically.
+        bottom: 'calc(env(safe-area-inset-bottom) + 6rem)',
+        background: `linear-gradient(135deg, ${style.from}, ${style.to})`,
+      }}
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ type: 'spring', stiffness: 260, damping: 20, delay: 0.3 }}
