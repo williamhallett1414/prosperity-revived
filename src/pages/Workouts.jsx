@@ -679,14 +679,44 @@ function WorkoutsInner() {
               </button>
             </motion.div>
 
-            {/* ── My Custom Workouts ── */}
+            {/* ── My Plans ── */}
             {myWorkouts.length > 0 &&
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.48 }}>
-                <SectionLabel>My Workouts</SectionLabel>
+                <SectionLabel action="View all" actionTo="WorkoutCategoryPage">My Plans</SectionLabel>
+                <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45 mb-3 -mt-1">Workout plans you've created</p>
                 {myWorkouts.slice(0, 3).map((workout, i) =>
               <WorkoutPill key={workout.id} workout={workout} done={workout.completed_dates?.includes(today)}
               onStart={startWorkout} />
               )}
+              </motion.div>
+            }
+
+            {/* ── Recent Sessions ── */}
+            {sessions.length > 0 &&
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.52 }}>
+                <SectionLabel action="Full history" actionTo="WorkoutProgress">Recent Sessions</SectionLabel>
+                <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45 mb-3 -mt-1">Your completed workouts</p>
+                {sessions.slice(0, 3).map((session, i) => (
+                  <motion.div key={session.id}
+                    initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.54 + i * 0.03 }}
+                    className="bg-white dark:bg-white/5 rounded-2xl border border-emerald-100 dark:border-emerald-900/30 shadow-sm dark:shadow-none overflow-hidden mb-3">
+                    <div className="flex items-center gap-3 px-4 py-3.5">
+                      <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <CheckCircle2 className="w-5 h-5 text-white" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-bold text-[#0A1A2F] dark:text-white truncate">{session.workout_title || 'Workout'}</p>
+                        <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">
+                          {session.date ? new Date(session.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''}
+                          {session.duration_minutes ? ` · ${session.duration_minutes} min` : ''}
+                          {session.calories_burned ? ` · ${session.calories_burned} cal` : ''}
+                        </p>
+                      </div>
+                      <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 px-2 py-1 rounded-full">Done ✓</span>
+                    </div>
+                  </motion.div>
+                ))}
               </motion.div>
             }
 

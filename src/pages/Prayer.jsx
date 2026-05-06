@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import ShareToFeedButton from '@/components/community/ShareToFeedButton';
 import SanctuaryBackground from '@/components/prayer/SanctuaryBackground';
+import DoveAscension from '@/components/prayer/DoveAscension';
 import { getDisplayName, getDisplayNameFromString } from '@/lib/userName';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -48,6 +49,189 @@ function initials(name) {
 function requireAuth(user, action) {
   if (!user) { toast.error('Please sign in to ' + action); return false; }
   return true;
+}
+
+// ─── Prayer Focus ─────────────────────────────────────────────────────────────
+// A persistent "today's intention" card. Lets the user write a single line
+// they want to carry through their prayer time. Stored in localStorage so it
+// persists across reloads and shapes the user's posture for the rest of the
+// page. Three states: empty (dashed CTA), set (italic display, tap to edit),
+// editing (textarea + save/cancel). Restyled here to match the sanctuary
+// aesthetic — glass on dark, gold accents, serif body text. Original feature
+// from base44/Will's commit; visual treatment redone for the redesign.
+const PRAYER_FOCUS_KEY = 'prayer_focus_v1';
+
+function PrayerFocus() {
+  const [focus, setFocus] = useState(() => localStorage.getItem(PRAYER_FOCUS_KEY) || '');
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState('');
+
+  const save = () => {
+    const trimmed = draft.trim();
+    setFocus(trimmed);
+    localStorage.setItem(PRAYER_FOCUS_KEY, trimmed);
+    setEditing(false);
+  };
+
+  const clear = () => {
+    setFocus('');
+    localStorage.removeItem(PRAYER_FOCUS_KEY);
+    setEditing(false);
+  };
+
+  const startEdit = () => {
+    setDraft(focus);
+    setEditing(true);
+  };
+
+  return (
+    <div
+      className="rounded-[28px] overflow-hidden relative"
+      style={{
+        background: 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)',
+        border: '1px solid rgba(251,191,36,0.20)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+      }}
+    >
+      {/* Soft halo at top — like a candle flame's glow */}
+      <div
+        className="absolute -top-6 left-0 right-0 h-24 pointer-events-none opacity-50"
+        style={{ background: 'radial-gradient(ellipse 50% 100% at 50% 100%, rgba(251,191,36,0.20) 0%, transparent 70%)' }}
+      />
+
+      <div className="relative px-5 pt-5 pb-2 flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <span className="text-base">🕯️</span>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.25em]" style={{ color: 'rgba(251,191,36,0.75)' }}>
+            Today's Prayer Focus
+          </p>
+        </div>
+        {focus && !editing && (
+          <div className="flex items-center gap-3">
+            <button
+              onClick={startEdit}
+              className="text-[11px] font-semibold transition-colors"
+              style={{ color: 'rgba(251,191,36,0.75)' }}
+            >
+              Edit
+            </button>
+            <button
+              onClick={clear}
+              className="text-[11px] font-semibold transition-colors"
+              style={{ color: 'rgba(245,241,232,0.45)' }}
+            >
+              Clear
+            </button>
+          </div>
+        )}
+      </div>
+
+      <div className="relative px-5 pb-5">
+        <AnimatePresence mode="wait">
+          {editing ? (
+            <motion.div
+              key="editing"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <textarea
+                value={draft}
+                onChange={e => setDraft(e.target.value)}
+                placeholder="What is on your heart today? Set an intention for your prayers…"
+                maxLength={300}
+                rows={3}
+                autoFocus
+                className="w-full rounded-2xl px-4 py-3.5 text-sm resize-none outline-none mt-2"
+                style={{
+                  background: 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(251,191,36,0.20)',
+                  color: '#f5f1e8',
+                  caretColor: '#fbbf24',
+                  fontFamily: '"Cormorant Garamond", "EB Garamond", Georgia, serif',
+                  fontSize: '15px',
+                  lineHeight: '1.7',
+                }}
+                onKeyDown={e => { if (e.key === 'Enter' && e.metaKey) save(); }}
+              />
+              <div className="flex gap-2 mt-3">
+                <button
+                  onClick={() => setEditing(false)}
+                  className="flex-1 py-2.5 rounded-xl text-xs font-semibold transition-all"
+                  style={{
+                    background: 'rgba(255,255,255,0.04)',
+                    border: '1px solid rgba(255,255,255,0.10)',
+                    color: 'rgba(245,241,232,0.55)',
+                  }}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={save}
+                  disabled={!draft.trim()}
+                  className="flex-1 py-2.5 rounded-xl text-xs font-semibold disabled:opacity-30 transition-all active:scale-[0.98]"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(251,191,36,0.95), rgba(245,158,11,0.95))',
+                    color: '#0f1729',
+                  }}
+                >
+                  Set focus
+                </button>
+              </div>
+            </motion.div>
+          ) : focus ? (
+            <motion.div
+              key="set"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={startEdit}
+              className="cursor-pointer mt-3"
+            >
+              <p
+                className="leading-relaxed"
+                style={{
+                  fontFamily: '"Cormorant Garamond", "EB Garamond", Georgia, serif',
+                  fontStyle: 'italic',
+                  fontSize: '17px',
+                  color: '#f5f1e8',
+                  lineHeight: '1.7',
+                }}
+              >
+                "{focus}"
+              </p>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="empty"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <button
+                onClick={startEdit}
+                className="w-full mt-2 py-3.5 rounded-2xl text-sm font-medium text-left px-4 transition-all"
+                style={{
+                  background: 'rgba(255,255,255,0.03)',
+                  border: '1px dashed rgba(251,191,36,0.30)',
+                  color: 'rgba(251,191,36,0.70)',
+                  fontFamily: '"Cormorant Garamond", "EB Garamond", Georgia, serif',
+                  fontStyle: 'italic',
+                  fontSize: '15px',
+                }}
+              >
+                + Set an intention for today's prayer…
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </div>
+  );
 }
 
 // ─── Streak helpers ───────────────────────────────────────────────────────────
@@ -893,7 +1077,7 @@ const ACTS_STEPS = [
     placeholder: 'Lord, I ask You for…' },
 ];
 
-function ActsGuidedPrayer({ onComplete, user }) {
+function ActsGuidedPrayer({ onComplete, user, releaseDove }) {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState({ adoration: '', confession: '', thanksgiving: '', supplication: '' });
   const [done, setDone] = useState(false);
@@ -909,6 +1093,9 @@ function ActsGuidedPrayer({ onComplete, user }) {
     } catch {}
     setSaving(false);
     setDone(true);
+    // Release the dove on prayer completion. The ACTS card sits in the
+    // middle of the page, so center origin (50%) feels natural.
+    if (releaseDove) releaseDove(50);
   };
 
   if (done) return (
@@ -1111,7 +1298,7 @@ function ActsGuidedPrayer({ onComplete, user }) {
 }
 
 // ─── My Prayers (private) ─────────────────────────────────────────────────────
-function MyPrayers() {
+function MyPrayers({ releaseDove }) {
   const [prayers, setPrayers] = useState(loadMyPrayers);
   const [text, setText] = useState('');
   const [adding, setAdding] = useState(false);
@@ -1124,6 +1311,9 @@ function MyPrayers() {
     saveMyPrayers(updated);
     setText('');
     setAdding(false);
+    // Release the dove for private prayers too — every act of bringing
+    // a prayer to God deserves the same visible acknowledgement.
+    if (releaseDove) releaseDove(50);
   };
 
   const toggleAnswered = (id) => {
@@ -1328,7 +1518,25 @@ export default function Prayer() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [isRefreshing, setIsRefreshing]   = useState(false);
   const [streak, setStreak]               = useState(loadStreak);
+  // `dove` is a monotonically increasing counter that we use as the
+  // React `key` on the DoveAscension component. Each increment unmounts
+  // the previous dove (if any) and mounts a fresh one, restarting its
+  // CSS animation from the beginning. 0 means no dove visible.
+  const [dove, setDove]                   = useState(0);
   const queryClient = useQueryClient();
+
+  // Trigger a dove flight. Called from any of the three submission flows
+  // (public prayer wall, private prayer, completed ACTS). Optional `fromX`
+  // is the horizontal release point as a viewport percentage; defaults to
+  // 50% (center) for submissions that don't have a specific origin point.
+  const releaseDove = useCallback((fromX = 50) => {
+    setDove((d) => d + 1);
+    // Stash the release point in a way the component can read on mount.
+    // We do this via setState so it's reactive to multiple consecutive
+    // calls (rare but possible).
+    setDoveOriginX(fromX);
+  }, []);
+  const [doveOriginX, setDoveOriginX] = useState(50);
 
   useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
@@ -1425,7 +1633,14 @@ export default function Prayer() {
       comments: [],
       is_answered: false,
     }),
-    onSuccess: () => { queryClient.invalidateQueries(['prayerRequests']); toast.success('Your prayer has been shared 🙏'); },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['prayerRequests']);
+      // Release the dove a beat after the modal has time to close so the
+      // animation plays against the clean Prayer page rather than the
+      // modal's exit transition.
+      setTimeout(() => releaseDove(50), 350);
+      toast.success('Your prayer has been shared 🙏');
+    },
     onError: () => toast.error('Failed to share prayer — please try again'),
   });
 
@@ -1604,6 +1819,9 @@ export default function Prayer() {
 
         <div className="px-4 space-y-12">
 
+          {/* ── Today's Prayer Focus — sets the user's intention before they engage ── */}
+          <PrayerFocus />
+
           {/* ── Crisis Resources (collapsible) ── */}
           <div
             className="rounded-2xl overflow-hidden"
@@ -1765,13 +1983,13 @@ export default function Prayer() {
           {/* ── ACTS Guided Prayer ── */}
           <div>
             <SectionHeader label="Guided Prayer" />
-            <ActsGuidedPrayer onComplete={handleActsComplete} user={user} />
+            <ActsGuidedPrayer onComplete={handleActsComplete} user={user} releaseDove={releaseDove} />
           </div>
 
           {/* ── Private prayer list ── */}
           <div>
             <SectionHeader label="My Private Prayers" />
-            <MyPrayers />
+            <MyPrayers releaseDove={releaseDove} />
           </div>
 
           {/* ── Talk to Hannah ── */}
@@ -1910,6 +2128,13 @@ export default function Prayer() {
           <NewPrayerModal user={user} onClose={() => setShowNewPrayer(false)} onSubmit={createRequest.mutateAsync} />
         )}
       </AnimatePresence>
+
+      {/* Dove ascension — fires on every prayer submission. The `key`
+          forces a fresh mount each time so the animation restarts cleanly.
+          The component self-clears via onDone when its flight completes. */}
+      {dove > 0 && (
+        <DoveAscension key={dove} fromX={doveOriginX} onDone={() => setDove(0)} />
+      )}
     </div>
   );
 }

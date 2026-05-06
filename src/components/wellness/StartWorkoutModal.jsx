@@ -686,6 +686,7 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
       const today = new Date().toISOString().split('T')[0];
       await base44.entities.WorkoutSession.create({
         workout_id: workout.id || 'premade',
+        workout_title: workout.title,
         workout_name: workout.title,
         date: today,
         duration_minutes: Math.max(1, Math.floor(elapsedTime / 60)),
