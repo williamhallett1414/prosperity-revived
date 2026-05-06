@@ -7,17 +7,18 @@ import { Textarea } from '@/components/ui/textarea';
 import { base44 } from '@/api/base44Client';
 import InterestsGoalsEditor from '@/components/profile/InterestsGoalsEditor';
 import { toast } from 'sonner';
+import { getNameInputValue } from '@/lib/userName';
 
 export default function AboutTab({ user, onUserUpdate }) {
   const [editingName, setEditingName] = useState(false);
   const [editingBio, setEditingBio] = useState(false);
-  const [name, setName] = useState(typeof user?.full_name === 'string' ? user.full_name : '');
+  const [name, setName] = useState(getNameInputValue(user));
   const [bio, setBio] = useState(typeof user?.bio === 'string' ? user.bio : '');
   const [loading, setLoading] = useState(false);
 
   // Keep local state in sync when user loads asynchronously after first render
   useEffect(() => {
-    if (!editingName) setName(typeof user?.full_name === 'string' ? user.full_name : '');
+    if (!editingName) setName(getNameInputValue(user));
   }, [user?.full_name, editingName]);
   useEffect(() => {
     if (!editingBio) setBio(typeof user?.bio === 'string' ? user.bio : '');
@@ -99,14 +100,14 @@ export default function AboutTab({ user, onUserUpdate }) {
                 {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
                 Save
               </Button>
-              <Button variant="outline" onClick={() => { setEditingName(false); setName(user?.full_name || ''); }}>
+              <Button variant="outline" onClick={() => { setEditingName(false); setName(getNameInputValue(user)); }}>
                 Cancel
               </Button>
             </div>
           </div>
         ) : (
           <p className="text-gray-900 dark:text-white font-medium">
-            {user?.full_name || <span className="text-gray-400 dark:text-gray-500 italic font-normal">No name set — tap the pencil to add one</span>}
+            {getNameInputValue(user) || <span className="text-gray-400 dark:text-gray-500 italic font-normal">No name set — tap the pencil to add one</span>}
           </p>
         )}
       </div>

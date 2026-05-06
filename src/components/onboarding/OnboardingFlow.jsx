@@ -6,6 +6,7 @@ import {
   Heart, Dumbbell, Utensils, BookOpen, Brain, Bell, User, Shield, AlertTriangle, Camera
 } from 'lucide-react';
 import LegalDocModal from './LegalDocModal';
+import { isEmailPrefixName } from '@/lib/userName';
 
 import gideonImg  from '@/assets/gideon-avatar.png';
 import hannahImg  from '@/assets/hannah-avatar.png';
@@ -510,7 +511,17 @@ export default function OnboardingFlow({ onComplete }) {
       if (u?.age_group && (u.age_group === '18plus' || u.age_group === '13to17')) {
         setAgeGroup(u.age_group);
       }
-      if (u?.full_name) setD(p => ({ ...p, full_name: u.full_name }));
+      // Only pre-fill the name input if the existing full_name looks like a
+      // value the user actually typed. Base44 auto-populates full_name with
+      // the local part of the email on signup (e.g. "prosperityrevivedtest1"),
+      // and pre-filling that into the onboarding input meant users either
+      // accepted the placeholder-looking value (so it persisted as their
+      // "real" name) or had to delete it before typing. Forcing them to type
+      // their name from a blank input is the right UX and fixes the
+      // root cause of email-prefix names propagating through the app.
+      if (u?.full_name && !isEmailPrefixName(u.full_name, u.email)) {
+        setD(p => ({ ...p, full_name: u.full_name }));
+      }
     }).catch(() => {});
   }, []);
 

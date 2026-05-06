@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+import { getDisplayName, getInitial } from '@/lib/userName';
 
 export default function ProfileHeader({ user, friendsCount, userProgress }) {
   const [uploadingCover, setUploadingCover] = useState(false);
@@ -78,12 +79,12 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
                 {user?.profile_image_url ?
                 <img
                   src={user.profile_image_url}
-                  alt={user?.full_name}
+                  alt={getDisplayName(user)}
                   className="w-full h-full object-cover" /> :
 
 
                 <div className="w-full h-full flex items-center justify-center text-white text-4xl sm:text-5xl font-bold">
-                    {user?.full_name?.charAt(0).toUpperCase() || 'U'}
+                    {getInitial(user)}
                   </div>
                 }
               </div>
@@ -102,7 +103,7 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
 
             <div className="text-center sm:text-left pb-2">
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-1">
-                {user?.full_name || 'User'}
+                {getDisplayName(user, 'User')}
               </h1>
               <p className="text-gray-600 dark:text-gray-300 font-medium text-sm sm:text-base">{friendsCount} {friendsCount === 1 ? 'friend' : 'friends'}</p>
               {user?.bio &&
