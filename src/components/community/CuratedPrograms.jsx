@@ -844,12 +844,20 @@ class PageErrorBoundary extends React.Component {
   }
 }
 
-function SelfCareChallengesPageInner() {
+function CuratedProgramsInner({ onDetailModeChange }) {
   const [localData,   setLocalData]   = useState(loadLocal);
   const [selectedId,  setSelectedId]  = useState(null);
   const [user, setUser] = useState(null);
   useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
   const [activeCat,   setActiveCat]   = useState("All");
+
+  // Notify parent whenever we enter or leave detail mode. The parent uses
+  // this to hide sibling sections (like the GroupChallenges below us on the
+  // Community page) so the detail view feels like a focused full-screen
+  // surface rather than a scroll-fest with unrelated content beneath it.
+  useEffect(() => {
+    if (onDetailModeChange) onDetailModeChange(!!selectedId);
+  }, [selectedId, onDetailModeChange]);
 
   const selected      = selectedId ? ALL_CHALLENGES.find(c => c.id === selectedId) : null;
   const activeList    = ALL_CHALLENGES.filter(c => localData[c.id] && getCompletedDays(localData[c.id]).length < c.duration);
@@ -897,22 +905,24 @@ function SelfCareChallengesPageInner() {
 
   // ── List view ───────────────────────────────────────────────────────────────
   return (
-    <div style={{background:"#F8F4EE",fontFamily:"Nunito,sans-serif",minHeight:"100vh",paddingBottom:32}}>
+    <div style={{background:"#F8F4EE",fontFamily:"Nunito,sans-serif",borderRadius:24,paddingBottom:24}}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;0,700;1,400&family=Nunito:wght@400;600;700;800;900&display=swap');
         .sc-cat::-webkit-scrollbar{display:none}
       `}</style>
 
-      {/* ── Standard Header ── */}
-      <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-4 pb-3">
-        <div className="max-w-lg mx-auto flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#FAD98D] to-[#c9a227] flex items-center justify-center">
-            <Flower2 className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Self-Care Challenges</h1>
-            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Build healthy habits</p>
-          </div>
+      {/* ── Section header ── (in-tab, not sticky)
+          Introduces the curated programs as a distinct surface from the
+          GroupChallenges below. Uses the same warm gold gradient as the
+          original SelfCare page hero icon, but rendered as a quieter
+          horizontal strip rather than a sticky page header. */}
+      <div style={{padding:"16px 16px 4px",display:"flex",alignItems:"center",gap:12}}>
+        <div style={{width:36,height:36,borderRadius:14,background:"linear-gradient(135deg,#FAD98D,#c9a227)",display:"flex",alignItems:"center",justifyContent:"center"}}>
+          <Flower2 className="w-4 h-4 text-white" />
+        </div>
+        <div>
+          <p style={{fontSize:10,fontWeight:800,color:"#c9a227",textTransform:"uppercase",letterSpacing:"0.18em"}}>Curated Programs</p>
+          <h2 style={{fontFamily:"Lora,serif",fontWeight:700,fontSize:18,color:"#0A1A2F",lineHeight:1.2}}>Self-Care Challenges</h2>
         </div>
       </div>
 
@@ -1076,6 +1086,6 @@ function SelfCareChallengesPageInner() {
   );
 }
 
-export default function SelfCareChallengesPage(props) {
-  return <PageErrorBoundary><SelfCareChallengesPageInner {...props} /></PageErrorBoundary>;
+export default function CuratedPrograms(props) {
+  return <PageErrorBoundary><CuratedProgramsInner {...props} /></PageErrorBoundary>;
 }

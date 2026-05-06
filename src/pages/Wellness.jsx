@@ -67,7 +67,7 @@ const CATEGORIES = [
   {
     label: 'Challenges',
     sub: 'Push further',
-    page: 'SelfCareChallengesPage',
+    page: 'Community?tab=challenges',
     gradient: 'from-[#FD9C2D] to-[#c9a227]',
     icon: Trophy,
     image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400',

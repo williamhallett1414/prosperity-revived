@@ -481,7 +481,7 @@ const PAGE_SHORTCUTS = {
   meditation: { label: 'Open Meditations',     page: 'GuidedMeditationsPage', color: '#AFC7E3' },
   affirmations:{ label: 'Open Affirmations',   page: 'AffirmationsPage', color: '#FAD98D' },
   checkin:    { label: 'Open Emotional Check-In',page: 'EmotionalCheckInPage', color: '#F87171' },
-  challenges: { label: 'Open Challenges',      page: 'SelfCareChallengesPage', color: '#FD9C2D' },
+  challenges: { label: 'Open Challenges',      page: 'Community?tab=challenges', color: '#FD9C2D' },
   journal:    { label: 'Open Journal',         page: 'MyJournalEntries', color: '#AFC7E3' },
   plans:      { label: 'Browse Coaching Plans',page: 'CoachingPlans',    color: '#38BDF8' },
   fitness:    { label: 'Open Fitness Goals',   page: 'FitnessGoalsPage',    color: '#38BDF8' },

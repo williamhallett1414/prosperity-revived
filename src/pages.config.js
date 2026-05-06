@@ -91,7 +91,6 @@ const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const Profile = lazy(() => import('./pages/Profile'));
 const ProgressDashboard = lazy(() => import('./pages/ProgressDashboard'));
 const Search = lazy(() => import('./pages/Search'));
-const SelfCareChallengesPage = lazy(() => import('./pages/SelfCareChallengesPage'));
 const Settings = lazy(() => import('./pages/Settings'));
 const SpiritualGrowth = lazy(() => import('./pages/SpiritualGrowth'));
 const SpiritualInsights = lazy(() => import('./pages/SpiritualInsights'));
@@ -162,7 +161,6 @@ export const PAGES = {
     "Profile": Profile,
     "ProgressDashboard": ProgressDashboard,
     "Search": Search,
-    "SelfCareChallengesPage": SelfCareChallengesPage,
     "Settings": Settings,
     "SpiritualGrowth": SpiritualGrowth,
     "SpiritualInsights": SpiritualInsights,

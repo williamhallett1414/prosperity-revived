@@ -130,11 +130,11 @@ const WEEKLY_TOOLS = [
   entryType: null
 },
 {
-  page: "SelfCareChallengesPage",
+  page: "Community?tab=challenges",
   icon: Flower2,
   grad: "from-[#FAD98D] to-[#c9a227]",
   label: "Self-Care Challenges",
-  sub: "8 challenges, your pace",
+  sub: "Curated programs + community",
   entryType: null
 }];
 
@@ -193,7 +193,6 @@ function ToolRow({ page, icon: Icon, grad, label, sub, done, onTabSwitch }) {
     GuidedMeditationsPage: null, // stays as separate page
     WeeklyReflectionPage: 'journal-weekly',
     GrowthPathwaysPage: 'pathways',
-    SelfCareChallengesPage: null, // stays as separate page
     RepentanceJournal: 'journal-heart',
   };
   const tabId = tabMap[page];

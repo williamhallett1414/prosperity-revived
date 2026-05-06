@@ -11,6 +11,7 @@ import {
 
 const CommunityFeed = React.lazy(() => import('@/components/community/CommunityFeed'));
 const GroupChallenges = React.lazy(() => import('@/components/community/GroupChallenges'));
+const CuratedPrograms = React.lazy(() => import('@/components/community/CuratedPrograms'));
 const AIBlogWriter = React.lazy(() => import('@/components/community/AIBlogWriter'));
 const BlogFeed = React.lazy(() => import('@/components/community/BlogFeed'));
 const ModerationPanel = React.lazy(() => import('@/components/community/ModerationPanel'));
@@ -198,6 +199,12 @@ function CommunityInner() {
   const [user, setUser] = useState(null);
   const [activeTab, setActiveTab] = useState('feed');
   const [showBlogWriter, setShowBlogWriter] = useState(false);
+  // True while the user is reading a single curated program (CuratedPrograms
+  // pushes this state via its onDetailModeChange callback). When true, we
+  // hide the GroupChallenges section beneath so the detail view feels like
+  // a focused full-screen surface, not a scroll-fest with unrelated content
+  // below it.
+  const [programsInDetail, setProgramsInDetail] = useState(false);
   const queryClient = useQueryClient();
 
   useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
@@ -321,8 +328,36 @@ function CommunityInner() {
             </motion.div>
           )}
           {activeTab === 'challenges' && (
-            <motion.div key="challenges" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <React.Suspense fallback={<TabSpinner />}><GroupChallenges user={user} /></React.Suspense>
+            <motion.div key="challenges" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
+              {/* ── Section 1: Curated Programs ── (the merged-in SelfCare content)
+                  Multi-week structured devotionals with day-by-day tasks,
+                  verses, and reflection prompts. Self-contained — handles
+                  its own detail view internally and pushes detail-mode
+                  state up so we can hide the GroupChallenges section below
+                  when the user drills in. */}
+              <React.Suspense fallback={<TabSpinner />}>
+                <CuratedPrograms onDetailModeChange={setProgramsInDetail} />
+              </React.Suspense>
+
+              {/* ── Section 2: Community Challenges ── (the original surface)
+                  Short-form social commitments — user-created or seed
+                  challenges with leaderboards and shared progress. Hidden
+                  while the user is inside a curated-program detail view
+                  so the detail view is focused. */}
+              {!programsInDetail && (
+                <>
+                  <div className="px-4 pt-2 pb-1 flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-2xl bg-gradient-to-br from-violet-500 to-purple-400 flex items-center justify-center flex-shrink-0">
+                      <Trophy className="w-4 h-4 text-white" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-violet-600">Community</p>
+                      <h2 className="text-base font-bold text-[#0A1A2F] dark:text-white leading-tight">Group Challenges</h2>
+                    </div>
+                  </div>
+                  <React.Suspense fallback={<TabSpinner />}><GroupChallenges user={user} /></React.Suspense>
+                </>
+              )}
             </motion.div>
           )}
           {activeTab === 'blog' && (

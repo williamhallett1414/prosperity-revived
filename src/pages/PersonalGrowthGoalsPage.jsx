@@ -41,7 +41,7 @@ const GROWTH_AREA_INFO = {
   leadership:             { label: 'Leadership', emoji: '🏅',
     desc: 'Growing your ability to influence and inspire others.',
     tools: ['Challenges', 'Habit Builder', 'Hannah coaching'],
-    pages: ['HabitBuilderPage', 'SelfCareChallengesPage'] },
+    pages: ['HabitBuilderPage', 'Community?tab=challenges'] },
   identity:               { label: 'Identity', emoji: '✨',
     desc: 'Knowing deeply who you are and who you\'re becoming.',
     tools: ['Affirmations', 'Emotional Check-in', 'Hannah coaching'],
@@ -502,7 +502,7 @@ export default function PersonalGrowthGoalsPage() {
             {[
               { icon: '🌱', label: 'Personal Growth',    page: 'PersonalGrowth'           },
               { icon: '📝', label: 'Weekly Reflection',  page: 'WeeklyReflectionPage'      },
-              { icon: '🏆', label: 'Challenges',         page: 'SelfCareChallengesPage'    },
+              { icon: '🏆', label: 'Challenges',         page: 'Community?tab=challenges'  },
               { icon: '💬', label: 'Chat w/ Hannah',     page: 'ChatScreen?bot=Hannah'     },
             ].map(({ icon, label, page }) => (
               <Link key={page} to={createPageUrl(page)}
