@@ -14,7 +14,9 @@ import CreatePostModal from '@/components/community/CreatePostModal';
 import MemberManagement from '@/components/groups/MemberManagement';
 import CreateChallengeModal from '@/components/challenges/CreateChallengeModal';
 import ChallengeCard from '@/components/challenges/ChallengeCard';
+import DailyDiscussionCard from '@/components/groups/DailyDiscussionCard';
 import { getDisplayName } from '@/lib/userName';
+import { getDailyTopic, todayKey } from '@/utils/dailyDiscussionTopics';
 
 // ─── Category config ────────────────────────────────────────────────────────
 const CATEGORY_CONFIG = {
@@ -288,6 +290,73 @@ export default function GroupDetail() {
     onError: () => toast.error('Failed to join challenge'),
   });
 
+  // ─── Daily discussion topic ─────────────────────────────────────────────
+  // Each group gets a different prompt every day, drawn from a 540-prompt
+  // library keyed by category. The first member to open the group each day
+  // creates a Post entity with is_daily_topic=true and topic_date=YYYY-MM-DD;
+  // every subsequent visitor that day sees the same Post and can comment on
+  // the shared thread. Tomorrow, a new prompt rotates in.
+  //
+  // Auto-create is gated to members only — non-members shouldn't trigger
+  // writes, and there's no value in creating a topic for a group nobody is
+  // talking in yet.
+  const todayKeyStr = todayKey();
+  const todaysTopicPost = posts.find(
+    p => p.is_daily_topic === true && p.topic_date === todayKeyStr
+  );
+  // Track in-flight create to prevent racing duplicates between rapid
+  // remounts. Race between two devices is still possible but acceptable —
+  // the dedupe in the render picks the oldest post when duplicates occur.
+  const [creatingDailyTopic, setCreatingDailyTopic] = useState(false);
+
+  useEffect(() => {
+    // Guard: only create when all of these are true.
+    // - group has loaded (we need its category)
+    // - user has been resolved AND is a member of this group
+    // - posts query has been read (empty array is fine, undefined is not)
+    // - we haven't already found today's topic in the existing posts
+    // - no create is already in flight from this mount
+    const isMemberOfGroup =
+      user && memberships.some(m => m.user_email === user.email);
+    if (
+      !group ||
+      !user?.email ||
+      !isMemberOfGroup ||
+      todaysTopicPost ||
+      creatingDailyTopic
+    ) {
+      return;
+    }
+
+    setCreatingDailyTopic(true);
+    const prompt = getDailyTopic(groupId, group.category);
+    base44.entities.Post
+      .create({
+        group_id: groupId,
+        user_name: '💬 Today\'s Discussion',
+        content: prompt,
+        is_daily_topic: true,
+        topic_date: todayKeyStr,
+      })
+      .then(() => {
+        queryClient.invalidateQueries(['groupPosts', groupId]);
+      })
+      .catch((e) => {
+        console.error('[GroupDetail] Daily topic create failed:', e);
+        // Silent failure — the prompt simply won't appear today. The
+        // next member's visit will retry.
+      })
+      .finally(() => setCreatingDailyTopic(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    group?.id,
+    group?.category,
+    user?.email,
+    memberships.length,
+    todaysTopicPost?.id,
+    todayKeyStr,
+  ]);
+
   if (groupLoading) {
     return (
       <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
@@ -308,7 +377,12 @@ export default function GroupDetail() {
   const isMember = user && memberships.some(m => m.user_email === user.email);
   const isAdmin  = user && memberships.some(m => m.user_email === user.email && m.role === 'admin');
   const cat      = getCat(group.category);
-  const lastPost = posts[0]?.created_date;
+  // Exclude daily-topic posts from the regular feed — they render in their
+  // own DailyDiscussionCard above the feed. Filtering on the boolean flag
+  // (not on user_name or some other proxy) keeps this stable across future
+  // changes to the auto-author display.
+  const regularPosts = posts.filter(p => !p.is_daily_topic);
+  const lastPost = regularPosts[0]?.created_date;
   const activeChallenges = challenges.filter(c => c.status !== 'completed');
 
   const handleLike = (postId, isLiked) => {
@@ -452,13 +526,30 @@ export default function GroupDetail() {
           </div>
         )}
 
+        {/* ── Today's Discussion ── */}
+        {/* Renders the group's daily prompt (auto-created by the
+            useEffect above) with a dedicated visual treatment.
+            Hidden if no daily-topic post exists for today yet —
+            usually because the group is empty of members or the
+            auto-create is in flight. */}
+        {todaysTopicPost && (
+          <DailyDiscussionCard
+            post={todaysTopicPost}
+            comments={comments}
+            user={user}
+            onLike={handleLike}
+            onComment={handleComment}
+            isMember={isMember}
+          />
+        )}
+
         {/* ── Feed ── */}
         <div>
           <div className="flex items-center gap-2 mb-3">
             <MessageSquare className="w-4 h-4 text-[#AFC7E3]" />
             <h2 className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">
               Group Feed
-              {posts.length > 0 && <span className="text-[#0A1A2F]/30 dark:text-white/30 font-normal ml-1">({posts.length})</span>}
+              {regularPosts.length > 0 && <span className="text-[#0A1A2F]/30 dark:text-white/30 font-normal ml-1">({regularPosts.length})</span>}
             </h2>
             {isMember && (
               <button onClick={() => setShowCreatePost(true)}
@@ -468,11 +559,11 @@ export default function GroupDetail() {
             )}
           </div>
 
-          {posts.length === 0
+          {regularPosts.length === 0
             ? <EmptyFeed isMember={isMember} onPost={() => setShowCreatePost(true)} />
             : (
               <div className="space-y-4">
-                {posts.map((post, index) => (
+                {regularPosts.map((post, index) => (
                   <PostCard
                     key={post.id}
                     post={post}
