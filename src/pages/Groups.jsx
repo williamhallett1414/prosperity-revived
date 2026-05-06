@@ -362,8 +362,13 @@ export default function Groups() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
-      {/* ── Sticky search + create (page title is in Layout's UniversalHeader) ── */}
-      <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#AFC7E3]/20 px-4 py-3">
+      {/* ── Search + create — flows directly under the UniversalHeader.
+          Was previously `sticky top-14 z-30`, but `top-14` (56px) didn't
+          match the actual UniversalHeader height on notched devices
+          (where safe-area-inset-top adds another ~47px), producing a
+          visible gray strip between the header and the search bar. Now
+          flows in normal document position right under the header. */}
+      <div className="bg-white dark:bg-white/5 border-b border-[#AFC7E3]/20 px-4 py-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0A1A2F]/30 dark:text-white/30" />
