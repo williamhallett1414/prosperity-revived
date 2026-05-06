@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { Switch } from '@/components/ui/switch';
 import GroupCard from '@/components/groups/GroupCard';
 import { toast } from 'sonner';
-import { SEED_GROUPS } from '@/components/groups/GroupSeed';
+import { SEED_GROUPS, SEED_KEY } from '@/components/groups/GroupSeed';
 
 // ─── Category config ─────────────────────────────────────────────────────────
 const CATEGORIES = [
@@ -205,26 +205,6 @@ function FeaturedCard({ group, onClick }) {
   );
 }
 
-// ─── Seeding banner ───────────────────────────────────────────────────────────
-function SeedBanner({ onSeed, seeding }) {
-  return (
-    <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
-      className="bg-gradient-to-r from-[#0A1A2F] to-[#0A1A2F] rounded-2xl p-4 flex items-center gap-3">
-      <div className="w-10 h-10 bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 rounded-xl flex items-center justify-center flex-shrink-0">
-        <Users className="w-5 h-5 text-[#FAD98D]" />
-      </div>
-      <div className="flex-1 min-w-0">
-        <p className="text-sm font-bold text-white">Populate the community</p>
-        <p className="text-xs text-white/45">Add 32 starter groups across all categories</p>
-      </div>
-      <button onClick={onSeed} disabled={seeding}
-        className="flex-shrink-0 px-3.5 py-2 rounded-xl bg-[#FAD98D] text-[#0A1A2F] dark:text-white text-xs font-bold disabled:opacity-50 hover:bg-[#c9a227] transition-colors flex items-center gap-1.5 min-h-[44px] min-w-[44px]">
-        {seeding ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Adding…</> : 'Add Groups'}
-      </button>
-    </motion.div>
-  );
-}
-
 // ─── Sort dropdown ────────────────────────────────────────────────────────────
 function SortDropdown({ value, onChange }) {
   const [open, setOpen] = useState(false);
@@ -267,35 +247,61 @@ export default function Groups() {
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [sort, setSort] = useState('popular');
   const [seeding, setSeeding] = useState(false);
+  // Track whether this device has already triggered a seed. Even if base44
+  // entities are global (so a second device wouldn't actually duplicate),
+  // the localStorage flag is a fast-path that skips the empty-list check
+  // entirely on subsequent visits. Mirrors the established pattern in
+  // HealthRecipesTab and BlogFeed.
+  const [seeded, setSeeded] = useState(() => !!localStorage.getItem(SEED_KEY));
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const searchRef = useRef(null);
 
   useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
-  // ── Seed 32 starter groups ─────────────────────────────────────────────────
-  const handleSeed = async () => {
-    if (seeding) return;
-    setSeeding(true);
-    let created = 0;
-    for (const g of SEED_GROUPS) {
-      try {
-        await base44.entities.StudyGroup.create(g);
-        created++;
-      } catch (e) {
-        console.error('Failed to create group:', g.name, e);
-      }
-    }
-    setSeeding(false);
-    queryClient.invalidateQueries(['groups']);
-    if (created > 0) toast.success(`${created} groups added!`);
-    else toast.error('No groups were created — check console for errors');
-  };
-
   const { data: groups = [], isLoading: groupsLoading } = useQuery({
     queryKey: ['groups'],
     queryFn: () => base44.entities.StudyGroup.list('-created_date')
   });
+
+  // ── Auto-seed on first visit if no groups exist ────────────────────────────
+  // The Groups page used to require the user to tap an "Add Groups" button to
+  // populate the community. That made the page feel empty on first visit and
+  // forced an unnecessary action. Now: if no groups exist AND this device has
+  // not already seeded AND the user is authenticated, silently create the 32
+  // starter groups in the background. The localStorage SEED_KEY guards against
+  // re-seeding on the same device. The groups.length === 0 check guards
+  // against re-seeding from a different device after another user has already
+  // populated the global StudyGroup collection.
+  //
+  // Quiet path — no toast/spinner UI surfaced. The user simply lands on a
+  // populated Groups page within ~1-2 seconds of the page loading.
+  useEffect(() => {
+    if (
+      !seeded &&
+      !seeding &&
+      !groupsLoading &&
+      groups.length === 0 &&
+      user?.email
+    ) {
+      (async () => {
+        setSeeding(true);
+        try {
+          for (const g of SEED_GROUPS) {
+            await base44.entities.StudyGroup.create(g);
+          }
+          localStorage.setItem(SEED_KEY, '1');
+          setSeeded(true);
+          queryClient.invalidateQueries(['groups']);
+        } catch (e) {
+          console.error('[Groups] Auto-seed failed:', e);
+          // Silent failure — the auto-seed will retry on the next page mount
+          // if the localStorage flag wasn't set.
+        }
+        setSeeding(false);
+      })();
+    }
+  }, [seeded, seeding, groupsLoading, groups.length, user?.email, queryClient]);
 
 
 
@@ -397,8 +403,9 @@ export default function Groups() {
 
       <div className="max-w-lg mx-auto px-4 py-5 space-y-6">
 
-        {/* ── Seed groups banner ── */}
-        <SeedBanner onSeed={handleSeed} seeding={seeding} />
+        {/* Seed banner removed — starter groups now auto-populate on first
+            visit via the auto-seed useEffect above. The user lands on a
+            populated Groups page without having to tap "Add Groups". */}
 
         {/* ── Featured spotlight (only when no filters, groups exist) ── */}
         {!isFiltering && featured.length > 0 && (
