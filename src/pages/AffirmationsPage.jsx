@@ -7,6 +7,7 @@ import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 import ShareToFeedButton from '@/components/community/ShareToFeedButton';
 import GideonReadAloud from '@/components/bible/GideonReadAloud';
+import RadiantBackground from '@/components/affirmations/RadiantBackground';
 
 // ─── 28 affirmations — full 4-week rotation ────────────────────────────────
 const AFFIRMATIONS = [
@@ -194,7 +195,54 @@ export default function AffirmationsPage() {
   const [expanded,      setExpanded]     = useState(false);
   const [showAll,       setShowAll]      = useState(false);
 
+  // ── Speak-it-aloud counter ──
+  // Affirmations only do their work through repetition. We track how many
+  // times the user has spoken the current affirmation today and surface
+  // that count under the verse so the practice feels tactile rather than
+  // passive. Stored in localStorage as { 'YYYY-MM-DD': { 0: 2, 4: 1, ... } }
+  // so a fresh day resets the counter without bookkeeping.
+  const SPOKEN_KEY = 'affirmation_spoken_v1';
+  const todayDateKey = (() => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  })();
+
+  const loadSpokenMap = () => {
+    try {
+      const raw = JSON.parse(localStorage.getItem(SPOKEN_KEY) || '{}');
+      // Only keep today's record so the object can't grow forever
+      return raw[todayDateKey] || {};
+    } catch { return {}; }
+  };
+
+  const [spokenMap, setSpokenMap] = useState(loadSpokenMap);
+
+  const incrementSpoken = (idx) => {
+    setSpokenMap(prev => {
+      const next = { ...prev, [idx]: (prev[idx] || 0) + 1 };
+      try {
+        // Persist with the whole-store shape so we don't clobber other days
+        const all = JSON.parse(localStorage.getItem(SPOKEN_KEY) || '{}');
+        all[todayDateKey] = next;
+        // Trim to today only — we don't need historical counts
+        localStorage.setItem(SPOKEN_KEY, JSON.stringify({ [todayDateKey]: next }));
+      } catch {}
+      return next;
+    });
+  };
+
   const current = AFFIRMATIONS[currentIndex];
+  const spokenToday = spokenMap[currentIndex] || 0;
+
+  // Copy under the affirmation reflects the depth of repetition. Keep
+  // language calm and dignified — never gamified, never demanding.
+  const spokenCopy = (() => {
+    if (spokenToday === 0) return 'Tap when you\'ve spoken it aloud';
+    if (spokenToday === 1) return '✓ Spoken once today';
+    if (spokenToday === 2) return '✓ Spoken twice today — let it settle';
+    if (spokenToday === 3) return '✓ Three times. Let it sink in.';
+    return `✓ Spoken ${spokenToday} times today — this is becoming yours`;
+  })();
 
   // Load existing bookmarks to mark already-saved affirmations
   const { data: bookmarks = [] } = useQuery({
@@ -245,144 +293,311 @@ export default function AffirmationsPage() {
   };
 
 
-  return (
-    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
+  // Friendly date label for the "today" pill — feels like opening a daily devotional
+  const todayLabel = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
 
-      {/* ── Sticky header ── */}
-      <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#AFC7E3]/20 px-4 py-3">
-        <div className="max-w-lg mx-auto flex items-center gap-3">
+  return (
+    <div className="min-h-screen relative pb-28" style={{ background: '#fffefa' }}>
+      {/* Radiant ambient backdrop — sunrise glow + drifting breath particles */}
+      <RadiantBackground />
+
+      {/* All page content sits above the ambient layer */}
+      <div className="relative" style={{ zIndex: 1 }}>
+
+        {/* ── Top bar — minimal, scrolls with content (no sticky) ── */}
+        <div className="max-w-lg mx-auto px-4 pt-3 pb-2 flex items-center gap-3">
           <button onClick={() => navigate(-1)}
-            className="w-9 h-9 rounded-full bg-[#AFC7E3]/20 hover:bg-[#AFC7E3]/30 flex items-center justify-center transition-colors flex-shrink-0">
-            <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
+            className="w-10 h-10 rounded-full flex items-center justify-center transition-all active:scale-95"
+            style={{ background: 'rgba(201, 162, 39, 0.10)', border: '1px solid rgba(201, 162, 39, 0.20)' }}
+            aria-label="Back">
+            <ArrowLeft className="w-4 h-4" style={{ color: '#3a2f10' }} />
           </button>
           <div className="flex-1 min-w-0">
-            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Scripture Affirmations</h1>
-            <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">Speak truth over yourself daily</p>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.22em]" style={{ color: 'rgba(201, 162, 39, 0.85)' }}>
+              {currentIndex === todayIndex ? todayLabel : 'Affirmation'}
+            </p>
+            <h1 className="text-sm font-semibold" style={{ color: '#3a2f10' }}>
+              Speak truth over yourself
+            </h1>
           </div>
           <button onClick={handleShuffle}
-            className="w-9 h-9 rounded-full bg-[#AFC7E3]/20 hover:bg-[#AFC7E3]/30 flex items-center justify-center transition-colors flex-shrink-0"
-            title="Show a different affirmation">
-            <RefreshCw className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
+            className="w-10 h-10 rounded-full flex items-center justify-center transition-all active:scale-95"
+            style={{ background: 'rgba(201, 162, 39, 0.10)', border: '1px solid rgba(201, 162, 39, 0.20)' }}
+            title="Show a different affirmation"
+            aria-label="Shuffle">
+            <RefreshCw className="w-4 h-4" style={{ color: '#3a2f10' }} />
           </button>
         </div>
-      </div>
 
-      <div className="max-w-lg mx-auto px-4 py-5 space-y-4">
+        <div className="max-w-lg mx-auto px-4 pt-4 pb-6 space-y-6">
 
-        {/* ── Featured card ── */}
-        <AnimatePresence mode="wait">
-          <motion.div key={currentIndex}
-            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }}
-            className="bg-gradient-to-br from-[#AFC7E3]/25 to-[#FAD98D]/20 rounded-2xl border border-[#AFC7E3]/30 overflow-hidden">
+          {/* ── Featured affirmation — the hero ──
+              The page's center of gravity. Large Cormorant Garamond serif,
+              soft gold glow behind, generous whitespace. Should feel less
+              like a card and more like a poster on a wall. */}
+          <AnimatePresence mode="wait">
+            <motion.div key={currentIndex}
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.5, ease: [0.4, 0.05, 0.3, 1] }}
+              className="relative">
 
-            {/* Label pill */}
-            <div className="px-5 pt-5 pb-1 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-[#AFC7E3]" />
-              <span className="text-[10px] font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest">
-                {currentIndex === todayIndex ? "Today's Affirmation" : "Affirmation"}
+              {/* Glow halo behind the affirmation */}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background: 'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(251,191,36,0.22) 0%, rgba(251,191,36,0.08) 40%, transparent 70%)',
+                  filter: 'blur(8px)',
+                  transform: 'scale(1.15)',
+                }}
+              />
+
+              <div className="relative px-2 py-8">
+                <p
+                  className="text-center"
+                  style={{
+                    fontFamily: '"Cormorant Garamond", "EB Garamond", Georgia, serif',
+                    fontSize: 'clamp(28px, 7vw, 38px)',
+                    fontWeight: 500,
+                    lineHeight: 1.25,
+                    letterSpacing: '-0.005em',
+                    color: '#1a1410',
+                    fontStyle: 'italic',
+                  }}
+                >
+                  &ldquo;{current.text}&rdquo;
+                </p>
+                <p
+                  className="text-center mt-5 text-[11px] font-semibold uppercase tracking-[0.22em]"
+                  style={{ color: '#c9a227' }}
+                >
+                  {current.verse}
+                </p>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* ── Listen button — promoted from a tertiary action to a focal one ── */}
+          <div className="flex justify-center -mt-2">
+            <GideonReadAloud text={`${current.text}. ${current.fullVerse}`} label="Listen" />
+          </div>
+
+          {/* ── Speak-it-aloud counter ──
+              Tap once after speaking the affirmation aloud. Copy shifts as
+              the count rises, never gamified. The practice is the point. */}
+          <button
+            onClick={() => incrementSpoken(currentIndex)}
+            className="w-full rounded-2xl px-4 py-4 flex items-center gap-3 transition-all active:scale-[0.98]"
+            style={{
+              background: spokenToday > 0
+                ? 'linear-gradient(135deg, rgba(251,191,36,0.16) 0%, rgba(245,158,11,0.10) 100%)'
+                : 'rgba(255,255,255,0.65)',
+              border: spokenToday > 0
+                ? '1px solid rgba(201,162,39,0.45)'
+                : '1px dashed rgba(201,162,39,0.35)',
+              backdropFilter: 'blur(8px)',
+            }}
+          >
+            <div
+              className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-all"
+              style={{
+                background: spokenToday > 0 ? 'rgba(201,162,39,0.22)' : 'rgba(201,162,39,0.08)',
+                border: '1px solid rgba(201,162,39,0.30)',
+              }}
+            >
+              <span style={{ color: '#c9a227', fontSize: 16 }}>
+                {spokenToday > 0 ? '✓' : '○'}
               </span>
             </div>
-
-            {/* Affirmation text */}
-            <div className="px-5 py-4">
-              <p className="text-xl font-bold text-[#0A1A2F] dark:text-white leading-snug italic mb-3">
-                "{current.text}"
+            <div className="flex-1 text-left">
+              <p
+                className="text-sm font-semibold"
+                style={{
+                  color: '#3a2f10',
+                  fontFamily: '"Cormorant Garamond", Georgia, serif',
+                  fontSize: 15,
+                }}
+              >
+                {spokenCopy}
               </p>
-              <p className="text-xs font-semibold text-[#c9a227]">{current.verse}</p>
+              {spokenToday === 0 && (
+                <p className="text-[11px] mt-0.5" style={{ color: 'rgba(58, 47, 16, 0.55)' }}>
+                  Repetition is how truth becomes belief
+                </p>
+              )}
             </div>
+            {spokenToday > 0 && (
+              <span
+                className="text-xs font-bold px-2.5 py-1 rounded-full flex-shrink-0"
+                style={{
+                  background: 'rgba(201,162,39,0.18)',
+                  color: '#8a6f12',
+                  letterSpacing: '0.02em',
+                }}
+              >
+                {spokenToday}
+              </span>
+            )}
+          </button>
 
-            {/* Full verse */}
-            <div className="mx-5 mb-4 bg-white/70 rounded-xl p-4 border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
-              <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70 leading-relaxed italic">
-                {current.fullVerse}
-              </p>
-            </div>
+          {/* ── Full verse — indented blockquote style instead of a bordered box ── */}
+          <div className="relative pl-5">
+            <div
+              className="absolute left-0 top-1 bottom-1 w-[2px] rounded-full"
+              style={{ background: 'linear-gradient(180deg, rgba(201,162,39,0.55) 0%, rgba(201,162,39,0.10) 100%)' }}
+            />
+            <p
+              className="leading-relaxed"
+              style={{
+                fontFamily: '"Cormorant Garamond", Georgia, serif',
+                fontSize: 16,
+                fontStyle: 'italic',
+                color: 'rgba(26, 20, 16, 0.78)',
+                lineHeight: 1.65,
+              }}
+            >
+              {current.fullVerse}
+            </p>
+          </div>
 
-            {/* Explanation (expandable) */}
-            <button onClick={() => setExpanded(e => !e)}
-              className="w-full flex items-center justify-between px-5 py-3 border-t border-[#AFC7E3]/20 text-xs font-semibold text-[#0A1A2F]/50 dark:text-white/50 hover:text-[#0A1A2F]/70 dark:text-white/70 transition-colors">
-              <span>{expanded ? 'Hide reflection' : 'Read reflection'}</span>
+          {/* ── Reflection (expandable) ── */}
+          <div>
+            <button
+              onClick={() => setExpanded(e => !e)}
+              className="w-full flex items-center justify-between py-3 text-xs font-semibold transition-colors"
+              style={{ color: 'rgba(58,47,16,0.55)' }}
+            >
+              <span className="uppercase tracking-[0.18em]">
+                {expanded ? 'Hide reflection' : 'Read reflection'}
+              </span>
               {expanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
             </button>
 
             <AnimatePresence>
               {expanded && (
-                <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
-                  <p className="px-5 pb-5 text-sm text-[#0A1A2F]/75 dark:text-white/75 leading-relaxed">
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  className="overflow-hidden"
+                >
+                  <p
+                    className="pb-4 leading-relaxed"
+                    style={{
+                      fontFamily: '"Cormorant Garamond", Georgia, serif',
+                      fontSize: 16,
+                      color: 'rgba(26, 20, 16, 0.82)',
+                      lineHeight: 1.7,
+                    }}
+                  >
                     {current.explanation}
                   </p>
                 </motion.div>
               )}
             </AnimatePresence>
-          </motion.div>
-        </AnimatePresence>
+          </div>
 
-        {/* ── Action row ── */}
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex gap-2.5 pt-1">
-          <GideonReadAloud text={`${current.text}. ${current.fullVerse}`} label="Listen" />
-          <button onClick={handleShuffle}
-            className="flex items-center justify-center gap-1.5 min-h-[44px] min-w-[44px] px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-white dark:bg-white/5 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 text-[#0A1A2F] dark:text-white hover:bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 hover:border-[#FAD98D]/50 dark:border-[#FAD98D]/20 active:scale-95 transition-all duration-200 shadow-sm dark:shadow-none">
-            <RefreshCw className="w-3.5 h-3.5" />
-            New
-          </button>
-          <button onClick={handleSave} disabled={isSaved || saving}
-            className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 ${
-              isSaved
-                ? 'bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 border border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 text-[#c9a227] shadow-sm dark:shadow-none'
-                : 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white shadow-md dark:shadow-none hover:shadow-lg dark:shadow-none active:scale-98'
-            }`}>
-            <Heart className={`w-3.5 h-3.5 ${isSaved ? 'fill-[#c9a227]' : ''}`} />
-            {isSaved ? 'Saved' : saving ? 'Saving…' : 'Save'}
-          </button>
-          <ShareToFeedButton
-            type="spiritual_insight"
-            title="Today's affirmation 🌟"
-            content={`"${current.text}" — ${current.verse}\n\nSpoke this truth over myself today on Prosperity Revived.`}
-            source="Hannah"
-            variant="icon"
-            color="#C9A227"
-            user={user}
-          />
-        </motion.div>
+          {/* ── Action row — quieter, more spacious ── */}
+          <div className="flex items-center justify-center gap-3 pt-2">
+            <button
+              onClick={handleSave}
+              disabled={isSaved || saving}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-semibold transition-all min-h-[44px] active:scale-95"
+              style={
+                isSaved
+                  ? {
+                      background: 'rgba(201,162,39,0.18)',
+                      color: '#8a6f12',
+                      border: '1px solid rgba(201,162,39,0.40)',
+                    }
+                  : {
+                      background: 'rgba(255,255,255,0.85)',
+                      color: '#3a2f10',
+                      border: '1px solid rgba(201,162,39,0.30)',
+                    }
+              }
+            >
+              <Heart className={`w-3.5 h-3.5 ${isSaved ? 'fill-current' : ''}`} />
+              {isSaved ? 'Saved' : saving ? 'Saving…' : 'Save'}
+            </button>
 
-        {/* ── All affirmations ── */}
-        <div>
-          <button onClick={() => setShowAll(s => !s)}
-            className="w-full flex items-center justify-between py-3 text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest hover:text-[#0A1A2F]/60 dark:text-white/60 transition-colors">
-            <span>All Affirmations ({AFFIRMATIONS.length})</span>
-            {showAll ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-          </button>
+            <ShareToFeedButton
+              type="spiritual_insight"
+              title="Today's affirmation 🌟"
+              content={`"${current.text}" — ${current.verse}\n\nSpoke this truth over myself today on Prosperity Revived.`}
+              source="Hannah"
+              variant="icon"
+              color="#C9A227"
+              user={user}
+            />
+          </div>
 
-          <AnimatePresence>
-            {showAll && (
-              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
-                <div className="space-y-2 pb-2">
-                  {AFFIRMATIONS.map((a, i) => (
-                    <button key={i} onClick={() => { setCurrentIndex(i); setExpanded(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                      className={`w-full text-left rounded-2xl p-4 border transition-all ${
-                        i === currentIndex
-                          ? 'bg-gradient-to-r from-[#AFC7E3]/25 to-[#FAD98D]/15 border-[#AFC7E3]/40'
-                          : 'bg-white dark:bg-white/5 border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 hover:border-[#AFC7E3]/40 hover:bg-[#F2F6FA] dark:bg-[#0A1A2F]'
-                      }`}>
-                      <div className="flex items-start gap-3">
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white leading-snug italic">
-                            "{a.text}"
-                          </p>
-                          <p className="text-[11px] text-[#c9a227] font-semibold mt-1">{a.verse}</p>
+          {/* ── All affirmations ── */}
+          <div className="pt-4">
+            <button
+              onClick={() => setShowAll(s => !s)}
+              className="w-full flex items-center justify-between py-3 text-xs font-semibold uppercase tracking-[0.18em] transition-colors"
+              style={{ color: 'rgba(58,47,16,0.55)' }}
+            >
+              <span>All Affirmations ({AFFIRMATIONS.length})</span>
+              {showAll ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+            </button>
+
+            <AnimatePresence>
+              {showAll && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="overflow-hidden"
+                >
+                  <div className="space-y-2 pb-2">
+                    {AFFIRMATIONS.map((a, i) => (
+                      <button
+                        key={i}
+                        onClick={() => { setCurrentIndex(i); setExpanded(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                        className="w-full text-left rounded-2xl p-4 transition-all active:scale-[0.99]"
+                        style={
+                          i === currentIndex
+                            ? {
+                                background: 'linear-gradient(135deg, rgba(251,191,36,0.18) 0%, rgba(245,158,11,0.10) 100%)',
+                                border: '1px solid rgba(201,162,39,0.40)',
+                              }
+                            : {
+                                background: 'rgba(255,255,255,0.75)',
+                                border: '1px solid rgba(201,162,39,0.18)',
+                              }
+                        }
+                      >
+                        <div className="flex items-start gap-3">
+                          <div className="flex-1 min-w-0">
+                            <p
+                              className="leading-snug"
+                              style={{
+                                fontFamily: '"Cormorant Garamond", Georgia, serif',
+                                fontSize: 16,
+                                fontStyle: 'italic',
+                                color: '#1a1410',
+                              }}
+                            >
+                              &ldquo;{a.text}&rdquo;
+                            </p>
+                            <p className="text-[11px] font-semibold mt-1.5 uppercase tracking-[0.12em]" style={{ color: '#c9a227' }}>
+                              {a.verse}
+                            </p>
+                          </div>
+                          {savedIds.has(a.text) && (
+                            <Heart className="w-3.5 h-3.5 fill-[#c9a227] flex-shrink-0 mt-0.5" style={{ color: '#c9a227' }} />
+                          )}
                         </div>
-                        {savedIds.has(a.text) && (
-                          <Heart className="w-3.5 h-3.5 fill-[#c9a227] text-[#c9a227] flex-shrink-0 mt-0.5" />
-                        )}
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                      </button>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </div>
