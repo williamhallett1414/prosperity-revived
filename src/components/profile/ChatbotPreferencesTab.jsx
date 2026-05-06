@@ -1,12 +1,32 @@
-import React, { useState } from 'react';
+/**
+ * ChatbotPreferencesTab
+ * Per-coach preference panels for the Profile page.
+ *
+ * Two redesign principles applied here:
+ *
+ *   1. CONVERSATIONAL REFRAME. Each coach speaks to the user in their
+ *      own voice. Sub-section labels were ALL-CAPS form labels
+ *      ("SPIRITUAL TOPICS", "FITNESS GOALS"); now they are first-person
+ *      questions from the coach ("What is on your heart spiritually?",
+ *      "What are you training for?").
+ *
+ *   2. AUTO-SAVE. The five "Save X Preferences" buttons are gone. As
+ *      the user taps chips, a debounced effect (600ms after the last
+ *      tap) writes the preference to base44. A small "Saved" pulse
+ *      confirms the write.
+ *
+ * Section headers gained a one-line status summary -
+ * "5 topics, Story-Driven, Growing Deeper" or "Tap to personalize".
+ */
+
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { CheckCircle2, ChevronDown, ChevronUp, Save, Loader2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Check, ChevronDown, ChevronUp } from 'lucide-react';
 import { toast } from 'sonner';
 
-// ── Shared data (mirrors onboarding constants) ──────────────────────────────
+// Shared data (mirrors onboarding constants)
 const FITNESS_GOALS = [
   { id: 'build_muscle', label: '💪 Build Muscle' },
   { id: 'lose_fat', label: '🔥 Lose Fat' },
@@ -16,8 +36,8 @@ const FITNESS_GOALS = [
   { id: 'sport_performance', label: '🏅 Sport Perf.' },
 ];
 const FITNESS_LEVELS = [
-  { id: 'beginner', label: '🌱 Beginner', desc: '0–1 yr' },
-  { id: 'intermediate', label: '💪 Intermediate', desc: '1–3 yrs' },
+  { id: 'beginner', label: '🌱 Beginner', desc: '0-1 yr' },
+  { id: 'intermediate', label: '💪 Intermediate', desc: '1-3 yrs' },
   { id: 'advanced', label: '🏆 Advanced', desc: '3+ yrs' },
 ];
 const TRACKERS = [
@@ -91,46 +111,220 @@ const COACHING_STYLES = [
   { id: 'exploratory_curious', label: '🔍 Exploratory' },
   { id: 'structured_practical', label: '📋 Structured & Practical' },
 ];
+const SPIRITUAL_TOPICS = [
+  { id: 'prayer_life', label: '🙏 Prayer Life' },
+  { id: 'scripture_study', label: '📖 Scripture Study' },
+  { id: 'purpose_calling', label: '🎯 Purpose & Calling' },
+  { id: 'faith_challenges', label: '⛰️ Faith Challenges' },
+  { id: 'relationships', label: '💞 Relationships' },
+  { id: 'forgiveness', label: '🕊️ Forgiveness & Healing' },
+  { id: 'gratitude', label: '🌅 Gratitude' },
+  { id: 'anxiety_worry', label: '🌿 Anxiety & Worry' },
+  { id: 'identity_in_christ', label: '👑 Identity in Christ' },
+  { id: 'spiritual_warfare', label: '🛡️ Spiritual Warfare' },
+];
+const TEACHING_STYLES = [
+  { id: 'deep_exegesis', label: '📚 Deep Verse Study' },
+  { id: 'practical', label: '🔧 Practical Application' },
+  { id: 'story_driven', label: '📜 Story-Driven' },
+  { id: 'encouragement', label: '💛 Encouragement-Focused' },
+];
+const SPIRITUAL_SEASONS = [
+  { id: 'new_believer', label: '🌱 New Believer' },
+  { id: 'growing', label: '📈 Growing Deeper' },
+  { id: 'in_valley', label: '🌧️ In a Valley' },
+  { id: 'on_fire', label: '🔥 On Fire' },
+  { id: 'questioning', label: '❓ Questioning' },
+  { id: 'returning', label: '🏠 Returning to Faith' },
+];
+const TRANSFORMATION_AREAS = [
+  { id: 'discipline', label: '⏰ Daily Discipline' },
+  { id: 'leadership', label: '🏅 Leadership' },
+  { id: 'identity', label: '👑 Identity & Purpose' },
+  { id: 'time_management', label: '📋 Time Management' },
+  { id: 'relationships', label: '💞 Relationships' },
+  { id: 'financial', label: '💰 Financial Stewardship' },
+  { id: 'spiritual_depth', label: '🙏 Spiritual Depth' },
+  { id: 'health_fitness', label: '💪 Health & Fitness' },
+  { id: 'career', label: '🚀 Career & Calling' },
+  { id: 'emotional', label: '🧠 Emotional Resilience' },
+];
+const CHALLENGE_LEVELS = [
+  { id: 'gentle', label: '🌸 Gentle' },
+  { id: 'moderate', label: '⚡ Moderate' },
+  { id: 'intense', label: '🔥 Intense' },
+];
+const ACCOUNTABILITY_STYLES = [
+  { id: 'encouraging', label: '💛 Encouraging' },
+  { id: 'direct', label: '🎯 Direct & Honest' },
+  { id: 'structured', label: '📋 Structured Steps' },
+  { id: 'flexible', label: '🌊 Flexible & Adaptive' },
+];
 
-// ── Small helpers ──────────────────────────────────────────────────────────
-function Toggle({ items, selected, onToggle, max, color }) {
+// Coach color tokens. Hardcoded so Tailwind JIT does not need to resolve dynamic classes.
+const COACH_COLORS = {
+  amber:  { fill: '#fef3c7', text: '#92400e', border: '#fbbf24', dot: '#c9a227' },
+  purple: { fill: '#f3e8ff', text: '#6b21a8', border: '#a78bfa', dot: '#7c3aed' },
+  green:  { fill: '#d1fae5', text: '#065f46', border: '#34d399', dot: '#10b981' },
+  orange: { fill: '#ffedd5', text: '#9a3412', border: '#fb923c', dot: '#ea580c' },
+  violet: { fill: '#ede9fe', text: '#4c1d95', border: '#a78bfa', dot: '#7c3aed' },
+};
+
+// useDebouncedAutoSave - watches versionKey, fires mutate after delay, returns saveState
+function useDebouncedAutoSave(versionKey, mutate, opts = {}) {
+  const { delay = 600, enabled = true } = opts;
+  const [saveState, setSaveState] = useState('idle');
+  const firstRun = useRef(true);
+  const savedTimer = useRef(null);
+
+  useEffect(() => {
+    if (!enabled) return;
+    if (firstRun.current) {
+      firstRun.current = false;
+      return;
+    }
+    setSaveState('pending');
+    const t = setTimeout(() => {
+      mutate(undefined, {
+        onSuccess: () => {
+          setSaveState('saved');
+          if (savedTimer.current) clearTimeout(savedTimer.current);
+          savedTimer.current = setTimeout(() => setSaveState('idle'), 1500);
+        },
+        onError: () => setSaveState('error'),
+      });
+    }, delay);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [versionKey, enabled]);
+
+  return { saveState };
+}
+
+function SaveDot({ state, color = '#10b981' }) {
+  return (
+    <AnimatePresence mode="wait">
+      {state === 'pending' && (
+        <motion.span
+          key="pending"
+          initial={{ opacity: 0, scale: 0.6 }}
+          animate={{ opacity: 0.7, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.6 }}
+          className="inline-flex items-center gap-1 text-[10px] font-semibold text-gray-400 dark:text-gray-500"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-gray-300 animate-pulse" />
+          Saving...
+        </motion.span>
+      )}
+      {state === 'saved' && (
+        <motion.span
+          key="saved"
+          initial={{ opacity: 0, y: -4 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0 }}
+          className="inline-flex items-center gap-1 text-[10px] font-semibold"
+          style={{ color }}
+        >
+          <Check className="w-3 h-3" /> Saved
+        </motion.span>
+      )}
+      {state === 'error' && (
+        <motion.span
+          key="error"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="inline-flex items-center gap-1 text-[10px] font-semibold text-red-500"
+        >
+          ⚠ Retry?
+        </motion.span>
+      )}
+    </AnimatePresence>
+  );
+}
+
+function Prompt({ children, hint }) {
+  return (
+    <p className="text-sm text-gray-700 dark:text-gray-200 mb-3 leading-relaxed">
+      {children}
+      {hint && <span className="text-xs text-gray-400 dark:text-gray-400 ml-1.5">· {hint}</span>}
+    </p>
+  );
+}
+
+function Chip({ label, selected, disabled, onClick, colors, full = false }) {
+  const baseStyle = selected
+    ? { borderColor: colors.border, backgroundColor: colors.fill, color: colors.text }
+    : disabled
+      ? {}
+      : { borderColor: 'rgba(0,0,0,0.1)', backgroundColor: 'transparent', color: 'rgb(75, 85, 99)' };
+  return (
+    <button
+      onClick={() => !disabled && onClick()}
+      disabled={disabled}
+      className={`text-xs px-3 py-2 rounded-full border-2 font-medium transition-all ${full ? 'w-full text-left' : ''} ${disabled && !selected ? 'border-gray-100 dark:border-white/10 text-gray-300 dark:text-gray-500 cursor-not-allowed' : 'cursor-pointer'}`}
+      style={baseStyle}
+    >
+      {selected && <Check className="w-3 h-3 inline mr-1 -mt-0.5" />}
+      {label}
+    </button>
+  );
+}
+
+function MultiChips({ items, selected, onToggle, max, colors }) {
   return (
     <div className="flex flex-wrap gap-2">
       {items.map(item => {
-        const isSelected = Array.isArray(selected) ? selected.includes(item.id) : selected === item.id;
-        const disabled = max && !isSelected && Array.isArray(selected) && selected.length >= max;
+        const isSelected = selected.includes(item.id);
+        const disabled = max && !isSelected && selected.length >= max;
         return (
-          <button
-            key={item.id}
-            onClick={() => !disabled && onToggle(item.id)}
-            className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${
-              isSelected ? `border-${color}-400 bg-${color}-50 text-${color}-700` :
-              disabled ? 'border-gray-100 dark:border-white/10 text-gray-300 dark:text-gray-400 dark:text-gray-300 cursor-not-allowed' :
-              'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'
-            }`}
-            style={isSelected ? { borderColor: 'currentColor' } : {}}
-          >
-            {item.label}
-          </button>
+          <Chip key={item.id} label={item.label} selected={isSelected} disabled={disabled} onClick={() => onToggle(item.id)} colors={colors} />
         );
       })}
     </div>
   );
 }
 
-function Section({ title, emoji, color, children, defaultOpen = false }) {
+function SingleChips({ items, selected, onSelect, colors, layout = 'wrap' }) {
+  if (layout === 'grid') {
+    return (
+      <div className="grid grid-cols-2 gap-2">
+        {items.map(item => (
+          <Chip key={item.id} label={item.label} selected={selected === item.id} onClick={() => onSelect(item.id)} colors={colors} full />
+        ))}
+      </div>
+    );
+  }
+  return (
+    <div className="flex flex-wrap gap-2">
+      {items.map(item => (
+        <Chip key={item.id} label={item.label} selected={selected === item.id} onClick={() => onSelect(item.id)} colors={colors} />
+      ))}
+    </div>
+  );
+}
+
+function Section({ title, emoji, status, saveState, accentColor, children, defaultOpen = false }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <div className="border rounded-2xl overflow-hidden mb-4">
+    <div className="rounded-2xl overflow-hidden mb-4 border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5">
       <button
         onClick={() => setOpen(o => !o)}
-        className="w-full flex items-center justify-between px-5 py-4 bg-white dark:bg-white/5 hover:bg-gray-50 dark:bg-white/5 transition-colors"
+        className="w-full flex items-center gap-3 px-5 py-4 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
       >
-        <div className="flex items-center gap-2">
-          <span className="text-xl">{emoji}</span>
-          <span className="font-semibold text-gray-800 dark:text-gray-100">{title}</span>
+        <span className="text-xl flex-shrink-0">{emoji}</span>
+        <div className="flex-1 min-w-0 text-left">
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-gray-800 dark:text-gray-100">{title}</span>
+            <SaveDot state={saveState} color={accentColor} />
+          </div>
+          <p className={`text-xs mt-0.5 truncate ${status ? 'text-gray-500 dark:text-gray-400' : 'text-gray-400 dark:text-gray-500 italic'}`}>
+            {status || 'Tap to personalize'}
+          </p>
         </div>
-        {open ? <ChevronUp className="w-4 h-4 text-gray-400 dark:text-gray-300" /> : <ChevronDown className="w-4 h-4 text-gray-400 dark:text-gray-300" />}
+        {open
+          ? <ChevronUp className="w-4 h-4 text-gray-400 dark:text-gray-300 flex-shrink-0" />
+          : <ChevronDown className="w-4 h-4 text-gray-400 dark:text-gray-300 flex-shrink-0" />}
       </button>
       <AnimatePresence initial={false}>
         {open && (
@@ -141,7 +335,7 @@ function Section({ title, emoji, color, children, defaultOpen = false }) {
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <div className="px-5 pb-5 bg-gray-50 dark:bg-white/5 border-t border-gray-100 dark:border-white/10 space-y-4">
+            <div className="px-5 pt-4 pb-6 bg-gray-50 dark:bg-white/[0.02] border-t border-gray-100 dark:border-white/10 space-y-6">
               {children}
             </div>
           </motion.div>
@@ -151,9 +345,209 @@ function Section({ title, emoji, color, children, defaultOpen = false }) {
   );
 }
 
-// ── Coach David panel ────────────────────────────────────────────────────────
+// Strip leading emoji + space from a label, for compact summaries
+function shortLabel(label) {
+  if (!label) return '';
+  return label.replace(/^[^\s]+\s/, '');
+}
+
+function GideonPrefs({ user }) {
+  const qc = useQueryClient();
+  const colors = COACH_COLORS.amber;
+
+  const { data: memory } = useQuery({
+    queryKey: ['gideonMemory', user?.email],
+    queryFn: () => base44.entities.ChatbotMemory.filter({ chatbot_name: 'Gideon', created_by: user.email }),
+    enabled: !!user?.email,
+  });
+
+  const parseMem = (mems) => {
+    const onb = mems?.find(m => m.context === 'Onboarding setup' || m.context === 'Profile preferences');
+    if (!onb) return {};
+    const c = onb.content || '';
+    const topics = (c.match(/Topics: ([^.]+)/) || [])[1]?.split(', ').map(l => SPIRITUAL_TOPICS.find(t => t.label === l)?.id).filter(Boolean) || [];
+    const styleLabel = (c.match(/Style: ([^.]+)/) || [])[1]?.trim() || '';
+    const styleId = TEACHING_STYLES.find(s => s.label === styleLabel)?.id || '';
+    const seasonLabel = (c.match(/Season: ([^.]+)/) || [])[1]?.trim() || '';
+    const seasonId = SPIRITUAL_SEASONS.find(s => s.label === seasonLabel)?.id || '';
+    return { topics, style: styleId, season: seasonId };
+  };
+
+  const parsed = parseMem(memory);
+  const [topics, setTopics] = useState(parsed.topics || []);
+  const [style, setStyle] = useState(parsed.style || '');
+  const [season, setSeason] = useState(parsed.season || '');
+
+  useEffect(() => {
+    const p = parseMem(memory);
+    if (p.topics?.length) setTopics(p.topics);
+    if (p.style) setStyle(p.style);
+    if (p.season) setSeason(p.season);
+  }, [memory]);
+
+  const toggleTopic = (id) => setTopics(prev => prev.includes(id) ? prev.filter(t => t !== id) : prev.length < 5 ? [...prev, id] : prev);
+
+  const mutation = useMutation({
+    mutationFn: async () => {
+      const topicLabels = topics.map(t => SPIRITUAL_TOPICS.find(s => s.id === t)?.label || t);
+      const styleLabel = TEACHING_STYLES.find(s => s.id === style)?.label || '';
+      const seasonLabel = SPIRITUAL_SEASONS.find(s => s.id === season)?.label || '';
+      const content = `Topics: ${topicLabels.join(', ')}. Style: ${styleLabel}. Season: ${seasonLabel}.`;
+      const existing = memory?.find(m => m.context === 'Onboarding setup' || m.context === 'Profile preferences');
+      if (existing) {
+        await base44.entities.ChatbotMemory.update(existing.id, { content, last_referenced: new Date().toISOString() });
+      } else {
+        await base44.entities.ChatbotMemory.create({
+          chatbot_name: 'Gideon', memory_type: 'preference', content,
+          context: 'Profile preferences', importance: 10,
+          conversation_date: new Date().toISOString().split('T')[0],
+          last_referenced: new Date().toISOString(),
+        });
+      }
+    },
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['gideonMemory'] }),
+    onError: () => toast.error("Couldn't save Gideon preferences"),
+  });
+
+  const versionKey = JSON.stringify({ topics, style, season });
+  const { saveState } = useDebouncedAutoSave(versionKey, mutation.mutate, { enabled: !!user?.email });
+
+  const status = (() => {
+    const parts = [];
+    if (topics.length) parts.push(`${topics.length} topic${topics.length === 1 ? '' : 's'}`);
+    if (style) parts.push(shortLabel(TEACHING_STYLES.find(s => s.id === style)?.label));
+    if (season) parts.push(shortLabel(SPIRITUAL_SEASONS.find(s => s.id === season)?.label));
+    return parts.filter(Boolean).join(' · ');
+  })();
+
+  return (
+    <Section title="Gideon" emoji="📖" status={status} saveState={saveState} accentColor={colors.dot} defaultOpen>
+      <div>
+        <Prompt hint={`${topics.length}/5`}>What's on your heart spiritually right now?</Prompt>
+        <MultiChips items={SPIRITUAL_TOPICS} selected={topics} onToggle={toggleTopic} max={5} colors={colors} />
+      </div>
+      <div>
+        <Prompt>How do you like Scripture taught?</Prompt>
+        <SingleChips items={TEACHING_STYLES} selected={style} onSelect={setStyle} colors={colors} layout="grid" />
+      </div>
+      <div>
+        <Prompt>What season are you in?</Prompt>
+        <SingleChips items={SPIRITUAL_SEASONS} selected={season} onSelect={setSeason} colors={colors} />
+      </div>
+    </Section>
+  );
+}
+
+function HannahPrefs({ user }) {
+  const qc = useQueryClient();
+  const colors = COACH_COLORS.purple;
+
+  const { data: profiles } = useQuery({
+    queryKey: ['hannahProfile', user?.email],
+    queryFn: () => base44.entities.HannahUserProfile.filter({ user_email: user.email }),
+    enabled: !!user?.email,
+  });
+
+  const profile = profiles?.[0];
+
+  const [growthAreas, setGrowthAreas] = useState(profile?.growth_areas || []);
+  const [coreValues, setCoreValues] = useState(profile?.core_values || []);
+  const [coachingStyle, setCoachingStyle] = useState(profile?.preferred_coaching_style || '');
+  const [goalText, setGoalText] = useState(profile?.long_term_goals?.[0] || '');
+
+  useEffect(() => {
+    if (profile) {
+      setGrowthAreas(profile.growth_areas || []);
+      setCoreValues(profile.core_values || []);
+      setCoachingStyle(profile.preferred_coaching_style || '');
+      setGoalText(profile.long_term_goals?.[0] || '');
+    }
+  }, [profile]);
+
+  const toggleArea = (id) => setGrowthAreas(prev => prev.includes(id) ? prev.filter(a => a !== id) : prev.length < 4 ? [...prev, id] : prev);
+  const toggleValue = (id) => setCoreValues(prev => prev.includes(id) ? prev.filter(v => v !== id) : prev.length < 5 ? [...prev, id] : prev);
+
+  const mutation = useMutation({
+    mutationFn: async () => {
+      const profileData = {
+        user_email: user.email,
+        growth_areas: growthAreas,
+        core_values: coreValues,
+        preferred_coaching_style: coachingStyle,
+        long_term_goals: goalText ? [goalText] : [],
+        profile_completed: true,
+        last_updated: new Date().toISOString(),
+      };
+      if (profile) {
+        await base44.entities.HannahUserProfile.update(profile.id, profileData);
+      } else {
+        await base44.entities.HannahUserProfile.create(profileData);
+      }
+      const mems = await base44.entities.ChatbotMemory.filter({ chatbot_name: 'Hannah', created_by: user.email });
+      const onbMem = mems.find(m => m.context === 'Onboarding setup');
+      const areaLabels = growthAreas.map(a => GROWTH_AREAS.find(g => g.id === a)?.label || a);
+      const valueLabels = coreValues.map(v => CORE_VALUES.find(c => c.id === v)?.label || v);
+      const styleLabel = COACHING_STYLES.find(s => s.id === coachingStyle)?.label || coachingStyle;
+      const content = `Growth focus areas: ${areaLabels.join(', ')}. Core values: ${valueLabels.join(', ')}. Coaching style: ${styleLabel}.${goalText ? ` Key goal: ${goalText}` : ''}`;
+      if (onbMem) {
+        await base44.entities.ChatbotMemory.update(onbMem.id, { content, last_referenced: new Date().toISOString() });
+      } else {
+        await base44.entities.ChatbotMemory.create({
+          chatbot_name: 'Hannah', memory_type: 'preference', content,
+          context: 'Onboarding setup', importance: 10,
+          conversation_date: new Date().toISOString().split('T')[0],
+          last_referenced: new Date().toISOString(),
+        });
+      }
+    },
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['hannahProfile'] }),
+    onError: () => toast.error("Couldn't save Hannah preferences"),
+  });
+
+  const versionKey = JSON.stringify({ growthAreas, coreValues, coachingStyle, goalText });
+  const { saveState } = useDebouncedAutoSave(versionKey, mutation.mutate, { enabled: !!user?.email });
+
+  const status = (() => {
+    const parts = [];
+    if (growthAreas.length) parts.push(`${growthAreas.length} focus area${growthAreas.length === 1 ? '' : 's'}`);
+    if (coreValues.length) parts.push(`${coreValues.length} value${coreValues.length === 1 ? '' : 's'}`);
+    if (coachingStyle) parts.push(shortLabel(COACHING_STYLES.find(s => s.id === coachingStyle)?.label));
+    return parts.filter(Boolean).join(' · ');
+  })();
+
+  return (
+    <Section title="Hannah" emoji="💛" status={status} saveState={saveState} accentColor={colors.dot}>
+      <div>
+        <Prompt hint={`${growthAreas.length}/4`}>Where do you most want to grow right now?</Prompt>
+        <MultiChips items={GROWTH_AREAS} selected={growthAreas} onToggle={toggleArea} max={4} colors={colors} />
+      </div>
+      <div>
+        <Prompt hint={`${coreValues.length}/5`}>What matters most to you?</Prompt>
+        <MultiChips items={CORE_VALUES} selected={coreValues} onToggle={toggleValue} max={5} colors={colors} />
+      </div>
+      <div>
+        <Prompt>How do you like to be coached?</Prompt>
+        <SingleChips items={COACHING_STYLES} selected={coachingStyle} onSelect={setCoachingStyle} colors={colors} layout="grid" />
+      </div>
+      <div>
+        <Prompt>What's the one thing you most want to change?</Prompt>
+        <textarea
+          value={goalText}
+          onChange={e => setGoalText(e.target.value)}
+          placeholder="In your own words…"
+          maxLength={500}
+          rows={3}
+          className="w-full rounded-xl border-2 outline-none p-3 text-sm text-gray-700 dark:text-gray-200 resize-none transition-colors bg-white dark:bg-white/5"
+          style={{ borderColor: 'rgba(0,0,0,0.1)' }}
+        />
+      </div>
+    </Section>
+  );
+}
+
 function CoachDavidPrefs({ user }) {
   const qc = useQueryClient();
+  const colors = COACH_COLORS.green;
 
   const { data: memory } = useQuery({
     queryKey: ['coachDavidMemory', user?.email],
@@ -161,16 +555,15 @@ function CoachDavidPrefs({ user }) {
     enabled: !!user?.email,
   });
 
-  // Parse saved memory content into structured state
   const parseMemory = (mems) => {
-    const onboardingMem = mems?.find(m => m.context === 'Onboarding setup');
-    if (!onboardingMem) return {};
-    const content = onboardingMem.content || '';
-    const goals = (content.match(/Fitness goals: ([^.]+)/) || [])[1]?.split(', ').map(l => FITNESS_GOALS.find(g => g.label === l)?.id).filter(Boolean) || [];
-    const level = (content.match(/Level: (\w+)/) || [])[1] || '';
-    const tracker = (content.match(/Tracker: (\w+)/) || [])[1] || '';
-    const daysMatch = (content.match(/(\d+)x\/week/) || [])[1];
-    return { goals, level, tracker, workoutDays: daysMatch ? parseInt(daysMatch) : 3, memId: onboardingMem.id };
+    const onb = mems?.find(m => m.context === 'Onboarding setup');
+    if (!onb) return {};
+    const c = onb.content || '';
+    const goals = (c.match(/Fitness goals: ([^.]+)/) || [])[1]?.split(', ').map(l => FITNESS_GOALS.find(g => g.label === l)?.id).filter(Boolean) || [];
+    const level = (c.match(/Level: (\w+)/) || [])[1] || '';
+    const tracker = (c.match(/Tracker: (\w+)/) || [])[1] || '';
+    const days = (c.match(/(\d+)x\/week/) || [])[1];
+    return { goals, level, tracker, workoutDays: days ? parseInt(days) : 3 };
   };
 
   const parsed = parseMemory(memory);
@@ -179,8 +572,7 @@ function CoachDavidPrefs({ user }) {
   const [tracker, setTracker] = useState(parsed.tracker || '');
   const [workoutDays, setWorkoutDays] = useState(parsed.workoutDays || 3);
 
-  // Re-init when memory loads
-  React.useEffect(() => {
+  useEffect(() => {
     const p = parseMemory(memory);
     if (p.goals?.length) setGoals(p.goals);
     if (p.level) setLevel(p.level);
@@ -204,69 +596,98 @@ function CoachDavidPrefs({ user }) {
         });
       }
     },
-    onSuccess: () => { qc.invalidateQueries({ queryKey: ['coachDavidMemory'] }); toast.success('Coach David preferences saved!'); },
-    onError: () => toast.error('Failed to save preferences'),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['coachDavidMemory'] }),
+    onError: () => toast.error("Couldn't save Coach David preferences"),
   });
 
+  const versionKey = JSON.stringify({ goals, level, tracker, workoutDays });
+  const { saveState } = useDebouncedAutoSave(versionKey, mutation.mutate, { enabled: !!user?.email });
+
+  const status = (() => {
+    const parts = [];
+    if (goals.length) parts.push(`${goals.length} goal${goals.length === 1 ? '' : 's'}`);
+    if (level) parts.push(shortLabel(FITNESS_LEVELS.find(l => l.id === level)?.label) || level);
+    if (workoutDays) parts.push(`${workoutDays}×/week`);
+    return parts.length ? parts.join(' · ') : '';
+  })();
+
   return (
-    <Section title="Coach David" emoji="💪" color="green" defaultOpen>
+    <Section title="Coach David" emoji="💪" status={status} saveState={saveState} accentColor={colors.dot}>
       <div>
-        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">FITNESS GOALS</p>
-        <div className="flex flex-wrap gap-2">
-          {FITNESS_GOALS.map(g => (
-            <button key={g.id} onClick={() => setGoals(prev => prev.includes(g.id) ? prev.filter(x => x !== g.id) : [...prev, g.id])}
-              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${goals.includes(g.id) ? 'border-green-400 bg-green-50 dark:bg-green-900/20 text-green-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
-              {g.label}
-            </button>
-          ))}
-        </div>
+        <Prompt>What are you training for?</Prompt>
+        <MultiChips
+          items={FITNESS_GOALS}
+          selected={goals}
+          onToggle={(id) => setGoals(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id])}
+          colors={colors}
+        />
       </div>
       <div>
-        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">FITNESS LEVEL</p>
+        <Prompt>Where are you in your training journey?</Prompt>
         <div className="flex gap-2">
           {FITNESS_LEVELS.map(l => (
-            <button key={l.id} onClick={() => setLevel(l.id)}
-              className={`flex-1 text-xs px-2 py-2 rounded-xl border-2 font-medium transition-all text-center ${level === l.id ? 'border-green-400 bg-green-50 dark:bg-green-900/20 text-green-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300'}`}>
-              {l.label}<br /><span className="text-gray-400 dark:text-gray-300">{l.desc}</span>
+            <button
+              key={l.id}
+              onClick={() => setLevel(l.id)}
+              className="flex-1 text-xs px-2 py-3 rounded-xl border-2 font-medium transition-all text-center"
+              style={
+                level === l.id
+                  ? { borderColor: colors.border, backgroundColor: colors.fill, color: colors.text }
+                  : { borderColor: 'rgba(0,0,0,0.1)', color: 'rgb(75,85,99)' }
+              }
+            >
+              <div>{l.label}</div>
+              <div className="text-[10px] opacity-60 mt-0.5">{l.desc}</div>
             </button>
           ))}
         </div>
       </div>
       <div>
-        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">FITNESS TRACKER</p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+        <Prompt>Are you tracking your workouts anywhere?</Prompt>
+        <div className="grid grid-cols-3 gap-2">
           {TRACKERS.map(t => (
-            <button key={t.id} onClick={() => setTracker(t.id)}
-              className={`rounded-xl border-2 p-2.5 flex flex-col items-center gap-1 transition-all ${tracker === t.id ? 'border-green-400 bg-green-50 dark:bg-green-900/20' : 'border-gray-200 dark:border-white/10 hover:border-gray-300 dark:border-white/15'}`}>
+            <button
+              key={t.id}
+              onClick={() => setTracker(t.id)}
+              className="rounded-xl border-2 p-2.5 flex flex-col items-center gap-1 transition-all"
+              style={
+                tracker === t.id
+                  ? { borderColor: colors.border, backgroundColor: colors.fill }
+                  : { borderColor: 'rgba(0,0,0,0.1)' }
+              }
+            >
               <span className="text-lg">{t.icon}</span>
-              <span className="text-xs font-medium text-gray-700 dark:text-gray-200 text-center leading-tight">{t.label}</span>
+              <span className="text-[11px] font-medium text-gray-700 dark:text-gray-200 text-center leading-tight">{t.label}</span>
             </button>
           ))}
         </div>
       </div>
       <div>
-        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">WEEKLY TRAINING DAYS: <span className="text-green-600">{workoutDays}x</span></p>
+        <Prompt hint={`${workoutDays}×/week`}>How many days a week do you want to train?</Prompt>
         <div className="flex gap-2">
-          {[1,2,3,4,5,6,7].map(d => (
-            <button key={d} onClick={() => setWorkoutDays(d)}
-              className={`w-9 h-9 rounded-full border-2 font-bold text-xs transition-all ${workoutDays === d ? 'border-green-400 bg-green-50 dark:bg-green-900/200 text-white' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300'}`}>
+          {[1, 2, 3, 4, 5, 6, 7].map(d => (
+            <button
+              key={d}
+              onClick={() => setWorkoutDays(d)}
+              className="w-10 h-10 rounded-full border-2 font-bold text-xs transition-all"
+              style={
+                workoutDays === d
+                  ? { borderColor: colors.border, backgroundColor: colors.fill, color: colors.text }
+                  : { borderColor: 'rgba(0,0,0,0.1)', color: 'rgb(75,85,99)' }
+              }
+            >
               {d}
             </button>
           ))}
         </div>
       </div>
-      <Button onClick={() => mutation.mutate()} disabled={mutation.isPending}
-        className="w-full bg-gradient-to-r from-[#AFC7E3] to-[#6B7280] text-white">
-        {mutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Save className="w-4 h-4 mr-2" />}
-        Save Coach David Preferences
-      </Button>
     </Section>
   );
 }
 
-// ── Chef Daniel panel ────────────────────────────────────────────────────────
 function ChefDanielPrefs({ user }) {
   const qc = useQueryClient();
+  const colors = COACH_COLORS.orange;
 
   const { data: memory } = useQuery({
     queryKey: ['chefDanielMemory', user?.email],
@@ -279,10 +700,10 @@ function ChefDanielPrefs({ user }) {
   const [allergies, setAllergies] = useState([]);
   const [pantry, setPantry] = useState([]);
 
-  React.useEffect(() => {
-    const onboardingMem = memory?.find(m => m.context === 'Onboarding dietary setup');
-    if (!onboardingMem) return;
-    const content = onboardingMem.content || '';
+  useEffect(() => {
+    const onb = memory?.find(m => m.context === 'Onboarding dietary setup');
+    if (!onb) return;
+    const content = onb.content || '';
     const dietMatch = DIET_TYPES.find(d => content.includes(d.label));
     if (dietMatch) setDiet(dietMatch.id);
     const goalMatch = NUTRITION_GOALS.find(g => content.includes(g.label));
@@ -319,354 +740,56 @@ function ChefDanielPrefs({ user }) {
         });
       }
     },
-    onSuccess: () => { qc.invalidateQueries({ queryKey: ['chefDanielMemory'] }); toast.success('Chef Daniel preferences saved!'); },
-    onError: () => toast.error('Failed to save preferences'),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['chefDanielMemory'] }),
+    onError: () => toast.error("Couldn't save Chef Daniel preferences"),
   });
 
+  const versionKey = JSON.stringify({ diet, nutritionGoal, allergies, pantry });
+  const { saveState } = useDebouncedAutoSave(versionKey, mutation.mutate, { enabled: !!user?.email });
+
+  const status = (() => {
+    const parts = [];
+    if (diet) parts.push(shortLabel(DIET_TYPES.find(d => d.id === diet)?.label) || diet);
+    if (nutritionGoal) parts.push(shortLabel(NUTRITION_GOALS.find(g => g.id === nutritionGoal)?.label) || nutritionGoal);
+    if (pantry.length) parts.push(`${pantry.length} pantry`);
+    return parts.length ? parts.join(' · ') : '';
+  })();
+
   return (
-    <Section title="Chef Daniel" emoji="👨‍🍳" color="orange" defaultOpen>
+    <Section title="Chef Daniel" emoji="👨‍🍳" status={status} saveState={saveState} accentColor={colors.dot}>
       <div>
-        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">DIET STYLE</p>
-        <div className="flex flex-wrap gap-2">
-          {DIET_TYPES.map(d => (
-            <button key={d.id} onClick={() => setDiet(d.id)}
-              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${diet === d.id ? 'border-orange-400 bg-orange-50 dark:bg-orange-900/20 text-orange-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
-              {d.label}
-            </button>
-          ))}
-        </div>
+        <Prompt>How do you eat?</Prompt>
+        <SingleChips items={DIET_TYPES} selected={diet} onSelect={setDiet} colors={colors} />
       </div>
       <div>
-        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">NUTRITION GOAL</p>
-        <div className="flex flex-wrap gap-2">
-          {NUTRITION_GOALS.map(g => (
-            <button key={g.id} onClick={() => setNutritionGoal(g.id)}
-              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${nutritionGoal === g.id ? 'border-orange-400 bg-orange-50 dark:bg-orange-900/20 text-orange-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
-              {g.label}
-            </button>
-          ))}
-        </div>
+        <Prompt>What's your goal with food right now?</Prompt>
+        <SingleChips items={NUTRITION_GOALS} selected={nutritionGoal} onSelect={setNutritionGoal} colors={colors} />
       </div>
       <div>
-        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">ALLERGIES & INTOLERANCES</p>
-        <div className="flex flex-wrap gap-2">
-          {ALLERGIES.map(a => (
-            <button key={a.id} onClick={() => toggleAllergy(a.id)}
-              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${allergies.includes(a.id) ? 'border-orange-400 bg-orange-50 dark:bg-orange-900/20 text-orange-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
-              {a.label}
-            </button>
-          ))}
-        </div>
+        <Prompt>Anything I should avoid in your meals?</Prompt>
+        <MultiChips items={ALLERGIES} selected={allergies} onToggle={toggleAllergy} colors={colors} />
       </div>
       <div>
-        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">PANTRY STAPLES <span className="text-gray-400 dark:text-gray-300">({pantry.length} selected)</span></p>
+        <Prompt hint={`${pantry.length} selected`}>What do you usually keep on hand?</Prompt>
         <div className="flex flex-wrap gap-2">
           {PANTRY_STAPLES.map(item => (
-            <button key={item} onClick={() => setPantry(prev => prev.includes(item) ? prev.filter(p => p !== item) : [...prev, item])}
-              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${pantry.includes(item) ? 'border-orange-400 bg-orange-50 dark:bg-orange-900/20 text-orange-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
-              {item}
-            </button>
+            <Chip
+              key={item}
+              label={item}
+              selected={pantry.includes(item)}
+              onClick={() => setPantry(prev => prev.includes(item) ? prev.filter(p => p !== item) : [...prev, item])}
+              colors={colors}
+            />
           ))}
         </div>
       </div>
-      <Button onClick={() => mutation.mutate()} disabled={mutation.isPending}
-        className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#E89020] text-white">
-        {mutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Save className="w-4 h-4 mr-2" />}
-        Save Chef Daniel Preferences
-      </Button>
     </Section>
   );
 }
-
-// ── Hannah panel ─────────────────────────────────────────────────────────────
-function HannahPrefs({ user }) {
-  const qc = useQueryClient();
-
-  const { data: profiles } = useQuery({
-    queryKey: ['hannahProfile', user?.email],
-    queryFn: () => base44.entities.HannahUserProfile.filter({ user_email: user.email }),
-    enabled: !!user?.email,
-  });
-
-  const profile = profiles?.[0];
-
-  const [growthAreas, setGrowthAreas] = useState(profile?.growth_areas || []);
-  const [coreValues, setCoreValues] = useState(profile?.core_values || []);
-  const [coachingStyle, setCoachingStyle] = useState(profile?.preferred_coaching_style || '');
-  const [goalText, setGoalText] = useState(profile?.long_term_goals?.[0] || '');
-
-  React.useEffect(() => {
-    if (profile) {
-      setGrowthAreas(profile.growth_areas || []);
-      setCoreValues(profile.core_values || []);
-      setCoachingStyle(profile.preferred_coaching_style || '');
-      setGoalText(profile.long_term_goals?.[0] || '');
-    }
-  }, [profile]);
-
-  const toggleArea = (id) => setGrowthAreas(prev => prev.includes(id) ? prev.filter(a => a !== id) : prev.length < 4 ? [...prev, id] : prev);
-  const toggleValue = (id) => setCoreValues(prev => prev.includes(id) ? prev.filter(v => v !== id) : prev.length < 5 ? [...prev, id] : prev);
-
-  const mutation = useMutation({
-    mutationFn: async () => {
-      const profileData = {
-        user_email: user.email,
-        growth_areas: growthAreas,
-        core_values: coreValues,
-        preferred_coaching_style: coachingStyle,
-        long_term_goals: goalText ? [goalText] : [],
-        profile_completed: true,
-        last_updated: new Date().toISOString(),
-      };
-      if (profile) {
-        await base44.entities.HannahUserProfile.update(profile.id, profileData);
-      } else {
-        await base44.entities.HannahUserProfile.create(profileData);
-      }
-      // Update memory too
-      const mems = await base44.entities.ChatbotMemory.filter({ chatbot_name: 'Hannah', created_by: user.email });
-      const onbMem = mems.find(m => m.context === 'Onboarding setup');
-      const areaLabels = growthAreas.map(a => GROWTH_AREAS.find(g => g.id === a)?.label || a);
-      const valueLabels = coreValues.map(v => CORE_VALUES.find(c => c.id === v)?.label || v);
-      const styleLabel = COACHING_STYLES.find(s => s.id === coachingStyle)?.label || coachingStyle;
-      const content = `Growth focus areas: ${areaLabels.join(', ')}. Core values: ${valueLabels.join(', ')}. Coaching style: ${styleLabel}.${goalText ? ` Key goal: ${goalText}` : ''}`;
-      if (onbMem) {
-        await base44.entities.ChatbotMemory.update(onbMem.id, { content, last_referenced: new Date().toISOString() });
-      } else {
-        await base44.entities.ChatbotMemory.create({
-          chatbot_name: 'Hannah', memory_type: 'preference', content,
-          context: 'Onboarding setup', importance: 10,
-          conversation_date: new Date().toISOString().split('T')[0],
-          last_referenced: new Date().toISOString(),
-        });
-      }
-    },
-    onSuccess: () => { qc.invalidateQueries({ queryKey: ['hannahProfile'] }); toast.success('Hannah preferences saved!'); },
-    onError: () => toast.error('Failed to save preferences'),
-  });
-
-  return (
-    <Section title="Hannah" emoji="💛" color="purple" defaultOpen>
-      <div>
-        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">GROWTH FOCUS AREAS <span className="text-gray-400 dark:text-gray-300">(up to 4)</span></p>
-        <div className="flex flex-wrap gap-2">
-          {GROWTH_AREAS.map(a => {
-            const sel = growthAreas.includes(a.id);
-            const disabled = !sel && growthAreas.length >= 4;
-            return (
-              <button key={a.id} onClick={() => !disabled && toggleArea(a.id)}
-                className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${sel ? 'border-purple-400 bg-purple-50 dark:bg-purple-900/20 text-purple-700' : disabled ? 'border-gray-100 dark:border-white/10 text-gray-300 dark:text-gray-400 dark:text-gray-300 cursor-not-allowed' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
-                {a.label}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-      <div>
-        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">CORE VALUES <span className="text-gray-400 dark:text-gray-300">(up to 5)</span></p>
-        <div className="flex flex-wrap gap-2">
-          {CORE_VALUES.map(v => {
-            const sel = coreValues.includes(v.id);
-            const disabled = !sel && coreValues.length >= 5;
-            return (
-              <button key={v.id} onClick={() => !disabled && toggleValue(v.id)}
-                className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${sel ? 'border-purple-400 bg-purple-50 dark:bg-purple-900/20 text-purple-700' : disabled ? 'border-gray-100 dark:border-white/10 text-gray-300 dark:text-gray-400 dark:text-gray-300 cursor-not-allowed' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
-                {v.label}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-      <div>
-        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">COACHING STYLE</p>
-        <div className="grid grid-cols-2 gap-2">
-          {COACHING_STYLES.map(s => (
-            <button key={s.id} onClick={() => setCoachingStyle(s.id)}
-              className={`text-xs px-3 py-2.5 rounded-xl border-2 font-medium text-left transition-all ${coachingStyle === s.id ? 'border-purple-400 bg-purple-50 dark:bg-purple-900/20 text-purple-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
-              {coachingStyle === s.id && <CheckCircle2 className="w-3 h-3 inline mr-1" />}{s.label}
-            </button>
-          ))}
-        </div>
-      </div>
-      <div>
-        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">MY MAIN GROWTH GOAL</p>
-        <textarea
-          value={goalText}
-          onChange={e => setGoalText(e.target.value)}
-          placeholder="What do you most want to change or achieve?"
-          maxLength={500}
-          rows={3}
-          className="w-full rounded-xl border-2 border-gray-200 dark:border-white/10 focus:border-purple-300 outline-none p-3 text-sm text-gray-700 dark:text-gray-200 resize-none transition-colors bg-white dark:bg-white/5"
-        />
-      </div>
-      <Button onClick={() => mutation.mutate()} disabled={mutation.isPending}
-        className="w-full bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] text-white">
-        {mutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Save className="w-4 h-4 mr-2" />}
-        Save Hannah Preferences
-      </Button>
-    </Section>
-  );
-}
-
-// ── Gideon panel ──────────────────────────────────────────────────────────────
-const SPIRITUAL_TOPICS = [
-  { id: 'prayer_life', label: '🙏 Prayer Life' },
-  { id: 'scripture_study', label: '📖 Scripture Study' },
-  { id: 'purpose_calling', label: '🎯 Purpose & Calling' },
-  { id: 'faith_challenges', label: '⛰️ Faith Challenges' },
-  { id: 'relationships', label: '💞 Relationships' },
-  { id: 'forgiveness', label: '🕊️ Forgiveness & Healing' },
-  { id: 'gratitude', label: '🌅 Gratitude' },
-  { id: 'anxiety_worry', label: '🌿 Anxiety & Worry' },
-  { id: 'identity_in_christ', label: '👑 Identity in Christ' },
-  { id: 'spiritual_warfare', label: '🛡️ Spiritual Warfare' },
-];
-const TEACHING_STYLES = [
-  { id: 'deep_exegesis', label: '📚 Deep Verse Study' },
-  { id: 'practical', label: '🔧 Practical Application' },
-  { id: 'story_driven', label: '📜 Story-Driven' },
-  { id: 'encouragement', label: '💛 Encouragement-Focused' },
-];
-const SPIRITUAL_SEASONS = [
-  { id: 'new_believer', label: '🌱 New Believer' },
-  { id: 'growing', label: '📈 Growing Deeper' },
-  { id: 'in_valley', label: '🌧️ In a Valley' },
-  { id: 'on_fire', label: '🔥 On Fire' },
-  { id: 'questioning', label: '❓ Questioning' },
-  { id: 'returning', label: '🏠 Returning to Faith' },
-];
-
-function GideonPrefs({ user }) {
-  const qc = useQueryClient();
-
-  const { data: mems } = useQuery({
-    queryKey: ['gideonMemory', user?.email],
-    queryFn: () => base44.entities.ChatbotMemory.filter({ chatbot_name: 'Gideon', created_by: user.email }),
-    enabled: !!user?.email,
-  });
-
-  const parseMem = (mems) => {
-    const onb = mems?.find(m => m.context === 'Onboarding setup' || m.context === 'Profile preferences');
-    if (!onb) return {};
-    const content = onb.content || '';
-    const topics = (content.match(/Topics: ([^.]+)/) || [])[1]?.split(', ').map(l => SPIRITUAL_TOPICS.find(t => t.label === l)?.id).filter(Boolean) || [];
-    const style = (content.match(/Teaching style: ([^.]+)/) || [])[1]?.trim() || '';
-    const styleId = TEACHING_STYLES.find(s => s.label === style)?.id || '';
-    const season = (content.match(/Season: ([^.]+)/) || [])[1]?.trim() || '';
-    const seasonId = SPIRITUAL_SEASONS.find(s => s.label === season)?.id || '';
-    return { topics, style: styleId, season: seasonId, memId: onb.id };
-  };
-
-  const parsed = parseMem(mems);
-  const [topics, setTopics] = useState(parsed.topics || []);
-  const [style, setStyle] = useState(parsed.style || '');
-  const [season, setSeason] = useState(parsed.season || '');
-
-  React.useEffect(() => {
-    const p = parseMem(mems);
-    if (p.topics?.length) setTopics(p.topics);
-    if (p.style) setStyle(p.style);
-    if (p.season) setSeason(p.season);
-  }, [mems]);
-
-  const toggleTopic = (id) => setTopics(prev => prev.includes(id) ? prev.filter(t => t !== id) : prev.length < 5 ? [...prev, id] : prev);
-
-  const mutation = useMutation({
-    mutationFn: async () => {
-      const topicLabels = topics.map(t => SPIRITUAL_TOPICS.find(s => s.id === t)?.label || t);
-      const styleLabel = TEACHING_STYLES.find(s => s.id === style)?.label || '';
-      const seasonLabel = SPIRITUAL_SEASONS.find(s => s.id === season)?.label || '';
-      const content = `Topics: ${topicLabels.join(', ')}. Teaching style: ${styleLabel}. Season: ${seasonLabel}.`;
-      if (parsed.memId) {
-        await base44.entities.ChatbotMemory.update(parsed.memId, { content, last_referenced: new Date().toISOString() });
-      } else {
-        await base44.entities.ChatbotMemory.create({
-          chatbot_name: 'Gideon', memory_type: 'preference', content,
-          context: 'Profile preferences', importance: 10,
-          conversation_date: new Date().toISOString().split('T')[0],
-          last_referenced: new Date().toISOString(),
-        });
-      }
-    },
-    onSuccess: () => { qc.invalidateQueries({ queryKey: ['gideonMemory'] }); toast.success('Gideon preferences saved!'); },
-    onError: () => toast.error('Failed to save preferences'),
-  });
-
-  return (
-    <Section title="Gideon" emoji="📖" color="amber" defaultOpen>
-      <div>
-        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">SPIRITUAL TOPICS <span className="text-gray-400 dark:text-gray-300">(up to 5)</span></p>
-        <div className="flex flex-wrap gap-2">
-          {SPIRITUAL_TOPICS.map(t => {
-            const sel = topics.includes(t.id);
-            const disabled = !sel && topics.length >= 5;
-            return (
-              <button key={t.id} onClick={() => !disabled && toggleTopic(t.id)}
-                className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${sel ? 'border-amber-400 bg-amber-50 dark:bg-amber-900/20 text-amber-700' : disabled ? 'border-gray-100 dark:border-white/10 text-gray-300 dark:text-gray-400 dark:text-gray-300 cursor-not-allowed' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
-                {t.label}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-      <div>
-        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">TEACHING STYLE</p>
-        <div className="grid grid-cols-2 gap-2">
-          {TEACHING_STYLES.map(s => (
-            <button key={s.id} onClick={() => setStyle(s.id)}
-              className={`text-xs px-3 py-2.5 rounded-xl border-2 font-medium text-left transition-all ${style === s.id ? 'border-amber-400 bg-amber-50 dark:bg-amber-900/20 text-amber-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
-              {style === s.id && <CheckCircle2 className="w-3 h-3 inline mr-1" />}{s.label}
-            </button>
-          ))}
-        </div>
-      </div>
-      <div>
-        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">SPIRITUAL SEASON</p>
-        <div className="flex flex-wrap gap-2">
-          {SPIRITUAL_SEASONS.map(s => (
-            <button key={s.id} onClick={() => setSeason(s.id)}
-              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${season === s.id ? 'border-amber-400 bg-amber-50 dark:bg-amber-900/20 text-amber-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
-              {s.label}
-            </button>
-          ))}
-        </div>
-      </div>
-      <Button onClick={() => mutation.mutate()} disabled={mutation.isPending}
-        className="w-full bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white">
-        {mutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Save className="w-4 h-4 mr-2" />}
-        Save Gideon Preferences
-      </Button>
-    </Section>
-  );
-}
-
-// ── Coach Paul panel ─────────────────────────────────────────────────────────
-const TRANSFORMATION_AREAS = [
-  { id: 'discipline', label: '⏰ Daily Discipline' },
-  { id: 'leadership', label: '🏅 Leadership' },
-  { id: 'identity', label: '👑 Identity & Purpose' },
-  { id: 'time_management', label: '📋 Time Management' },
-  { id: 'relationships', label: '💞 Relationships' },
-  { id: 'financial', label: '💰 Financial Stewardship' },
-  { id: 'spiritual_depth', label: '🙏 Spiritual Depth' },
-  { id: 'health_fitness', label: '💪 Health & Fitness' },
-  { id: 'career', label: '🚀 Career & Calling' },
-  { id: 'emotional', label: '🧠 Emotional Resilience' },
-];
-const CHALLENGE_LEVELS = [
-  { id: 'gentle', label: '🌸 Gentle' },
-  { id: 'moderate', label: '⚡ Moderate' },
-  { id: 'intense', label: '🔥 Intense' },
-];
-const ACCOUNTABILITY_STYLES = [
-  { id: 'encouraging', label: '💛 Encouraging' },
-  { id: 'direct', label: '🎯 Direct & Honest' },
-  { id: 'structured', label: '📋 Structured Steps' },
-  { id: 'flexible', label: '🌊 Flexible & Adaptive' },
-];
 
 function CoachPaulPrefs({ user }) {
   const qc = useQueryClient();
+  const colors = COACH_COLORS.violet;
 
   const { data: mems } = useQuery({
     queryKey: ['coachPaulMemory', user?.email],
@@ -674,15 +797,15 @@ function CoachPaulPrefs({ user }) {
     enabled: !!user?.email,
   });
 
-  const parseMem = (mems) => {
-    const onb = mems?.find(m => m.context === 'Onboarding setup' || m.context === 'Profile preferences');
+  const parseMem = (m) => {
+    const onb = m?.find(x => x.context === 'Onboarding setup' || x.context === 'Profile preferences');
     if (!onb) return {};
-    const content = onb.content || '';
-    const areas = (content.match(/Areas: ([^.]+)/) || [])[1]?.split(', ').map(l => TRANSFORMATION_AREAS.find(a => a.label === l)?.id).filter(Boolean) || [];
-    const challenge = (content.match(/Challenge: (\w+)/) || [])[1] || '';
-    const acct = (content.match(/Accountability: ([^.]+)/) || [])[1]?.trim() || '';
+    const c = onb.content || '';
+    const areas = (c.match(/Areas: ([^.]+)/) || [])[1]?.split(', ').map(l => TRANSFORMATION_AREAS.find(a => a.label === l)?.id).filter(Boolean) || [];
+    const challenge = (c.match(/Challenge: (\w+)/) || [])[1] || '';
+    const acct = (c.match(/Accountability: ([^.]+)/) || [])[1]?.trim() || '';
     const acctId = ACCOUNTABILITY_STYLES.find(s => s.label === acct)?.id || '';
-    return { areas, challenge, accountability: acctId, memId: onb.id };
+    return { areas, challenge, accountability: acctId };
   };
 
   const parsed = parseMem(mems);
@@ -690,7 +813,7 @@ function CoachPaulPrefs({ user }) {
   const [challenge, setChallenge] = useState(parsed.challenge || '');
   const [accountability, setAccountability] = useState(parsed.accountability || '');
 
-  React.useEffect(() => {
+  useEffect(() => {
     const p = parseMem(mems);
     if (p.areas?.length) setAreas(p.areas);
     if (p.challenge) setChallenge(p.challenge);
@@ -704,8 +827,9 @@ function CoachPaulPrefs({ user }) {
       const areaLabels = areas.map(a => TRANSFORMATION_AREAS.find(t => t.id === a)?.label || a);
       const acctLabel = ACCOUNTABILITY_STYLES.find(s => s.id === accountability)?.label || '';
       const content = `Areas: ${areaLabels.join(', ')}. Challenge: ${challenge}. Accountability: ${acctLabel}.`;
-      if (parsed.memId) {
-        await base44.entities.ChatbotMemory.update(parsed.memId, { content, last_referenced: new Date().toISOString() });
+      const existing = mems?.find(m => m.context === 'Onboarding setup' || m.context === 'Profile preferences');
+      if (existing) {
+        await base44.entities.ChatbotMemory.update(existing.id, { content, last_referenced: new Date().toISOString() });
       } else {
         await base44.entities.ChatbotMemory.create({
           chatbot_name: 'CoachPaul', memory_type: 'preference', content,
@@ -715,65 +839,66 @@ function CoachPaulPrefs({ user }) {
         });
       }
     },
-    onSuccess: () => { qc.invalidateQueries({ queryKey: ['coachPaulMemory'] }); toast.success('Coach Paul preferences saved!'); },
-    onError: () => toast.error('Failed to save preferences'),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['coachPaulMemory'] }),
+    onError: () => toast.error("Couldn't save Coach Paul preferences"),
   });
 
+  const versionKey = JSON.stringify({ areas, challenge, accountability });
+  const { saveState } = useDebouncedAutoSave(versionKey, mutation.mutate, { enabled: !!user?.email });
+
+  const status = (() => {
+    const parts = [];
+    if (areas.length) parts.push(`${areas.length} area${areas.length === 1 ? '' : 's'}`);
+    if (challenge) parts.push(shortLabel(CHALLENGE_LEVELS.find(c => c.id === challenge)?.label));
+    if (accountability) parts.push(shortLabel(ACCOUNTABILITY_STYLES.find(s => s.id === accountability)?.label));
+    return parts.filter(Boolean).join(' · ');
+  })();
+
   return (
-    <Section title="Coach Paul" emoji="🏛️" color="violet">
+    <Section title="Coach Paul" emoji="🏛️" status={status} saveState={saveState} accentColor={colors.dot}>
       <div>
-        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">TRANSFORMATION AREAS <span className="text-gray-400 dark:text-gray-300">(up to 4)</span></p>
-        <div className="flex flex-wrap gap-2">
-          {TRANSFORMATION_AREAS.map(a => {
-            const sel = areas.includes(a.id);
-            const disabled = !sel && areas.length >= 4;
-            return (
-              <button key={a.id} onClick={() => !disabled && toggleArea(a.id)}
-                className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${sel ? 'border-violet-400 bg-violet-50 dark:bg-violet-900/20 text-violet-700' : disabled ? 'border-gray-100 dark:border-white/10 text-gray-300 dark:text-gray-400 dark:text-gray-300 cursor-not-allowed' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
-                {a.label}
-              </button>
-            );
-          })}
-        </div>
+        <Prompt hint={`${areas.length}/4`}>Where do you most want me to push you?</Prompt>
+        <MultiChips items={TRANSFORMATION_AREAS} selected={areas} onToggle={toggleArea} max={4} colors={colors} />
       </div>
       <div>
-        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">CHALLENGE LEVEL</p>
+        <Prompt>How hard should I push?</Prompt>
         <div className="flex gap-2">
           {CHALLENGE_LEVELS.map(l => (
-            <button key={l.id} onClick={() => setChallenge(l.id)}
-              className={`flex-1 text-xs px-3 py-2.5 rounded-xl border-2 font-medium text-center transition-all ${challenge === l.id ? 'border-violet-400 bg-violet-50 dark:bg-violet-900/20 text-violet-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
-              {challenge === l.id && <CheckCircle2 className="w-3 h-3 inline mr-1" />}{l.label}
+            <button
+              key={l.id}
+              onClick={() => setChallenge(l.id)}
+              className="flex-1 text-xs px-3 py-3 rounded-xl border-2 font-medium text-center transition-all"
+              style={
+                challenge === l.id
+                  ? { borderColor: colors.border, backgroundColor: colors.fill, color: colors.text }
+                  : { borderColor: 'rgba(0,0,0,0.1)', color: 'rgb(75,85,99)' }
+              }
+            >
+              {challenge === l.id && <Check className="w-3 h-3 inline mr-1 -mt-0.5" />}
+              {l.label}
             </button>
           ))}
         </div>
       </div>
       <div>
-        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">ACCOUNTABILITY STYLE</p>
-        <div className="grid grid-cols-2 gap-2">
-          {ACCOUNTABILITY_STYLES.map(s => (
-            <button key={s.id} onClick={() => setAccountability(s.id)}
-              className={`text-xs px-3 py-2.5 rounded-xl border-2 font-medium text-left transition-all ${accountability === s.id ? 'border-violet-400 bg-violet-50 dark:bg-violet-900/20 text-violet-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
-              {accountability === s.id && <CheckCircle2 className="w-3 h-3 inline mr-1" />}{s.label}
-            </button>
-          ))}
-        </div>
+        <Prompt>How should I hold you accountable?</Prompt>
+        <SingleChips items={ACCOUNTABILITY_STYLES} selected={accountability} onSelect={setAccountability} colors={colors} layout="grid" />
       </div>
-      <Button onClick={() => mutation.mutate()} disabled={mutation.isPending}
-        className="w-full bg-gradient-to-r from-[#3B0764] to-[#7C3AED] text-white">
-        {mutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Save className="w-4 h-4 mr-2" />}
-        Save Coach Paul Preferences
-      </Button>
     </Section>
   );
 }
 
-// ── Main export ───────────────────────────────────────────────────────────────
 export default function ChatbotPreferencesTab({ user }) {
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-1 pt-2">
-      <p className="text-sm text-gray-500 dark:text-gray-300 mb-4">
-        Update your preferences anytime — changes are reflected immediately in each guide's conversations.
-      </p>
+      <div className="mb-5">
+        <h2 className="text-base font-bold text-[#0A1A2F] dark:text-white mb-1">
+          Personalize your guides
+        </h2>
+        <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+          The better each coach knows you, the more they can meet you where you are. Changes save automatically.
+        </p>
+      </div>
       <GideonPrefs user={user} />
       <HannahPrefs user={user} />
       <CoachDavidPrefs user={user} />
