@@ -32,7 +32,13 @@ export default function AboutTab({ user, onUserUpdate }) {
     }
     setLoading(true);
     try {
-      await base44.auth.updateMe({ full_name: trimmed });
+      // Save the name AND mark it as user-set. The name_set_by_user flag
+      // tells the userName.js helpers to trust this name verbatim, even
+      // if it contains digits/dots/underscores that would normally be
+      // flagged as an auto-derived email prefix. Without this flag, names
+      // like "Will1414" or "william.hallett" appear to save successfully
+      // but get filtered out by the display heuristic.
+      await base44.auth.updateMe({ full_name: trimmed, name_set_by_user: true });
       setEditingName(false);
       toast.success('Name updated');
       // Refresh the user object via the parent so the Profile header updates

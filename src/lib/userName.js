@@ -56,13 +56,18 @@ export function isEmailPrefixName(fullName, email) {
  * "Good morning, X". Falls back to `fallback` (default "friend") when:
  *   - user is null/undefined
  *   - full_name is empty
- *   - full_name looks like an auto-derived email prefix
+ *   - full_name looks like an auto-derived email prefix AND the user
+ *     hasn't explicitly set their name (name_set_by_user flag false/missing)
+ *
+ * Once a user explicitly saves a name through a name editor, we always
+ * trust it — the heuristic is only for guessing whether Base44's
+ * auto-populated full_name (from the email local part) is the real name.
  */
 export function getFirstName(user, fallback = 'friend') {
   if (!user) return fallback;
   const raw = (user.full_name || '').trim();
   if (!raw) return fallback;
-  if (isEmailPrefixName(raw, user.email)) return fallback;
+  if (!user.name_set_by_user && isEmailPrefixName(raw, user.email)) return fallback;
   const first = raw.split(/\s+/)[0];
   return first || fallback;
 }
@@ -70,13 +75,14 @@ export function getFirstName(user, fallback = 'friend') {
 /**
  * Returns the user's display name (full name) suitable for profile
  * pages, "About" cards, etc. Falls back to `fallback` when full_name
- * is unset or looks like an auto-derived email prefix.
+ * is unset or looks like an auto-derived email prefix (and the user
+ * hasn't explicitly set their name).
  */
 export function getDisplayName(user, fallback = 'Friend') {
   if (!user) return fallback;
   const raw = (user.full_name || '').trim();
   if (!raw) return fallback;
-  if (isEmailPrefixName(raw, user.email)) return fallback;
+  if (!user.name_set_by_user && isEmailPrefixName(raw, user.email)) return fallback;
   return raw;
 }
 
@@ -84,16 +90,17 @@ export function getDisplayName(user, fallback = 'Friend') {
  * Returns a single uppercase letter for use in avatar initials.
  *
  * Strategy:
- *   - If we have a real name, use its first letter.
- *   - If full_name is an email prefix, use the email's first letter
- *     (still personalized to the user, just not "P" for everyone whose
- *     name we don't know).
+ *   - If we have a name (either user-set, or full_name that doesn't look
+ *     like an email prefix), use its first letter.
+ *   - If full_name is an email prefix and not user-set, use the email's
+ *     first letter (still personalized to the user, just not "P" for
+ *     everyone whose name we don't know).
  *   - Otherwise '?'.
  */
 export function getInitial(user) {
   if (!user) return '?';
   const raw = (user.full_name || '').trim();
-  if (raw && !isEmailPrefixName(raw, user.email)) {
+  if (raw && (user.name_set_by_user || !isEmailPrefixName(raw, user.email))) {
     return raw.charAt(0).toUpperCase();
   }
   const email = (user.email || '').trim();
@@ -112,7 +119,7 @@ export function getNameInputValue(user) {
   if (!user) return '';
   const raw = (user.full_name || '').trim();
   if (!raw) return '';
-  if (isEmailPrefixName(raw, user.email)) return '';
+  if (!user.name_set_by_user && isEmailPrefixName(raw, user.email)) return '';
   return raw;
 }
 

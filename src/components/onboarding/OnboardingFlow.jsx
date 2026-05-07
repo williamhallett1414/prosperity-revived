@@ -604,6 +604,12 @@ export default function OnboardingFlow({ onComplete }) {
     try {
       await base44.auth.updateMe({
         full_name: d.full_name.trim(),
+        // Mark as user-set so the userName.js display helpers always trust
+        // it. Onboarding is the user explicitly typing their name; we
+        // shouldn't treat names with digits/dots/underscores as
+        // suspect just because they happen to match the email-prefix
+        // heuristic.
+        name_set_by_user: true,
         age_group: ageGroup,
         terms_accepted_at: new Date().toISOString(),
         terms_version: '2026-03-12',
