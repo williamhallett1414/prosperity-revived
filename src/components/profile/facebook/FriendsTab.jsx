@@ -8,11 +8,14 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 import { getDisplayName, getDisplayNameFromString, getInitialFromString } from '@/lib/userName';
+import UserProfilePreview from '@/components/profile/UserProfilePreview';
 
 export default function FriendsTab({ friends, user }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [showSearchModal, setShowSearchModal] = useState(false);
   const [userSearchTerm, setUserSearchTerm] = useState('');
+  // Lightweight bottom-sheet preview state — { email, name } when open.
+  const [previewUser, setPreviewUser] = useState(null);
   const queryClient = useQueryClient();
 
   // Get the actual friend objects (email addresses)
@@ -192,6 +195,7 @@ export default function FriendsTab({ friends, user }) {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.03 }}
+              onClick={() => friendEmail && setPreviewUser({ email: friendEmail, name: friendName || friendEmail })}
               className="flex flex-col items-center p-4 hover:bg-gray-50 dark:bg-white/5 dark:text-white rounded-xl transition-all cursor-pointer group"
             >
               <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#FAD98D] flex items-center justify-center text-white text-2xl font-bold mb-3 shadow-md dark:shadow-none group-hover:shadow-lg dark:shadow-none transition-shadow">
@@ -208,6 +212,13 @@ export default function FriendsTab({ friends, user }) {
       )}
     </motion.div>
     {renderSearchModal()}
+    <UserProfilePreview
+      open={!!previewUser}
+      onClose={() => setPreviewUser(null)}
+      email={previewUser?.email}
+      name={previewUser?.name}
+      currentUser={user}
+    />
     </>
   );
 }

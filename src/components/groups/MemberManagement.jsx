@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
@@ -12,10 +12,19 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
+import UserProfilePreview from '@/components/profile/UserProfilePreview';
 
 export default function MemberManagement({ groupId, isAdmin }) {
   const [showModal, setShowModal] = useState(false);
   const [inviteEmail, setInviteEmail] = useState('');
+  // Lightweight bottom-sheet preview state — { email, name } when open.
+  const [previewUser, setPreviewUser] = useState(null);
+  // Current user needed for the preview's friend-state lookup. Fetched
+  // here because MemberManagement isn't passed the user as a prop.
+  const [currentUser, setCurrentUser] = useState(null);
+  useEffect(() => {
+    base44.auth.me().then(setCurrentUser).catch(() => {});
+  }, []);
   const queryClient = useQueryClient();
 
   const { data: members = [] } = useQuery({
@@ -113,12 +122,16 @@ export default function MemberManagement({ groupId, isAdmin }) {
                 animate={{ opacity: 1 }}
                 className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 dark:text-white rounded-lg"
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#0A1A2F] to-[#c9a227] flex items-center justify-center text-white font-semibold">
+                <button
+                  type="button"
+                  onClick={() => member.user_email && setPreviewUser({ email: member.user_email, name: member.user_email })}
+                  className="flex items-center gap-3 flex-1 min-w-0 text-left hover:opacity-80 transition-opacity"
+                >
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#0A1A2F] to-[#c9a227] flex items-center justify-center text-white font-semibold flex-shrink-0">
                     {member.user_email?.[0]?.toUpperCase()}
                   </div>
-                  <div>
-                    <p className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white truncate">
                       {member.user_email}
                     </p>
                     {member.role === 'admin' && (
@@ -128,7 +141,7 @@ export default function MemberManagement({ groupId, isAdmin }) {
                       </Badge>
                     )}
                   </div>
-                </div>
+                </button>
 
                 {isAdmin && member.role !== 'admin' && (
                   <div className="flex gap-1">
@@ -156,6 +169,13 @@ export default function MemberManagement({ groupId, isAdmin }) {
           </div>
         </DialogContent>
       </Dialog>
+      <UserProfilePreview
+        open={!!previewUser}
+        onClose={() => setPreviewUser(null)}
+        email={previewUser?.email}
+        name={previewUser?.name}
+        currentUser={currentUser}
+      />
     </>
   );
 }

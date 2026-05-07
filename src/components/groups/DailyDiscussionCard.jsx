@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, Send, Heart, Calendar } from 'lucide-react';
 import { format } from 'date-fns';
 import { getDisplayName, getDisplayNameFromString, getInitialFromString } from '@/lib/userName';
+import UserProfilePreview from '@/components/profile/UserProfilePreview';
 
 /**
  * DailyDiscussionCard
@@ -41,6 +42,8 @@ export default function DailyDiscussionCard({
   const [commentText, setCommentText] = useState('');
   const [showAllComments, setShowAllComments] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  // Lightweight bottom-sheet preview state — { email, name } when open.
+  const [previewUser, setPreviewUser] = useState(null);
 
   // Comments belonging to this post, sorted oldest first so the
   // conversation reads chronologically.
@@ -80,6 +83,7 @@ export default function DailyDiscussionCard({
   })();
 
   return (
+    <>
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
@@ -158,16 +162,24 @@ export default function DailyDiscussionCard({
                   exit={{ opacity: 0 }}
                   className="flex items-start gap-2.5"
                 >
-                  <div className="w-7 h-7 rounded-full bg-[#F2F6FA] dark:bg-white/10 flex items-center justify-center flex-shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => c.created_by && setPreviewUser({ email: c.created_by, name: c.user_name })}
+                    className="w-7 h-7 rounded-full bg-[#F2F6FA] dark:bg-white/10 flex items-center justify-center flex-shrink-0 hover:opacity-80 transition-opacity"
+                  >
                     <span className="text-[11px] font-bold text-[#0A1A2F]/65 dark:text-white/65">
                       {getInitialFromString(c.user_name)}
                     </span>
-                  </div>
+                  </button>
                   <div className="flex-1 min-w-0">
                     <div className="bg-[#F2F6FA] dark:bg-white/[0.04] rounded-2xl px-3 py-2">
-                      <p className="text-[11px] font-bold text-[#0A1A2F]/75 dark:text-white/75 mb-0.5">
+                      <button
+                        type="button"
+                        onClick={() => c.created_by && setPreviewUser({ email: c.created_by, name: c.user_name })}
+                        className="text-[11px] font-bold text-[#0A1A2F]/75 dark:text-white/75 mb-0.5 hover:text-[#c9a227] transition-colors text-left"
+                      >
                         {getDisplayNameFromString(c.user_name, 'Member')}
-                      </p>
+                      </button>
                       <p className="text-[13px] text-[#0A1A2F] dark:text-white leading-relaxed whitespace-pre-wrap break-words">
                         {c.content}
                       </p>
@@ -227,5 +239,13 @@ export default function DailyDiscussionCard({
         )}
       </div>
     </motion.div>
+    <UserProfilePreview
+      open={!!previewUser}
+      onClose={() => setPreviewUser(null)}
+      email={previewUser?.email}
+      name={previewUser?.name}
+      currentUser={user}
+    />
+    </>
   );
 }

@@ -10,12 +10,16 @@ import { base44 } from '@/api/base44Client';
 import { useQueryClient, useMutation, useQuery } from '@tanstack/react-query';
 import ContentModeration from '@/components/community/ContentModeration';
 import PostSummary from '@/components/community/PostSummary';
+import UserProfilePreview from '@/components/profile/UserProfilePreview';
 import { checkInteractionAllowed } from '@/utils/MinorSafety';
 import { getDisplayName, getDisplayNameFromString, getInitialFromString } from '@/lib/userName';
 export default function PostCard({ post, comments = [], onLike, onComment, index, user, friends = [] }) {
   const navigate = useNavigate();
   const [showComments, setShowComments] = useState(false);
   const [commentText, setCommentText] = useState('');
+  // Lightweight bottom-sheet profile preview state.
+  // { email, name } when open, null when closed.
+  const [previewUser, setPreviewUser] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
   const queryClient = useQueryClient();
 
@@ -150,6 +154,7 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
   );
 
   return (
+    <>
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -163,14 +168,14 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
       <div className="flex items-center gap-3 mb-3">
         <div 
           className="w-10 h-10 rounded-full bg-gradient-to-br from-[#0A1A2F] to-[#c9a227] flex items-center justify-center text-white font-semibold cursor-pointer hover:opacity-80"
-          onClick={() => post.created_by && navigate(createPageUrl(`UserProfile?email=${post.created_by}`))}
+          onClick={() => post.created_by && setPreviewUser({ email: post.created_by, name: post.user_name })}
         >
           {getInitialFromString(post.user_name)}
         </div>
         <div className="flex-1">
           <p 
             className="font-semibold text-[#0A1A2F] dark:text-white cursor-pointer hover:text-[#c9a227]"
-            onClick={() => post.created_by && navigate(createPageUrl(`UserProfile?email=${post.created_by}`))}
+            onClick={() => post.created_by && setPreviewUser({ email: post.created_by, name: post.user_name })}
           >
             {getDisplayNameFromString(post.user_name, 'Anonymous')}
           </p>
@@ -315,11 +320,19 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
           {/* Comment List */}
           {postComments.map(comment => (
             <div key={comment.id} className="flex gap-2">
-              <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-slate-600 flex items-center justify-center text-xs font-semibold text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 flex-shrink-0">
+              <div
+                className="w-8 h-8 rounded-full bg-gray-200 dark:bg-slate-600 flex items-center justify-center text-xs font-semibold text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 flex-shrink-0 cursor-pointer hover:opacity-80"
+                onClick={() => comment.created_by && setPreviewUser({ email: comment.created_by, name: comment.user_name })}
+              >
                 {getInitialFromString(comment.user_name)}
               </div>
               <div className="flex-1 bg-gray-50 dark:bg-white/5 dark:bg-slate-700 rounded-lg p-2">
-                <p className="text-sm font-medium text-gray-900 dark:text-white dark:text-gray-200">{getDisplayNameFromString(comment.user_name, 'Anonymous')}</p>
+                <p
+                  className="text-sm font-medium text-gray-900 dark:text-white dark:text-gray-200 cursor-pointer hover:text-[#c9a227]"
+                  onClick={() => comment.created_by && setPreviewUser({ email: comment.created_by, name: comment.user_name })}
+                >
+                  {getDisplayNameFromString(comment.user_name, 'Anonymous')}
+                </p>
                 <p className="text-sm text-gray-700 dark:text-gray-200 dark:text-gray-400 dark:text-gray-300">{comment.content}</p>
               </div>
             </div>
@@ -345,5 +358,13 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
         </div>
       )}
     </motion.div>
+    <UserProfilePreview
+      open={!!previewUser}
+      onClose={() => setPreviewUser(null)}
+      email={previewUser?.email}
+      name={previewUser?.name}
+      currentUser={user}
+    />
+    </>
   );
 }
