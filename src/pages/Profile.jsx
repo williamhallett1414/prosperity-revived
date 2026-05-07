@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { toast } from 'sonner';
 import { useAuth } from '@/lib/AuthContext';
-import { deleteUserAccount } from '@/lib/deleteAccount';
+// deleteUserAccount is now handled by the deleteUserAccount backend function
 import ChatbotPreferencesTab from '@/components/profile/ChatbotPreferencesTab';
 import { getFirstName, getDisplayName, getInitial } from '@/lib/userName';
 
@@ -561,17 +561,19 @@ export default function Profile() {
 
                 <button
                   onClick={async () => {
-                    if (!window.confirm('Are you absolutely sure?\n\nThis will scrub your personal data — posts, journal entries, prayers, photos, and conversations — and schedule your account for permanent removal. You will be signed out immediately and unable to log back in.\n\nThis cannot be undone.')) return;
-                    if (!window.confirm('Last chance — press OK to delete your account.')) return;
+                    if (!window.confirm('Are you absolutely sure?\n\nThis will permanently delete your account and all your data — posts, journal entries, prayers, photos, and conversations. You will be signed out immediately and unable to log back in.\n\nThis cannot be undone.')) return;
+                    if (!window.confirm('Last chance — press OK to permanently delete your account.')) return;
                     setIsDeleting(true);
                     try {
-                      const result = await deleteUserAccount();
-                      if (!result.marked) {
-                        toast.error('Could not record deletion request — please try again or contact support.');
+                      const response = await base44.functions.invoke('deleteUserAccount', {});
+                      if (!response?.data?.success) {
+                        toast.error('Could not delete account — please try again or contact support.');
                         setIsDeleting(false);
                         return;
                       }
-                      toast.success('Account deleted. You have been signed out.');
+                      // Clear all local storage so no cached state survives
+                      localStorage.clear();
+                      toast.success('Account and all data deleted. You have been signed out.');
                       // Brief pause so the user sees the toast before redirect
                       setTimeout(() => logout(), 800);
                     } catch (e) {

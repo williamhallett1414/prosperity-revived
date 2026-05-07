@@ -102,6 +102,21 @@ export const AuthProvider = ({ children }) => {
       // Now check if the user is authenticated
       setIsLoadingAuth(true);
       const currentUser = await base44.auth.me();
+
+      // If this account was deleted, block re-login immediately
+      if (currentUser?.deleted_at) {
+        setIsLoadingAuth(false);
+        setIsAuthenticated(false);
+        setAuthError({ type: 'account_deleted', message: 'This account has been permanently deleted.' });
+        // Force logout to clear tokens
+        try {
+          window.localStorage.removeItem('base44_access_token');
+          window.localStorage.removeItem('token');
+          localStorage.clear();
+        } catch (_e) {}
+        return;
+      }
+
       setUser(currentUser);
       setIsAuthenticated(true);
       setIsLoadingAuth(false);

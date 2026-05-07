@@ -86,7 +86,21 @@ const AuthenticatedApp = () => {
 
   // Handle authentication errors
   if (authError) {
-    if (authError.type === 'user_not_registered') {
+    if (authError.type === 'account_deleted') {
+      return (
+        <div className="fixed inset-0 flex items-center justify-center bg-[#F2F6FA] dark:bg-[#0A1A2F] px-6">
+          <div className="text-center max-w-sm">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-red-100 flex items-center justify-center">
+              <span className="text-3xl">🗑️</span>
+            </div>
+            <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-2">Account Deleted</h2>
+            <p className="text-sm text-gray-600 dark:text-gray-300 mb-6">
+              This account has been permanently deleted and can no longer be accessed.
+            </p>
+          </div>
+        </div>
+      );
+    } else if (authError.type === 'user_not_registered') {
       return <UserNotRegisteredError />;
     } else if (authError.type === 'auth_required') {
       // Redirect to login automatically

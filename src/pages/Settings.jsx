@@ -21,7 +21,7 @@ import { Switch } from '@/components/ui/switch';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { useAuth } from '@/lib/AuthContext';
-import { deleteUserAccount } from '@/lib/deleteAccount';
+// deleteUserAccount is now handled by the backend function
 import { Label } from '@/components/ui/label';
 const CoachDavidNotificationSettings = lazy(() => import('@/components/settings/CoachDavidNotificationSettings'));
 const ChefDanielNotificationSettings = lazy(() => import('@/components/settings/ChefDanielNotificationSettings'));
@@ -434,13 +434,15 @@ function SettingsInner() {
                     onClick={async () => {
                       setIsDeleting(true);
                       try {
-                        const result = await deleteUserAccount();
-                        if (!result.marked) {
-                          toast.error('Could not record deletion request — please try again or contact support.');
+                        const response = await base44.functions.invoke('deleteUserAccount', {});
+                        if (!response?.data?.success) {
+                          toast.error('Could not delete account — please try again or contact support.');
                           setIsDeleting(false);
                           return;
                         }
-                        toast.success('Account deleted. You have been signed out.');
+                        // Clear all local storage
+                        localStorage.clear();
+                        toast.success('Account and all data deleted. You have been signed out.');
                         setTimeout(() => logout(), 800);
                       } catch (e) {
                         toast.error('Failed to delete account — please try again');
