@@ -836,7 +836,7 @@ function NewPrayerModal({ user, onClose, onSubmit }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
-      className="fixed inset-0 z-50 flex flex-col justify-end"
+      className="fixed inset-0 z-[60] flex flex-col justify-end"
       style={{ background: 'rgba(5,10,20,0.7)', backdropFilter: 'blur(12px)' }}
       onClick={e => e.target === e.currentTarget && onClose()}
     >
@@ -845,11 +845,12 @@ function NewPrayerModal({ user, onClose, onSubmit }) {
         animate={{ y: 0 }}
         exit={{ y: '100%' }}
         transition={{ type: 'spring', damping: 32, stiffness: 280 }}
-        className="rounded-t-[32px] px-5 pt-5 pb-8 relative overflow-hidden"
+        className="rounded-t-[32px] px-5 pt-5 relative overflow-hidden"
         style={{
           background: 'linear-gradient(180deg, #1a2547 0%, #243154 100%)',
           borderTop: '1px solid rgba(251,191,36,0.20)',
           boxShadow: '0 -20px 60px rgba(0,0,0,0.5)',
+          paddingBottom: 'calc(env(safe-area-inset-bottom) + 2rem)',
         }}
       >
         {/* Soft halo at the top — like light from above */}
