@@ -45,24 +45,23 @@ class SettingsErrorBoundary extends React.Component {
 }
 
 function SettingsInner() {
-  const [user, setUser] = useState(null);
-  const [authError, setAuthError] = useState(false);
+  const { user: authUser, isLoadingAuth, logout } = useAuth();
+  const [user, setUser] = useState(authUser);
   const [isDeleting, setIsDeleting] = useState(false);
   const [showTour, setShowTour] = useState(false);
   const queryClient = useQueryClient();
-  const { logout } = useAuth();
 
+  // Sync local user state when AuthContext finishes loading
   useEffect(() => {
-    base44.auth.me()
-      .then(u => { setUser(u); setAuthError(false); })
-      .catch(() => setAuthError(true));
-  }, []);
+    if (authUser) setUser(authUser);
+  }, [authUser]);
 
   const updateUser = useMutation({
     mutationFn: (data) => base44.auth.updateMe(data),
-    onSuccess: () => {
+    onSuccess: (_data, variables) => {
       queryClient.invalidateQueries(['user']);
-      base44.auth.me().then(setUser).catch(() => {});
+      // Optimistic local merge — avoids another auth.me() call that fails on native
+      setUser(prev => prev ? { ...prev, ...variables } : prev);
     },
     onError: () => toast.error('Failed to save — please try again'),
   });
@@ -90,28 +89,25 @@ function SettingsInner() {
   }, [user?.theme]);
 
   if (!user) {
-    if (authError) {
+    // Auth context still loading — show spinner
+    if (isLoadingAuth) {
       return (
-        <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex flex-col items-center justify-center p-6 text-center">
-          <p className="text-lg font-bold text-[#0A1A2F] dark:text-white mb-2">Couldn't load Settings</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">We had trouble reaching your account. Please check your connection and try again.</p>
-          <button
-            onClick={() => {
-              setAuthError(false);
-              base44.auth.me()
-                .then(u => { setUser(u); setAuthError(false); })
-                .catch(() => setAuthError(true));
-            }}
-            className="px-5 py-2.5 bg-[#c9a227] text-white rounded-xl text-sm font-bold min-h-[44px]"
-          >
-            Try Again
-          </button>
+        <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
+          <div className="w-8 h-8 border-4 border-[#c9a227]/30 border-t-[#c9a227] rounded-full animate-spin" />
         </div>
       );
     }
+    // Auth finished loading but no user — true error state
     return (
-      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-[#c9a227]/30 border-t-[#c9a227] rounded-full animate-spin" />
+      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex flex-col items-center justify-center p-6 text-center">
+        <p className="text-lg font-bold text-[#0A1A2F] dark:text-white mb-2">Couldn't load Settings</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">We had trouble reaching your account. Please check your connection and try again.</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="px-5 py-2.5 bg-[#c9a227] text-white rounded-xl text-sm font-bold min-h-[44px]"
+        >
+          Try Again
+        </button>
       </div>
     );
   }
