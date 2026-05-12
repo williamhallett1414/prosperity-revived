@@ -3,6 +3,12 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { useAuth } from '@/lib/AuthContext';
 import AuthLayout from './AuthLayout';
+import {
+  getQuizAnswers,
+  hasQuizAnswers,
+  clearQuizAnswers,
+  quizAnswersToUserFields,
+} from './quiz/quizStorage';
 import { Eye, EyeOff, Mail, Lock } from 'lucide-react';
 
 export default function Login() {
@@ -34,6 +40,20 @@ export default function Login() {
       // Mark this install as having gone through our auth flow — locks in the
       // token so it survives subsequent cold-starts as a trusted session.
       markInstallSeen();
+      // If the user happened to take the pre-signup quiz before deciding to
+      // sign in instead of sign up, persist the answers to their account so
+      // their preferences carry over. Existing fields on the User entity
+      // win — updateMe merges, doesn't overwrite — so we won't clobber
+      // anything they previously set.
+      if (hasQuizAnswers()) {
+        try {
+          const fields = quizAnswersToUserFields(getQuizAnswers());
+          await base44.auth.updateMe(fields);
+          clearQuizAnswers();
+        } catch (_persistErr) {
+          // Best-effort. Leave answers in localStorage so we can retry later.
+        }
+      }
       // SDK has set the token automatically. Re-run AuthContext bootstrap so
       // user is loaded and isAuthenticated flips to true.
       await checkAppState();
@@ -146,8 +166,8 @@ export default function Login() {
 
       <p className="text-center text-sm text-[#2A3A3F]/70 dark:text-white/60 mt-6">
         New to Prosperity Revived?{' '}
-        <Link to="/signup" className="text-[#FD9C2D] font-bold hover:underline">
-          Create an account
+        <Link to="/welcome" className="text-[#FD9C2D] font-bold hover:underline">
+          Get started
         </Link>
       </p>
     </AuthLayout>

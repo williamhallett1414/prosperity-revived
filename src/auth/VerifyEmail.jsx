@@ -3,6 +3,12 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { useAuth } from '@/lib/AuthContext';
 import AuthLayout from './AuthLayout';
+import {
+  getQuizAnswers,
+  hasQuizAnswers,
+  clearQuizAnswers,
+  quizAnswersToUserFields,
+} from './quiz/quizStorage';
 
 const CODE_LENGTH = 6;
 
@@ -93,6 +99,16 @@ export default function VerifyEmail() {
         try {
           await base44.auth.loginViaEmailPassword(email.trim().toLowerCase(), passedPassword);
           markInstallSeen();
+          // Persist pre-signup quiz answers to the User entity if any are stashed.
+          if (hasQuizAnswers()) {
+            try {
+              const fields = quizAnswersToUserFields(getQuizAnswers());
+              await base44.auth.updateMe(fields);
+              clearQuizAnswers();
+            } catch (_persistErr) {
+              // Best-effort. Leave answers in localStorage for retry.
+            }
+          }
           await checkAppState();
           navigate('/', { replace: true });
           return;

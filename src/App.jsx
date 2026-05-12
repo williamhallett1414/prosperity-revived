@@ -12,6 +12,8 @@ import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 const useCapacitorInit = () => {};
 
 // ── Public auth pages (lazy) ──────────────────────────────────────────────────
+const Welcome = lazy(() => import('@/auth/Welcome'));
+const QuizFlow = lazy(() => import('@/auth/quiz/QuizFlow'));
 const Login = lazy(() => import('@/auth/Login'));
 const Signup = lazy(() => import('@/auth/Signup'));
 const VerifyEmail = lazy(() => import('@/auth/VerifyEmail'));
@@ -170,6 +172,8 @@ const AppRoutes = () => (
   <Suspense fallback={<BootSpinner />}>
     <Routes>
       {/* Public auth routes — accessible without authentication */}
+      <Route path="/welcome" element={<PublicOnly><Welcome /></PublicOnly>} />
+      <Route path="/quiz" element={<PublicOnly><QuizFlow /></PublicOnly>} />
       <Route path="/login" element={<PublicOnly><Login /></PublicOnly>} />
       <Route path="/signup" element={<PublicOnly><Signup /></PublicOnly>} />
       <Route path="/verify-email" element={<PublicOnly><VerifyEmail /></PublicOnly>} />

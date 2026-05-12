@@ -506,6 +506,12 @@ export default function OnboardingFlow({ onComplete }) {
   // Pre-populate ageGroup from user record. AgeVerificationGate (in Layout)
   // runs BEFORE OnboardingFlow and saves age_group to the user. We reuse that
   // value here instead of asking again in the legal step.
+  //
+  // Also pre-populate any fields that the pre-signup quiz already collected
+  // (motivations, coaching_style) so those questions don't get asked twice.
+  // life_season, hardest_areas, god_relationship, priorities, open_prayer are
+  // saved to the User entity by the quiz but aren't asked in post-onboarding,
+  // so they don't need to be loaded here.
   useEffect(() => {
     base44.auth.me().then(u => {
       if (u?.age_group && (u.age_group === '18plus' || u.age_group === '13to17')) {
@@ -522,6 +528,13 @@ export default function OnboardingFlow({ onComplete }) {
       if (u?.full_name && !isEmailPrefixName(u.full_name, u.email)) {
         setD(p => ({ ...p, full_name: u.full_name }));
       }
+      // Pre-populate fields from the pre-signup quiz so we don't re-ask.
+      // Defensive: only merge in if the values exist and look right.
+      setD(p => ({
+        ...p,
+        motivations: Array.isArray(u?.motivations) && u.motivations.length ? u.motivations : p.motivations,
+        coaching_style: typeof u?.coaching_style === 'string' && u.coaching_style ? u.coaching_style : p.coaching_style,
+      }));
     }).catch(() => {});
   }, []);
 

@@ -3,6 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { useAuth } from '@/lib/AuthContext';
 import AuthLayout from './AuthLayout';
+import {
+  getQuizAnswers,
+  hasQuizAnswers,
+  clearQuizAnswers,
+  quizAnswersToUserFields,
+} from './quiz/quizStorage';
 import { Eye, EyeOff, Mail, Lock, Check } from 'lucide-react';
 
 export default function Signup() {
@@ -54,11 +60,25 @@ export default function Signup() {
       try {
         await base44.auth.loginViaEmailPassword(trimmedEmail, password);
         markInstallSeen();
+        // Persist pre-signup quiz answers (if any) to the User entity. Best-effort:
+        // failure to save doesn't block the user from entering the app, since the
+        // existing post-onboarding flow will collect this info if needed.
+        if (hasQuizAnswers()) {
+          try {
+            const fields = quizAnswersToUserFields(getQuizAnswers());
+            await base44.auth.updateMe(fields);
+            clearQuizAnswers();
+          } catch (_persistErr) {
+            // Leave quiz answers in localStorage so we can retry on next load.
+          }
+        }
         await checkAppState();
         navigate('/', { replace: true });
         return;
       } catch (_loginErr) {
-        // Account was created but can't log in yet → email verification needed
+        // Account was created but can't log in yet → email verification needed.
+        // Quiz answers stay in localStorage and will be persisted after OTP
+        // verification + auto-login (VerifyEmail.jsx).
         navigate('/verify-email', {
           replace: true,
           state: { email: trimmedEmail, password },
@@ -79,7 +99,7 @@ export default function Signup() {
   };
 
   return (
-    <AuthLayout showBack backTo="/login" heroImage="/auth/login-hero.jpg">
+    <AuthLayout showBack backTo="/welcome" heroImage="/auth/login-hero.jpg">
       <div className="mb-6 text-center">
         <h2
           className="text-3xl text-[#2A3A3F] dark:text-white mb-1.5 tracking-tight"
