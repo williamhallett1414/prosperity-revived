@@ -32,6 +32,20 @@ const writeInstallSeenFlag = () => {
   } catch (_e) {}
 };
 
+// Read the current access token from localStorage. The Base44 SDK writes
+// to 'base44_access_token' after loginViaEmailPassword(), but the
+// appParams.token in-memory copy is captured at module-init time and does
+// NOT auto-refresh — so we need to manually re-read it before every
+// auth-sensitive operation.
+const readTokenFromStorage = () => {
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      return window.localStorage.getItem('base44_access_token') || null;
+    }
+  } catch (_e) {}
+  return null;
+};
+
 // Clear all auth-related state from this device. Runs synchronously before
 // any network request so the inherited token never gets used.
 const purgeInheritedToken = () => {
@@ -62,6 +76,14 @@ export const AuthProvider = ({ children }) => {
 
   const checkAppState = async () => {
     try {
+      // Refresh appParams.token from localStorage. The SDK writes a fresh
+      // token to localStorage after loginViaEmailPassword(), but the
+      // appParams.token captured at module-init may be stale (especially
+      // after a boot-time purge nulled it out). Re-read before every
+      // auth-sensitive run so post-login checkAppState() calls see the
+      // newly-issued token.
+      appParams.token = readTokenFromStorage();
+
       // Fresh-install guard: if there's a token but we've never marked this
       // install as having gone through our login flow, the token was inherited
       // from a previous install's webview cache. Wipe it before any auth
