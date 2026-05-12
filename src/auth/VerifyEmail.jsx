@@ -9,7 +9,7 @@ const CODE_LENGTH = 6;
 export default function VerifyEmail() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { checkAppState } = useAuth();
+  const { checkAppState, markInstallSeen } = useAuth();
 
   const passedEmail = location.state?.email || '';
   const passedPassword = location.state?.password || '';
@@ -92,6 +92,7 @@ export default function VerifyEmail() {
       if (passedPassword) {
         try {
           await base44.auth.loginViaEmailPassword(email.trim().toLowerCase(), passedPassword);
+          markInstallSeen();
           await checkAppState();
           navigate('/', { replace: true });
           return;

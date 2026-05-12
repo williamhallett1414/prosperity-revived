@@ -4,6 +4,50 @@ import { appParams } from '@/lib/app-params';
 
 const AuthContext = createContext();
 
+// ── Install-seen flag ──────────────────────────────────────────────────────
+// Stored in localStorage to detect "fresh install with an inherited token"
+// (a WKWebView cache survival case flagged by Base44 support). On a fresh
+// install we may still see a token in localStorage if iOS preserved the
+// webview's storage across uninstall+reinstall; in that case the token
+// belongs to a previous user/session and must be cleared so the user lands
+// on /login. The flag is set only after our own /login or /signup flow
+// successfully authenticates a user.
+const INSTALL_SEEN_KEY = 'pr_install_seen';
+
+const hasInstallSeenFlag = () => {
+  try {
+    return typeof window !== 'undefined'
+      && !!window.localStorage
+      && window.localStorage.getItem(INSTALL_SEEN_KEY) === '1';
+  } catch (_e) {
+    return false;
+  }
+};
+
+const writeInstallSeenFlag = () => {
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      window.localStorage.setItem(INSTALL_SEEN_KEY, '1');
+    }
+  } catch (_e) {}
+};
+
+// Clear all auth-related state from this device. Runs synchronously before
+// any network request so the inherited token never gets used.
+const purgeInheritedToken = () => {
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      window.localStorage.removeItem('base44_access_token');
+      window.localStorage.removeItem('token');
+    }
+  } catch (_e) {}
+  // Wipe the in-memory copy that the SDK and appParams already captured at
+  // module-init time. Without this, the SDK would still send the stale token
+  // on the very next API call.
+  try { base44.auth.setToken('', false); } catch (_e) {}
+  try { appParams.token = null; } catch (_e) {}
+};
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -18,6 +62,14 @@ export const AuthProvider = ({ children }) => {
 
   const checkAppState = async () => {
     try {
+      // Fresh-install guard: if there's a token but we've never marked this
+      // install as having gone through our login flow, the token was inherited
+      // from a previous install's webview cache. Wipe it before any auth
+      // request so the inherited identity is never used.
+      if (appParams.token && !hasInstallSeenFlag()) {
+        purgeInheritedToken();
+      }
+
       setIsLoadingPublicSettings(true);
       setAuthError(null);
       
@@ -163,7 +215,8 @@ export const AuthProvider = ({ children }) => {
       appPublicSettings,
       logout,
       navigateToLogin,
-      checkAppState
+      checkAppState,
+      markInstallSeen: writeInstallSeenFlag,
     }}>
       {children}
     </AuthContext.Provider>

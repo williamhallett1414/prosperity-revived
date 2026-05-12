@@ -8,7 +8,7 @@ import { Eye, EyeOff, Mail, Lock } from 'lucide-react';
 export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { checkAppState } = useAuth();
+  const { checkAppState, markInstallSeen } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -31,6 +31,9 @@ export default function Login() {
     setIsSubmitting(true);
     try {
       await base44.auth.loginViaEmailPassword(email.trim().toLowerCase(), password);
+      // Mark this install as having gone through our auth flow — locks in the
+      // token so it survives subsequent cold-starts as a trusted session.
+      markInstallSeen();
       // SDK has set the token automatically. Re-run AuthContext bootstrap so
       // user is loaded and isAuthenticated flips to true.
       await checkAppState();

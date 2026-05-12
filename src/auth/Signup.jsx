@@ -7,7 +7,7 @@ import { Eye, EyeOff, Mail, Lock, Check } from 'lucide-react';
 
 export default function Signup() {
   const navigate = useNavigate();
-  const { checkAppState } = useAuth();
+  const { checkAppState, markInstallSeen } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -53,6 +53,7 @@ export default function Signup() {
       // because email verification is required first), fall through to OTP.
       try {
         await base44.auth.loginViaEmailPassword(trimmedEmail, password);
+        markInstallSeen();
         await checkAppState();
         navigate('/', { replace: true });
         return;
