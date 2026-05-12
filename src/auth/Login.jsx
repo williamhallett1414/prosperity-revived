@@ -51,10 +51,10 @@ export default function Login() {
   };
 
   return (
-    <AuthLayout verse='"He restores my soul." — Psalm 23:3'>
-      <div className="mb-8 text-center">
+    <AuthLayout heroImage="/auth/login-hero.jpg">
+      <div className="mb-6 text-center">
         <h2
-          className="text-3xl text-[#2A3A3F] dark:text-white mb-2 tracking-tight"
+          className="text-3xl text-[#2A3A3F] dark:text-white mb-1.5 tracking-tight"
           style={{ fontFamily: 'Fraunces, serif', fontWeight: 600 }}
         >
           Welcome back
