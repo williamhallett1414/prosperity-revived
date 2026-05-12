@@ -13,22 +13,6 @@ export const AuthProvider = ({ children }) => {
   const [appPublicSettings, setAppPublicSettings] = useState(null); // Contains only { id, public_settings }
 
   useEffect(() => {
-    // If we just logged out via the Sign Out button, force a redirect to the
-    // login page. The flag is set by logout() before navigating to the
-    // server-side logout endpoint, and survives the round-trip back into
-    // the app via sessionStorage.
-    try {
-      if (typeof window !== 'undefined' && window.sessionStorage) {
-        if (window.sessionStorage.getItem('post_logout_redirect_to_login') === '1') {
-          window.sessionStorage.removeItem('post_logout_redirect_to_login');
-          // Use a SAME-ORIGIN relative URL so we don't depend on
-          // appParams.appBaseUrl being set (it can be null in some envs).
-          const fromUrl = encodeURIComponent('/');
-          window.location.href = `/login?from_url=${fromUrl}`;
-          return;
-        }
-      }
-    } catch (_e) {}
     checkAppState();
   }, []);
 
@@ -148,25 +132,25 @@ export const AuthProvider = ({ children }) => {
         window.localStorage.removeItem('token');
       } catch (_e) {}
     }
+    // Also clear the SDK's in-memory token so subsequent requests don't try
+    // to use a stale Authorization header.
+    try { base44.auth.setToken('', false); } catch (_e) {}
 
     if (shouldRedirect && typeof window !== 'undefined') {
-      // Use a SAME-ORIGIN relative URL to hit Base44's logout endpoint. This
-      // works regardless of whether appBaseUrl is set, since the app and the
-      // auth endpoints are served from the same Base44 origin in production.
-      // After server-side cookie clearing, Base44 redirects to from_url ('/'),
-      // and we use a sessionStorage flag to trigger the actual login redirect
-      // on the next page load (handled in AuthContext's useEffect).
-      try {
-        window.sessionStorage.setItem('post_logout_redirect_to_login', '1');
-      } catch (_e) {}
-      const fromUrl = encodeURIComponent('/');
-      window.location.href = `/api/apps/auth/logout?from_url=${fromUrl}`;
+      // Custom in-app login: route to /login instead of redirecting to a
+      // Base44-hosted logout endpoint (which doesn't exist in our native
+      // Capacitor build context).
+      window.location.href = '/login';
     }
   };
 
   const navigateToLogin = () => {
-    // Use the SDK's redirectToLogin method
-    base44.auth.redirectToLogin(window.location.href);
+    // Custom in-app login: route to our own /login page instead of using
+    // base44.auth.redirectToLogin() which would send the user to Base44's
+    // hosted login (broken in Capacitor + we want to hide Google/Apple).
+    if (typeof window !== 'undefined') {
+      window.location.href = '/login';
+    }
   };
 
   return (
