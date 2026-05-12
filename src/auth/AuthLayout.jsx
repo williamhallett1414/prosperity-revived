@@ -25,14 +25,15 @@ export default function AuthLayout({ children, showBack = false, backTo = '/logi
             className="absolute inset-0 w-full h-full object-cover select-none"
             draggable="false"
           />
-          {/* Light-mode fade: image → paper */}
+          {/* Light-mode fade: image → paper. Shorter band (16) so the transition
+              is contained inside the hero area and doesn't clip form content below. */}
           <div
-            className="absolute inset-x-0 bottom-0 h-32 dark:hidden pointer-events-none"
+            className="absolute inset-x-0 bottom-0 h-16 dark:hidden pointer-events-none"
             style={{ background: 'linear-gradient(to bottom, rgba(251,246,236,0) 0%, #FBF6EC 100%)' }}
           />
           {/* Dark-mode fade: image → deep teal */}
           <div
-            className="absolute inset-x-0 bottom-0 h-32 hidden dark:block pointer-events-none"
+            className="absolute inset-x-0 bottom-0 h-16 hidden dark:block pointer-events-none"
             style={{ background: 'linear-gradient(to bottom, rgba(10,26,47,0) 0%, #0A1A2F 100%)' }}
           />
           {/* Back button overlays the hero — high contrast for readability over any photo */}
@@ -52,12 +53,13 @@ export default function AuthLayout({ children, showBack = false, backTo = '/logi
           )}
         </div>
 
-        {/* Form area — paper background, generous padding, overlaps fade slightly */}
+        {/* Form area — paper background, sits below the hero with breathing room
+            so headings never overlap the fade gradient above */}
         <div
-          className="flex-1 flex flex-col px-6 -mt-6"
+          className="flex-1 flex flex-col px-6 pt-6"
           style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 1.5rem)' }}
         >
-          <div className="flex-1 flex flex-col justify-start max-w-md w-full mx-auto pt-2">
+          <div className="flex-1 flex flex-col justify-start max-w-md w-full mx-auto">
             {children}
           </div>
           {verse && (
