@@ -8,8 +8,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
-// TEMP: auth debug banner — REMOVE before App Store submission
-import AuthDebugBanner from '@/components/debug/AuthDebugBanner';
 // Capacitor init — no-op in web environment (native SDKs not installed)
 const useCapacitorInit = () => {};
 
@@ -149,7 +147,6 @@ function App() {
         <QueryClientProvider client={queryClientInstance}>
           <Router>
             <NavigationTracker />
-            <AuthDebugBanner />
             <AuthenticatedApp />
           </Router>
           <Toaster />
