@@ -1,18 +1,90 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import AuthLayout from './AuthLayout';
 import { Eye, EyeOff, Lock, KeyRound } from 'lucide-react';
 
+// Common parameter names email systems use to carry reset tokens. We check
+// all of them since we don't know which Base44's tracking-redirect chain
+// preserves through to our app.
+const TOKEN_PARAM_NAMES = ['token', 'resetToken', 'reset_token', 'code', 't', 'key', 'auth', 'access_token'];
+
+// Try to extract a reset token from anywhere it might be hiding:
+//   1. Standard URL query string (?token=xyz)
+//   2. URL hash fragment (#token=xyz — some platforms put auth tokens here)
+//   3. React Router location's search and hash
+//   4. Full window URL as a last resort (catches odd deep-link encodings)
+// Returns {token, source} or {token: '', source: ''} if nothing found.
+function extractTokenFromUrl(locationSearch, locationHash) {
+  if (typeof window === 'undefined') return { token: '', source: '' };
+
+  const tryParams = (queryStr) => {
+    if (!queryStr) return null;
+    const cleaned = queryStr.startsWith('?') || queryStr.startsWith('#') ? queryStr.slice(1) : queryStr;
+    try {
+      const params = new URLSearchParams(cleaned);
+      for (const name of TOKEN_PARAM_NAMES) {
+        const val = params.get(name);
+        if (val && val.length > 6) return { token: val, source: name };
+      }
+    } catch (_e) {}
+    return null;
+  };
+
+  // Try React Router's parsed location first
+  const fromSearch = tryParams(locationSearch);
+  if (fromSearch) return fromSearch;
+  const fromHash = tryParams(locationHash);
+  if (fromHash) return fromHash;
+
+  // Fall back to window.location directly (in case the router missed it)
+  const fromWindowSearch = tryParams(window.location.search);
+  if (fromWindowSearch) return fromWindowSearch;
+  const fromWindowHash = tryParams(window.location.hash);
+  if (fromWindowHash) return fromWindowHash;
+
+  return { token: '', source: '' };
+}
+
 export default function ResetPassword() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [resetToken, setResetToken] = useState('');
+  const [tokenAutoFilled, setTokenAutoFilled] = useState(false);
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
+
+  // Debug info — TEMPORARY, remove before App Store submission. Shows what
+  // URL params the app actually received when the user tapped the reset
+  // link in their email. Helps us see whether Base44's tracking-redirect
+  // chain preserves the token or strips it.
+  const [debugInfo, setDebugInfo] = useState(null);
+
+  // On mount, try to auto-extract the reset token from the URL.
+  useEffect(() => {
+    const { token, source } = extractTokenFromUrl(location.search, location.hash);
+
+    // Capture debug info regardless of whether we found a token
+    const info = {
+      pathname: location.pathname || '(none)',
+      search: location.search || '(empty)',
+      hash: location.hash || '(empty)',
+      fullHref: typeof window !== 'undefined' ? window.location.href : '(no window)',
+      tokenFound: token ? `${token.slice(0, 8)}…(len=${token.length})` : '(none)',
+      tokenSource: source || '(none)',
+    };
+    setDebugInfo(info);
+
+    if (token) {
+      setResetToken(token);
+      setTokenAutoFilled(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,30 +135,49 @@ export default function ResetPassword() {
           Set a new password
         </h2>
         <p className="text-sm text-[#2A3A3F]/70 dark:text-white/60">
-          Paste the reset token from your email below.
+          {tokenAutoFilled
+            ? "We've got your reset link. Just choose a new password below."
+            : "Paste the reset token from your email below."}
         </p>
       </div>
 
+      {/* TEMP debug strip — remove after we confirm reset flow works.
+          Shows what URL state the app actually received when the email
+          link was tapped, so we can see if Base44 preserves the token. */}
+      {debugInfo && (
+        <div className="mb-4 p-2 bg-yellow-50 dark:bg-yellow-500/10 border border-yellow-300/50 dark:border-yellow-500/30 rounded text-[10px] font-mono leading-tight text-yellow-900 dark:text-yellow-200 break-all">
+          <div className="font-bold mb-1">🔍 URL debug (temp — remove before launch)</div>
+          <div>path: {debugInfo.pathname}</div>
+          <div>search: {debugInfo.search}</div>
+          <div>hash: {debugInfo.hash}</div>
+          <div>found token: {debugInfo.tokenFound}</div>
+          <div>from param: {debugInfo.tokenSource}</div>
+          <div className="mt-1 opacity-70">full url: {debugInfo.fullHref}</div>
+        </div>
+      )}
+
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label htmlFor="resetToken" className="block text-xs font-bold text-[#2A3A3F]/70 dark:text-white/70 mb-1.5 uppercase tracking-wider">
-            Reset Token
-          </label>
-          <div className="relative">
-            <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#2A3A3F]/40 dark:text-white/40" />
-            <input
-              id="resetToken"
-              type="text"
-              autoCapitalize="none"
-              autoCorrect="off"
-              value={resetToken}
-              onChange={(e) => setResetToken(e.target.value)}
+        {!tokenAutoFilled && (
+          <div>
+            <label htmlFor="resetToken" className="block text-xs font-bold text-[#2A3A3F]/70 dark:text-white/70 mb-1.5 uppercase tracking-wider">
+              Reset Token
+            </label>
+            <div className="relative">
+              <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#2A3A3F]/40 dark:text-white/40" />
+              <input
+                id="resetToken"
+                type="text"
+                autoCapitalize="none"
+                autoCorrect="off"
+                value={resetToken}
+                onChange={(e) => setResetToken(e.target.value)}
               placeholder="Paste from your email"
               className="w-full pl-10 pr-3 py-3 bg-white dark:bg-white/5 border border-[#2A3A3F]/15 dark:border-white/10 rounded-xl text-[#2A3A3F] dark:text-white placeholder:text-[#2A3A3F]/40 dark:placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#FD9C2D]/40 focus:border-[#FD9C2D]/40 min-h-[48px]"
               disabled={isSubmitting}
             />
           </div>
         </div>
+        )}
 
         <div>
           <label htmlFor="newPassword" className="block text-xs font-bold text-[#2A3A3F]/70 dark:text-white/70 mb-1.5 uppercase tracking-wider">
