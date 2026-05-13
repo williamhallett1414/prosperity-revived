@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import AuthLayout from './AuthLayout';
-import { Eye, EyeOff, Lock, KeyRound } from 'lucide-react';
+import { Eye, EyeOff, Lock } from 'lucide-react';
 
 // Common parameter names email systems use to carry reset tokens. We check
 // all of them since we don't know which Base44's tracking-redirect chain
@@ -125,6 +125,54 @@ export default function ResetPassword() {
     }
   };
 
+  // If no token was found in the URL, this isn't a valid reset link. Show
+  // a clear error UI rather than a confusing 'paste your token' fallback.
+  if (!tokenAutoFilled) {
+    return (
+      <AuthLayout showBack backTo="/forgot-password">
+        <div className="text-center">
+          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-red-100 dark:bg-red-500/15 flex items-center justify-center">
+            <span className="text-3xl" aria-hidden="true">⚠️</span>
+          </div>
+          <h2
+            className="text-2xl text-[#2A3A3F] dark:text-white mb-3 tracking-tight"
+            style={{ fontFamily: 'Fraunces, serif', fontWeight: 600 }}
+          >
+            This reset link isn't valid
+          </h2>
+          <p className="text-sm text-[#2A3A3F]/70 dark:text-white/60 mb-6 leading-relaxed">
+            It may have expired, already been used, or been opened incorrectly. Request a fresh reset link and try again.
+          </p>
+          <button
+            onClick={() => navigate('/forgot-password')}
+            className="w-full bg-[#FD9C2D] hover:bg-[#e88d1f] text-white font-bold py-3.5 rounded-xl shadow-md transition-colors min-h-[52px]"
+          >
+            Request a new reset link
+          </button>
+          <Link
+            to="/login"
+            className="block mt-4 text-sm text-[#2A3A3F]/70 dark:text-white/60 hover:underline"
+          >
+            Back to sign in
+          </Link>
+
+          {/* TEMP debug strip — remove after we confirm reset flow works. */}
+          {debugInfo && (
+            <div className="mt-6 p-2 bg-yellow-50 dark:bg-yellow-500/10 border border-yellow-300/50 dark:border-yellow-500/30 rounded text-[10px] font-mono leading-tight text-yellow-900 dark:text-yellow-200 break-all text-left">
+              <div className="font-bold mb-1">🔍 URL debug (temp — remove before launch)</div>
+              <div>path: {debugInfo.pathname}</div>
+              <div>search: {debugInfo.search}</div>
+              <div>hash: {debugInfo.hash}</div>
+              <div>found token: {debugInfo.tokenFound}</div>
+              <div>from param: {debugInfo.tokenSource}</div>
+              <div className="mt-1 opacity-70">full url: {debugInfo.fullHref}</div>
+            </div>
+          )}
+        </div>
+      </AuthLayout>
+    );
+  }
+
   return (
     <AuthLayout showBack backTo="/forgot-password">
       <div className="mb-8 text-center">
@@ -135,15 +183,11 @@ export default function ResetPassword() {
           Set a new password
         </h2>
         <p className="text-sm text-[#2A3A3F]/70 dark:text-white/60">
-          {tokenAutoFilled
-            ? "We've got your reset link. Just choose a new password below."
-            : "Paste the reset token from your email below."}
+          Almost done. Just choose a new password below.
         </p>
       </div>
 
-      {/* TEMP debug strip — remove after we confirm reset flow works.
-          Shows what URL state the app actually received when the email
-          link was tapped, so we can see if Base44 preserves the token. */}
+      {/* TEMP debug strip — remove after we confirm reset flow works. */}
       {debugInfo && (
         <div className="mb-4 p-2 bg-yellow-50 dark:bg-yellow-500/10 border border-yellow-300/50 dark:border-yellow-500/30 rounded text-[10px] font-mono leading-tight text-yellow-900 dark:text-yellow-200 break-all">
           <div className="font-bold mb-1">🔍 URL debug (temp — remove before launch)</div>
@@ -157,28 +201,6 @@ export default function ResetPassword() {
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {!tokenAutoFilled && (
-          <div>
-            <label htmlFor="resetToken" className="block text-xs font-bold text-[#2A3A3F]/70 dark:text-white/70 mb-1.5 uppercase tracking-wider">
-              Reset Token
-            </label>
-            <div className="relative">
-              <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#2A3A3F]/40 dark:text-white/40" />
-              <input
-                id="resetToken"
-                type="text"
-                autoCapitalize="none"
-                autoCorrect="off"
-                value={resetToken}
-                onChange={(e) => setResetToken(e.target.value)}
-              placeholder="Paste from your email"
-              className="w-full pl-10 pr-3 py-3 bg-white dark:bg-white/5 border border-[#2A3A3F]/15 dark:border-white/10 rounded-xl text-[#2A3A3F] dark:text-white placeholder:text-[#2A3A3F]/40 dark:placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#FD9C2D]/40 focus:border-[#FD9C2D]/40 min-h-[48px]"
-              disabled={isSubmitting}
-            />
-          </div>
-        </div>
-        )}
-
         <div>
           <label htmlFor="newPassword" className="block text-xs font-bold text-[#2A3A3F]/70 dark:text-white/70 mb-1.5 uppercase tracking-wider">
             New Password
