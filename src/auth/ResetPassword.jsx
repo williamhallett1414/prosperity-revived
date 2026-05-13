@@ -58,26 +58,30 @@ export default function ResetPassword() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
 
-  // Debug info — TEMPORARY, remove before App Store submission. Shows what
-  // URL params the app actually received when the user tapped the reset
-  // link in their email. Helps us see whether Base44's tracking-redirect
-  // chain preserves the token or strips it.
-  const [debugInfo, setDebugInfo] = useState(null);
+  // ── DEBUG (disabled) ────────────────────────────────────────────────────
+  // The diagnostic strip below was used to confirm that Base44's password-
+  // reset email link delivers the token through to /reset-password as a URL
+  // param. Commented out — uncomment all 4 DEBUG blocks (state, useEffect
+  // capture, and the two yellow JSX strips below) if the reset flow ever
+  // misbehaves and we need visibility again.
+  // const [debugInfo, setDebugInfo] = useState(null);
 
   // On mount, try to auto-extract the reset token from the URL.
   useEffect(() => {
     const { token, source } = extractTokenFromUrl(location.search, location.hash);
 
-    // Capture debug info regardless of whether we found a token
-    const info = {
-      pathname: location.pathname || '(none)',
-      search: location.search || '(empty)',
-      hash: location.hash || '(empty)',
-      fullHref: typeof window !== 'undefined' ? window.location.href : '(no window)',
-      tokenFound: token ? `${token.slice(0, 8)}…(len=${token.length})` : '(none)',
-      tokenSource: source || '(none)',
-    };
-    setDebugInfo(info);
+    // DEBUG (disabled): capture URL info for the diagnostic strip.
+    // const info = {
+    //   pathname: location.pathname || '(none)',
+    //   search: location.search || '(empty)',
+    //   hash: location.hash || '(empty)',
+    //   fullHref: typeof window !== 'undefined' ? window.location.href : '(no window)',
+    //   tokenFound: token ? `${token.slice(0, 8)}…(len=${token.length})` : '(none)',
+    //   tokenSource: source || '(none)',
+    // };
+    // setDebugInfo(info);
+    // Suppress unused-variable lint warning for `source` while debug capture is off.
+    void source;
 
     if (token) {
       setResetToken(token);
@@ -156,7 +160,8 @@ export default function ResetPassword() {
             Back to sign in
           </Link>
 
-          {/* TEMP debug strip — remove after we confirm reset flow works. */}
+          {/* DEBUG (disabled): diagnostic URL strip — uncomment along with the
+              debugInfo state and useEffect capture block above to re-enable.
           {debugInfo && (
             <div className="mt-6 p-2 bg-yellow-50 dark:bg-yellow-500/10 border border-yellow-300/50 dark:border-yellow-500/30 rounded text-[10px] font-mono leading-tight text-yellow-900 dark:text-yellow-200 break-all text-left">
               <div className="font-bold mb-1">🔍 URL debug (temp — remove before launch)</div>
@@ -168,6 +173,7 @@ export default function ResetPassword() {
               <div className="mt-1 opacity-70">full url: {debugInfo.fullHref}</div>
             </div>
           )}
+          */}
         </div>
       </AuthLayout>
     );
@@ -187,7 +193,8 @@ export default function ResetPassword() {
         </p>
       </div>
 
-      {/* TEMP debug strip — remove after we confirm reset flow works. */}
+      {/* DEBUG (disabled): diagnostic URL strip — uncomment along with the
+          debugInfo state and useEffect capture block above to re-enable.
       {debugInfo && (
         <div className="mb-4 p-2 bg-yellow-50 dark:bg-yellow-500/10 border border-yellow-300/50 dark:border-yellow-500/30 rounded text-[10px] font-mono leading-tight text-yellow-900 dark:text-yellow-200 break-all">
           <div className="font-bold mb-1">🔍 URL debug (temp — remove before launch)</div>
@@ -199,6 +206,7 @@ export default function ResetPassword() {
           <div className="mt-1 opacity-70">full url: {debugInfo.fullHref}</div>
         </div>
       )}
+      */}
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
