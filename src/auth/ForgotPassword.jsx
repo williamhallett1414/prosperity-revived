@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import AuthLayout from './AuthLayout';
 import { Mail } from 'lucide-react';
 
 export default function ForgotPassword() {
-  const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -58,20 +57,17 @@ export default function ForgotPassword() {
           >
             Check your email
           </h2>
-          <p className="text-sm text-[#2A3A3F]/70 dark:text-white/60 mb-6">
+          <p className="text-sm text-[#2A3A3F]/75 dark:text-white/65 mb-2">
             If an account exists for{' '}
             <span className="font-semibold text-[#2A3A3F] dark:text-white">{email}</span>
-            , we've sent reset instructions. The email includes a token you'll enter on the next screen.
+            , we've sent a reset link.
           </p>
-          <button
-            onClick={() => navigate('/reset-password', { state: { email } })}
-            className="w-full bg-[#FD9C2D] hover:bg-[#e88d1f] text-white font-bold py-3.5 rounded-xl shadow-md transition-colors min-h-[52px]"
-          >
-            I have my reset token
-          </button>
+          <p className="text-sm text-[#2A3A3F]/65 dark:text-white/55 mb-8 leading-relaxed">
+            Tap the <span className="font-semibold">Reset password</span> button in the email — it'll bring you back to the app to choose a new password. The link expires in one hour.
+          </p>
           <Link
             to="/login"
-            className="block mt-4 text-sm text-[#2A3A3F]/70 dark:text-white/60 hover:underline"
+            className="block w-full text-center text-sm font-semibold text-[#FD9C2D] hover:underline py-3"
           >
             Back to sign in
           </Link>
