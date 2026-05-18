@@ -10,6 +10,7 @@ import { RitualButton, QuickNav, ResumeCard, ActiveChallengesWidget, StartHereCa
 import HelpChatbot from '@/components/home/HelpChatbot';
 import { GRACE_MOMENTS } from '@/components/home/graceMoments';
 import { getFirstName } from '@/lib/userName';
+import AwakeningBanner from '@/components/awakening/AwakeningBanner';
 const StartMyDayModal = React.lazy(() => import('@/components/home/StartMyDayModal'));
 import gideonImg from '@/assets/gideon-avatar.png';
 import hannahImg from '@/assets/hannah-avatar.png';
@@ -75,6 +76,9 @@ function Home() {
             )}
           </div>
         </motion.div>
+
+        {/* Launch event promo — auto-hides outside the event window */}
+        <AwakeningBanner />
 
         {!ritualDone && (
           <RitualButton
