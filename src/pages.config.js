@@ -115,6 +115,7 @@ const PrayerPartners = lazy(() => import('./pages/PrayerPartners'));
 const SpiritualAssessment = lazy(() => import('./pages/SpiritualAssessment'));
 const RepentanceJournal = lazy(() => import('./pages/RepentanceJournal'));
 const Awakening = lazy(() => import('./pages/Awakening'));
+const FirstWeek = lazy(() => import('./pages/FirstWeek'));
 import __Layout from './Layout.jsx';
 
 
@@ -186,6 +187,7 @@ export const PAGES = {
     "SpiritualAssessment": SpiritualAssessment,
     "RepentanceJournal": RepentanceJournal,
     "Awakening": Awakening,
+    "FirstWeek": FirstWeek,
 }
 
 export const pagesConfig = {

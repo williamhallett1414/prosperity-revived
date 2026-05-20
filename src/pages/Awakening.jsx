@@ -49,12 +49,47 @@ const AVATAR_MAP = {
   'Coach Paul': coachPaulImg,
 };
 
+// ── Started-day localStorage helpers ──────────────────────────────────────
+// "Started" means the user tapped a day's CTA but hasn't yet self-attested
+// completion. Lives in localStorage (not on the User entity) because it's
+// a transient client-side concept — if a user reinstalls or switches devices
+// mid-week, they just see all unlocked days as Begin/Revisit, which is fine.
+const STARTED_KEY = 'awakening_started_days';
+
+function getStartedDays() {
+  try {
+    const raw = localStorage.getItem(STARTED_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed.filter(n => Number.isInteger(n)) : [];
+  } catch {
+    return [];
+  }
+}
+
+function addStartedDay(dayNumber) {
+  try {
+    const current = getStartedDays();
+    if (current.includes(dayNumber)) return;
+    localStorage.setItem(STARTED_KEY, JSON.stringify([...current, dayNumber]));
+  } catch {}
+}
+
+function removeStartedDay(dayNumber) {
+  try {
+    const current = getStartedDays();
+    localStorage.setItem(STARTED_KEY, JSON.stringify(current.filter(n => n !== dayNumber)));
+  } catch {}
+}
+
 export default function Awakening() {
   const navigate = useNavigate();
   const { user: authUser } = useAuth();
   const [user, setUser] = useState(authUser);
   const [now, setNow] = useState(new Date());
   const [saving, setSaving] = useState(false);
+  // started: array of day numbers user has tapped into but not yet completed
+  const [started, setStarted] = useState(() => getStartedDays());
 
   // Re-fetch user to make sure awakening_progress and founding_member are
   // fresh (AuthContext may cache an older snapshot).
@@ -83,14 +118,21 @@ export default function Awakening() {
   const complete = useMemo(() => isAwakeningComplete(user), [user]);
   const firstName = getFirstName(user);
 
+  // markComplete: the user has self-attested they completed the day.
+  // Called from the "I completed this day" button on a started day card,
+  // not automatically on navigation.
   const markComplete = async (dayNumber) => {
     if (!user || progress.includes(dayNumber) || saving) return;
     const next = [...progress, dayNumber].sort((a, b) => a - b);
     // Optimistic update
     setUser({ ...user, awakening_progress: next });
+    // Day is no longer "in progress" — it's complete.
+    removeStartedDay(dayNumber);
+    setStarted(getStartedDays());
     setSaving(true);
     try {
       await base44.auth.updateMe({ awakening_progress: next });
+      toast.success(`Day ${dayNumber} complete. Grace meets you here.`);
       // If this completion finished the week and the user is a founder,
       // mark founding price as locked. Field is reserved server-side.
       if (
@@ -108,6 +150,9 @@ export default function Awakening() {
     } catch (e) {
       // Rollback on failure
       setUser((u) => ({ ...u, awakening_progress: progress }));
+      // Restore the "started" state so they can try completion again.
+      addStartedDay(dayNumber);
+      setStarted(getStartedDays());
       toast.error('Could not save your progress. Try again in a moment.');
       console.error('Failed to save awakening progress', e);
     } finally {
@@ -115,10 +160,29 @@ export default function Awakening() {
     }
   };
 
+  // handleDayCta: user tapped into a day's practice. Mark "started" (NOT
+  // complete) so we know to show the completion button when they return.
+  // Then navigate to the underlying practice page.
   const handleDayCta = (dayConfig) => {
-    markComplete(dayConfig.day); // optimistic — they have begun
+    if (!progress.includes(dayConfig.day)) {
+      addStartedDay(dayConfig.day);
+      setStarted(getStartedDays());
+    }
     navigate(dayConfig.route);
   };
+
+  // Re-read started state when the page becomes visible again (user
+  // returns from the practice page). Page visibility API fires on tab
+  // changes and on iOS when the app comes back from background.
+  useEffect(() => {
+    const handler = () => {
+      if (document.visibilityState === 'visible') {
+        setStarted(getStartedDays());
+      }
+    };
+    document.addEventListener('visibilitychange', handler);
+    return () => document.removeEventListener('visibilitychange', handler);
+  }, []);
 
   // ── Render ──────────────────────────────────────────────────────────────
   return (
@@ -211,21 +275,48 @@ export default function Awakening() {
 
         {complete && (
           <div className="mt-7 max-w-md mx-auto">
-            <p className="text-white/90 italic">
-              The Awakening is complete. Your journey continues.
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#FAD98D]/40 bg-[#FAD98D]/5 mb-4">
+              <Sparkles className="w-3.5 h-3.5 text-[#FAD98D]" />
+              <span className="text-[10px] tracking-[0.3em] uppercase text-[#FAD98D] font-semibold">
+                Awakening complete
+              </span>
+            </div>
+            <p className="text-white text-lg font-serif italic leading-snug mb-3" style={{ fontFamily: 'Georgia, serif' }}>
+              {firstName !== 'friend' ? `${firstName}, you showed up.` : 'You showed up.'}
+            </p>
+            <p className="text-white/75 text-sm leading-relaxed mb-4">
+              Seven days. Five coaches. Your spirit, your body, your mind — all in the same week. That's not small. Carry this forward.
             </p>
             {isFounder && (
-              <p className="mt-2 text-[#FAD98D] text-sm">
-                Founding pricing is yours for life.
-              </p>
+              <div className="mt-4 p-4 rounded-2xl border border-[#FAD98D]/30 bg-gradient-to-br from-[#FAD98D]/10 to-transparent">
+                <p className="text-[#FAD98D] text-xs font-bold uppercase tracking-widest mb-1">
+                  Founding Member · Locked in
+                </p>
+                <p className="text-white/85 text-sm">
+                  Founding pricing is yours for life. The Revived 500 are now 500.
+                </p>
+              </div>
             )}
+            <p className="mt-5 text-white/55 text-xs italic leading-relaxed">
+              "He who began a good work in you will carry it on to completion." — Philippians 1:6
+            </p>
           </div>
         )}
 
         {currentDay === 8 && !complete && (
-          <p className="mt-7 text-white/75 italic">
-            The Awakening has ended. Revisit any day below.
-          </p>
+          <div className="mt-7 max-w-md mx-auto">
+            <p className="text-white/85 font-serif italic text-lg leading-snug mb-3" style={{ fontFamily: 'Georgia, serif' }}>
+              The week has passed.
+            </p>
+            <p className="text-white/70 text-sm leading-relaxed mb-3">
+              {progress.length === 0
+                ? "You watched from the edge this time. That's okay — grace doesn't keep score. Every day is still open below if you want to walk it now."
+                : `You showed up for ${progress.length} ${progress.length === 1 ? 'day' : 'days'}. That counts. Pick up any of the others below whenever you're ready.`}
+            </p>
+            <p className="mt-4 text-white/45 text-xs italic">
+              "He who began a good work in you will carry it on to completion." — Philippians 1:6
+            </p>
+          </div>
         )}
       </section>
 
@@ -261,8 +352,32 @@ export default function Awakening() {
 
       {/* Day cards */}
       <section className="px-5 pb-24 max-w-xl mx-auto space-y-3">
+        {/* Missed-a-day grace message — only shown if user has at least one
+            past day still incomplete (e.g., today is Day 4 but Days 2 or 3
+            were skipped). Frames the catch-up in the Prosperity Revived
+            grace voice rather than as a checkmark guilt-trip. */}
+        {currentDay >= 2 && currentDay <= 7 && (() => {
+          const missed = [];
+          for (let d = 1; d < currentDay; d++) {
+            if (!progress.includes(d)) missed.push(d);
+          }
+          if (missed.length === 0) return null;
+          return (
+            <div className="mb-2 rounded-2xl border border-[#FAD98D]/30 bg-[#FAD98D]/5 p-4">
+              <p className="text-[#FAD98D] text-sm font-serif italic mb-1">
+                {missed.length === 1
+                  ? `You missed Day ${missed[0]}.`
+                  : `You missed ${missed.length} days.`}
+              </p>
+              <p className="text-white/70 text-xs leading-relaxed">
+                That's okay. Grace meets you here. Pick up where you can — no day is locked once today has arrived.
+              </p>
+            </div>
+          );
+        })()}
         {AWAKENING_DAYS.map((d, idx) => {
           const done = progress.includes(d.day);
+          const inProgress = started.includes(d.day);
           const isToday = d.day === currentDay;
           // Unlocked if event is over OR day has arrived
           const isUnlocked = currentDay === 8 || d.day <= currentDay;
@@ -271,10 +386,12 @@ export default function Awakening() {
               key={d.day}
               day={d}
               done={done}
+              inProgress={inProgress}
               isToday={isToday}
               isUnlocked={isUnlocked}
               saving={saving}
               onBegin={() => handleDayCta(d)}
+              onMarkComplete={() => markComplete(d.day)}
               animationDelay={idx * 0.04}
             />
           );
@@ -290,8 +407,73 @@ export default function Awakening() {
 }
 
 // ──────────────────────────────────────────────────────────────────────────
-function DayCard({ day, done, isToday, isUnlocked, saving, onBegin, animationDelay }) {
+function DayCard({ day, done, inProgress, isToday, isUnlocked, saving, onBegin, onMarkComplete, animationDelay }) {
   const avatarSrc = day.coach !== 'All Five' ? AVATAR_MAP[day.coach] : null;
+
+  // Determine which CTA pattern to render:
+  //  done            → "Revisit" link only (already completed)
+  //  inProgress      → "I completed this day" primary + "Open again" secondary
+  //  isUnlocked      → "Begin" primary CTA
+  //  else            → locked notice
+  let ctaBlock;
+  if (!isUnlocked) {
+    ctaBlock = (
+      <div className="inline-flex items-center gap-1.5 text-white/40 text-[10px] tracking-widest uppercase">
+        <Lock className="w-3 h-3" />
+        <span>Unlocks {day.label}</span>
+      </div>
+    );
+  } else if (done) {
+    ctaBlock = (
+      <button
+        onClick={onBegin}
+        disabled={saving}
+        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold border border-white/25 text-white/75 hover:bg-white/5 transition-colors"
+      >
+        <span>Revisit</span>
+        <span aria-hidden="true">→</span>
+      </button>
+    );
+  } else if (inProgress) {
+    ctaBlock = (
+      <div className="flex items-center gap-2 flex-wrap">
+        <button
+          onClick={onMarkComplete}
+          disabled={saving}
+          className={[
+            'inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-colors',
+            'bg-[#FD9C2D] text-[#2A3A3F] hover:bg-[#FAD98D]',
+            saving && 'opacity-70 cursor-wait',
+          ].join(' ')}
+        >
+          <Check className="w-3.5 h-3.5" />
+          <span>I completed this day</span>
+        </button>
+        <button
+          onClick={onBegin}
+          disabled={saving}
+          className="inline-flex items-center gap-1 text-white/60 text-[11px] hover:text-white/85 transition-colors underline-offset-2 hover:underline"
+        >
+          <span>Open again</span>
+        </button>
+      </div>
+    );
+  } else {
+    ctaBlock = (
+      <button
+        onClick={onBegin}
+        disabled={saving}
+        className={[
+          'inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-colors',
+          'bg-[#FD9C2D] text-[#2A3A3F] hover:bg-[#FAD98D]',
+          saving && 'opacity-70 cursor-wait',
+        ].join(' ')}
+      >
+        <span>{day.cta}</span>
+        <span aria-hidden="true">→</span>
+      </button>
+    );
+  }
 
   return (
     <motion.article
@@ -302,7 +484,9 @@ function DayCard({ day, done, isToday, isUnlocked, saving, onBegin, animationDel
         'relative overflow-hidden rounded-2xl border p-4 transition-all',
         isToday
           ? 'border-[#FD9C2D]/60 bg-white/[0.04] shadow-[0_0_40px_-12px_rgba(253,156,45,0.4)]'
-          : 'border-white/12 bg-white/[0.02]',
+          : inProgress
+            ? 'border-[#FAD98D]/40 bg-white/[0.03]'
+            : 'border-white/12 bg-white/[0.02]',
         !isUnlocked && 'opacity-55',
       ].join(' ')}
     >
@@ -321,7 +505,7 @@ function DayCard({ day, done, isToday, isUnlocked, saving, onBegin, animationDel
             <div
               className={[
                 'w-14 h-14 rounded-full overflow-hidden bg-white/5 border-2',
-                isToday ? 'border-[#FD9C2D]' : done ? 'border-[#FD9C2D]/60' : 'border-white/15',
+                isToday ? 'border-[#FD9C2D]' : done ? 'border-[#FD9C2D]/60' : inProgress ? 'border-[#FAD98D]/60' : 'border-white/15',
               ].join(' ')}
             >
               <img
@@ -352,6 +536,12 @@ function DayCard({ day, done, isToday, isUnlocked, saving, onBegin, animationDel
             <span>{day.label.toUpperCase()}</span>
             <span>·</span>
             <span>{day.coach.toUpperCase()}</span>
+            {inProgress && !done && (
+              <>
+                <span>·</span>
+                <span className="text-[#FAD98D]">IN PROGRESS</span>
+              </>
+            )}
           </div>
           <h3
             className="font-serif text-white text-lg mb-1 leading-tight"
@@ -363,27 +553,7 @@ function DayCard({ day, done, isToday, isUnlocked, saving, onBegin, animationDel
             {day.description}
           </p>
 
-          {isUnlocked ? (
-            <button
-              onClick={onBegin}
-              disabled={saving}
-              className={[
-                'inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-colors',
-                done
-                  ? 'border border-white/25 text-white/75 hover:bg-white/5'
-                  : 'bg-[#FD9C2D] text-[#2A3A3F] hover:bg-[#FAD98D]',
-                saving && 'opacity-70 cursor-wait',
-              ].join(' ')}
-            >
-              <span>{done ? 'Revisit' : day.cta}</span>
-              <span aria-hidden="true">→</span>
-            </button>
-          ) : (
-            <div className="inline-flex items-center gap-1.5 text-white/40 text-[10px] tracking-widest uppercase">
-              <Lock className="w-3 h-3" />
-              <span>Unlocks {day.label}</span>
-            </div>
-          )}
+          {ctaBlock}
         </div>
 
         {/* Completion checkmark in corner */}

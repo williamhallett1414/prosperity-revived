@@ -11,6 +11,7 @@ import HelpChatbot from '@/components/home/HelpChatbot';
 import { GRACE_MOMENTS } from '@/components/home/graceMoments';
 import { getFirstName } from '@/lib/userName';
 import AwakeningBanner from '@/components/awakening/AwakeningBanner';
+import FirstWeekBanner from '@/components/firstweek/FirstWeekBanner';
 const StartMyDayModal = React.lazy(() => import('@/components/home/StartMyDayModal'));
 import gideonImg from '@/assets/gideon-avatar.png';
 import hannahImg from '@/assets/hannah-avatar.png';
@@ -79,6 +80,11 @@ function Home() {
 
         {/* Launch event promo — auto-hides outside the event window */}
         <AwakeningBanner />
+
+        {/* First Week welcome — auto-hides outside user's first 7 days,
+            and auto-hides during the Awakening event window to avoid
+            two competing 7-day plans appearing simultaneously. */}
+        <FirstWeekBanner />
 
         {!ritualDone && (
           <RitualButton
