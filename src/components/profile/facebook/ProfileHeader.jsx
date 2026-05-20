@@ -76,20 +76,20 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
           {/* Profile Picture & Name */}
           <div className="flex flex-col sm:flex-row sm:items-end sm:gap-5 mb-4 sm:mb-0">
             <div className="relative mb-4 sm:mb-0 mx-auto sm:mx-0">
-              {/* Founding Member gold ring — subtle gradient halo around the avatar.
-                  Falls back to plain white border for non-founders. */}
+              {/* Founding Member gold ring — refined gradient (gold → orange → deep gold)
+                  with a subtle inner cream divider to separate ring from avatar. */}
               <div
                 className={[
-                  'w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden bg-gradient-to-br from-[#3C4E53] to-[#FD9C2D]',
+                  'w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden',
                   user?.founding_member
-                    ? 'p-[3px] bg-gradient-to-br from-[#FAD98D] via-[#FD9C2D] to-[#FAD98D] shadow-[0_8px_24px_-8px_rgba(253,156,45,0.55)]'
+                    ? 'p-[3px] bg-gradient-to-br from-[#FAD98D] via-[#FD9C2D] to-[#c9a227] shadow-[0_10px_28px_-10px_rgba(253,156,45,0.7)]'
                     : 'border-4 border-white shadow-2xl',
                 ].join(' ')}
               >
                 <div
                   className={[
-                    'w-full h-full rounded-full overflow-hidden',
-                    user?.founding_member ? 'bg-gradient-to-br from-[#3C4E53] to-[#FD9C2D]' : '',
+                    'w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-[#3C4E53] to-[#FD9C2D]',
+                    user?.founding_member ? 'border-2 border-white dark:border-[#0A1A2F]' : '',
                   ].join(' ')}
                 >
                   {user?.profile_image_url ?
@@ -106,6 +106,13 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
                 </div>
               </div>
 
+              {/* Founder corner seal — heraldic mark at top-right */}
+              {user?.founding_member && (
+                <div className="absolute -top-1 -right-1 pointer-events-none">
+                  <FoundingMemberBadge variant="corner-seal" />
+                </div>
+              )}
+
               <label className="absolute bottom-1 right-1 bg-white dark:bg-white/5 rounded-full p-2.5 shadow-lg dark:shadow-none cursor-pointer hover:bg-gray-50 dark:bg-white/5 transition-all hover:scale-105">
                 <Camera className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700 dark:text-gray-200" />
                 <input
@@ -119,12 +126,14 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
             </div>
 
             <div className="text-center sm:text-left pb-2">
-              <div className="flex items-center gap-2 justify-center sm:justify-start flex-wrap mb-1">
-                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
-                  {getDisplayName(user, 'User')}
-                </h1>
-                {user?.founding_member && <FoundingMemberBadge variant="pill" />}
-              </div>
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-1">
+                {getDisplayName(user, 'User')}
+              </h1>
+              {user?.founding_member && (
+                <div className="mb-2 flex justify-center sm:justify-start">
+                  <FoundingMemberBadge variant="wordmark" />
+                </div>
+              )}
               <p className="text-gray-600 dark:text-gray-300 font-medium text-sm sm:text-base">{friendsCount} {friendsCount === 1 ? 'friend' : 'friends'}</p>
               {user?.bio &&
               <p className="text-gray-600 dark:text-gray-300 text-sm mt-2 max-w-md leading-relaxed">{user.bio}</p>
