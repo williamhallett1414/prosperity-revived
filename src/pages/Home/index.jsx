@@ -11,6 +11,7 @@ import HelpChatbot from '@/components/home/HelpChatbot';
 import { GRACE_MOMENTS } from '@/components/home/graceMoments';
 import { getFirstName } from '@/lib/userName';
 import AwakeningBanner from '@/components/awakening/AwakeningBanner';
+import AwakeningDailyReminder from '@/components/awakening/AwakeningDailyReminder';
 import FirstWeekBanner from '@/components/firstweek/FirstWeekBanner';
 const StartMyDayModal = React.lazy(() => import('@/components/home/StartMyDayModal'));
 import gideonImg from '@/assets/gideon-avatar.png';
@@ -58,6 +59,11 @@ function Home() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F]">
+      {/* Once-per-day Awakening reminder — only renders inside the event
+          window (Jul 7-13) when the user opens the app for the first time
+          today and hasn't already completed today's day. Self-gating
+          internally; safe to mount unconditionally. */}
+      <AwakeningDailyReminder />
       <div className="max-w-lg mx-auto px-4 pt-4 pb-28 space-y-4">
         <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }}>
           <p className="text-xs font-medium text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-0.5">
