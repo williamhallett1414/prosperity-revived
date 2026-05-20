@@ -352,6 +352,72 @@ export default function Awakening() {
 
       {/* Day cards */}
       <section className="px-5 pb-24 max-w-xl mx-auto space-y-3">
+        {/* Founder-only Day 0 welcome card. Appears only on July 6 (currentDay===0)
+            when user is a Founding Member. Fulfills the hero copy promise that
+            "Gideon has a Day 0 welcome waiting for you below." Routes to /Bible
+            so they can open a real conversation with Gideon. */}
+        {currentDay === 0 && isFounder && (
+          <motion.article
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="relative overflow-hidden rounded-2xl border border-[#FAD98D]/40 p-4 transition-all"
+            style={{
+              background:
+                'linear-gradient(135deg, rgba(250,217,141,0.10) 0%, rgba(253,156,45,0.06) 100%)',
+            }}
+          >
+            <div
+              className="pointer-events-none absolute -top-12 -right-8 w-40 h-40 rounded-full opacity-30"
+              style={{
+                background:
+                  'radial-gradient(circle, #FD9C2D 0%, rgba(253,156,45,0) 65%)',
+              }}
+              aria-hidden="true"
+            />
+            <div className="relative flex items-start gap-3">
+              <div className="flex-shrink-0">
+                <div className="w-14 h-14 rounded-full overflow-hidden bg-white/5 border-2 border-[#FAD98D]">
+                  <img
+                    src={gideonImg}
+                    alt="Gideon"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-1.5 text-[9px] tracking-[0.3em] text-[#FAD98D] mb-1 flex-wrap">
+                  <span>DAY 0</span>
+                  <span>·</span>
+                  <span>FOUNDING MEMBER</span>
+                  <span>·</span>
+                  <span>GIDEON</span>
+                </div>
+                <h3
+                  className="font-serif text-white text-lg mb-1 leading-tight"
+                  style={{ fontFamily: 'Georgia, serif' }}
+                >
+                  Welcome, founder.
+                </h3>
+                <p className="text-white/75 text-[13px] leading-relaxed mb-3">
+                  {firstName !== 'friend' ? `${firstName}, you're` : "You're"} part of the first 500 walking this with us. Open a conversation with Gideon today — whatever's on your heart as we begin tomorrow. He's been waiting.
+                </p>
+                <button
+                  onClick={() => navigate('/Bible')}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-colors bg-[#FAD98D] text-[#2A3A3F] hover:bg-[#FD9C2D] hover:text-white"
+                >
+                  <span>Talk with Gideon</span>
+                  <span aria-hidden="true">→</span>
+                </button>
+              </div>
+              <div className="absolute top-2 right-2">
+                <Sparkles className="w-4 h-4 text-[#FAD98D]" />
+              </div>
+            </div>
+          </motion.article>
+        )}
+
         {/* Missed-a-day grace message — only shown if user has at least one
             past day still incomplete (e.g., today is Day 4 but Days 2 or 3
             were skipped). Frames the catch-up in the Prosperity Revived

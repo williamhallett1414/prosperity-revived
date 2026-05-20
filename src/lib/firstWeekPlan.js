@@ -15,26 +15,53 @@
  * Progress is stored on the User entity as `first_week_progress: Array<Int>`.
  * Dismissal is local-only in localStorage (don't surveil users with this).
  */
-import { isBannerVisible as isAwakeningVisible } from './awakeningEvent';
+import { isBannerVisible as isAwakeningVisible, EVENT_END as AWAKENING_END } from './awakeningEvent';
 
 // ── Date helpers ───────────────────────────────────────────────────────────
 
 /**
- * How many days has it been since the user signed up?
- *   0 = signed up today
- *   1 = signed up yesterday
+ * Returns the effective start date for the user's First Week. This is usually
+ * just their signup date — but if a user happens to sign up during the
+ * Awakening event-visibility window (June 23-July 13, 2026), we defer their
+ * First Week to start the day after Awakening ends. Without this, when the
+ * Awakening banner hides on July 14, the user would suddenly find their
+ * First Week jumped ahead to "Day N of 7" without ever having seen Day 1.
+ *
+ * Returns null if signup date is missing/invalid.
+ */
+function effectiveFirstWeekStart(user) {
+  if (!user?.created_date) return null;
+  const signup = new Date(user.created_date);
+  if (Number.isNaN(signup.getTime())) return null;
+  // Awakening ends at the END of July 13 (EVENT_END). First Week deferred
+  // start is the calendar day AFTER that.
+  const dayAfterAwakening = new Date(
+    AWAKENING_END.getFullYear(),
+    AWAKENING_END.getMonth(),
+    AWAKENING_END.getDate() + 1
+  );
+  return signup < dayAfterAwakening ? dayAfterAwakening : signup;
+}
+
+/**
+ * How many days has it been since the user's effective First Week start?
+ *   0 = First Week starts today
+ *   1 = First Week started yesterday
  *   7+ = first week is over
  *
- * Falls back to a safe "not in first week" if created_date is missing.
+ * Returns 999 ("not in first week") if start date is missing.
  */
 export function daysSinceSignup(user, now = new Date()) {
-  if (!user?.created_date) return 999;
-  const signup = new Date(user.created_date);
-  if (Number.isNaN(signup.getTime())) return 999;
+  const start = effectiveFirstWeekStart(user);
+  if (!start) return 999;
   const msPerDay = 1000 * 60 * 60 * 24;
-  const startOfSignup = new Date(signup.getFullYear(), signup.getMonth(), signup.getDate());
+  const startDay = new Date(start.getFullYear(), start.getMonth(), start.getDate());
   const startOfNow = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  return Math.floor((startOfNow - startOfSignup) / msPerDay);
+  const diff = Math.floor((startOfNow - startDay) / msPerDay);
+  // If start is in the future (e.g., user signed up mid-Awakening, deferred
+  // start is later this week), report -1 so the rest of the helpers treat
+  // them as "not yet in First Week."
+  return diff < 0 ? -1 : diff;
 }
 
 /**

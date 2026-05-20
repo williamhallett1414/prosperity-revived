@@ -6,6 +6,7 @@ import { base44 } from '@/api/base44Client';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { getDisplayName, getInitial } from '@/lib/userName';
+import FoundingMemberBadge from '@/components/awakening/FoundingMemberBadge';
 
 export default function ProfileHeader({ user, friendsCount, userProgress }) {
   const [uploadingCover, setUploadingCover] = useState(false);
@@ -75,20 +76,36 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
           {/* Profile Picture & Name */}
           <div className="flex flex-col sm:flex-row sm:items-end sm:gap-5 mb-4 sm:mb-0">
             <div className="relative mb-4 sm:mb-0 mx-auto sm:mx-0">
-              <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-4 border-white shadow-2xl overflow-hidden bg-gradient-to-br from-[#3C4E53] to-[#FD9C2D]">
-                {user?.profile_image_url ?
-                <img
-                  src={user.profile_image_url}
-                  alt={getDisplayName(user)}
-                  className="w-full h-full object-cover" /> :
+              {/* Founding Member gold ring — subtle gradient halo around the avatar.
+                  Falls back to plain white border for non-founders. */}
+              <div
+                className={[
+                  'w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden bg-gradient-to-br from-[#3C4E53] to-[#FD9C2D]',
+                  user?.founding_member
+                    ? 'p-[3px] bg-gradient-to-br from-[#FAD98D] via-[#FD9C2D] to-[#FAD98D] shadow-[0_8px_24px_-8px_rgba(253,156,45,0.55)]'
+                    : 'border-4 border-white shadow-2xl',
+                ].join(' ')}
+              >
+                <div
+                  className={[
+                    'w-full h-full rounded-full overflow-hidden',
+                    user?.founding_member ? 'bg-gradient-to-br from-[#3C4E53] to-[#FD9C2D]' : '',
+                  ].join(' ')}
+                >
+                  {user?.profile_image_url ?
+                  <img
+                    src={user.profile_image_url}
+                    alt={getDisplayName(user)}
+                    className="w-full h-full object-cover" /> :
 
 
-                <div className="w-full h-full flex items-center justify-center text-white text-4xl sm:text-5xl font-bold">
-                    {getInitial(user)}
-                  </div>
-                }
+                  <div className="w-full h-full flex items-center justify-center text-white text-4xl sm:text-5xl font-bold">
+                      {getInitial(user)}
+                    </div>
+                  }
+                </div>
               </div>
-              
+
               <label className="absolute bottom-1 right-1 bg-white dark:bg-white/5 rounded-full p-2.5 shadow-lg dark:shadow-none cursor-pointer hover:bg-gray-50 dark:bg-white/5 transition-all hover:scale-105">
                 <Camera className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700 dark:text-gray-200" />
                 <input
@@ -102,9 +119,12 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
             </div>
 
             <div className="text-center sm:text-left pb-2">
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-1">
-                {getDisplayName(user, 'User')}
-              </h1>
+              <div className="flex items-center gap-2 justify-center sm:justify-start flex-wrap mb-1">
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+                  {getDisplayName(user, 'User')}
+                </h1>
+                {user?.founding_member && <FoundingMemberBadge variant="pill" />}
+              </div>
               <p className="text-gray-600 dark:text-gray-300 font-medium text-sm sm:text-base">{friendsCount} {friendsCount === 1 ? 'friend' : 'friends'}</p>
               {user?.bio &&
               <p className="text-gray-600 dark:text-gray-300 text-sm mt-2 max-w-md leading-relaxed">{user.bio}</p>
