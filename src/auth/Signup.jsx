@@ -60,17 +60,23 @@ export default function Signup() {
       try {
         await base44.auth.loginViaEmailPassword(trimmedEmail, password);
         markInstallSeen();
-        // Persist pre-signup quiz answers (if any) to the User entity. Best-effort:
-        // failure to save doesn't block the user from entering the app, since the
-        // existing post-onboarding flow will collect this info if needed.
-        if (hasQuizAnswers()) {
-          try {
-            const fields = quizAnswersToUserFields(getQuizAnswers());
-            await base44.auth.updateMe(fields);
-            clearQuizAnswers();
-          } catch (_persistErr) {
-            // Leave quiz answers in localStorage so we can retry on next load.
-          }
+        // Persist pre-signup quiz answers (if any) AND mark this user as a
+        // founder candidate. Best-effort: failure to save doesn't block the
+        // user from entering the app, since the existing post-onboarding
+        // flow will collect quiz info if needed.
+        //
+        // founder_candidate = true means "this user signed up through our
+        // official flow." The actual founder_member: true flag is granted
+        // server-side by the claimFoundingMember function on onboarding
+        // completion, subject to the 500-cap check.
+        try {
+          const fields = hasQuizAnswers()
+            ? { ...quizAnswersToUserFields(getQuizAnswers()), founder_candidate: true }
+            : { founder_candidate: true };
+          await base44.auth.updateMe(fields);
+          if (hasQuizAnswers()) clearQuizAnswers();
+        } catch (_persistErr) {
+          // Leave quiz answers in localStorage so we can retry on next load.
         }
         await checkAppState();
         navigate('/', { replace: true });

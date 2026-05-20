@@ -713,6 +713,37 @@ export default function OnboardingFlow({ onComplete }) {
       console.warn('[onboarding] Enrichment save failed (non-fatal):', err);
     }
 
+    // ── 3) Attempt to claim Founding Member status ──
+    // Server-side function decides whether to grant founder status based on:
+    //   1. user.founder_candidate === true (set on signup)
+    //   2. user is not already a founder (idempotent)
+    //   3. current founder count is under the cap
+    //
+    // Strictly best-effort: if the function doesn't exist, returns an
+    // error, or denies the claim, the user proceeds into the app
+    // normally without founder treatment. We swallow everything.
+    try {
+      const claimResponse = await base44.functions.invoke('claimFoundingMember', {});
+      const granted = claimResponse?.data?.granted === true;
+      if (granted) {
+        // Stash a one-time flag for the home screen to show a celebration.
+        // The flag is consumed by HomeFounderCelebration on first render
+        // and then cleared. Best-effort — failure to set the flag just
+        // means no celebration UI; the user is still a founder.
+        try {
+          const payload = {
+            position: claimResponse?.data?.position,
+            capacity: claimResponse?.data?.capacity,
+            shownAt: null, // set when the celebration UI consumes it
+          };
+          localStorage.setItem('founder_celebration_pending', JSON.stringify(payload));
+        } catch (_e) {}
+      }
+    } catch (_claimErr) {
+      // Function may not exist yet in Base44 (404), or may have errored
+      // server-side. Either way, don't block the user.
+    }
+
     setSaving(false);
     onComplete();
     if (!criticalSavedOk) {

@@ -99,15 +99,16 @@ export default function VerifyEmail() {
         try {
           await base44.auth.loginViaEmailPassword(email.trim().toLowerCase(), passedPassword);
           markInstallSeen();
-          // Persist pre-signup quiz answers to the User entity if any are stashed.
-          if (hasQuizAnswers()) {
-            try {
-              const fields = quizAnswersToUserFields(getQuizAnswers());
-              await base44.auth.updateMe(fields);
-              clearQuizAnswers();
-            } catch (_persistErr) {
-              // Best-effort. Leave answers in localStorage for retry.
-            }
+          // Persist pre-signup quiz answers AND mark as founder candidate.
+          // See Signup.jsx for the full rationale on founder_candidate.
+          try {
+            const fields = hasQuizAnswers()
+              ? { ...quizAnswersToUserFields(getQuizAnswers()), founder_candidate: true }
+              : { founder_candidate: true };
+            await base44.auth.updateMe(fields);
+            if (hasQuizAnswers()) clearQuizAnswers();
+          } catch (_persistErr) {
+            // Best-effort. Leave answers in localStorage for retry.
           }
           await checkAppState();
           navigate('/', { replace: true });
