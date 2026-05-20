@@ -6,7 +6,6 @@ import { base44 } from '@/api/base44Client';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { getDisplayName, getInitial } from '@/lib/userName';
-import FoundingMemberBadge from '@/components/awakening/FoundingMemberBadge';
 
 export default function ProfileHeader({ user, friendsCount, userProgress }) {
   const [uploadingCover, setUploadingCover] = useState(false);
@@ -76,42 +75,32 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
           {/* Profile Picture & Name */}
           <div className="flex flex-col sm:flex-row sm:items-end sm:gap-5 mb-4 sm:mb-0">
             <div className="relative mb-4 sm:mb-0 mx-auto sm:mx-0">
-              {/* Founding Member gold ring — refined gradient (gold → orange → deep gold)
-                  with a subtle inner cream divider to separate ring from avatar. */}
+              {/* Avatar — for founders, a thin engraved deep-gold border that
+                  reads as classical/quiet rather than a premium-tier glow.
+                  Removed the previous gradient-halo + corner-seal because
+                  on a gold cover photo they competed visually with both the
+                  background and the surrounding action buttons. The
+                  designation has moved to a dedicated founder strip below. */}
               <div
                 className={[
-                  'w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden',
+                  'w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden bg-gradient-to-br from-[#3C4E53] to-[#FD9C2D]',
                   user?.founding_member
-                    ? 'p-[3px] bg-gradient-to-br from-[#FAD98D] via-[#FD9C2D] to-[#c9a227] shadow-[0_10px_28px_-10px_rgba(253,156,45,0.7)]'
+                    ? 'border-[3px] border-[#c9a227] shadow-lg'
                     : 'border-4 border-white shadow-2xl',
                 ].join(' ')}
               >
-                <div
-                  className={[
-                    'w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-[#3C4E53] to-[#FD9C2D]',
-                    user?.founding_member ? 'border-2 border-white dark:border-[#0A1A2F]' : '',
-                  ].join(' ')}
-                >
-                  {user?.profile_image_url ?
-                  <img
-                    src={user.profile_image_url}
-                    alt={getDisplayName(user)}
-                    className="w-full h-full object-cover" /> :
+                {user?.profile_image_url ?
+                <img
+                  src={user.profile_image_url}
+                  alt={getDisplayName(user)}
+                  className="w-full h-full object-cover" /> :
 
 
-                  <div className="w-full h-full flex items-center justify-center text-white text-4xl sm:text-5xl font-bold">
-                      {getInitial(user)}
-                    </div>
-                  }
-                </div>
+                <div className="w-full h-full flex items-center justify-center text-white text-4xl sm:text-5xl font-bold">
+                    {getInitial(user)}
+                  </div>
+                }
               </div>
-
-              {/* Founder corner seal — heraldic mark at top-right */}
-              {user?.founding_member && (
-                <div className="absolute -top-1 -right-1 pointer-events-none">
-                  <FoundingMemberBadge variant="corner-seal" />
-                </div>
-              )}
 
               <label className="absolute bottom-1 right-1 bg-white dark:bg-white/5 rounded-full p-2.5 shadow-lg dark:shadow-none cursor-pointer hover:bg-gray-50 dark:bg-white/5 transition-all hover:scale-105">
                 <Camera className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700 dark:text-gray-200" />
@@ -129,11 +118,6 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-1">
                 {getDisplayName(user, 'User')}
               </h1>
-              {user?.founding_member && (
-                <div className="mb-2 flex justify-center sm:justify-start">
-                  <FoundingMemberBadge variant="wordmark" />
-                </div>
-              )}
               <p className="text-gray-600 dark:text-gray-300 font-medium text-sm sm:text-base">{friendsCount} {friendsCount === 1 ? 'friend' : 'friends'}</p>
               {user?.bio &&
               <p className="text-gray-600 dark:text-gray-300 text-sm mt-2 max-w-md leading-relaxed">{user.bio}</p>
@@ -155,6 +139,27 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
             </Button>
           </div>
         </div>
+
+        {/* Founder strip — quiet horizontal designation. Sits below the
+            entire avatar+name+actions row so the wordmark has its own
+            real estate. Reads as a byline rather than decoration. */}
+        {user?.founding_member && (
+          <div className="mb-4 px-5 py-3 rounded-xl flex items-center justify-center gap-3 bg-gradient-to-r from-[#FAD98D]/15 via-[#FAD98D]/25 to-[#FAD98D]/15 border border-[#FAD98D]/35">
+            <svg viewBox="0 0 24 24" className="w-4 h-4 text-[#c9a227]" fill="currentColor" aria-hidden="true">
+              <path d="M12 2 L13.6 10.4 L22 12 L13.6 13.6 L12 22 L10.4 13.6 L2 12 L10.4 10.4 Z" />
+            </svg>
+            <span className="text-[11px] tracking-[0.32em] font-bold uppercase text-[#7a4a0a] dark:text-[#FAD98D]">
+              Founding Member
+            </span>
+            <span className="text-[11px] opacity-50 text-[#7a4a0a] dark:text-[#FAD98D]" aria-hidden="true">{'\u00B7'}</span>
+            <span className="text-[13px] italic text-[#7a4a0a] dark:text-[#FAD98D]" style={{ fontFamily: 'Georgia, serif' }}>
+              The Revived 500
+            </span>
+            <svg viewBox="0 0 24 24" className="w-4 h-4 text-[#c9a227]" fill="currentColor" aria-hidden="true">
+              <path d="M12 2 L13.6 10.4 L22 12 L13.6 13.6 L12 22 L10.4 13.6 L2 12 L10.4 10.4 Z" />
+            </svg>
+          </div>
+        )}
 
         {/* Status/Goal Section */}
         {(user?.status_message || user?.spiritual_goal) &&

@@ -10,7 +10,7 @@ import { useAuth } from '@/lib/AuthContext';
 // deleteUserAccount is now handled by the deleteUserAccount backend function
 import ChatbotPreferencesTab from '@/components/profile/ChatbotPreferencesTab';
 import { getFirstName, getDisplayName, getInitial } from '@/lib/userName';
-import FoundingMemberBadge from '@/components/awakening/FoundingMemberBadge';
+// Profile
 
 const AboutTab = React.lazy(() => import('@/components/profile/facebook/AboutTab'));
 const FriendsTab = React.lazy(() => import('@/components/profile/facebook/FriendsTab'));
@@ -73,11 +73,14 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
           <div className="relative flex-shrink-0">
             <div className={[
               'w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden',
+              // For founders: a thin, single-tone deep-gold border that reads
+              // as engraved/quiet, not as a premium-tier glow. For everyone
+              // else: the existing 4px white border.
               user?.founding_member
-                ? 'p-[2.5px] bg-gradient-to-br from-[#FAD98D] via-[#FD9C2D] to-[#c9a227] shadow-[0_6px_24px_-6px_rgba(253,156,45,0.7)]'
+                ? 'border-[2.5px] border-[#c9a227] shadow-md'
                 : 'border-4 border-white shadow-xl',
             ].join(' ')}>
-              <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-[#3C4E53] to-[#FD9C2D] border-2 border-white dark:border-[#0A1A2F]">
+              <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-[#3C4E53] to-[#FD9C2D]">
                 {user?.profile_image_url ?
                 <img src={user.profile_image_url} alt={getDisplayName(user)} className="w-full h-full object-cover" /> :
                 <div className="w-full h-full flex items-center justify-center text-white text-3xl font-bold">
@@ -86,12 +89,6 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
                 }
               </div>
             </div>
-            {/* Founder corner seal — top-right of avatar, heraldic mark */}
-            {user?.founding_member && (
-              <div className="absolute -top-1 -right-1 pointer-events-none">
-                <FoundingMemberBadge variant="corner-seal" />
-              </div>
-            )}
             <label className="absolute bottom-0.5 right-0.5 bg-white dark:bg-white/5 rounded-full p-1.5 shadow-md dark:shadow-none cursor-pointer hover:scale-105 transition-transform">
               <Camera className="w-3.5 h-3.5 text-gray-600 dark:text-gray-300" />
               <input type="file" accept="image/*" onChange={onAvatarUpload} className="hidden" disabled={uploading.avatar} />
@@ -100,16 +97,8 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
 
           {/* Name + meta */}
           <div className="flex-1 min-w-0 pt-10">
-            <h1 className="text-[#0A1A2F] dark:text-white pt-3 text-base font-bold leading-tight">{getDisplayName(user, 'Your Profile')}</h1>
-            {user?.founding_member && (
-              <div className="mt-1.5 -ml-0.5">
-                <FoundingMemberBadge variant="wordmark" />
-              </div>
-            )}
-            <p className={[
-              'text-sm text-[#0A1A2F]/50 dark:text-white/50',
-              user?.founding_member ? 'mt-1.5' : 'pt-3',
-            ].join(' ')}>{friendsCount} {friendsCount === 1 ? 'friend' : 'friends'}</p>
+            <h1 className="text-[#0A1A2F] dark:text-white py-3 text-base font-bold leading-tight">{getDisplayName(user, 'Your Profile')}</h1>
+            <p className="text-sm text-[#0A1A2F]/50 dark:text-white/50">{friendsCount} {friendsCount === 1 ? 'friend' : 'friends'}</p>
           </div>
 
           {/* Messages link */}
@@ -124,6 +113,28 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
             <Settings className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
           </Link>
         </div>
+
+        {/* Founder strip — a quiet horizontal designation that sits below
+            the entire avatar+name row, so the wordmark has its own real
+            estate and doesn't compete with action buttons or the gold
+            cover photo above. Reads as a "byline" rather than decoration. */}
+        {user?.founding_member && (
+          <div className="mb-3 -mx-4 sm:mx-0 sm:rounded-xl px-4 py-2.5 sm:px-5 sm:py-3 flex items-center justify-center gap-2.5 bg-gradient-to-r from-[#FAD98D]/15 via-[#FAD98D]/25 to-[#FAD98D]/15 border-y sm:border border-[#FAD98D]/35">
+            <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 text-[#c9a227]" fill="currentColor" aria-hidden="true">
+              <path d="M12 2 L13.6 10.4 L22 12 L13.6 13.6 L12 22 L10.4 13.6 L2 12 L10.4 10.4 Z" />
+            </svg>
+            <span className="text-[10px] tracking-[0.32em] font-bold uppercase text-[#7a4a0a] dark:text-[#FAD98D]">
+              Founding Member
+            </span>
+            <span className="text-[10px] opacity-50 text-[#7a4a0a] dark:text-[#FAD98D]" aria-hidden="true">{'\u00B7'}</span>
+            <span className="text-[12px] italic text-[#7a4a0a] dark:text-[#FAD98D]" style={{ fontFamily: 'Georgia, serif' }}>
+              The Revived 500
+            </span>
+            <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 text-[#c9a227]" fill="currentColor" aria-hidden="true">
+              <path d="M12 2 L13.6 10.4 L22 12 L13.6 13.6 L12 22 L10.4 13.6 L2 12 L10.4 10.4 Z" />
+            </svg>
+          </div>
+        )}
 
         {/* 90-day goal / status */}
         {(user?.status_message || user?.goal_90_day || user?.spiritual_goal) &&

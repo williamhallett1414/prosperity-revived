@@ -64,9 +64,31 @@ export default function FounderCelebration() {
 
   if (!pending) return null;
 
+  // When the celebration dismisses, fire the post-onboarding guided tour
+  // — UNLESS already shown. Layout.jsx deferred the tour because we were
+  // pending; now that we've been seen, the tour can take its turn.
+  const launchTourIfNeeded = () => {
+    try {
+      if (!localStorage.getItem('full_tour_shown')) {
+        // Small delay so our exit animation finishes before the tour
+        // pops up. Mark shown immediately to prevent double-fire.
+        localStorage.setItem('full_tour_shown', '1');
+        setTimeout(() => {
+          window.dispatchEvent(new CustomEvent('launchGuidedTour'));
+        }, 500);
+      }
+    } catch {
+      // Best-effort. If localStorage is blocked the tour just won't fire.
+    }
+  };
+
   const handleViewAwakening = () => {
     markShown(pending);
     setVisible(false);
+    // User chose Awakening — they're leaving Home, so skip the home tour
+    // for now. Mark shown so it doesn't fire when they come back, but
+    // skip dispatching the event since they aren't on Home anyway.
+    try { localStorage.setItem('full_tour_shown', '1'); } catch {}
     navigate('/Awakening');
   };
 
@@ -75,6 +97,8 @@ export default function FounderCelebration() {
     setVisible(false);
     // Defer clearing so the exit animation has time to play
     setTimeout(clearPending, 600);
+    // Fire the deferred home tour
+    launchTourIfNeeded();
   };
 
   return (
@@ -146,12 +170,6 @@ export default function FounderCelebration() {
               <p className="text-white/80 text-sm leading-relaxed mb-2 max-w-sm mx-auto">
                 You're one of the first to walk this with us. Your founding status is yours for life — no performance, no renewal, no fine print.
               </p>
-
-              {pending.position && pending.capacity && (
-                <p className="text-[#FAD98D]/85 text-xs tracking-widest uppercase mt-4 mb-2">
-                  Member №{pending.position} of {pending.capacity}
-                </p>
-              )}
 
               {/* Verse */}
               <p className="text-white/50 italic text-xs mt-6 mb-7 max-w-xs mx-auto leading-relaxed">

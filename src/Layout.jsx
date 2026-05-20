@@ -98,12 +98,32 @@ export default function Layout({ children, currentPageName }) {
     localStorage.setItem('onboarding_done', '1');
     setOnboardingDone(true);
     setNeedsOnboarding(false);
-    // Auto-launch the full guided tour after onboarding
+    // Auto-launch the full guided tour after onboarding — UNLESS a founder
+    // celebration is pending. If the user just became a founder, the
+    // celebration overlay needs the stage to itself; the tour will fire
+    // when the celebration is dismissed (FounderCelebration dispatches
+    // the 'launchGuidedTour' event we listen for below).
     if (!localStorage.getItem('full_tour_shown')) {
-      setTimeout(() => {
-        setShowGuidedTour(true);
-        localStorage.setItem('full_tour_shown', '1');
-      }, 800); // Short delay to let Home page render
+      let founderCelebrationPending = false;
+      try {
+        const raw = localStorage.getItem('founder_celebration_pending');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          // shownAt === null means the celebration hasn't been shown yet
+          founderCelebrationPending = parsed && parsed.shownAt == null;
+        }
+      } catch {
+        // Ignore — fall back to firing the tour normally
+      }
+      if (!founderCelebrationPending) {
+        setTimeout(() => {
+          setShowGuidedTour(true);
+          localStorage.setItem('full_tour_shown', '1');
+        }, 800); // Short delay to let Home page render
+      }
+      // If celebration IS pending, we do nothing here. FounderCelebration
+      // will dispatch 'launchGuidedTour' when the user dismisses it,
+      // which the listener below picks up.
     }
   };
 

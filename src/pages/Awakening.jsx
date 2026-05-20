@@ -40,6 +40,7 @@ import hannahImg from '@/assets/hannah-avatar.png';
 import coachDavidImg from '@/assets/coach-david-avatar.png';
 import chefDanielImg from '@/assets/chef-daniel-avatar.png';
 import coachPaulImg from '@/assets/coach-paul-avatar.png';
+import allCoachesImg from '@/assets/all-coaches-avatar.png';
 
 const AVATAR_MAP = {
   Gideon: gideonImg,
@@ -582,15 +583,21 @@ function DayCard({ day, done, inProgress, isToday, isUnlocked, saving, onBegin, 
               />
             </div>
           ) : (
-            // Day 7: five mini avatars
-            <div className="w-14 h-14 rounded-full relative bg-white/5 border-2 border-[#FD9C2D]/60 flex items-center justify-center">
-              <div className="grid grid-cols-3 gap-0.5 w-11 h-11">
-                {[gideonImg, hannahImg, coachPaulImg, coachDavidImg, chefDanielImg].map((src, i) => (
-                  <div key={i} className="rounded-full overflow-hidden w-3.5 h-3.5">
-                    <img src={src} alt="" className="w-full h-full object-cover" />
-                  </div>
-                ))}
-              </div>
+            // Day 7: a single composite of all five coaches together, framed
+            // identically to other day avatars. Replaces an earlier 5-mini-
+            // avatars grid that read as cluttered and had an empty cell.
+            <div
+              className={[
+                'w-14 h-14 rounded-full overflow-hidden bg-white/5 border-2',
+                isToday ? 'border-[#FD9C2D]' : done ? 'border-[#FD9C2D]/60' : inProgress ? 'border-[#FAD98D]/60' : 'border-white/15',
+              ].join(' ')}
+            >
+              <img
+                src={allCoachesImg}
+                alt="All five coaches"
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
             </div>
           )}
         </div>

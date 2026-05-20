@@ -31,6 +31,7 @@ import hannahImg from '@/assets/hannah-avatar.png';
 import coachDavidImg from '@/assets/coach-david-avatar.png';
 import chefDanielImg from '@/assets/chef-daniel-avatar.png';
 import coachPaulImg from '@/assets/coach-paul-avatar.png';
+import allCoachesImg from '@/assets/all-coaches-avatar.png';
 
 const AVATAR_MAP = {
   Gideon: gideonImg,
@@ -393,14 +394,14 @@ function DayCard({ day, done, inProgress, isToday, isUnlocked, saving, onBegin, 
               />
             </div>
           ) : (
-            <div className="w-14 h-14 rounded-full bg-[#FBF6EC] border-2 border-[#FD9C2D]/60 flex items-center justify-center">
-              <div className="grid grid-cols-3 gap-0.5 w-11 h-11">
-                {[gideonImg, hannahImg, coachPaulImg, coachDavidImg, chefDanielImg].map((src, i) => (
-                  <div key={i} className="rounded-full overflow-hidden w-3.5 h-3.5">
-                    <img src={src} alt="" className="w-full h-full object-cover" />
-                  </div>
-                ))}
-              </div>
+            // Day 7: composite of all five coaches, framed like other day avatars
+            <div className="w-14 h-14 rounded-full overflow-hidden bg-[#FBF6EC] border-2 border-[#FD9C2D]/60">
+              <img
+                src={allCoachesImg}
+                alt="All five coaches"
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
             </div>
           )}
         </div>
