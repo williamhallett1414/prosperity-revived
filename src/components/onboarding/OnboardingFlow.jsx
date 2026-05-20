@@ -207,18 +207,64 @@ function SectionLabel({ children }) {
   return <p className="text-[10px] font-bold text-gray-400 dark:text-gray-300 uppercase tracking-widest mb-2">{children}</p>;
 }
 function NumberInput({ label, value, onChange, min, max, unit }) {
+  // Clamp helper — defends against out-of-range input from typing.
+  const clamp = (n) => Math.max(min, Math.min(max, n));
+
+  // Handle direct text typing. Allow empty string while editing so users can
+  // clear the field; only commit a numeric value if it parses. On blur, clamp
+  // to range. This gives the iOS number pad UX (tap → number pad → type → done)
+  // while still allowing +/- stepping for fine adjustments.
+  const handleTextChange = (e) => {
+    const raw = e.target.value;
+    if (raw === '') { onChange(''); return; }
+    // Strip non-numeric chars defensively (iOS sometimes sends odd input)
+    const cleaned = raw.replace(/[^\d]/g, '');
+    if (cleaned === '') { onChange(''); return; }
+    const n = parseInt(cleaned, 10);
+    if (Number.isFinite(n)) onChange(n); // don't clamp on every keystroke — clamp on blur
+  };
+
+  const handleBlur = () => {
+    // On blur, if the value is empty or invalid, fall back to min. Otherwise clamp.
+    if (value === '' || value === null || value === undefined) return;
+    const n = Number(value);
+    if (Number.isFinite(n)) {
+      const clamped = clamp(n);
+      if (clamped !== n) onChange(clamped);
+    }
+  };
+
   return (
     <div className="rounded-xl border border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 px-2.5 py-2 flex items-center justify-between gap-1.5">
       <span className="text-[11px] font-semibold text-gray-500 dark:text-gray-300 leading-tight truncate flex-1">{label}</span>
       <div className="flex items-center gap-1 flex-shrink-0">
-        <button onPointerDown={() => onChange(Math.max(min, (value||min)-1))}
-          className="w-7 h-7 rounded-lg bg-gray-100 dark:bg-white/10 flex items-center justify-center text-sm font-bold text-gray-500 dark:text-gray-300 active:scale-95">−</button>
-        <div className="w-10 text-center">
-          <span className="text-sm font-black text-[#0A1A2F] dark:text-white">{value || min}</span>
-          {unit && <span className="text-[10px] text-gray-400 dark:text-gray-300 ml-0.5">{unit}</span>}
+        <button
+          type="button"
+          onPointerDown={() => onChange(clamp((Number(value) || min) - 1))}
+          className="w-7 h-7 rounded-lg bg-gray-100 dark:bg-white/10 flex items-center justify-center text-sm font-bold text-gray-500 dark:text-gray-300 active:scale-95"
+          aria-label={`Decrease ${label}`}
+        >−</button>
+        <div className="w-14 flex items-center justify-center gap-0.5">
+          <input
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            value={value === '' || value === null || value === undefined ? '' : String(value)}
+            onChange={handleTextChange}
+            onBlur={handleBlur}
+            onFocus={(e) => e.target.select()}
+            placeholder={String(min)}
+            className="w-10 text-center bg-transparent text-sm font-black text-[#0A1A2F] dark:text-white outline-none focus:bg-[#FD9C2D]/10 rounded"
+            aria-label={label}
+          />
+          {unit && <span className="text-[10px] text-gray-400 dark:text-gray-300">{unit}</span>}
         </div>
-        <button onPointerDown={() => onChange(Math.min(max, (value||min)+1))}
-          className="w-7 h-7 rounded-lg bg-[#FD9C2D]/15 flex items-center justify-center text-sm font-bold text-[#FD9C2D] active:scale-95">+</button>
+        <button
+          type="button"
+          onPointerDown={() => onChange(clamp((Number(value) || min) + 1))}
+          className="w-7 h-7 rounded-lg bg-[#FD9C2D]/15 flex items-center justify-center text-sm font-bold text-[#FD9C2D] active:scale-95"
+          aria-label={`Increase ${label}`}
+        >+</button>
       </div>
     </div>
   );

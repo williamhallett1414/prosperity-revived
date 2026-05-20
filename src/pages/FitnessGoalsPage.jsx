@@ -138,7 +138,7 @@ function WeightLog({ onLog, latest }) {
   };
   return (
     <div className="flex items-center gap-2 mt-3">
-      <input type="number" value={val} onChange={e => setVal(e.target.value)}
+      <input type="number" inputMode="decimal" value={val} onChange={e => setVal(e.target.value)}
         onKeyDown={e => e.key === 'Enter' && save()}
         placeholder={latest ? `Current: ${latest} kg — update` : "Log today's weight (kg)"}
         className="flex-1 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] dark:text-white outline-none border-2 border-transparent focus:border-[#38BDF8] transition-colors placeholder:text-[#0A1A2F]/30 dark:text-white/30" />

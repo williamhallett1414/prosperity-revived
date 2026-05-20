@@ -129,7 +129,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
                     Current Weight (lbs)
                   </label>
                   <input
-                    type="number"
+                    type="number" inputMode="numeric" pattern="[0-9]*"
                     value={data.weight_lbs}
                     onChange={(e) =>
                       setData({ ...data, weight_lbs: e.target.value })
@@ -151,7 +151,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
                       <div className="flex-1">
                         <label className="text-xs text-[#0A1A2F]/40 dark:text-white/40 block mb-1">Feet</label>
                         <input
-                          type="number"
+                          type="number" inputMode="numeric" pattern="[0-9]*"
                           value={data.height_ft}
                           onChange={(e) =>
                             setData({ ...data, height_ft: e.target.value })
@@ -165,7 +165,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
                       <div className="flex-1">
                         <label className="text-xs text-[#0A1A2F]/40 dark:text-white/40 block mb-1">Inches</label>
                         <input
-                          type="number"
+                          type="number" inputMode="numeric" pattern="[0-9]*"
                           value={data.height_in}
                           onChange={(e) =>
                             setData({ ...data, height_in: e.target.value })
@@ -187,7 +187,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
                     Age
                   </label>
                   <input
-                    type="number"
+                    type="number" inputMode="numeric" pattern="[0-9]*"
                     value={data.age}
                     onChange={(e) => setData({ ...data, age: e.target.value })}
                     placeholder="30"
@@ -318,7 +318,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
                    Goal Weight (lbs) (Optional)
                  </label>
                  <input
-                   type="number"
+                   type="number" inputMode="numeric" pattern="[0-9]*"
                    value={data.goal_weight_lbs}
                    onChange={(e) => setData({ ...data, goal_weight_lbs: e.target.value })}
                    placeholder="143"
