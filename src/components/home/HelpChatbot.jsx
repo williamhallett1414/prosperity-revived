@@ -54,12 +54,6 @@ export const MINI_TOURS = {
       tapToAdvance: true, tapLabel: 'Tap any workout to try',
     },
     {
-      id: 'wk_cats', targetId: 'tour-categories', navigateTo: null,
-      title: 'Browse by Category 📋',
-      body: 'Filter workouts by type and difficulty. Each category has its own library with detailed exercise breakdowns.',
-      tapToAdvance: true, tapLabel: 'Tap a category',
-    },
-    {
       id: 'wk_goals', targetId: 'tour-fitness-goals-entry', navigateTo: null,
       title: 'Your Fitness Goals 🎯',
       body: 'This card shows your personalized fitness dashboard — BMI, calorie targets, macro split, and goal timeline. Tap to see the full breakdown.',

@@ -57,7 +57,7 @@ export const TOUR_STEPS = [
     body: 'Tap Workouts to browse sessions by category and start training. Coach David has already built a plan based on your fitness profile.',
     tip: 'HIIT · Strength · Cardio · Flexibility · Yoga · Recovery',
     tapToAdvance: true,
-    navigateTo: 'Workouts',
+    navigateTo: null,
     showArrow: true,
     tapLabel: 'Tap to open Workouts',
   },
@@ -66,16 +66,6 @@ export const TOUR_STEPS = [
     targetId: 'tour-quick-start',
     title: 'Start in 1 Tap ⚡',
     body: 'These workouts are ready to go right now. Tap any card to log a completed session — it automatically tracks in your Workout Trends.',
-    tip: null,
-    tapToAdvance: false,
-    navigateTo: null,
-    showArrow: true,
-  },
-  {
-    id: 'workouts_categories',
-    targetId: 'tour-categories',
-    title: 'Browse by Category 📋',
-    body: 'Filter workouts by type. Tap any category to see its full library, with difficulty filters built in.',
     tip: null,
     tapToAdvance: false,
     navigateTo: null,
@@ -307,7 +297,7 @@ function ConnectArrow({ rect, arrowDown }) {
 }
 
 // ── Bottom tooltip card ────────────────────────────────────────────────────────
-function TooltipCard({ step, current, total, onNext, onSkip, targetRect, isLastStep }) {
+function TooltipCard({ step, current, total, onNext, onSkip, onNavigate, targetRect, isLastStep }) {
   const isNearBottom = targetRect && targetRect.top > window.innerHeight * 0.65;
   const centerX = targetRect ? targetRect.left + targetRect.width / 2 : window.innerWidth / 2;
   const arrowLeft = Math.min(Math.max(centerX - 10, 24), window.innerWidth - 44);
@@ -415,7 +405,10 @@ function TooltipCard({ step, current, total, onNext, onSkip, targetRect, isLastS
                   key={a.page}
                   onPointerDown={() => {
                     onSkip();
-                    setTimeout(() => { window.location.href = createPageUrl(a.page); }, 200);
+                    // Use SPA navigation (router) instead of window.location.href,
+                    // which would force a full page reload, drop app state, and
+                    // flash white on iOS WKWebView.
+                    setTimeout(() => { onNavigate?.(a.page); }, 150);
                   }}
                   className="w-full flex items-center gap-3 bg-white/10 rounded-2xl px-4 py-3 text-left active:scale-95 transition-transform"
                 >
@@ -476,64 +469,155 @@ export default function GuidedTour({ onComplete, customSteps, tourKey }) {
   const [step, setStep] = useState(0);
   const [targetRect, setTargetRect] = useState(null);
   const rafRef = useRef(null);
+  // Holds the latest advance() so the measure loop can auto-skip on timeout.
+  const advanceRef = useRef(null);
 
   const current = steps[step];
   const total = steps.length;
 
   // ── Navigate to the current step's page if needed ─────────────────────────
+  // For NON-tap steps, the tour drives navigation itself (so info-only steps
+  // land on the right page automatically). For tapToAdvance steps, we do NOT
+  // auto-navigate — the whole point is the user taps the highlighted element
+  // and the element's own click handler navigates. Auto-navigating there would
+  // change the page out from under the user before they tap.
   useEffect(() => {
-    if (current?.navigateTo) {
+    if (current?.navigateTo && !current?.tapToAdvance) {
       const targetUrl = createPageUrl(current.navigateTo);
       const currentPath = window.location.pathname + window.location.search;
-      // Only navigate if we're not already on the right page
       if (!currentPath.includes(current.navigateTo)) {
         navigate(targetUrl);
       }
     }
-  }, [step, current?.navigateTo, navigate]);
+  }, [step, current?.navigateTo, current?.tapToAdvance, navigate]);
 
-  // ── Measure target element (retry until found) ────────────────────────────
+  // ── Measure target element ────────────────────────────────────────────────
+  // Robust approach: poll for the element on every animation frame until it
+  // (a) exists, (b) has non-zero size, and (c) reports the SAME rect across two
+  // consecutive frames (i.e. entrance animation + scroll have settled). Only
+  // then do we lock in the spotlight. If the element never stabilizes within a
+  // timeout, we auto-skip the step so one missing/renamed target can't strand
+  // the user. Replaces the old stack of fixed setTimeouts (500/350/300x30),
+  // which assumed timing that doesn't hold on real devices over LTE.
   useEffect(() => {
     setTargetRect(null);
+
+    // Steps with no target (intro / summary / done) just show the centered card.
     if (!current?.targetId) return;
 
-    let attempts = 0;
-    const measure = () => {
+    let cancelled = false;
+    let lastRect = null;
+    let stableCount = 0;
+    let scrolledOnce = false;
+    const startedAt = performance.now();
+    // How long to wait for a target before giving up and auto-advancing.
+    const FIND_TIMEOUT_MS = 5000;
+    // Number of consecutive frames the rect must be unchanged to be "stable".
+    const STABLE_FRAMES_NEEDED = 3;
+
+    const rectsClose = (a, b) => {
+      if (!a || !b) return false;
+      const eps = 1.5; // sub-pixel jitter tolerance
+      return (
+        Math.abs(a.top - b.top) < eps &&
+        Math.abs(a.left - b.left) < eps &&
+        Math.abs(a.width - b.width) < eps &&
+        Math.abs(a.height - b.height) < eps
+      );
+    };
+
+    const tick = () => {
+      if (cancelled) return;
+
       const el = document.getElementById(current.targetId);
-      if (el) {
-        // Scroll element into view first
-        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        // Wait for scroll to settle then measure
-        setTimeout(() => {
-          const r = el.getBoundingClientRect();
-          if (r.width > 0 && r.height > 0) {
-            setTargetRect({ top: r.top, left: r.left, width: r.width, height: r.height });
-          }
-        }, 350);
+      const elapsed = performance.now() - startedAt;
+
+      if (!el) {
+        // Element not in DOM yet (page still navigating / lazy-loading).
+        if (elapsed > FIND_TIMEOUT_MS) {
+          // Give up gracefully — auto-advance so we don't strand the user.
+          if (!cancelled) advanceRef.current?.();
+          return;
+        }
+        rafRef.current = requestAnimationFrame(tick);
         return;
       }
-      if (attempts++ < 30) {
-        setTimeout(measure, 300);
-      }
-    };
-    // Initial delay to allow page navigation + lazy load
-    setTimeout(measure, 500);
 
-    // Live-update on scroll / resize
-    const update = () => {
+      // Element exists. Scroll it into view ONCE, using instant alignment so
+      // our measurement isn't taken mid-animation. (Fixed-position targets like
+      // the floating chat button simply won't scroll, which is fine.)
+      if (!scrolledOnce) {
+        try {
+          el.scrollIntoView({ behavior: 'auto', block: 'center', inline: 'nearest' });
+        } catch {
+          el.scrollIntoView();
+        }
+        scrolledOnce = true;
+      }
+
+      const r = el.getBoundingClientRect();
+      if (r.width <= 0 || r.height <= 0) {
+        // Rendered but not laid out yet (display:none parent, etc.)
+        if (elapsed > FIND_TIMEOUT_MS) {
+          if (!cancelled) advanceRef.current?.();
+          return;
+        }
+        rafRef.current = requestAnimationFrame(tick);
+        return;
+      }
+
+      const rect = { top: r.top, left: r.left, width: r.width, height: r.height };
+      if (rectsClose(rect, lastRect)) {
+        stableCount += 1;
+      } else {
+        stableCount = 0;
+        lastRect = rect;
+      }
+
+      if (stableCount >= STABLE_FRAMES_NEEDED) {
+        // Locked in — element exists, sized, and has stopped moving.
+        if (!cancelled) setTargetRect(rect);
+        return;
+      }
+
+      if (elapsed > FIND_TIMEOUT_MS) {
+        // It exists but never fully settled (e.g. an infinite animation).
+        // Use the most recent rect anyway rather than skipping.
+        if (!cancelled) setTargetRect(rect);
+        return;
+      }
+
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    // Small initial delay lets a route change begin before we start polling,
+    // so we don't measure the OUTGOING page's stale element.
+    const startTimer = setTimeout(() => {
+      rafRef.current = requestAnimationFrame(tick);
+    }, current.navigateTo ? 250 : 60);
+
+    // Keep the spotlight glued to the element while the user scrolls or the
+    // viewport resizes (orientation change, keyboard, etc.).
+    const reflow = () => {
       const el = document.getElementById(current.targetId);
       if (el) {
         const r = el.getBoundingClientRect();
-        setTargetRect({ top: r.top, left: r.left, width: r.width, height: r.height });
+        if (r.width > 0 && r.height > 0) {
+          setTargetRect({ top: r.top, left: r.left, width: r.width, height: r.height });
+        }
       }
     };
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
+    window.addEventListener('scroll', reflow, { passive: true, capture: true });
+    window.addEventListener('resize', reflow);
+
     return () => {
-      window.removeEventListener('scroll', update);
-      window.removeEventListener('resize', update);
+      cancelled = true;
+      clearTimeout(startTimer);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      window.removeEventListener('scroll', reflow, { capture: true });
+      window.removeEventListener('resize', reflow);
     };
-  }, [step, current?.targetId]);
+  }, [step, current?.targetId, current?.navigateTo]);
 
   // ── Advance step ──────────────────────────────────────────────────────────
   const advance = useCallback(() => {
@@ -544,19 +628,29 @@ export default function GuidedTour({ onComplete, customSteps, tourKey }) {
     setStep(s => s + 1);
   }, [step, total]);
 
+  // Keep a ref to the latest advance() so the measure loop can call it on
+  // timeout without needing it in the effect's dependency array.
+  useEffect(() => {
+    advanceRef.current = advance;
+  }, [advance]);
+
   // ── Handle tap on highlighted element ─────────────────────────────────────
   const handleTap = useCallback(() => {
-    if (current.targetId && !current.navigateTo) {
-      // Fire the underlying element's own click
-      const el = document.getElementById(current.targetId);
-      if (el) {
-        const actualEl = el.tagName === 'A' || el.tagName === 'BUTTON' ? el : el.querySelector('a,button');
-        if (actualEl) actualEl.click();
-      }
+    // Always fire the real element's own click so the app responds exactly as
+    // it would to a normal user tap — this is what makes nav taps actually
+    // navigate, instead of the tour faking navigation on the next step.
+    const el = document.getElementById(current.targetId);
+    if (el) {
+      const actualEl =
+        el.tagName === 'A' || el.tagName === 'BUTTON'
+          ? el
+          : el.querySelector('a,button') || el;
+      try { actualEl.click(); } catch {}
     }
-    // Advance to next step (useEffect will handle navigation)
-    setTimeout(() => setStep(s => s + 1), current.navigateTo ? 100 : 0);
-  }, [current, step]);
+    // Advance. The measure loop on the next step waits for that step's target
+    // to exist + settle, so we no longer need a hand-tuned delay here.
+    setStep(s => (s >= total - 1 ? s : s + 1));
+  }, [current, total]);
 
   const finish = async () => {
     // Only save completion flag for the full guided tour, not mini-tours
@@ -588,6 +682,7 @@ export default function GuidedTour({ onComplete, customSteps, tourKey }) {
           total={total}
           onNext={advance}
           onSkip={finish}
+          onNavigate={(page) => navigate(createPageUrl(page))}
           targetRect={targetRect}
           isLastStep={step === total - 1}
         />
