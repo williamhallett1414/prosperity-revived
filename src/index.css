@@ -163,6 +163,29 @@ body.keyboard-open nav[role="navigation"] {
 .dark .shadow-md { box-shadow: 0 2px 8px rgba(0,0,0,0.4) !important; }
 .dark .shadow-lg { box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important; }
 
+/* ── iOS: prevent auto-zoom when focusing a text field ────────────────────── */
+/* Mobile Safari / WKWebView auto-zooms the page whenever you focus an input
+   whose font-size is below 16px. This is the cause of the "app zooms in when
+   I tap to type" behavior. The Apple-intended fix is to ensure focusable text
+   fields render at >=16px. We scope this to coarse (touch) pointers so it
+   doesn't affect desktop layouts, and we deliberately do NOT disable
+   user-scalable in the viewport — manual pinch-zoom stays available for
+   accessibility. 16px here only nudges fields that were 14px (text-sm) or
+   smaller up to the no-zoom threshold; the visual difference is minimal. */
+@media (pointer: coarse) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]),
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+/* Belt-and-suspenders: stop iOS from inflating text on orientation change. */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 /* Inputs */
 .dark input,
 .dark textarea,
