@@ -1,27 +1,48 @@
 /**
  * Shared voice configuration for guided meditations and prayers.
- * Uses the same voice as Hannah (Mindset & Growth Coach) for a consistent,
- * warm, feminine narration across all meditation experiences.
+ *
+ * IMPORTANT — how this actually behaves on iPhone:
+ * The guided meditation player uses the browser's built-in Web Speech API
+ * (window.speechSynthesis), NOT ElevenLabs. On iOS, Safari/WKWebView gives you
+ * essentially one voice per locale and substitutes its default (usually
+ * "Samantha" for en-US) regardless of which name we request — so the `names`
+ * list below only takes effect on platforms where voice selection works
+ * (some Android, macOS, Windows). The levers that DO reliably work on iOS are
+ * rate / pitch / volume, so those are tuned here to make narration softer.
+ *
+ * Softening notes:
+ *  - pitch was 1.20 (raised above natural = brighter, stronger, more present).
+ *    Lowered to 1.0 (natural) so the voice reads gentler — this is the single
+ *    biggest factor in the "too strong" feeling.
+ *  - rate slightly slower (0.84 -> 0.80) for a calmer, more unhurried cadence.
+ *  - volume eased down (0.93 -> 0.85) so it feels intimate, not assertive.
  */
 
 export const MEDITATION_VOICE = {
-  rate:   0.84,   // unhurried warmth — matches Hannah
-  pitch:  1.20,   // elevated, gentle — matches Hannah
-  volume: 0.93,   // intimate, not loud — matches Hannah
+  rate:   0.80,   // unhurried, calm cadence
+  pitch:  1.0,    // natural pitch — softer than the previous raised 1.20
+  volume: 0.85,   // gentle and intimate, not loud
 
-  // Preferred voice names, in priority order (same as Hannah)
+  // Preferred voice names, in priority order. Reordered to favor softer,
+  // breathier voices first. (Effective only where the platform honors voice
+  // selection — on iOS the system usually substitutes its locale default.)
   names: [
-    // macOS / Safari — female voices
-    'Samantha', 'Karen', 'Victoria', 'Moira', 'Tessa',
+    // macOS / iOS — softer female voices first
+    'Karen',       // Australian, mellow and warm
+    'Moira',       // Irish, gentle and soft
+    'Tessa',       // South African, calm
+    'Fiona',       // Scottish, soft
+    'Samantha',    // US default — clearer/stronger, kept as common fallback
+    'Victoria',
     // Chrome
     'Google UK English Female',
     'Google US English Female',
-    // Windows Neural — female only
-    'Microsoft Jenny Online (Natural) - English (United States)',
+    // Windows Neural — female, softer first
     'Microsoft Aria Online (Natural) - English (United States)',
+    'Microsoft Jenny Online (Natural) - English (United States)',
     // Windows Desktop — female only
-    'Microsoft Zira Desktop - English (United States)',
     'Microsoft Hazel Desktop - English (Great Britain)',
+    'Microsoft Zira Desktop - English (United States)',
   ],
 };
 
@@ -38,8 +59,8 @@ export function findHannahVoice(voices) {
     if (match) return match;
   }
 
-  // Partial match on name keywords
-  const keywords = ['samantha', 'karen', 'victoria', 'moira', 'tessa', 'jenny', 'aria', 'zira', 'hazel'];
+  // Partial match on name keywords (softer voices first)
+  const keywords = ['karen', 'moira', 'tessa', 'fiona', 'samantha', 'victoria', 'aria', 'jenny', 'hazel', 'zira'];
   for (const kw of keywords) {
     const match = voices.find(v => v.name.toLowerCase().includes(kw));
     if (match) return match;
