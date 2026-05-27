@@ -6,10 +6,27 @@ import { Input } from '@/components/ui/input';
 import { Plus, X, ChefHat, Loader2, Clock, ChevronDown, ChevronUp, BookmarkPlus, Utensils, Check, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
 
-// Tappable starter ingredient suggestions shown when the list is empty.
-// Picked to be common across most kitchens and to span proteins, veg, grains.
-const STARTER_INGREDIENTS = [
-  'Chicken', 'Eggs', 'Rice', 'Spinach', 'Tomatoes', 'Garlic', 'Onion', 'Olive oil',
+const STARTER_CATEGORIES = [
+  {
+    label: '🥩 Proteins',
+    items: ['Chicken', 'Ground Beef', 'Salmon', 'Tuna', 'Shrimp', 'Eggs', 'Tofu', 'Turkey', 'Bacon', 'Chickpeas', 'Black Beans', 'Lentils'],
+  },
+  {
+    label: '🥦 Vegetables',
+    items: ['Spinach', 'Broccoli', 'Tomatoes', 'Bell Pepper', 'Zucchini', 'Kale', 'Mushrooms', 'Cucumber', 'Carrots', 'Sweet Potato', 'Corn', 'Cauliflower', 'Asparagus', 'Green Beans'],
+  },
+  {
+    label: '🌾 Grains & Carbs',
+    items: ['Rice', 'Pasta', 'Quinoa', 'Oats', 'Bread', 'Tortillas', 'Potatoes', 'Couscous', 'Noodles'],
+  },
+  {
+    label: '🧄 Pantry',
+    items: ['Garlic', 'Onion', 'Olive Oil', 'Butter', 'Soy Sauce', 'Lemon', 'Lime', 'Coconut Milk', 'Canned Tomatoes', 'Cheese', 'Greek Yogurt', 'Heavy Cream', 'Honey', 'Mustard'],
+  },
+  {
+    label: '🌿 Herbs & Spices',
+    items: ['Basil', 'Oregano', 'Cumin', 'Paprika', 'Chili Flakes', 'Ginger', 'Turmeric', 'Rosemary', 'Thyme', 'Cilantro', 'Parsley'],
+  },
 ];
 
 const capitalize = (s) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s);
@@ -17,6 +34,7 @@ const capitalize = (s) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s);
 export default function IngredientRecipeBuilder() {
   const [ingredients, setIngredients] = useState([]);
   const [inputValue, setInputValue] = useState('');
+  const [selectedSuggestions, setSelectedSuggestions] = useState([]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [recipes, setRecipes] = useState([]);
   const [expandedRecipe, setExpandedRecipe] = useState(null);
@@ -27,49 +45,68 @@ export default function IngredientRecipeBuilder() {
   const parseNum = (str) => parseFloat((str || '').toString().replace(/[^\d.]/g, '')) || 0;
 
   const handleLogToFoodLog = async (recipe) => {
+    // The list-view recipe may not have nutrition yet (lazy-loaded). Fetch
+    // detail first so we log real calories/macros, not zeros.
+    const full = recipe._detailLoaded ? recipe : await fetchRecipeDetail(recipe);
     const today = new Date().toISOString().split('T')[0];
     const hour = new Date().getHours();
     const mealType = hour < 10 ? 'breakfast' : hour < 14 ? 'lunch' : hour < 18 ? 'snack' : 'dinner';
     await base44.entities.MealLog.create({
       date: today,
       meal_type: mealType,
-      description: recipe.name,
-      calories: parseNum(recipe.nutrition?.calories),
-      protein: parseNum(recipe.nutrition?.protein),
-      carbs: parseNum(recipe.nutrition?.carbs),
-      fats: parseNum(recipe.nutrition?.fat),
-      fiber: parseNum(recipe.nutrition?.fiber),
-      notes: recipe.description,
+      description: full.name,
+      calories: parseNum(full.nutrition?.calories),
+      protein: parseNum(full.nutrition?.protein),
+      carbs: parseNum(full.nutrition?.carbs),
+      fats: parseNum(full.nutrition?.fat),
+      fiber: parseNum(full.nutrition?.fiber),
+      notes: full.description,
     });
-    setLoggedRecipes(p => ({ ...p, [recipe.name]: true }));
-    toast.success(`"${recipe.name}" logged to Food Log!`);
+    setLoggedRecipes(p => ({ ...p, [full.name]: true }));
+    toast.success(`"${full.name}" logged to Food Log!`);
   };
 
   const handleSaveRecipe = async (recipe) => {
-    const allIngredients = [...(recipe.usedIngredients || []), ...(recipe.additionalIngredients || [])];
+    // Ensure full detail (steps, nutrition, times) is loaded before saving.
+    const full = recipe._detailLoaded ? recipe : await fetchRecipeDetail(recipe);
+    const allIngredients = [...(full.usedIngredients || []), ...(full.additionalIngredients || [])];
     await base44.entities.Recipe.create({
-      title: recipe.name,
-      description: recipe.description,
+      title: full.name,
+      description: full.description,
       ingredients: allIngredients,
-      instructions: recipe.steps || [],
-      prep_time_minutes: parseNum(recipe.prepTime),
-      cook_time_minutes: parseNum(recipe.cookTime),
-      servings: parseNum(recipe.servings) || 2,
-      calories: parseNum(recipe.nutrition?.calories),
+      instructions: full.steps || [],
+      prep_time_minutes: parseNum(full.prepTime),
+      cook_time_minutes: parseNum(full.cookTime),
+      servings: parseNum(full.servings) || 2,
+      calories: parseNum(full.nutrition?.calories),
       category: 'lunch',
       diet_type: 'any',
       is_shared: false,
     });
-    setSavedRecipes(p => ({ ...p, [recipe.name]: true }));
-    toast.success(`"${recipe.name}" saved to My Recipes!`);
+    setSavedRecipes(p => ({ ...p, [full.name]: true }));
+    toast.success(`"${full.name}" saved to My Recipes!`);
   };
 
   const addIngredient = (raw = inputValue) => {
     const trimmed = (raw || '').trim();
     if (trimmed && !ingredients.find(i => i.toLowerCase() === trimmed.toLowerCase())) {
-      setIngredients([...ingredients, capitalize(trimmed)]);
+      setIngredients(prev => [...prev, capitalize(trimmed)]);
     }
     setInputValue('');
+  };
+
+  const toggleSuggestion = (item) => {
+    setSelectedSuggestions(prev =>
+      prev.includes(item) ? prev.filter(s => s !== item) : [...prev, item]
+    );
+  };
+
+  const addSelectedSuggestions = () => {
+    const toAdd = selectedSuggestions.filter(
+      s => !ingredients.find(i => i.toLowerCase() === s.toLowerCase())
+    );
+    if (toAdd.length) setIngredients(prev => [...prev, ...toAdd]);
+    setSelectedSuggestions([]);
   };
 
   const removeIngredient = (ingredient) => {
@@ -83,75 +120,141 @@ export default function IngredientRecipeBuilder() {
     }
   };
 
+  // ── Phase 1: fast list generation ─────────────────────────────────────────
+  // Generates only the lightweight fields needed to render the recipe cards
+  // (name, description, ingredients, times, difficulty, servings). This is a
+  // fraction of the old payload, so it returns much faster. The heavy detail
+  // (steps, nutrition, benefits, tips, faith note) is fetched lazily per-recipe
+  // when the user expands a card — see fetchRecipeDetail below.
   const generateRecipes = async () => {
     setIsGenerating(true);
     setError(null);
     setRecipes([]);
     setExpandedRecipe(null);
 
-    const prompt = `You are Chef Daniel, a warm and encouraging Christian nutrition coach. The user has these ingredients available: ${ingredients.join(', ')}.
+    const prompt = `You are Chef Daniel, a warm Christian nutrition coach. The user has these ingredients: ${ingredients.join(', ')}.
 
-Generate exactly 3 recipe suggestions. Respond ONLY with a valid JSON array — no markdown, no explanation, no code fences. Use this exact format:
-
-[
-  {
-    "name": "Recipe Name",
-    "description": "One appetizing sentence describing the dish",
-    "usedIngredients": ["ingredient1", "ingredient2"],
-    "additionalIngredients": ["salt", "olive oil"],
-    "prepTime": "10 mins",
-    "cookTime": "20 mins",
-    "difficulty": "Easy",
-    "servings": "2 servings",
-    "steps": [
-      "Detailed step 1 with exact quantities and technique (e.g. Heat 2 tbsp olive oil in a large skillet over medium-high heat)",
-      "Detailed step 2",
-      "Detailed step 3",
-      "Detailed step 4",
-      "Detailed step 5"
-    ],
-    "nutrition": {
-      "calories": "420 kcal",
-      "protein": "32g",
-      "carbs": "28g",
-      "fat": "18g",
-      "fiber": "5g"
-    },
-    "healthBenefits": [
-      "One specific health benefit of this meal",
-      "A second specific health benefit",
-      "A third health benefit"
-    ],
-    "chefTips": [
-      "A practical cooking tip to make this dish better",
-      "A storage or meal prep tip"
-    ],
-    "faithNote": "A short encouraging sentence connecting this nourishing meal to caring for the body God gave us"
-  }
-]
-
-Requirements:
-- Steps must be detailed and specific with quantities and techniques — at least 5 steps per recipe
-- Nutrition values should be realistic estimates per serving
-- Health benefits should be specific (e.g. 'High in omega-3s which support heart health' not just 'healthy')
-- Chef tips should be genuinely useful practical advice
-- Only include recipes that genuinely use most of the provided ingredients
-- Make all recipes practical, wholesome, and encouraging`;
+Suggest exactly 3 recipes that genuinely use most of these ingredients. Return ONLY a brief overview of each — do NOT include steps, nutrition, or tips (those are generated separately). Keep it concise so it returns fast.`;
 
     try {
-      const response = await base44.integrations.Core.InvokeLLM({ prompt });
-      const cleaned = response.replace(/```json\n?|```\n?/g, '').trim();
-      const parsed = JSON.parse(cleaned);
-      setRecipes(parsed);
+      const response = await base44.integrations.Core.InvokeLLM({
+        prompt,
+        response_json_schema: {
+          type: 'object',
+          properties: {
+            recipes: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  name: { type: 'string' },
+                  description: { type: 'string' },
+                  usedIngredients: { type: 'array', items: { type: 'string' } },
+                  additionalIngredients: { type: 'array', items: { type: 'string' } },
+                  prepTime: { type: 'string' },
+                  cookTime: { type: 'string' },
+                  difficulty: { type: 'string' },
+                  servings: { type: 'string' },
+                },
+                required: ['name', 'description', 'usedIngredients', 'difficulty'],
+              },
+            },
+          },
+          required: ['recipes'],
+        },
+      });
+
+      // With response_json_schema, the SDK returns a parsed object (not a
+      // string), so no fragile fence-stripping / JSON.parse is needed.
+      const list = Array.isArray(response?.recipes) ? response.recipes : [];
+      if (list.length === 0) {
+        setError('No recipes came back. Try different ingredients.');
+      } else {
+        // Mark each recipe as not-yet-detailed; detail loads on expand.
+        setRecipes(list.map(r => ({ ...r, _detailLoaded: false, _detailLoading: false })));
+      }
     } catch (e) {
-      setError('Could not parse recipes. Please try again.');
+      setError('Could not generate recipes. Please try again.');
     } finally {
       setIsGenerating(false);
     }
   };
 
-  const toggleExpand = (name) => {
-    setExpandedRecipe(expandedRecipe === name ? null : name);
+  // ── Phase 2: lazy per-recipe detail ───────────────────────────────────────
+  // Fetches the heavy fields for ONE recipe, only when needed (on expand, or
+  // when saving/logging requires nutrition). Result is merged back into that
+  // recipe and cached via the _detailLoaded flag so it never re-fetches.
+  // Returns the fully-detailed recipe object.
+  const fetchRecipeDetail = async (recipe) => {
+    // Already detailed — return as-is.
+    if (recipe._detailLoaded) return recipe;
+
+    // Flag this recipe as loading so the UI can show a spinner.
+    setRecipes(prev => prev.map(r =>
+      r.name === recipe.name ? { ...r, _detailLoading: true } : r
+    ));
+
+    const prompt = `You are Chef Daniel, a warm Christian nutrition coach. Provide the full detailed recipe for "${recipe.name}" — ${recipe.description}. It uses these ingredients: ${[...(recipe.usedIngredients || []), ...(recipe.additionalIngredients || [])].join(', ')}.
+
+Give detailed cooking steps (at least 5, each with quantities and technique), realistic per-serving nutrition, specific health benefits, practical chef tips, and a short faith note connecting nourishment to caring for the body God gave us.`;
+
+    try {
+      const detail = await base44.integrations.Core.InvokeLLM({
+        prompt,
+        response_json_schema: {
+          type: 'object',
+          properties: {
+            steps: { type: 'array', items: { type: 'string' } },
+            nutrition: {
+              type: 'object',
+              properties: {
+                calories: { type: 'string' },
+                protein: { type: 'string' },
+                carbs: { type: 'string' },
+                fat: { type: 'string' },
+                fiber: { type: 'string' },
+              },
+            },
+            healthBenefits: { type: 'array', items: { type: 'string' } },
+            chefTips: { type: 'array', items: { type: 'string' } },
+            faithNote: { type: 'string' },
+          },
+          required: ['steps', 'nutrition'],
+        },
+      });
+
+      const detailed = {
+        ...recipe,
+        steps: detail?.steps || [],
+        nutrition: detail?.nutrition || null,
+        healthBenefits: detail?.healthBenefits || [],
+        chefTips: detail?.chefTips || [],
+        faithNote: detail?.faithNote || '',
+        _detailLoaded: true,
+        _detailLoading: false,
+      };
+      setRecipes(prev => prev.map(r => (r.name === recipe.name ? detailed : r)));
+      return detailed;
+    } catch (e) {
+      setRecipes(prev => prev.map(r =>
+        r.name === recipe.name ? { ...r, _detailLoading: false } : r
+      ));
+      toast.error('Could not load full recipe. Please try again.');
+      return recipe;
+    }
+  };
+
+  const toggleExpand = (recipe) => {
+    const name = recipe.name;
+    if (expandedRecipe === name) {
+      setExpandedRecipe(null);
+      return;
+    }
+    setExpandedRecipe(name);
+    // Lazily load the heavy detail the first time this recipe is opened.
+    if (!recipe._detailLoaded && !recipe._detailLoading) {
+      fetchRecipeDetail(recipe);
+    }
   };
 
   const canGenerate = ingredients.length >= 2 && !isGenerating;
@@ -233,8 +336,8 @@ Requirements:
           </Button>
         </div>
 
-        {/* Ingredient pills */}
-        {ingredients.length > 0 ? (
+        {/* Added ingredient pills */}
+        {ingredients.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
             <AnimatePresence>
               {ingredients.map((ing) => (
@@ -257,23 +360,51 @@ Requirements:
               ))}
             </AnimatePresence>
           </div>
-        ) : (
-          /* Starter suggestions when empty */
-          <div className="bg-[#F2F6FA] dark:bg-white/5 rounded-xl p-3 border border-dashed border-[#22c55e]/25">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-[#0A1A2F]/40 dark:text-white/40 mb-2">Try one of these</p>
-            <div className="flex flex-wrap gap-1.5">
-              {STARTER_INGREDIENTS.map(s => (
-                <button
-                  key={s}
-                  onClick={() => addIngredient(s)}
-                  className="text-xs font-semibold px-2.5 py-1 rounded-full bg-white dark:bg-white/8 text-[#166534] dark:text-[#86EFAC] border border-[#22c55e]/20 hover:bg-[#22c55e]/10 hover:border-[#22c55e]/40 transition-colors"
-                >
-                  + {s}
-                </button>
-              ))}
-            </div>
-          </div>
         )}
+
+        {/* Multi-select ingredient browser */}
+        <div className="bg-[#F2F6FA] dark:bg-white/5 rounded-xl p-3 border border-dashed border-[#22c55e]/25 space-y-3">
+          <div className="flex items-center justify-between">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-[#0A1A2F]/40 dark:text-white/40">
+              Pick ingredients — tap to select
+            </p>
+            {selectedSuggestions.length > 0 && (
+              <button
+                onClick={addSelectedSuggestions}
+                className="text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full bg-gradient-to-r from-[#166534] to-[#22c55e] text-white shadow-sm"
+              >
+                Add {selectedSuggestions.length} selected
+              </button>
+            )}
+          </div>
+          {STARTER_CATEGORIES.map(cat => (
+            <div key={cat.label}>
+              <p className="text-[10px] font-bold text-[#0A1A2F]/50 dark:text-white/40 mb-1.5">{cat.label}</p>
+              <div className="flex flex-wrap gap-1.5">
+                {cat.items.map(s => {
+                  const alreadyAdded = ingredients.some(i => i.toLowerCase() === s.toLowerCase());
+                  const isSelected = selectedSuggestions.includes(s);
+                  return (
+                    <button
+                      key={s}
+                      disabled={alreadyAdded}
+                      onClick={() => toggleSuggestion(s)}
+                      className={`text-xs font-semibold px-2.5 py-1 rounded-full border transition-all ${
+                        alreadyAdded
+                          ? 'bg-[#22c55e]/10 border-[#22c55e]/20 text-[#166534]/50 dark:text-[#86EFAC]/40 cursor-default'
+                          : isSelected
+                          ? 'bg-gradient-to-r from-[#166534] to-[#22c55e] text-white border-transparent shadow-sm'
+                          : 'bg-white dark:bg-white/8 text-[#166534] dark:text-[#86EFAC] border-[#22c55e]/20 hover:bg-[#22c55e]/10 hover:border-[#22c55e]/40'
+                      }`}
+                    >
+                      {alreadyAdded ? '✓ ' : isSelected ? '✓ ' : '+ '}{s}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
 
         {/* Generate button */}
         <Button
@@ -358,10 +489,12 @@ Requirements:
                           <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border ${difficultyColor.bg} ${difficultyColor.text} ${difficultyColor.border}`}>
                             {recipe.difficulty}
                           </span>
-                          <span className="text-[10px] text-[#0A1A2F]/50 dark:text-white/50 flex items-center gap-1">
-                            <Clock className="w-3 h-3" />
-                            {recipe.prepTime} prep · {recipe.cookTime} cook
-                          </span>
+                          {(recipe.prepTime || recipe.cookTime) && (
+                            <span className="text-[10px] text-[#0A1A2F]/50 dark:text-white/50 flex items-center gap-1">
+                              <Clock className="w-3 h-3" />
+                              {[recipe.prepTime && `${recipe.prepTime} prep`, recipe.cookTime && `${recipe.cookTime} cook`].filter(Boolean).join(' · ')}
+                            </span>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -387,7 +520,7 @@ Requirements:
 
                     {/* Expand toggle */}
                     <button
-                      onClick={() => toggleExpand(recipe.name)}
+                      onClick={() => toggleExpand(recipe)}
                       className="flex items-center gap-1 text-[#166534] dark:text-[#86EFAC] text-xs font-bold hover:gap-1.5 transition-all"
                     >
                       {isExpanded ? (
@@ -436,6 +569,19 @@ Requirements:
                           exit={{ opacity: 0, height: 0 }}
                           className="mt-4 space-y-4 overflow-hidden"
                         >
+                          {/* Detail still loading (Phase 2) */}
+                          {recipe._detailLoading && !recipe._detailLoaded && (
+                            <div className="flex flex-col items-center justify-center py-8 gap-3">
+                              <Loader2 className="w-6 h-6 text-[#22c55e] animate-spin" />
+                              <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">
+                                Chef Daniel is writing the full recipe…
+                              </p>
+                            </div>
+                          )}
+
+                          {/* Detail content (only once loaded) */}
+                          {recipe._detailLoaded && (
+                            <>
                           {/* Servings line */}
                           {recipe.servings && (
                             <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60 font-medium flex items-center gap-1.5">
@@ -535,6 +681,8 @@ Requirements:
                               <span className="text-lg flex-shrink-0 leading-none">🙏</span>
                               <p className="text-sm text-[#166534] dark:text-[#86EFAC] italic leading-relaxed">{recipe.faithNote}</p>
                             </div>
+                          )}
+                            </>
                           )}
                         </motion.div>
                       )}
