@@ -966,7 +966,7 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                       <span className="text-[10px] font-bold uppercase tracking-widest text-[#38BDF8] bg-[#38BDF8]/15 rounded-full px-2.5 py-1">Timed</span>
                     )}
                     {currentEx.type === 'bodyweight' && (
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-[#FD9C2D] bg-[#FD9C2D]/15 rounded-full px-2.5 py-1">Bodyweight</span>
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-white bg-[#FD9C2D]/35 rounded-full px-2.5 py-1">Bodyweight</span>
                     )}
                     {currentEx.type === 'weighted' && (
                       <span className="text-[10px] font-bold uppercase tracking-widest text-white/50 bg-white/10 rounded-full px-2.5 py-1">Weighted</span>
