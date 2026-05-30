@@ -1,16 +1,32 @@
 import React from 'react';
 import { ArrowLeft } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 
 export default function UniversalHeader({ title, rightAction = null, backTo = null }) {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleBack = () => {
-    if (backTo) {
+    // Prefer browser back when the user actually navigated to this page from
+    // somewhere else in the app — this respects where they came from (a
+    // coaching plan, search results, etc.) rather than always teleporting
+    // them to a single hardcoded page. backTo is used as a fallback when
+    // this is the user's entry point to the app (deep links, push
+    // notifications, fresh installs landing directly on a sub-page).
+    //
+    // React Router sets location.key to 'default' for the very first
+    // navigation in the session and a unique random key for every push/
+    // replace after that. So a non-'default' key means we have something
+    // meaningful to pop back to.
+    const isEntryPoint = location.key === 'default';
+    if (!isEntryPoint) {
+      navigate(-1);
+    } else if (backTo) {
       navigate(createPageUrl(backTo));
     } else {
-      navigate(-1);
+      // No history AND no fallback — go home as a last resort
+      navigate(createPageUrl('Home'));
     }
   };
 

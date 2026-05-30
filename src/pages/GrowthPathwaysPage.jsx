@@ -715,6 +715,7 @@ function PathwayCard({ pathway, progress, activeId, index, onClick }) {
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 export default function GrowthPathwaysPage() {
+  const navigate = useNavigate();
   const [view,      setView]      = useState('loading'); // loading | quiz | recommendation | list | detail
   const [selected,  setSelected]  = useState(null);
   const [recommended, setRecommended] = useState(null);
@@ -779,10 +780,11 @@ export default function GrowthPathwaysPage() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
       <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#F2F6FA] px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
-          <Link to={createPageUrl('PersonalGrowth')}
-            className="w-9 h-9 rounded-full bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-white dark:bg-white/5 flex items-center justify-center transition-colors">
+          <button onClick={() => navigate(-1)}
+            className="w-9 h-9 rounded-full bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-white dark:bg-white/5 flex items-center justify-center transition-colors"
+            aria-label="Go back">
             <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
-          </Link>
+          </button>
           <div className="flex-1">
             <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Growth Pathways</h1>
             <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">{totalSteps} steps completed · {totalDone} pathways done</p>

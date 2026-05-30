@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Flame, Plus, X,
   ChevronRight, Sparkles, Settings2, Check
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import { localDateKey, todayKey } from '@/utils/localDate';
@@ -533,6 +533,7 @@ class PageErrorBoundary extends React.Component {
 }
 
 function HabitBuilderPageInner() {
+  const navigate = useNavigate();
   const [activeIds, setActiveIds]   = useState(loadActive);
   const [done, setDone]             = useState(() => {
     try { return JSON.parse(localStorage.getItem(STORAGE_TODAY()) || '[]'); } catch { return []; }
@@ -645,10 +646,11 @@ function HabitBuilderPageInner() {
         {/* ── Header ──────────────────────────────────────────────────────── */}
         <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#F2F6FA] px-4 py-3">
           <div className="max-w-2xl mx-auto flex items-center gap-3">
-            <Link to={createPageUrl('PersonalGrowth')}
-              className="w-9 h-9 rounded-full bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-white dark:bg-white/5 flex items-center justify-center transition-colors">
+            <button onClick={() => navigate(-1)}
+              className="w-9 h-9 rounded-full bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-white dark:bg-white/5 flex items-center justify-center transition-colors"
+              aria-label="Go back">
               <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
-            </Link>
+            </button>
             <div className="flex-1">
               <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Habit Builder</h1>
               <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">{dateLabel}</p>

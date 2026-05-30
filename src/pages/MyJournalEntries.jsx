@@ -3,8 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Edit, Save, X, Trash2, ChevronDown, ChevronUp, Plus, Filter, Sparkles } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { createPageUrl } from '@/utils';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
@@ -27,6 +26,7 @@ const CATEGORIES = [
 ];
 
 export default function MyJournalEntries() {
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [editingId, setEditingId] = useState(null);
   const [editTitle, setEditTitle] = useState('');
@@ -201,12 +201,13 @@ export default function MyJournalEntries() {
       <div className="sticky top-14 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#AFC7E3]/20 px-4 py-3 shadow-sm dark:shadow-none">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Link
-              to={createPageUrl('PersonalGrowth')}
+            <button
+              onClick={() => navigate(-1)}
               className="w-10 h-10 rounded-full bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 hover:bg-[#FAD98D]/25 dark:bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 flex items-center justify-center transition-all"
+              aria-label="Go back"
             >
               <ArrowLeft className="w-4 h-4 text-[#3C4E53]" />
-            </Link>
+            </button>
             <div>
               <h1 className="text-xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">My Journal</h1>
               <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">{entries.length} entries • Your personal collection</p>

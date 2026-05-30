@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 import { base44 } from '@/api/base44Client';
-import { Link } from 'react-router-dom';
-import { createPageUrl } from '@/utils';
+import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Heart, Mic, Target } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import PrayerJournal from '@/components/spiritual/PrayerJournal';
@@ -12,6 +11,7 @@ import SpiritualGoals from '@/components/spiritual/SpiritualGoals';
 import AIEncouragement from '@/components/spiritual/AIEncouragement';
 
 export default function SpiritualGrowth() {
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -33,12 +33,13 @@ export default function SpiritualGrowth() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
       <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#F2F6FA] px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
-          <Link
-            to={createPageUrl('Home')}
+          <button
+            onClick={() => navigate(-1)}
             className="w-9 h-9 rounded-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 flex items-center justify-center transition-colors"
+            aria-label="Go back"
           >
             <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
-          </Link>
+          </button>
           <div>
             <h1 className="text-lg font-bold text-[#0A1A2F] dark:text-white dark:text-white">Spiritual Growth</h1>
             <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60">Grow deeper in your faith journey</p>

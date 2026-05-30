@@ -350,12 +350,13 @@ export default function WeeklyReflectionPage() {
       {/* Header */}
       <div className="sticky top-14 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#AFC7E3]/20 px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
-          <Link
-            to={createPageUrl('PersonalGrowth')}
+          <button
+            onClick={() => navigate(-1)}
             className="w-9 h-9 rounded-full bg-[#AFC7E3]/15 hover:bg-[#AFC7E3]/25 flex items-center justify-center transition-colors"
+            aria-label="Go back"
           >
             <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
-          </Link>
+          </button>
           <div className="flex-1 min-w-0">
             <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white leading-tight">Weekly Reflection</h1>
             <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 truncate">{weekLabel}</p>

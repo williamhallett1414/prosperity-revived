@@ -5,8 +5,7 @@ import {
   ChevronDown, ChevronUp, BookOpen, TrendingUp,
   CheckCircle2, Loader2
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { createPageUrl } from '@/utils';
+import { useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 import ShareToFeedButton from '@/components/community/ShareToFeedButton';
@@ -245,6 +244,7 @@ class PageErrorBoundary extends React.Component {
 }
 
 function GratitudeJournalPageInner() {
+  const navigate = useNavigate();
   const [content, setContent] = useState('');
   const [user, setUser] = useState(null);
   useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
@@ -364,10 +364,11 @@ function GratitudeJournalPageInner() {
       {/* ── Header ── */}
       <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 py-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
-          <Link to={createPageUrl('PersonalGrowth')}
-            className="w-9 h-9 rounded-full bg-white dark:bg-white/5 hover:bg-[#FFF9EC] flex items-center justify-center transition-colors">
+          <button onClick={() => navigate(-1)}
+            className="w-9 h-9 rounded-full bg-white dark:bg-white/5 hover:bg-[#FFF9EC] flex items-center justify-center transition-colors"
+            aria-label="Go back">
             <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
-          </Link>
+          </button>
           <div className="flex-1">
             <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Gratitude Journal</h1>
             <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40">
