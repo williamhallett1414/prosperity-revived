@@ -3,10 +3,10 @@
  *
  * Lifecycle:
  *   - Hidden by default outside the event-visibility window.
- *   - From June 23: shows countdown to July 7.
- *   - For Founding Members on July 6: shows "Your Day 0 is unlocked."
- *   - During event (Jul 7-13): shows "Day N of 7 — [today's coach]".
- *   - After July 13: hides.
+ *   - From July 27: shows countdown to August 10.
+ *   - For Founding Members on August 9: shows "Your Day 0 is unlocked."
+ *   - During event (Aug 10-16): shows "Day N of 7 — [today's coach]".
+ *   - After August 16: hides.
  *
  * Tap navigates to /Awakening. Dismissible per-session via localStorage.
  */
@@ -56,7 +56,7 @@ export default function AwakeningBanner() {
   let body;
   if (currentDay === -1) {
     const d = daysUntilStart(now);
-    eyebrow = 'Coming July 7';
+    eyebrow = 'Coming August 10';
     headline = 'The 7-Day Awakening';
     body =
       d === 1

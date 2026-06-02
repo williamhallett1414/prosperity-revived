@@ -5,7 +5,7 @@
  *   - First Week is tied to each user's signup date, not a calendar date
  *   - Runs forever (every new user gets one)
  *   - Adapts to the user's pre-signup quiz answers (priorities, coaching_style)
- *   - Hides while the Awakening visibility window is active (June 23-July 13)
+ *   - Hides while the Awakening visibility window is active (July 27-August 16)
  *     so we don't show two competing 7-day plans simultaneously
  *
  * UI surfaces:
@@ -22,7 +22,7 @@ import { isBannerVisible as isAwakeningVisible, EVENT_END as AWAKENING_END } fro
 /**
  * Returns the effective start date for the user's First Week. This is usually
  * just their signup date — but if a user happens to sign up during the
- * Awakening event-visibility window (June 23-July 13, 2026), we defer their
+ * Awakening event-visibility window (July 27-August 16, 2026), we defer their
  * First Week to start the day after Awakening ends. Without this, when the
  * Awakening banner hides on July 14, the user would suddenly find their
  * First Week jumped ahead to "Day N of 7" without ever having seen Day 1.
@@ -33,7 +33,7 @@ function effectiveFirstWeekStart(user) {
   if (!user?.created_date) return null;
   const signup = new Date(user.created_date);
   if (Number.isNaN(signup.getTime())) return null;
-  // Awakening ends at the END of July 13 (EVENT_END). First Week deferred
+  // Awakening ends at the END of August 16 (EVENT_END). First Week deferred
   // start is the calendar day AFTER that.
   const dayAfterAwakening = new Date(
     AWAKENING_END.getFullYear(),

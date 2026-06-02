@@ -12,6 +12,7 @@ import { GRACE_MOMENTS } from '@/components/home/graceMoments';
 import { getFirstName } from '@/lib/userName';
 import AwakeningBanner from '@/components/awakening/AwakeningBanner';
 import AwakeningDailyReminder from '@/components/awakening/AwakeningDailyReminder';
+import FounderWelcomeBanner from '@/components/awakening/FounderWelcomeBanner';
 import FounderCelebration from '@/components/awakening/FounderCelebration';
 import FirstWeekBanner from '@/components/firstweek/FirstWeekBanner';
 const StartMyDayModal = React.lazy(() => import('@/components/home/StartMyDayModal'));
@@ -61,7 +62,7 @@ function Home() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F]">
       {/* Once-per-day Awakening reminder — only renders inside the event
-          window (Jul 7-13) when the user opens the app for the first time
+          window (Aug 10-16) when the user opens the app for the first time
           today and hasn't already completed today's day. Self-gating
           internally; safe to mount unconditionally. */}
       <AwakeningDailyReminder />
@@ -89,6 +90,12 @@ function Home() {
             )}
           </div>
         </motion.div>
+
+        {/* Founder Welcome — Founders-only card, visible July 6 (Day Zero,
+            a day before public launch) and July 7 (launch day). Replaces the
+            launch-week promise after we moved the Awakening to August 10.
+            Self-gates by date + founding_member; non-Founders see nothing. */}
+        <FounderWelcomeBanner user={user} />
 
         {/* Launch event promo — auto-hides outside the event window */}
         <AwakeningBanner />

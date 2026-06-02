@@ -5,9 +5,9 @@
  * Deep link target from App Store In-App Event card.
  *
  * Behavior:
- *   - Pre-event (before July 7): countdown hero + locked day cards.
- *   - Founding Members on July 6: Day 0 unlock with welcome from Gideon.
- *   - During event (July 7-13): today's card highlighted, prior days
+ *   - Pre-event (before August 10): countdown hero + locked day cards.
+ *   - Founding Members on August 9: Day 0 unlock with welcome from Gideon.
+ *   - During event (August 10-16): today's card highlighted, prior days
  *     marked complete, future days locked.
  *   - Post-event: completion summary + invitation to revisit any day.
  *
@@ -353,7 +353,7 @@ export default function Awakening() {
 
       {/* Day cards */}
       <section className="px-5 pb-24 max-w-xl mx-auto space-y-3">
-        {/* Founder-only Day 0 welcome card. Appears only on July 6 (currentDay===0)
+        {/* Founder-only Day 0 welcome card. Appears only on August 9 (currentDay===0)
             when user is a Founding Member. Fulfills the hero copy promise that
             "Gideon has a Day 0 welcome waiting for you below." Routes to /Bible
             so they can open a real conversation with Gideon. */}

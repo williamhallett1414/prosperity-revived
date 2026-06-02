@@ -12,16 +12,25 @@
 
 // ── Event window ───────────────────────────────────────────────────────────
 // Note on dates: month is 0-indexed in JS Date constructor.
-// July 7, 2026 07:00 LOCAL through July 13, 2026 23:59 LOCAL.
-export const EVENT_START = new Date(2026, 6, 7, 7, 0, 0);
-export const EVENT_END = new Date(2026, 6, 13, 23, 59, 59);
+// August 10, 2026 07:00 LOCAL through August 16, 2026 23:59 LOCAL.
+//
+// The Awakening was originally scheduled for launch week (July 7-13), but
+// we separated event-start from app-launch so users have time to get settled
+// before the all-hands-on-deck week. Founders still get a launch-week
+// experience — see FounderWelcome (a separate, smaller moment on July 6-7,
+// the Spiritual Assessment with Gideon). That establishes a baseline they
+// can revisit when the Awakening proper kicks off here.
+export const EVENT_START = new Date(2026, 7, 10, 7, 0, 0);
+export const EVENT_END = new Date(2026, 7, 16, 23, 59, 59);
 
-// Founding Members get Day 0 = July 6 (early access, per landing-page promise).
-export const FOUNDER_DAY0_START = new Date(2026, 6, 6, 7, 0, 0);
+// Founding Members get Day 0 = August 9 (early access to the Awakening,
+// one calendar day before everyone else). This is the Awakening-specific
+// early access; their LAUNCH-week perk is the separate Founder Welcome.
+export const FOUNDER_DAY0_START = new Date(2026, 7, 9, 7, 0, 0);
 
 // Banner becomes visible on the home screen this date (matches the App Store
 // event-visibility-start of 14 days before event_start).
-export const BANNER_VISIBLE_FROM = new Date(2026, 5, 23, 0, 0, 0); // June 23
+export const BANNER_VISIBLE_FROM = new Date(2026, 6, 27, 0, 0, 0); // July 27
 export const BANNER_VISIBLE_TO = EVENT_END;
 
 // ── Day-by-day configuration ───────────────────────────────────────────────
@@ -31,7 +40,7 @@ export const BANNER_VISIBLE_TO = EVENT_END;
 export const AWAKENING_DAYS = [
   {
     day: 1,
-    label: 'Jul 7',
+    label: 'Aug 10',
     coach: 'Gideon',
     coachAvatar: '/src/assets/gideon-avatar.png',
     title: 'Where are you starting?',
@@ -43,7 +52,7 @@ export const AWAKENING_DAYS = [
   },
   {
     day: 2,
-    label: 'Jul 8',
+    label: 'Aug 11',
     coach: 'Hannah',
     coachAvatar: '/src/assets/hannah-avatar.png',
     title: "Name what's stirring.",
@@ -55,7 +64,7 @@ export const AWAKENING_DAYS = [
   },
   {
     day: 3,
-    label: 'Jul 9',
+    label: 'Aug 12',
     coach: 'Coach Paul',
     coachAvatar: '/src/assets/coach-paul-avatar.png',
     title: 'Fast and pray.',
@@ -67,7 +76,7 @@ export const AWAKENING_DAYS = [
   },
   {
     day: 4,
-    label: 'Jul 10',
+    label: 'Aug 13',
     coach: 'Coach David',
     coachAvatar: '/src/assets/coach-david-avatar.png',
     title: 'Move as worship.',
@@ -79,7 +88,7 @@ export const AWAKENING_DAYS = [
   },
   {
     day: 5,
-    label: 'Jul 11',
+    label: 'Aug 14',
     coach: 'Chef Daniel',
     coachAvatar: '/src/assets/chef-daniel-avatar.png',
     title: 'Nourish on purpose.',
@@ -91,7 +100,7 @@ export const AWAKENING_DAYS = [
   },
   {
     day: 6,
-    label: 'Jul 12',
+    label: 'Aug 15',
     coach: 'Gideon',
     coachAvatar: '/src/assets/gideon-avatar.png',
     title: 'The dark night.',
@@ -103,7 +112,7 @@ export const AWAKENING_DAYS = [
   },
   {
     day: 7,
-    label: 'Jul 13',
+    label: 'Aug 16',
     coach: 'All Five',
     coachAvatar: null, // rendered as a 5-circle row in the UI
     title: 'We rise together.',
@@ -120,12 +129,12 @@ export const AWAKENING_DAYS = [
 /**
  * Returns the current "day number" of the Awakening event:
  *   -1 → banner not yet visible
- *    0 → Founding Member early access (July 6 only, for founders)
+ *    0 → Founding Member early access (August 9 only, for founders)
  *    1..7 → during the event
  *    8 → event ended
  *
- * Founding Members see Day 0 on July 6; non-founders see "starts tomorrow"
- * until July 7.
+ * Founding Members see Day 0 on August 9; non-founders see "starts tomorrow"
+ * until August 10.
  */
 export function getCurrentDay(user, now = new Date()) {
   if (now < BANNER_VISIBLE_FROM) return -1;
