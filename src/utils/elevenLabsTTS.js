@@ -13,8 +13,8 @@ const ELEVENLABS_API_KEY = 'sk_c5df5572687cd5fbb73131ada65b2cbf9344aad09b5985ca'
 const VOICE_MAP = {
   gideon: { voiceId: 'nPczCjzI2devNBz1zQrb', stability: 0.6, similarity: 0.8 },   // Daniel — deep British elder
   hannah: { voiceId: 'EXAVITQu4vr4xnSDxMaL', stability: 0.7, similarity: 0.75 },   // Sarah — soft, gentle female (was Rachel; softer for meditations). Higher stability = calmer, less punchy delivery.
-  chef:   { voiceId: 'yoZ06aMxZJJ28mfd3POQ', stability: 0.45, similarity: 0.8 },    // Sam — warm, friendly, clearly male
-  coach:  { voiceId: 'cjVigY5qzO86Huf0OWal', stability: 0.35, similarity: 0.85 },    // Eric — deep, strong, energetic male
+  chef:   { voiceId: 'pNInz6obpgDQGcFmaJgB', stability: 0.55, similarity: 0.8 },    // Adam — deep American narrator (was Sam; deeper for the head-chef "presence" feel). Not French — that would require a Voice Library voice; deferred.
+  coach:  { voiceId: 'pqHfZKP75CvOlQylNhV4', stability: 0.55, similarity: 0.85 },    // Bill — deep, gravelly male narrator (was Eric; deeper + more "drill-sergeant authority"). Higher stability = more grounded, less hyper.
   paul:   { voiceId: '2EiwWnXFnvU5JabPnv8n', stability: 0.6, similarity: 0.8 },     // Clyde — measured calm authority
 };
 
