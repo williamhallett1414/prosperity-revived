@@ -173,6 +173,7 @@ const STEPS = [
   { id: 'you',            type: 'card', icon: User,     label: 'You',         color: '#0A1A2F', showInDots: true  },
   { id: 'photo',          type: 'card', icon: Camera,   label: 'Photo',       color: '#F59E0B', showInDots: true  },
   { id: 'why',            type: 'card', icon: Sparkles, label: 'Your Why',    color: '#FD9C2D', showInDots: true  },
+  { id: 'transform',      type: 'full', icon: Sparkles, label: 'The Shift',   color: '#FD9C2D', showInDots: false },
   { id: 'fitness',        type: 'card', icon: Dumbbell, label: 'Fitness',     color: '#38BDF8', showInDots: true  },
   { id: 'nutrition',      type: 'card', icon: Utensils, label: 'Nutrition',   color: '#22C55E', showInDots: true  },
   { id: 'faith',          type: 'card', icon: BookOpen, label: 'Faith',       color: '#C9A227', showInDots: true  },
@@ -538,6 +539,75 @@ function FactScreen({ factId, onNext, onBack }) {
   );
 }
 
+// ── Before → After transformation screen ──────────────────────────────────────
+function TransformScreen({ onNext, onBack }) {
+  const before = ['Scattered between apps', 'Faith on the back burner', 'Starting over every Monday', 'Running on empty'];
+  const after  = ['One grounded daily rhythm', 'Faith at the center', 'Steady, sustainable progress', 'Renewed in spirit & body'];
+  return (
+    <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} exit={{ opacity:0 }}
+      className="fixed inset-0 z-50 flex flex-col"
+      style={{ background:'linear-gradient(160deg, #0A1A2F 0%, #16243B 100%)' }}>
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-64 rounded-full opacity-15" style={{ background:'radial-gradient(ellipse, #FD9C2D, transparent 70%)' }} />
+        {[...Array(14)].map((_,i) => (
+          <div key={i} className="absolute rounded-full bg-white" style={{ width:2, height:2, left:`${6+(i*15)%88}%`, top:`${4+(i*21)%82}%`, opacity:0.05+(i%5)*0.05 }} />
+        ))}
+      </div>
+      <div className="flex-1 flex flex-col justify-center px-7 py-8 relative z-10 max-w-md mx-auto w-full">
+        <motion.div initial={{ y:-16, opacity:0 }} animate={{ y:0, opacity:1 }} transition={{ delay:0.1 }} className="mb-6">
+          <span className="text-[#FAD98D] text-xs font-bold uppercase tracking-widest">The shift ahead</span>
+        </motion.div>
+        <motion.h1 initial={{ y:20, opacity:0 }} animate={{ y:0, opacity:1 }} transition={{ delay:0.2 }}
+          className="text-white font-black text-2xl leading-tight mb-7" style={{ fontFamily:'Georgia, serif' }}>
+          From a divided life to a grounded one.
+        </motion.h1>
+
+        <motion.div initial={{ y:20, opacity:0 }} animate={{ y:0, opacity:1 }} transition={{ delay:0.3 }}
+          className="rounded-2xl p-4 mb-3" style={{ background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.08)' }}>
+          <p className="text-white/40 text-[11px] font-bold uppercase tracking-widest mb-3">Now</p>
+          <div className="space-y-2">
+            {before.map((t,i) => (
+              <div key={i} className="flex items-center gap-2.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-white/25 flex-shrink-0" />
+                <span className="text-white/55 text-sm">{t}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div initial={{ y:20, opacity:0 }} animate={{ y:0, opacity:1 }} transition={{ delay:0.45 }}
+          className="rounded-2xl p-4" style={{ background:'rgba(253,156,45,0.12)', border:'1px solid rgba(253,156,45,0.3)' }}>
+          <p className="text-[#FAD98D] text-[11px] font-bold uppercase tracking-widest mb-3">With Prosperity Revived</p>
+          <div className="space-y-2">
+            {after.map((t,i) => (
+              <div key={i} className="flex items-center gap-2.5">
+                <Check className="w-4 h-4 text-[#FD9C2D] flex-shrink-0" strokeWidth={3} />
+                <span className="text-white text-sm font-medium">{t}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+
+      <motion.div initial={{ y:30, opacity:0 }} animate={{ y:0, opacity:1 }} transition={{ delay:0.6 }}
+        className="relative z-10 px-6 flex items-center gap-3"
+        style={{ paddingBottom: 'max(2rem, env(safe-area-inset-bottom))' }}>
+        <button onPointerDown={onBack}
+          aria-label="Back"
+          className="w-11 h-11 flex-shrink-0 rounded-2xl flex items-center justify-center text-white/60 active:scale-95 transition-transform"
+          style={{ background:'rgba(255,255,255,0.07)' }}>
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+        <button onPointerDown={onNext}
+          className="flex-1 flex items-center justify-center gap-2 h-11 rounded-2xl font-bold text-white text-sm shadow-md active:scale-[0.98] transition-transform"
+          style={{ background:'linear-gradient(135deg, #FD9C2DBB, #FD9C2D)' }}>
+          Let's build it <ChevronRight className="w-4 h-4" />
+        </button>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 // ── Main component ────────────────────────────────────────────────────────────
 export default function OnboardingFlow({ onComplete }) {
   const [step, setStep]   = useState(0);
@@ -595,7 +665,7 @@ export default function OnboardingFlow({ onComplete }) {
     workout_days:3, workout_duration:'', equipment:[], preferred_workout_time:'', injuries:'',
     diet_type:'', allergies:[], meals_per_day:'', cooking_time:'',
     bible_level:'', bible_translation:'', bible_topics:[], devotional_depth:'', in_church:'',
-    growth_areas:[], core_values:[], coaching_style:'', goal_90_day:'',
+    growth_areas:[], core_values:[], coaching_style:'', goal_90_day:'', committed:false,
     wake_time:'06:30', sleep_time:'22:30', job_type:'',
     notif_devotional:false, notif_workout:false, notif_meals:false, notif_reflection:false,
   });
@@ -698,6 +768,7 @@ export default function OnboardingFlow({ onComplete }) {
         bible_level: d.bible_level, bible_translation: d.bible_translation, bible_topics: d.bible_topics,
         devotional_depth: d.devotional_depth, in_church: d.in_church,
         growth_areas: d.growth_areas, core_values: d.core_values, coaching_style: d.coaching_style, goal_90_day: d.goal_90_day,
+        committed_to_journey: d.committed, committed_at: d.committed ? new Date().toISOString() : undefined,
         wake_time: d.wake_time, sleep_time: d.sleep_time, job_type: d.job_type,
         reminder_settings: {
           devotional:  { enabled: d.notif_devotional, time: '07:00' },
@@ -757,6 +828,7 @@ export default function OnboardingFlow({ onComplete }) {
   const cfg = STEPS[step];
   if (cfg.id === 'hook')           return <AnimatePresence mode="wait"><HookScreen   key="hook"   value={hookAnswer} onChange={setHookAnswer} onNext={next} onBack={back} showBack={step > 0} /></AnimatePresence>;
   if (cfg.id === 'guides')         return <AnimatePresence mode="wait"><GuidesScreen key="guides" onNext={next} onBack={back} /></AnimatePresence>;
+  if (cfg.id === 'transform')      return <AnimatePresence mode="wait"><TransformScreen key="transform" onNext={next} onBack={back} /></AnimatePresence>;
   if (cfg.id.startsWith('fact_'))  return <AnimatePresence mode="wait"><FactScreen   key={cfg.id} factId={cfg.id} onNext={next} onBack={back} /></AnimatePresence>;
 
   // Card screens
@@ -1134,6 +1206,28 @@ export default function OnboardingFlow({ onComplete }) {
                       <textarea value={d.goal_90_day} onChange={e=>set('goal_90_day',e.target.value)}
                         placeholder="e.g. Feel more confident in my faith and drop 10 lbs."
                         rows={3} className="w-full px-4 py-3 rounded-2xl border-2 border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 text-sm text-gray-700 dark:text-gray-200 focus:outline-none focus:border-[#AFC7E3] resize-none" />
+                    </div>
+                    <div>
+                      <SectionLabel>Make it a commitment</SectionLabel>
+                      <motion.button
+                        type="button"
+                        onClick={() => set('committed', !d.committed)}
+                        whileTap={{ scale: 0.98 }}
+                        className={`w-full text-left rounded-2xl border-2 p-4 transition-all ${d.committed ? 'border-[#FD9C2D] bg-[#FD9C2D]/10' : 'border-gray-100 dark:border-white/10 bg-white dark:bg-white/5'}`}>
+                        <div className="flex items-start gap-3">
+                          <div className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center mt-0.5 transition-all ${d.committed ? 'border-[#FD9C2D] bg-[#FD9C2D]' : 'border-gray-300 dark:border-white/20'}`}>
+                            {d.committed && <Check className="w-4 h-4 text-white" strokeWidth={3} />}
+                          </div>
+                          <div>
+                            <p className="text-sm font-bold text-[#0A1A2F] dark:text-white leading-snug">
+                              I'm committing to show up for this journey — for my faith, my health, and my growth.
+                            </p>
+                            <p className="text-xs text-gray-500 dark:text-gray-300 mt-1 leading-relaxed">
+                              Tap to make it real. A commitment you name is one you're far more likely to keep.
+                            </p>
+                          </div>
+                        </div>
+                      </motion.button>
                     </div>
                   </div>
                 )}
