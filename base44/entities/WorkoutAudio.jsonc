@@ -1,0 +1,32 @@
+{
+  "name": "WorkoutAudio",
+  "type": "object",
+  "description": "Cached coached-workout audio segments. Generated once via ElevenLabs and stored permanently so re-plays / different users hitting the same segment text don't re-burn credits. Keyed by SHA-256 of (text + voice_id + stability + similarity + style + model_id). Identical inputs return the cached URL; any change invalidates automatically.",
+  "properties": {
+    "content_hash": {
+      "type": "string",
+      "description": "SHA-256 of (text + voice_id + stability + similarity_boost + style + model_id). Cache key. Identical text+voice+settings = same hash = cache hit."
+    },
+    "audio_url": {
+      "type": "string",
+      "description": "Permanent Base44 file-storage URL of the generated MP3."
+    },
+    "voice_id": {
+      "type": "string",
+      "description": "ElevenLabs voice ID used (e.g. Bill = pqHfZKP75CvOlQylNhV4). Recorded for debugging / future migrations."
+    },
+    "char_count": {
+      "type": "number",
+      "description": "Character count of the text generated. Useful for tracking ElevenLabs spend per cache row."
+    },
+    "segment_type": {
+      "type": "string",
+      "description": "Optional segment type tag ('intro', 'exercise', 'rest', 'outro') — purely informational, helps filter the cache in the dashboard."
+    },
+    "preview_text": {
+      "type": "string",
+      "description": "First ~80 chars of the source text. Optional, used to identify cache rows visually in the Base44 dashboard since the hash itself is opaque."
+    }
+  },
+  "required": ["content_hash", "audio_url"]
+}

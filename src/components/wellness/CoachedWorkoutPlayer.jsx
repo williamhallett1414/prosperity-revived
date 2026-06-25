@@ -129,20 +129,57 @@ export default function CoachedWorkoutPlayer({ workout, coachName = 'Coach David
       audioStarted = true;
     };
 
+    // Play a permanent URL directly (no base64 conversion). Used by the
+    // cached-segment path. We don't track urlRef for cleanup because these
+    // URLs are remote (not blob:) and don't need URL.revokeObjectURL.
+    const playFromUrl = async (url) => {
+      const audio = new Audio(url);
+      audioRef.current = audio;
+      audio.onended = () => startHold(segment);
+      await audio.play();
+      audioStarted = true;
+    };
+
     try {
-      // Use the SAME ElevenLabs voice the chat uses (Coach David = "Bill").
-      const elevenB64 = await elevenLabsSpeak(segment.text, character);
-      if (elevenB64) {
-        await playFromBase64(elevenB64);
-      } else {
-        // Fallback to the backend TTS function if ElevenLabs is unavailable.
-        // The function returns Response.json({ audioContent }) at the TOP level
-        // (not nested under res.data), so we read it directly. The old read
-        // (res?.data?.audioContent) silently never returned audio.
-        const res = await base44.functions.invoke(fn, { text: segment.text });
-        const b64 = res?.audioContent || res?.data?.audioContent;
-        if (b64) await playFromBase64(b64);
-        else setVoiceFailed(true);
+      // PRIMARY: cached segment function. Returns a permanent file URL on
+      // cache hit (no ElevenLabs cost) or generates + caches + returns URL
+      // on miss (cost paid ONCE per unique text+voice combo across all
+      // users, ever). This is the "Item 4" caching layer that makes the
+      // economics work at scale.
+      let played = false;
+      try {
+        const cached = await base44.functions.invoke('generateCoachedSegment', {
+          text: segment.text,
+          segment_type: segment.type,
+        });
+        const audioUrl = cached?.audio_url || cached?.data?.audio_url;
+        if (audioUrl) {
+          await playFromUrl(audioUrl);
+          played = true;
+        }
+      } catch (cacheErr) {
+        // Cached path failed (network blip, function not deployed yet, etc).
+        // Fall through to the legacy paths below — don't break the user's
+        // session over a caching issue.
+        // eslint-disable-next-line no-console
+        console.warn('[CoachedWorkoutPlayer] cached segment fetch failed, falling back:', cacheErr?.message || cacheErr);
+      }
+
+      if (!played) {
+        // FALLBACK 1: client-side ElevenLabs (same call chat uses).
+        const elevenB64 = await elevenLabsSpeak(segment.text, character);
+        if (elevenB64) {
+          await playFromBase64(elevenB64);
+        } else {
+          // FALLBACK 2: the per-coach backend TTS function (e.g. coachDavidTTS).
+          // The function returns Response.json({ audioContent }) at the TOP
+          // level (not nested under res.data), so we read it directly. The
+          // old read (res?.data?.audioContent) silently never returned audio.
+          const res = await base44.functions.invoke(fn, { text: segment.text });
+          const b64 = res?.audioContent || res?.data?.audioContent;
+          if (b64) await playFromBase64(b64);
+          else setVoiceFailed(true);
+        }
       }
     } catch (e) {
       setVoiceFailed(true);
