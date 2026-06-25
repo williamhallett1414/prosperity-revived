@@ -117,6 +117,7 @@ const SpiritualAssessment = lazy(() => import('./pages/SpiritualAssessment'));
 const RepentanceJournal = lazy(() => import('./pages/RepentanceJournal'));
 const Awakening = lazy(() => import('./pages/Awakening'));
 const FirstWeek = lazy(() => import('./pages/FirstWeek'));
+const CoachedWorkout = lazy(() => import('./pages/CoachedWorkout'));
 import __Layout from './Layout.jsx';
 
 
@@ -190,6 +191,7 @@ export const PAGES = {
     "Awakening": Awakening,
     "FirstWeek": FirstWeek,
     "Paywall": Paywall,
+    "CoachedWorkout": CoachedWorkout,
 }
 
 export const pagesConfig = {

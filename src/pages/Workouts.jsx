@@ -4,7 +4,7 @@ import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
 import {
   Dumbbell, Target, Trophy, ClipboardList, Flame, ChevronRight, Play,
-  CheckCircle2, MessageCircle, ArrowRight, Star, TrendingUp, Calendar } from
+  CheckCircle2, MessageCircle, ArrowRight, Star, TrendingUp, Calendar, Headphones } from
 'lucide-react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
@@ -577,6 +577,24 @@ function WorkoutsInner() {
                   </motion.div>);
 
               })}
+            </motion.div>
+
+            {/* ── Coach Led Workouts ── */}
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.18 }}>
+              <Link to={createPageUrl(recommendedWorkout?.id ? `CoachedWorkout?id=${recommendedWorkout.id}` : 'CoachedWorkout')}>
+                <div className="rounded-2xl p-5 flex items-center gap-4 shadow-md dark:shadow-none hover:shadow-lg transition-all"
+                  style={{ background: 'linear-gradient(135deg,#0A1A2F,#1e40af)' }}>
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#38BDF8] to-[#0EA5E9] flex items-center justify-center flex-shrink-0">
+                    <Headphones className="w-6 h-6 text-white" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[10px] font-bold text-[#38BDF8] uppercase tracking-widest mb-0.5">Coach Led</p>
+                    <p className="text-base font-bold text-white leading-tight">Train with Coach David</p>
+                    <p className="text-xs text-white/55 mt-0.5">Audio-guided workout with scripture & prayer</p>
+                  </div>
+                  <ChevronRight className="w-5 h-5 text-white/40 flex-shrink-0" />
+                </div>
+              </Link>
             </motion.div>
 
             {/* ── Browse Categories ── */}

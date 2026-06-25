@@ -1,5 +1,12 @@
 /**
- * Coach David TTS — ElevenLabs Voice: Clyde (2EiwWnXFnvU5JabPnv8n) — deep African American male
+ * Coach David TTS — ElevenLabs Voice: Bill (pqHfZKP75CvOlQylNhV4) — deep, gravelly male narrator.
+ *
+ * IMPORTANT: This voice + settings MUST match the client-side config in
+ * src/utils/elevenLabsTTS.js for the 'coach' character. The CoachedWorkoutPlayer
+ * uses the client-side path as primary and this function as fallback — if the
+ * two disagree, users hear a completely different Coach David depending on
+ * which network call succeeds. Keep them synced.
+ *
  * Returns base64-encoded MP3 audio.
  */
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
@@ -16,7 +23,7 @@ Deno.serve(async (req) => {
     }
 
     const API_KEY = Deno.env.get('ElevenLabs') || 'sk_c5df5572687cd5fbb73131ada65b2cbf9344aad09b5985ca';
-    const VOICE_ID = '2EiwWnXFnvU5JabPnv8n'; // Clyde — deep African American male
+    const VOICE_ID = 'pqHfZKP75CvOlQylNhV4'; // Bill — matches src/utils/elevenLabsTTS.js 'coach'
 
     const response = await fetch(
       `https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}`,
@@ -30,9 +37,9 @@ Deno.serve(async (req) => {
           text: text.slice(0, 5000),
           model_id: 'eleven_flash_v2_5',
           voice_settings: {
-            stability: 0.35,
-            similarity_boost: 0.90,
-            style: 0.15,
+            stability: 0.55,        // matches client
+            similarity_boost: 0.85, // matches client
+            style: 0.30,            // matches client
             use_speaker_boost: true,
           },
         }),
