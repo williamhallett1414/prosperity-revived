@@ -1,7 +1,7 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { Moon, Sun, Monitor, Bell, User, Palette, Trash2, Play, Database, ChevronRight, RotateCcw, Clock, AlertTriangle, Sparkles } from 'lucide-react';
+import { Moon, Sun, Monitor, Bell, User, Palette, Trash2, Play, Database, ChevronRight, RotateCcw, Clock, AlertTriangle, Sparkles, Headphones } from 'lucide-react';
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader,
@@ -374,6 +374,18 @@ function SettingsInner() {
               <span className="flex items-center gap-2 text-amber-600 dark:text-amber-400">
                 <Sparkles className="w-4 h-4" />
                 Preview Paywall (Dev)
+              </span>
+              <ChevronRight className="w-4 h-4 text-gray-400 dark:text-gray-300" />
+            </Link>
+
+            {/* TEMP — remove when coached audio workout is locked & shipped */}
+            <Link
+              to={createPageUrl('WorkoutAudioAudition')}
+              className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:bg-white/5 dark:hover:bg-gray-800 transition-colors min-h-[44px]"
+            >
+              <span className="flex items-center gap-2 text-amber-600 dark:text-amber-400">
+                <Headphones className="w-4 h-4" />
+                Workout Audio Audition (Dev)
               </span>
               <ChevronRight className="w-4 h-4 text-gray-400 dark:text-gray-300" />
             </Link>

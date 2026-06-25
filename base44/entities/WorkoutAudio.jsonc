@@ -1,0 +1,40 @@
+{
+  "name": "WorkoutAudio",
+  "type": "object",
+  "description": "Cached coached-workout audio segments. Generated once via ElevenLabs and stored permanently so re-listens / app reinstalls don't re-burn credits. Keyed by a content hash of (text + voice + settings), so identical inputs return the same cached URL.",
+  "properties": {
+    "session_id": {
+      "type": "string",
+      "description": "Logical session this segment belongs to (e.g. 'strong-bones-01'). Lets us query all segments for a session and stitch them in order."
+    },
+    "segment_id": {
+      "type": "string",
+      "description": "Position within the session (e.g. '01-warmup', '02-block1', '03-rest1'). Sortable for stitching."
+    },
+    "content_hash": {
+      "type": "string",
+      "description": "SHA-256 hash of (text + voice_id + stability + similarity + style). If this matches an existing row, return the cached URL instead of re-generating. Cache invalidates automatically when text or voice settings change."
+    },
+    "voice_id": {
+      "type": "string",
+      "description": "ElevenLabs voice ID used (e.g. Bill = pqHfZKP75CvOlQylNhV4)."
+    },
+    "voice_label": {
+      "type": "string",
+      "description": "Human-readable voice name (e.g. 'Bill', 'Adam') — for debugging / dashboard scanning."
+    },
+    "audio_url": {
+      "type": "string",
+      "description": "Permanent Base44 file storage URL of the generated MP3."
+    },
+    "char_count": {
+      "type": "number",
+      "description": "Character count of the text generated — useful for tracking ElevenLabs spend."
+    },
+    "duration_seconds": {
+      "type": "number",
+      "description": "Audio duration if known. Optional — only some encoders report it."
+    }
+  },
+  "required": ["session_id", "segment_id", "content_hash", "voice_id", "audio_url"]
+}

@@ -83,6 +83,7 @@ const Nutrition = lazy(() => import('./pages/Nutrition'));
 const NutritionArticle = lazy(() => import('./pages/NutritionArticle'));
 const NutritionGuidance = lazy(() => import('./pages/NutritionGuidance'));
 const Paywall = lazy(() => import('./pages/Paywall'));
+const WorkoutAudioAudition = lazy(() => import('./pages/WorkoutAudioAudition'));
 const PersonalGrowth = lazy(() => import('./pages/PersonalGrowth'));
 const PhotoGallery = lazy(() => import('./pages/PhotoGallery'));
 const PlanDetail = lazy(() => import('./pages/PlanDetail'));
@@ -190,6 +191,7 @@ export const PAGES = {
     "Awakening": Awakening,
     "FirstWeek": FirstWeek,
     "Paywall": Paywall,
+    "WorkoutAudioAudition": WorkoutAudioAudition,
 }
 
 export const pagesConfig = {
