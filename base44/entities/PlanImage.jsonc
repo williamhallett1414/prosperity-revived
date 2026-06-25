@@ -1,0 +1,27 @@
+{
+  "name": "PlanImage",
+  "type": "object",
+  "properties": {
+    "plan_id": {
+      "type": "string",
+      "description": "ID of the reading plan this image belongs to"
+    },
+    "plan_name": {
+      "type": "string",
+      "description": "Name of the reading plan"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "Permanent URL of the generated, uploaded plan image"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional description"
+    }
+  },
+  "required": [
+    "plan_id",
+    "image_url"
+  ]
+}

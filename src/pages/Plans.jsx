@@ -32,6 +32,48 @@ export default function Plans() {
     queryFn: () => base44.entities.ReadingPlanProgress.list()
   });
 
+  // Cached Recraft cover images, keyed by plan_id.
+  // We track isLoading explicitly so cards can show a brand-colored placeholder
+  // while the cache query is in flight, instead of flashing the legacy Unsplash
+  // fallback before the Recraft image arrives.
+  const { data: planImages = [], isLoading: planImagesLoading } = useQuery({
+    queryKey: ['planImages'],
+    queryFn: () => base44.entities.PlanImage.list()
+  });
+  const imageByPlanId = React.useMemo(() => {
+    const map = {};
+    planImages.forEach((pi) => { if (pi.image_url) map[pi.plan_id] = pi.image_url; });
+    return map;
+  }, [planImages]);
+
+  // Lazily generate cover images for built-in plans that don't have one cached yet.
+  // Runs one at a time to avoid hammering the Recraft API; caches the result so
+  // credits are only ever spent once per plan.
+  useEffect(() => {
+    if (planImages === undefined) return;
+    const missing = readingPlans.filter((p) => !imageByPlanId[p.id]);
+    if (missing.length === 0) return;
+
+    let cancelled = false;
+    (async () => {
+      for (const plan of missing) {
+        if (cancelled) break;
+        try {
+          await base44.functions.invoke('generatePlanImage', {
+            plan_id: plan.id,
+            plan_name: plan.name,
+            description: plan.description,
+          });
+          if (!cancelled) queryClient.invalidateQueries(['planImages']);
+        } catch {
+          // Skip on failure; the static fallback image is shown meanwhile.
+        }
+      }
+    })();
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [planImages]);
+
   const { data: myGroupPlans = [] } = useQuery({
     queryKey: ['myGroupPlans', user?.email],
     queryFn: async () => {
@@ -223,6 +265,8 @@ export default function Plans() {
             key={plan.id}
             plan={plan}
             progress={getProgressForPlan(plan.id)}
+            imageUrl={imageByPlanId[plan.id]}
+            imageLoading={planImagesLoading}
             onClick={() => navigate(createPageUrl(`PlanDetail?id=${plan.id}`))}
             index={index} />
 

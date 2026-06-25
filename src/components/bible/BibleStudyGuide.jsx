@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { base44 } from '@/api/base44Client';
 import StudyGuideCard from './StudyGuideCard';
 import StudyGuideArticle from './StudyGuideArticle';
 
@@ -540,11 +542,55 @@ export default function BibleStudyGuide({ filterQuery = '' }) {
   const [selectedGuide, setSelectedGuide] = useState(null);
   const [tab, setTab] = useState('all'); // all | ot | nt
   const [showAll, setShowAll] = useState(false);
+  const queryClient = useQueryClient();
+
+  // Cached Recraft cover images (shared PlanImage entity, namespaced with a
+  // "studyguide-" prefix so they never collide with reading-plan covers).
+  const { data: guideImages = [] } = useQuery({
+    queryKey: ['studyGuideImages'],
+    queryFn: () => base44.entities.PlanImage.filter({ plan_id: { $regex: '^studyguide-' } })
+  });
+  const imageByGuideId = React.useMemo(() => {
+    const map = {};
+    guideImages.forEach((pi) => {
+      if (pi.image_url) map[pi.plan_id.replace('studyguide-', '')] = pi.image_url;
+    });
+    return map;
+  }, [guideImages]);
+
+  // Lazily generate a cover for each guide that doesn't have one cached yet,
+  // one at a time, caching the result so Recraft credits are spent only once.
+  useEffect(() => {
+    if (guideImages === undefined) return;
+    const missing = studyGuides.filter((g) => !imageByGuideId[g.id]);
+    if (missing.length === 0) return;
+
+    let cancelled = false;
+    (async () => {
+      for (const guide of missing) {
+        if (cancelled) break;
+        try {
+          await base44.functions.invoke('generatePlanImage', {
+            plan_id: `studyguide-${guide.id}`,
+            plan_name: guide.title,
+            description: guide.description,
+            subject: `${guide.title} — ${guide.subtitle}`,
+          });
+          if (!cancelled) queryClient.invalidateQueries(['studyGuideImages']);
+        } catch {
+          // Skip on failure; the emoji badge is shown meanwhile.
+        }
+      }
+    })();
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [guideImages]);
 
   if (selectedGuide) {
     return (
       <StudyGuideArticle
         guide={selectedGuide}
+        imageUrl={imageByGuideId[selectedGuide.id]}
         onBack={() => setSelectedGuide(null)}
       />
     );
@@ -644,6 +690,7 @@ export default function BibleStudyGuide({ filterQuery = '' }) {
           <StudyGuideCard
             key={guide.id}
             guide={guide}
+            imageUrl={imageByGuideId[guide.id]}
             onClick={() => setSelectedGuide(guide)}
             index={index}
           />
