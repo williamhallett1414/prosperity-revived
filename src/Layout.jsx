@@ -259,6 +259,7 @@ export default function Layout({ children, currentPageName }) {
     FastingTracker: 'Fasting',
     SpiritualAssessment: 'Spiritual Assessment',
     CoachedWorkout: 'Coach Led Workouts',
+    CoachedWorkouts: 'Coach Led',
   };
 
   // Dynamic title for ChatScreen based on bot parameter
@@ -304,7 +305,8 @@ export default function Layout({ children, currentPageName }) {
     NutritionArticle:    'Nutrition',
     NutritionGuidance:   'Nutrition',
     DiscoverRecipes:     'Nutrition',
-    CoachedWorkout:      'Workouts',
+    CoachedWorkout:      'CoachedWorkouts',
+    CoachedWorkouts:     'Workouts',
   };
   const currentPageBack = pageBackTo[currentPageName] || null;
 

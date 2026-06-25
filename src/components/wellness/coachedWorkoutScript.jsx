@@ -166,6 +166,16 @@ function pickByHash(name, arr) {
 // ── Helpers ────────────────────────────────────────────────────────────────
 
 function formatExerciseDetail(ex) {
+  // duration_seconds is the schema used in PREMADE_WORKOUTS; render as
+  // "for 30 seconds" or "for 1 minute" depending on length.
+  if (typeof ex.duration_seconds === 'number' && ex.duration_seconds > 0) {
+    const s = ex.duration_seconds;
+    if (s >= 60 && s % 60 === 0) {
+      const m = s / 60;
+      return ` for ${m} ${m === 1 ? 'minute' : 'minutes'}`;
+    }
+    return ` for ${s} seconds`;
+  }
   if (ex.duration) return ` for ${ex.duration}`;
   if (ex.reps && ex.sets) return `, ${ex.sets} sets of ${ex.reps}`;
   if (ex.reps) return `, ${ex.reps} reps`;
@@ -176,7 +186,15 @@ function formatExerciseDetail(ex) {
 // Estimate how long to hold for an exercise so the audio paces the work.
 // Slightly more generous than the v1 — taxing moves (burpees, plank, mountain
 // climbers) need more breathing room than the old 3-sec-per-rep math.
+//
+// Accepts both `duration_seconds` (the convention in PREMADE_WORKOUTS — what
+// the existing 33-workout library uses) and `duration` (a string with units,
+// older convention some scripts emit). Honors duration_seconds first since
+// that's the schema in use everywhere we control.
 function exerciseHoldSeconds(ex) {
+  if (typeof ex.duration_seconds === 'number' && ex.duration_seconds > 0) {
+    return Math.min(180, Math.max(15, Math.round(ex.duration_seconds)));
+  }
   if (ex.duration) {
     const m = String(ex.duration).match(/(\d+)\s*(min|sec|s|m)/i);
     if (m) {

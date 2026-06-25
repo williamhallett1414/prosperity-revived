@@ -1,4 +1,109 @@
 export const PREMADE_WORKOUTS = [
+  // ──────────────────────────────────────────────────────────────────────
+  // Coach Led signature sessions. Each one is intentionally built for the
+  // audio-coached experience: 3-6 exercises, simple bodyweight moves only,
+  // distinct purpose, faith-themed name with a real connection to the
+  // session's character (not on-the-nose). These are surfaced separately
+  // via the CoachedWorkouts selection screen and filtered by the
+  // coached_featured: true flag.
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    id: 'coached-morning-watch',
+    title: 'Morning Watch',
+    description: 'A quiet wake-up — for the body and the mind, before the day asks anything of you.',
+    coached_subtitle: 'Before the day demands you, give yourself fifteen breaths.',
+    coached_featured: true,
+    coached_verse: 'In the morning, Lord, you hear my voice. — Psalm 5:3',
+    difficulty: 'beginner',
+    duration_minutes: 10,
+    category: 'full_body',
+    muscle_group: 'full_body',
+    exercises: [
+      { name: 'Cat-Cow Stretch', sets: 2, reps: 8 },
+      { name: 'Bodyweight Squats', sets: 2, reps: 10 },
+      { name: 'Push-ups', sets: 2, reps: 8 },
+      { name: 'Plank', sets: 1, duration_seconds: 30 },
+    ],
+  },
+  {
+    id: 'coached-strong-bones',
+    title: 'Strong Bones',
+    description: 'A real twenty minutes. Bodyweight strength, full body, ground-up.',
+    coached_subtitle: 'Your body is on loan. Keep it strong.',
+    coached_featured: true,
+    coached_verse: 'It is God who arms me with strength. — Psalm 18:32',
+    difficulty: 'intermediate',
+    duration_minutes: 20,
+    category: 'strength',
+    muscle_group: 'full_body',
+    exercises: [
+      { name: 'Bodyweight Squats', sets: 3, reps: 12 },
+      { name: 'Push-ups', sets: 3, reps: 8 },
+      { name: 'Reverse Lunges', sets: 3, reps: 10 },
+      { name: 'Plank', sets: 3, duration_seconds: 30 },
+      { name: 'Glute Bridges', sets: 3, reps: 15 },
+      { name: 'Burpees', sets: 2, duration_seconds: 30 },
+    ],
+  },
+  {
+    id: 'coached-run-the-race',
+    title: 'Run the Race',
+    description: 'A fifteen-minute lung-burner. For when you need your heart rate to remind you you\'re alive.',
+    coached_subtitle: 'Let us run with perseverance the race marked out for us.',
+    coached_featured: true,
+    coached_verse: 'Hebrews 12:1',
+    difficulty: 'intermediate',
+    duration_minutes: 15,
+    category: 'cardio',
+    muscle_group: 'full_body',
+    exercises: [
+      { name: 'Jumping Jacks', sets: 3, duration_seconds: 45 },
+      { name: 'High Knees', sets: 3, duration_seconds: 30 },
+      { name: 'Burpees', sets: 3, reps: 10 },
+      { name: 'Mountain Climbers', sets: 3, duration_seconds: 45 },
+    ],
+  },
+  {
+    id: 'coached-sabbath-stretch',
+    title: 'Sabbath Stretch',
+    description: 'Twelve minutes for the body to settle. End-of-day mobility, paced for breath.',
+    coached_subtitle: 'Be still, and know.',
+    coached_featured: true,
+    coached_verse: 'Psalm 46:10',
+    difficulty: 'beginner',
+    duration_minutes: 12,
+    category: 'mobility',
+    muscle_group: 'full_body',
+    exercises: [
+      { name: 'Cat-Cow Stretch', sets: 1, reps: 10 },
+      { name: "Child's Pose", sets: 1, duration_seconds: 60 },
+      { name: 'Cobra Stretch', sets: 1, duration_seconds: 30 },
+      { name: 'Hamstring Stretch', sets: 2, duration_seconds: 30 },
+      { name: 'Hip Flexor Stretch', sets: 2, duration_seconds: 30 },
+    ],
+  },
+  {
+    id: 'coached-five-minute-reset',
+    title: 'Five Minute Reset',
+    description: 'Stuck at a desk? Stand up. Breathe. Move. Five minutes flat.',
+    coached_subtitle: 'Five minutes is enough.',
+    coached_featured: true,
+    coached_verse: 'Your body is a temple of the Holy Spirit. — 1 Corinthians 6:19',
+    difficulty: 'beginner',
+    duration_minutes: 5,
+    category: 'full_body',
+    muscle_group: 'full_body',
+    exercises: [
+      { name: 'Arm Circles', sets: 1, duration_seconds: 30 },
+      { name: 'Bodyweight Squats', sets: 1, reps: 15 },
+      { name: 'Push-ups', sets: 1, reps: 8 },
+      { name: 'Hamstring Stretch', sets: 1, duration_seconds: 30 },
+    ],
+  },
+  // ──────────────────────────────────────────────────────────────────────
+  // General workout library — not surfaced through the Coach Led entry
+  // point, accessible through the standard Workouts page filters/categories.
+  // ──────────────────────────────────────────────────────────────────────
   {
     id: 'beginner-full-body',
     title: 'Beginner Full Body',

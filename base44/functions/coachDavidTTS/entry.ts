@@ -37,9 +37,9 @@ Deno.serve(async (req) => {
           text: text.slice(0, 5000),
           model_id: 'eleven_flash_v2_5',
           voice_settings: {
-            stability: 0.55,        // matches client
-            similarity_boost: 0.85, // matches client
-            style: 0.30,            // matches client
+            stability: 0.55,        // matches client (elevenLabsTTS.js 'coach')
+            similarity_boost: 0.85, // matches client (elevenLabsTTS.js 'coach')
+            style: 0.0,             // matches client — chat uses 0.0, NOT 0.30. Previously this said 0.30 with a wrong "matches client" comment, which is why workout Coach David sounded different from chat Coach David. Same voice + same stability + same similarity but different style = audibly different delivery.
             use_speaker_boost: true,
           },
         }),

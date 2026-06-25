@@ -17,7 +17,7 @@
  *     voice_id?: "pqHfZKP75CvOlQylNhV4",     // default: Bill (Coach David)
  *     stability?: 0.55,                       // default: matches client
  *     similarity_boost?: 0.85,
- *     style?: 0.30,
+ *     style?: 0.0,
  *     model_id?: "eleven_flash_v2_5",         // default: fast model
  *     segment_type?: "exercise",              // optional, for dashboard
  *     force?: false                           // skip cache, regenerate
@@ -38,11 +38,15 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 // Defaults match the client-side Coach David config (src/utils/elevenLabsTTS.js).
 // IMPORTANT: keep in sync with that file and with coachDavidTTS/entry.ts.
 // Voice drift here = users hearing a different Coach David depending on
-// which path served the audio.
+// which path served the audio. Specifically: style MUST be 0.0 because that's
+// what chat uses; an earlier version had style: 0.30 here and in coachDavidTTS,
+// which made workout Coach David noticeably more expressive than chat Coach
+// David even though both said "Bill" with stability 0.55. Same voice + same
+// stability ≠ same delivery if style differs.
 const DEFAULT_VOICE_ID = 'pqHfZKP75CvOlQylNhV4'; // Bill
 const DEFAULT_STABILITY = 0.55;
 const DEFAULT_SIMILARITY = 0.85;
-const DEFAULT_STYLE = 0.30;
+const DEFAULT_STYLE = 0.0;
 const DEFAULT_MODEL_ID = 'eleven_flash_v2_5';
 const MAX_CHARS = 4800; // ElevenLabs single-request limit (we stay under 5000)
 
