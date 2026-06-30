@@ -16,6 +16,7 @@ import BibleStudyGuide from '@/components/bible/BibleStudyGuide';
 import MoodTracker from '@/components/bible/MoodTracker';
 import ChatButton from '@/components/chatbot/ChatButton';
 import UnifiedBibleReader from '@/components/bible/UnifiedBibleReader';
+import ChallengeReadingBar from '@/components/bible/ChallengeReadingBar';
 import BibleSearchBar from '@/components/bible/BibleSearchBar';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
 import BibleGoalsEmbed from '@/components/bible/BibleGoalsEmbed';
@@ -236,12 +237,33 @@ function BibleInner() {
   const continueBook = lastRead ? getBookByName(lastRead.bookName) : null;
   const verse = getVerseOfDay();
 
+  // Challenge context (set when opened via "Today's Scripture" from a challenge
+  // task in CuratedPrograms). When present, render a floating "Done reading"
+  // bar at the bottom of the reader view so the user can jump back to their
+  // challenge without losing context. Does NOT mark the challenge day complete
+  // — the challenge has its own multi-step completion flow with a reflection
+  // requirement; this bar is purely navigation.
+  const challengeId = searchParams.get('challengeId');
+  const challengeDayParam = searchParams.get('challengeDay');
+  const challengeDay = challengeDayParam ? parseInt(challengeDayParam) : null;
+  const showChallengeBar = !!challengeId;
+
   // ── Reader views ──────────────────────────────────────────────────────────
   if (view === 'oldTestament') {
-    return <UnifiedBibleReader testament="old" onBack={handleBackToHome} initialBook={initialBook} initialChapter={initialChapter} bookmarks={bookmarks} onBookmark={handleBookmark} searchData={searchData} />;
+    return (
+      <>
+        <UnifiedBibleReader testament="old" onBack={handleBackToHome} initialBook={initialBook} initialChapter={initialChapter} bookmarks={bookmarks} onBookmark={handleBookmark} searchData={searchData} />
+        {showChallengeBar && <ChallengeReadingBar challengeId={challengeId} challengeDay={challengeDay} />}
+      </>
+    );
   }
   if (view === 'newTestament') {
-    return <UnifiedBibleReader testament="new" onBack={handleBackToHome} initialBook={initialBook} initialChapter={initialChapter} bookmarks={bookmarks} onBookmark={handleBookmark} searchData={searchData} />;
+    return (
+      <>
+        <UnifiedBibleReader testament="new" onBack={handleBackToHome} initialBook={initialBook} initialChapter={initialChapter} bookmarks={bookmarks} onBookmark={handleBookmark} searchData={searchData} />
+        {showChallengeBar && <ChallengeReadingBar challengeId={challengeId} challengeDay={challengeDay} />}
+      </>
+    );
   }
 
   // ── Hub ───────────────────────────────────────────────────────────────────

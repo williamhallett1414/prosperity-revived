@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
+import { createPageUrl } from '@/utils';
 import { localDateKey, todayKey } from '@/utils/localDate';
 import { Flower2 } from 'lucide-react';
 import ShareToFeedButton from '@/components/community/ShareToFeedButton';
+import { buildBibleUrl } from '@/utils/verseRef';
 
 // ─── Challenge Catalogue ─────────────────────────────────────────────────────
 const CHALLENGES = [
@@ -596,27 +599,36 @@ function ChallengeDetail({ challenge, localData, onBack, onStart, onComplete, on
                   {currentTask.content}
                 </div>
 
-                {/* Recommended verse link */}
-                {currentTask.verse && (
-                  <a
-                    href={`https://www.bible.com/bible/111/${currentTask.verse.replace(/\s/g,'').replace(':','.').replace('-','.')}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display:"flex",alignItems:"center",gap:10,
-                      background:"linear-gradient(135deg,#451a03,#78350f)",
-                      borderRadius:14,padding:"10px 14px",marginBottom:16,
-                      textDecoration:"none",
-                    }}
-                  >
-                    <span style={{fontSize:18}}>📖</span>
-                    <div style={{flex:1}}>
-                      <div style={{fontSize:11,fontWeight:900,color:"rgba(255,255,255,0.6)",textTransform:"uppercase",letterSpacing:0.8}}>Today's Scripture</div>
-                      <div style={{fontSize:13,fontWeight:800,color:"white"}}>{currentTask.verse}</div>
-                    </div>
-                    <span style={{color:"rgba(255,255,255,0.4)",fontSize:16}}>→</span>
-                  </a>
-                )}
+                {/* Recommended verse — opens the in-app Bible reader scoped to this challenge.
+                    Routes via React Router (Link) so we never leave the app — previously this
+                    was an <a href="bible.com/..."> which redirected to YouVersion. Apple flags
+                    external redirects on paid features, and it's bad UX regardless. */}
+                {currentTask.verse && (() => {
+                  const bibleUrl = buildBibleUrl(currentTask.verse, { challengeId: challenge.id, challengeDay: nextDayNum });
+                  // Render as a Link if the verse parses; fall back to a static div for
+                  // unparseable verse strings (so we don't crash the page).
+                  const inner = (
+                    <>
+                      <span style={{fontSize:18}}>📖</span>
+                      <div style={{flex:1}}>
+                        <div style={{fontSize:11,fontWeight:900,color:"rgba(255,255,255,0.6)",textTransform:"uppercase",letterSpacing:0.8}}>Today's Scripture</div>
+                        <div style={{fontSize:13,fontWeight:800,color:"white"}}>{currentTask.verse}</div>
+                      </div>
+                      {bibleUrl && <span style={{color:"rgba(255,255,255,0.4)",fontSize:16}}>→</span>}
+                    </>
+                  );
+                  const sharedStyle = {
+                    display:"flex",alignItems:"center",gap:10,
+                    background:"linear-gradient(135deg,#451a03,#78350f)",
+                    borderRadius:14,padding:"10px 14px",marginBottom:16,
+                    textDecoration:"none",
+                  };
+                  return bibleUrl ? (
+                    <Link to={createPageUrl(bibleUrl)} style={sharedStyle}>{inner}</Link>
+                  ) : (
+                    <div style={sharedStyle}>{inner}</div>
+                  );
+                })()}
 
                 {/* Extra writing area — task-specific */}
                 {currentTask?.extraWritingPrompt && (
@@ -851,6 +863,21 @@ function CuratedProgramsInner({ onDetailModeChange }) {
   useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
   const [activeCat,   setActiveCat]   = useState("All");
 
+  // Deep-link: if the URL has ?challenge=<id>, open that challenge's detail
+  // view on mount. Used by ChallengeReadingBar to bounce users back to the
+  // exact challenge they came from after reading scripture in-app.
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('challenge');
+      if (id && ALL_CHALLENGES.some(c => c.id === id)) {
+        setSelectedId(id);
+      }
+    } catch (_) {
+      // window unavailable in SSR — ignore.
+    }
+  }, []);
+
   // Notify parent whenever we enter or leave detail mode. The parent uses
   // this to hide sibling sections (like the GroupChallenges below us on the
   // Community page) so the detail view feels like a focused full-screen
@@ -1020,16 +1047,14 @@ function CuratedProgramsInner({ onDetailModeChange }) {
               <div style={{color:"rgba(255,255,255,0.55)",fontSize:12,fontStyle:"italic",marginBottom:10,lineHeight:1.5}}>{featured.tagline}</div>
               <div style={{color:"rgba(255,255,255,0.65)",fontSize:12,lineHeight:1.7,marginBottom:14}}>{featured.description?.substring(0, 180)}...</div>
               <div style={{display:"flex",alignItems:"center",gap:12}}>
-                <a
-                  href="https://www.bible.com/bible/111/MAT.4.NIV"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  to={createPageUrl('Bible?book=Matthew&chapter=4')}
                   onClick={e => e.stopPropagation()}
                   style={{display:"flex",alignItems:"center",gap:6,textDecoration:"none"}}
                 >
                   <span style={{fontSize:13}}>📖</span>
                   <span style={{color:"rgba(255,255,255,0.85)",fontSize:11,fontWeight:700,textDecoration:"underline",textUnderlineOffset:2}}>Matthew 4:1-11</span>
-                </a>
+                </Link>
                 <div style={{display:"flex",alignItems:"center",gap:6}}>
                   <span style={{fontSize:13}}>⏳</span>
                   <span style={{color:"rgba(255,255,255,0.6)",fontSize:11,fontWeight:600}}>40 Days</span>

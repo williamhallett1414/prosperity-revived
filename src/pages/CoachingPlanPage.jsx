@@ -7,7 +7,7 @@ import {
   ArrowLeft, BookOpen, Dumbbell, Utensils, Brain,
   ChevronRight, ChevronLeft, CheckCircle2,
   Star,
-  Play, ExternalLink, Quote,
+  Play, Quote,
   ChevronDown, ChevronUp, Lock
 } from 'lucide-react';
 import { prosperityRevivedPlan, PLAN_ID } from '@/components/journey/CoachingPlanData';
@@ -219,7 +219,7 @@ export default function CoachingPlanPage() {
                 <Button size="sm" className="w-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white">
                   <BookOpen className="w-3.5 h-3.5 mr-2" />
                   Read {selectedDay.devotion.book} {selectedDay.devotion.ch} in Bible
-                  <ExternalLink className="w-3 h-3 ml-auto opacity-60" />
+                  <ChevronRight className="w-3 h-3 ml-auto opacity-60" />
                 </Button>
               </Link>
               <Link to={createPageUrl('Plans')}>
@@ -258,7 +258,7 @@ export default function CoachingPlanPage() {
                 <Button size="sm" className="w-full bg-gradient-to-r from-[#38BDF8] to-[#0EA5E9] text-white">
                   <Dumbbell className="w-3.5 h-3.5 mr-2" />
                   Start Workout
-                  <ExternalLink className="w-3 h-3 ml-auto opacity-60" />
+                  <ChevronRight className="w-3 h-3 ml-auto opacity-60" />
                 </Button>
               </Link>
               <div className="flex gap-2">
@@ -350,7 +350,7 @@ export default function CoachingPlanPage() {
                 <Button size="sm" className="w-full bg-gradient-to-r from-[#a78bfa] to-[#8B5CF6] text-white">
                   <Brain className="w-3.5 h-3.5 mr-2" />
                   {selectedDay.growth.appLabel}
-                  <ExternalLink className="w-3 h-3 ml-auto opacity-60" />
+                  <ChevronRight className="w-3 h-3 ml-auto opacity-60" />
                 </Button>
               </Link>
               <div className="flex gap-2">
